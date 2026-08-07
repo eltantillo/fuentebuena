@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record  id="fleet_opcion_compra_view_form" model="ir.ui.view">
+            <field name="name">fleet.opcion.compra.view.form</field>
+            <field name="model">fleet.opcion.compra</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="d-flex align-items-center">
+                                <div class="alert alert-warning w-100 mb-2" role="alert">
+                                    <p><span class="font-weight-bold text-danger">Nota importante:</span> </p>
+                                    <p>Al proceder, el sistema generará y asociará el documento correspondiente de manera automática. Por favor, verifique detalladamente la información antes de continuar.</p>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <group string="Importes">
+                                <field name="subtotal"/>
+                                <field name="gnv"/>
+                                <field name="gps"/>
+                            </group>
+                            <group string="Subtotales">
+                                <field name="subtotal_gps"/>
+                                <field name="subtotal_gps_gnv"/>
+                            </group>
+                        </group>
+                        <group string="Valor residual">
+                            <field name="valor_residual_adquisicion"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                        <button name="crear_opcion_compra"
+                                string="Aceptar"
+                                type="object"
+                                class="btn-success"
+                                icon="fa-check"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

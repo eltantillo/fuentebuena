@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_fuente_fondeo_sys,access_fleet_fuente_fondeo_sys,model_fleet_finanza_fuente_fondeo,base.group_system,1,1,1,1
+access_fleet_linea_credito_sys,access_fleet_linea_credito_sys,model_fleet_finanza_linea_credito,base.group_system,1,1,1,1
+access_fleet_sesionario_sys,access_fleet_sesionario_sys,model_fleet_finanza_sesionario,base.group_system,1,1,1,1
+access_fleet_asignar_sys,access_fleet_asignar_sys,model_fleet_finanza_asignar,base.group_system,1,1,1,1
+
+access_fleet_fuente_fondeo_all,access_fleet_fuente_fondeo_all,model_fleet_finanza_fuente_fondeo,,1,0,0,0
+access_fleet_linea_credito_all,access_fleet_linea_credito_all,model_fleet_finanza_linea_credito,,1,0,0,0
+access_fleet_sesionario_all,access_fleet_sesionario_all,model_fleet_finanza_sesionario,,1,0,0,0
+access_fleet_asignar_all,access_fleet_asignar_all,model_fleet_finanza_asignar,,1,0,0,0
+

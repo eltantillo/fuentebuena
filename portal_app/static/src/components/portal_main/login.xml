@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="portal_app.Login">
+        <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+            <div class="row w-100 align-items-center justify-content-between g-4">
+                <div class="col-12 col-md-12 col-sm-12 col-lg-4 text-center">
+                    <img t-att-src="'/portal_app/static/src/img/pilotea-logo-white.png'" alt="Pilotea" class="img-fluid" style="max-height: 80px;" />
+                </div>
+                <div class="col-12 col-md-12 col-sm-12 col-lg-5 ps-md-5">
+                    <div class="card border-0 p-4 shadow-lg" style="border-radius: 20px; background-color: #ffffff;">
+                        <div class="card-body p-2">
+                            <h5 class="card-title text-center fw-bold mb-4" style="color: #0b1a1a;">
+                                Descarga tus archivos
+                            </h5>
+                            <form t-on-submit.prevent="ingresar">
+                                <div class="input-group mb-4 custom-login-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted">
+                                        <i class="fa fa-user-o"/>
+                                    </span>
+                                    <input type="text"
+                                           t-ref="userInput"
+                                           class="form-control border-start-0 ps-0"
+                                           placeholder="Coloca tu RFC, CURP, CIE o Matrícula"
+                                           required="required"/>
+                                </div>
+                                <button type="submit" class="btn w-100 fw-bold py-2 text-dark" style="background-color: #00f0b5; border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0, 240, 181, 0.3);">
+                                    Ingresar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="noDataModal" tabindex="-1" aria-labelledby="noDataModalLabel" aria-hidden="true" t-ref="errorModal">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
+                <div class="modal-content border-0" style="border-radius: 28px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.25);">
+                    <div class="modal-header border-0 px-4 py-3" style="background-color: #fdf0d5;">
+                        <h5 class="modal-title id=noDataModalLabel" id="noDataModalLabel" style="color: #b5832a; font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa fa-exclamation-triangle"/> Datos no encontrados
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: sepia(100%) saturate(200%) breakdown(50%) hue-rotate(5deg); opacity: 0.7;"/>
+                    </div>
+                    <div class="modal-body text-center pt-4 pb-2 px-4">
+                        <div class="d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; background-color: #f0f4f4; border-radius: 50%;">
+                            <i class="fa fa-search" style="font-size: 1.4rem; color: #4a5d5e;"/>
+                        </div>
+                        <h3 class="fw-bold mb-3" style="color: #111e1e; font-size: 1.35rem; font-weight: 800; letter-spacing: -0.3px;">
+                            No pudimos encontrar ningún registro
+                        </h3>
+                        <p class="mb-4 px-2" style="color: #5c6e6f; font-size: 0.95rem; line-height: 1.45;">
+                            Verifica que tu RFC, CURP, CIE o Matrícula estén escritos correctamente y vuelve a intentarlo.
+                        </p>
+                    </div>
+                    <div class="modal-footer border-0 justify-content-center pt-0 pb-4">
+                        <button type="button" class="btn text-center fw-bold px-4 py-2"
+                                style="background-color: #00eca1; color: #111e1e; border-radius: 14px; font-size: 0.95rem; min-width: 130px; box-shadow: 0 4px 12px rgba(0, 236, 161, 0.3); border: none;"
+                                data-bs-dismiss="modal">
+                            Entendido
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

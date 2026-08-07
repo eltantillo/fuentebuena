@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gestion_caido_track_view_form" model="ir.ui.view">
+            <field name="name">gestion.caido.track.view.form</field>
+            <field name="model">gestion.caido.track</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="gestion_id"/>
+                            <field name="evento"/>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_finalizacion"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="gestion_caido_track_view_list" model="ir.ui.view">
+            <field name="name">gestion_caido_track_view_list</field>
+            <field name="model">gestion.caido.track</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="gestion_id"/>
+                    <field name="evento"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_finalizacion"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="gestion_caido_track_action" model="ir.actions.act_window">
+            <field name="name">Gestión caído - Track</field>
+            <field name="res_model">gestion.caido.track</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="gestion_caido_track_view_list"/>
+        </record>
+    </data>
+</odoo>

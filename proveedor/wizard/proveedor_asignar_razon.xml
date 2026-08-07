@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="provedoor_asignar_razon_view_form" model="ir.ui.view">
+            <field name="name">provedoor.asignar.razon.view.form</field>
+            <field name="model">proveedor.asignar.razon</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="razon_social_ids" domain="[('es_proveedor', '=', True)]"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_confirm" type="object" string="Alta" class="btn-success"/>
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

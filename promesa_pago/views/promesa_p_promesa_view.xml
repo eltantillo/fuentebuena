@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="promesa_p_promesa_view_form" model="ir.ui.view">
+            <field name="name">promesa.p.promesa.view_.form</field>
+            <field name="model">promesa.p.promesa</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Información de promesa" name="data_promesa">
+                                <field name="gestor_id" domain="[('id','in',gestores)]"/>
+                                <field name="periodo_nomina_id"/>
+                                <field name="convenio_id"/>
+                                <field name="fecha_gestion"/>
+                                <field name="importe_promesa"/>
+                                <field name="fecha_compromiso"/>
+                                <field name="estatus_promesa"/>
+                            </group>
+                            <group string="Promitente" name="data_promitente">
+                                <field name="nombre_promitente"/>
+                                <field name="cargo_promitente"/>
+                            </group>
+                        </group>
+                        <group string="Cumplimiento" name="data_cumplimiento">
+                            <field name="fecha_cumplimiento"/>
+                            <field name="suma_total_pagos"/>
+                            <field name="estatus_cumplimiento"/>
+                            <field name="monto_por_pagar"/>
+                        </group>
+                        <group string="Pagos">
+                            <field name="pago_ids"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="promesa_p_promesa_view_list" model="ir.ui.view">
+            <field name="name">promesa.p.promesa.view.form</field>
+            <field name="model">promesa.p.promesa</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="gestor_id"/>
+                    <field name="convenio_id"/>
+                    <field name="importe_promesa"/>
+                    <field name="fecha_cumplimiento"/>
+                    <field name="suma_total_pagos"/>
+                    <field name="monto_por_pagar"/>
+                    <field name="estatus_cumplimiento"/>
+                    <field name="estatus_promesa"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="promesa_p_promesa_view_search" model="ir.ui.view">
+            <field name="name">promesa.p.promesa.view.search</field>
+            <field name="model">promesa.p.promesa</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Promesas de pago">
+                    <field name="convenio_id"/>
+                    <field name="gestor_id"/>
+                    <separator/>
+                    <filter string="Agrupar por Convenio"
+                            name="group_by_convenio"
+                            context="{'group_by': 'convenio_id'}"/>
+                    <filter string="Agrupar por Gestor"
+                            name="group_by_gestor"
+                            context="{'group_by': 'gestor_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="promesa_p_promesa_view_pivot" model="ir.ui.view">
+            <field name="name">promesa.p.promesa.view.pivot</field>
+            <field name="model">promesa.p.promesa</field>
+            <field name="arch" type="xml">
+                <pivot string="Análisis Promesas">
+                    <field name="importe_promesa" type="measure"/>
+                    <field name="suma_total_pagos" type="measure"/>
+                    <field name="monto_por_pagar" type="measure"/>
+                    <field name="gestor_id" type="row"/>
+                    <field name="convenio_id" type="row"/>
+                    <field name="estatus_promesa" type="col"/>
+                    <field name="estatus_cumplimiento" type="col"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="promesa_p_promesa_view_graph" model="ir.ui.view">
+            <field name="name">promesa.p.promesa.view.graph</field>
+            <field name="model">promesa.p.promesa</field>
+            <field name="arch" type="xml">
+                <graph string="Gráfica Promesas" type="bar">
+                    <field name="gestor_id" type="row"/>
+                    <field name="importe_promesa" type="measure"/>
+                    <field name="suma_total_pagos" type="measure"/>
+                    <field name="monto_por_pagar" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="promesa_p_promesa_view_calendar" model="ir.ui.view">
+            <field name="name">promesa.p.promesa.view.calendar</field>
+            <field name="model">promesa.p.promesa</field>
+            <field name="arch" type="xml">
+                <calendar string="Calendario de Promesas" date_start="fecha_compromiso" color="estatus_promesa">
+                    <field name="gestor_id"/>
+                    <field name="convenio_id"/>
+                    <field name="importe_promesa"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="promesa_p_promesa_action" model="ir.actions.act_window">
+            <field name="name">Promesas</field>
+            <field name="res_model">promesa.p.promesa</field>
+            <field name="view_mode">list,form,pivot,graph,calendar,search</field>
+            <field name="view_id" ref="promesa_p_promesa_view_list"/>
+        </record>
+    </data>
+</odoo>

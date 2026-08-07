@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="factura_recepcion_invoice_action" model="ir.actions.client">
+            <field name="name">Recepción</field>
+            <field name="tag">fleet_recepcion_recepcion</field>
+            <field name="target">main</field>
+        </record>
+    </data>
+</odoo>

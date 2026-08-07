@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_cita_mantenimiento_res_config" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.cita.mantenimiento</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app string="Citas de Mantenimiento"
+                         name="cita_mantenimiento"
+                         data-string="Citas de Mantenimiento"
+                         logo="/cita_mantenimiento/static/src/description/icon.png">
+                        <block title="Límites de Reagendamiento">
+                            <setting string="Max. reagendas"
+                                     help="Número máximo de veces que se puede reagendar una cita">
+                                <field name="max_reagendas"/>
+                            </setting>
+                            <setting string="Max. reagendas automáticas"
+                                     help="Número máximo de reagendaciones automáticas permitidas">
+                                <field name="max_reagendas_au"/>
+                            </setting>
+                        </block>
+                        <block title="Parámetros para validaciones">
+                            <setting string="Límite inferior para validación"
+                                     help="Margen mínimo permitido antes del kilometraje objetivo del mantenimiento. Ejemplo: para un servicio de 10,000 km y un límite de 500 km, se permitirá desde 9,500 km.">
+                                <field name="limite_inferior"/>
+                            </setting>
+                            <setting string="Límite superior para validación"
+                                     help="Margen máximo permitido después del kilometraje objetivo del mantenimiento. Ejemplo: para un servicio de 10,000 km y un límite de 1,000 km, se permitirá hasta 11,000 km.">
+                                <field name="limite_superior"/>
+                            </setting>
+                            <br/>
+                            <setting string="KM promedio para validación"
+                                     help="Kilómetros promedio por día para validar si aplica mantenimiento.">
+                                <field name="km_promedio"/>
+                            </setting>
+                        </block>
+                        <block title="Configuración de Llave Maestra">
+                            <setting string="Llave maestra"
+                                     help="Permite omitir las validaciones de kilometraje al programar una cita.">
+                                <field name="llave_creacion"/>
+                            </setting>
+                        </block>
+                    </app>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_cita_mantenimiento_config" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'module': 'cita_mantenimiento', 'bin_size': False}</field>
+        </record>
+
+    </data>
+</odoo>

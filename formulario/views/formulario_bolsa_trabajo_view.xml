@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="formulario_bolsa_trabajo_view_form" model="ir.ui.view">
+        <field name="name">formulario.bolsa.trabajo.view.form</field>
+        <field name="model">formulario.bolsa.trabajo</field>
+        <field name="arch" type="xml">
+            <form string="formulario_bolsa_trabajo_form">
+                <sheet>
+                    <group string="Datos del solicitante">
+                        <field name="create_date" string="Fecha de creación"/>
+                        <field name="nombre"/>
+                        <field name="telefono"/>
+                        <field name="correo"/>
+                        <field name="area_id"/>
+                        <field name="asunto"/>
+                        <field name="cv" widget="pdf_viewer" filename="cv_filename"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="formulario_bolsa_trabajo_view_list" model="ir.ui.view">
+        <field name="name">formulario.bolsa.trabajo.view.list</field>
+        <field name="model">formulario.bolsa.trabajo</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date" string="Fecha de creación"/>
+                <field name="nombre"/>
+                <field name="telefono"/>
+                <field name="correo"/>
+                <field name="area_id"/>
+                <field name="asunto"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="formulario_bolsa_trabajo_action" model="ir.actions.act_window">
+        <field name="name">Formulario bolsa de trabajo</field>
+        <field name="res_model">formulario.bolsa.trabajo</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="formulario_bolsa_trabajo_view_list"/>
+    </record>
+</odoo>

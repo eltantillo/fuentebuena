@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_mantenimiento_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='action_accept_driver_change']" position="before">
+                    <button name="crear_mantenimiento2"
+                            string="Mantenimiento"
+                            type="object"
+                            class="btn-info text-white" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@name='adquisicion']" position="after">
+                    <page string="Semáforo" name="data_semaforo"  invisible="id == False">
+                        <group>
+                            <group>
+                                <field name="km_ult_mantenimiento"/>
+                                <field name="km_prox_mantenimiento"/>
+                                <field name="diferencia_prox_mantenimiento"/>
+                                <field name="odometro_mod"/>
+                                <field name="mantenimiento_proximo_id"/>
+                            </group>
+                            <group>
+                                <field name="nombre_semaforo" string="Semáforo" widget="semaforo_display"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//form/sheet/div/button[3]" position="after">
+                    <button name="return_action_to_mantes"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-wrench"
+                        help="Muestra los mantenimientos">
+                        <field name="num_mantes" widget="statinfo" string="Mantenimientos"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_mantenimiento_inherit_fleet_view_list" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.inherit.fleet.view.list</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet_customer.fleet_customer_inherit_view_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/field[@name='fecha_recepcion']" position="after">
+                    <field name="nombre_semaforo"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_customer_inherit_search" model="ir.ui.view">
+            <field name="name">fleet.customer.inherit.search</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+            <field name="arch" type="xml">
+                <separator/>
+                <xpath expr="//search/filter[@name='trailer_hook']" position="replace">
+                    <filter string="Semaforo - Verde" name="semaforo_verde" domain="[('nombre_semaforo', '=', 'Verde')]" />
+                    <filter string="Semaforo - Amarillo" name="semaforo_amarillo" domain="[('nombre_semaforo', '=', 'Amarillo')]" />
+                    <filter string="Semaforo - Naranja" name="semaforo_naranja" domain="[('nombre_semaforo', '=', 'Naranja')]" />
+                    <filter string="Semaforo - Rojo" name="semaforo_rojo" domain="[('nombre_semaforo', '=', 'Rojo')]" />
+                </xpath>
+                <xpath expr="//search/filter[@name='groupby_plaza']" position="after">
+                    <filter string="Semaforo" name="nombre_semaforo" context="{'group_by': 'nombre_semaforo'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

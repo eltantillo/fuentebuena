@@ -1,0 +1,118 @@
+<odoo>
+    <data>
+        <record id="factura_etapa" model="ir.ui.view">
+            <field name="name">factura.etapa.custom</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <group>
+                        <field name="etapa_aprobacion" widget="badge" invisible="state == 'cancel'"
+                            decoration-warning="etapa_aprobacion == 'pendiente'" decoration-success="etapa_aprobacion == 'aprobada'"/>
+                        <field name="aprobacion_gerente" invisible="1"/>
+                        <field name="aprobacion_director" invisible="1"/>
+                        <field name="btn_disponible_usuario" invisible="1"/>
+                        <field name="btn_disponible_gerente" invisible="1"/>
+                        <field name="btn_disponible_director" invisible="1"/>
+                        <field name="factura_para_aprobacion" invisible="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <button name="action_cancelar"
+                            string="Cancelar"
+                            type="object"
+                            class="btn-danger text-white"
+                            invisible="state != 'draft'"
+                            groups ="factura.group_accountant_usuario_factura,factura.group_accountant_gerente,factura.group_accountant_director"
+                            force_save="1"/>
+                    <button name="action_notificar"
+                            string="Solicitar aprobación (U)"
+                            type="object"
+                            class="btn-warning text-white"
+                            invisible="factura_para_aprobacion == False"
+                            groups ="factura.group_accountant_usuario_factura"
+                            force_save="1"/>
+                    <button name="action_notificar_gerente"
+                            string="Solicitar aprobación (G)"
+                            type="object"
+                            class="btn-warning text-white"
+                            invisible="factura_para_aprobacion_gerente == False"
+                            groups ="factura.group_accountant_gerente"
+                            force_save="1"/>
+                    <button name="action_borrador"
+                            string="Borrador"
+                            type="object"
+                            class="btn-info text-white"
+                            invisible="state == 'draft'"
+                            groups ="account.group_account_manager"
+                            force_save="1"/>
+                </xpath>
+
+                <xpath expr="//form/header" position="inside">
+                    <button name="action_confirmar"
+                            string="Confirmar"
+                            type="object"
+                            class="btn-success text-white"
+                            invisible="btn_disponible_usuario == False"
+                            groups ="factura.group_accountant_usuario_factura"
+                            context="{'validate_analytic': True, 'disable_abnormal_invoice_detection': False}"
+                            force_save="1"/>
+                    <button name="action_confirmar"
+                            string="Confirmar"
+                            type="object"
+                            class="btn-success text-white"
+                            invisible="btn_disponible_gerente == False"
+                            groups="factura.group_accountant_gerente"
+                            context="{'validate_analytic': True, 'disable_abnormal_invoice_detection': False}"
+                            force_save="1">
+                            Confirmar
+                            <span>
+                                <i class="fa fa-user-circle-o" invisible="aprobacion_gerente != True"/>
+                            </span>
+                            <span>
+                                <i class="fa fa-user-circle-o" invisible="aprobacion_director != True"/>
+                            </span>
+                    </button>
+                    <button name="action_confirmar"
+                            string="Confirmar"
+                            type="object"
+                            class="btn-success text-white"
+                            invisible="btn_disponible_director == False"
+                            groups="factura.group_accountant_director"
+                            context="{'validate_analytic': True, 'disable_abnormal_invoice_detection': False}"
+                            force_save="1">
+                            Confirmar
+                            <span>
+                                <i class="fa fa-user-circle-o" invisible="aprobacion_gerente != True"/>
+                            </span>
+                            <span>
+                                <i class="fa fa-user-circle-o" invisible="aprobacion_director != True"/>
+                            </span>
+                    </button>
+                </xpath>
+
+                <xpath expr="//form/sheet/div/span/field[@name='move_type']" position="before">
+                    <span class="me-2">¿Es factura con proveedor recurrente?</span> <field name="factura_epicor" widget="boolean_toggle"/><hr/>
+                    <div class="d-flex align-items-center" invisible="state != 'cancel'">
+                        <div class="alert alert-danger w-100 mb-2" role="alert">
+                            <span class="me-2"><strong>Motivo de cancelación:</strong></span>
+                            <field name="motivo_cancelacion"/>
+                        </div>
+                    </div>
+                </xpath>
+
+                <xpath expr="//form/sheet/div/span/field[@name='move_type']" position="before">
+                    <group invisible="1">
+                        <field name="folio" readonly="1"/>
+                        <field name="exportacion" readonly="1"/>
+                        <field name="lugar_expedicion" readonly="1"/>
+                        <field name="no_certificado_sat" readonly="1"/>
+                        <field name="total_imp_trasladados" readonly="1"/>
+                        <field name="fecha_timbrado" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gestion_caido_gestor_view_form" model="ir.ui.view">
+            <field name="name">gestion.caido.gestor.view.form</field>
+            <field name="model">gestion.caido.gestor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <form>
+                            <group>
+                                <field name="plaza_id"/>
+                                <field name="hr_employee_id"/>
+                                <field name="token_acces"/>
+                            </group>
+                        </form>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="gestion_caido_gestor_view_list" model="ir.ui.view">
+            <field name="name">gestion.caido.gestor.view.list</field>
+            <field name="model">gestion.caido.gestor</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="plaza_id"/>
+                    <field name="hr_employee_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="gestion_caido_gestor_action" model="ir.actions.act_window">
+            <field name="name">Configuración de Gestores</field>
+            <field name="res_model">gestion.caido.gestor</field>
+            <field name="view_mode">form,list</field>
+            <field name="view_id" ref="gestion_caido_gestor_view_list"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="evidencia_view_form" model="ir.ui.view">
+            <field name="name">evidencia.view.form</field>
+            <field name="model">evidencia.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Foto de entrega">
+                            <field name="foto_entrega" widget="image"/>
+                        </group>
+                        <group string="Uso de datos">
+                            <field name="autorizacion_uso_datos"/>
+                            <field name="eviencia_uso_datos" invisible="autorizacion_uso_datos == False" widget="pdf_viewer"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="insert_evidencia" string="Confirmar" type="object" class="btn btn-success"/>
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

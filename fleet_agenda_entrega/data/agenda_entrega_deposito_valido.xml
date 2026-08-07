@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="agenda_entrega_deposito_valido_mail_template" model="mail.template">
+            <field name="name">Comprobante agenda</field>
+            <field name="model_id" ref="model_agenda_entrega"/>
+            <field name="subject">Comprobante de deposito Validado / {{object.rec_name}}</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="box-sizing:border-box;font-size:13px;background-color:#FCFCFC;border-radius:10px;padding:20px;position:relative;">
+                    <img src="https://www.pilotea.mx/assets/landing/branding-imagotipo-horizontal-full-color-lg-4daf4d22a4a6126e02a1a044434584002e58ad2d9c51dec50de8cc2914a83a86.svg" alt="Logo"
+                         style="border-style:none;position:absolute;top:10px;right:10px;height:50px;"
+                         width="141" height="50"/>
+                    <h2 style="margin:0 0 6px 0;font-size:19.5px;color:#091124;text-align:center;font-weight:bold;">
+                        Comprobante de deposito Validado - <t t-out="object.modelo_vehiculo_id.name"/>/<t t-out="object.matricula"/>
+                    </h2>
+                    <br/>
+                    <span style="font-weight:bolder;">Etapa:</span> <t t-out="object.etapa_id.name"/>
+                    <br/><br/>
+                    <span style="font-weight:bolder;">Cliente:</span> <t t-out="object.dictamen_id.cliente"/>
+                    <br/><br/>
+                    <span style="font-weight:bolder;">Plaza:</span> <t t-out="object.dictamen_id.plaza_id.name"/>
+                    <br/><br/>
+                    <span style="font-weight:bolder;">Asesor:</span> <t t-out="object.asesor_id.name"/>
+                    <br/><br/>
+                    <span style="font-weight:bolder;">VIN:</span> <t t-out="object.dictamen_id.vin_sn"/>
+                    <br/><br/>
+                    <span style="font-weight:bolder;">Estatus instrumentación:</span> <t t-out="object.req_instrumentacion.name"/>
+                    <br/><br/>
+                    <span style="font-weight:bolder;">Estatus comprobante:</span> <t t-out="object.estatus_comprobante_deposito.name"/>
+                    <br/><br/>
+                    <span style="font-weight:bolder;">Estatus dictamen:</span> <t t-out="object.dictamen_id.status_dictamen.name"/>
+                </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="portal_app.PortalMain">
+        <div class="portal-app-root p-4"  style="background-color: #1B2A2A">
+            <LoginView t-if="state.view === 'login'" ingresar="(valor) => this.ingresar(valor)" showModal="state.showModal"/>
+            <HomeView t-if="state.view === 'home'"  vehiculoId="state.vehiculoId"
+                                                    llamada_fetch="llamada_fetch"/>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_orden_compra_line_view_list" model="ir.ui.view">
+            <field name="name">fleet.orden.compra.line.view.list</field>
+            <field name="model">fleet.orden.compra.line</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="model_id"/>
+                    <field name="year"/>
+                    <field name="transmision"/>
+                    <field name="gnv" widget="boolean_toggle"/>
+                    <field name="unidad"/>
+                    <field name="precio_unitario"/>
+                    <field name="descuento"/>
+                    <field name="importe"/>
+                    <field name="iva"/>
+                    <field name="costo_gnv"/>
+                    <field name="auto_gnv"/>
+                    <field name="total"/>
+                    <field name="fecha_requerida"/>
+                    <field name="unidades_recibidas"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_orden_compra_line_view_form" model="ir.ui.view">
+            <field name="name">fleet.orden.compra.line.view.form</field>
+            <field name="model">fleet.orden.compra.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="model_id"/>
+                                <field name="year"/>
+                                <field name="transmision"/>
+                                <field name="gnv" widget="boolean_toggle"/>
+                                <field name="unidad" string="Unidades"/>
+                                <field name="fecha_requerida"/>
+                                <field name="precio_unitario"/>
+                            </group>
+                            <group>
+                                <field name="descuento"/>
+                                <field name="importe"/>
+                                <field name="iva"/>
+                                <field name="costo_gnv" invisible="gnv == False"/>
+                                <field name="auto_gnv" invisible="gnv == False"/>
+                                <field name="total"/>
+                                <field name="unidades_recibidas"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="promesa_p_proyeccion_cobranza_view_list" model="ir.ui.view">
+        <field name="name">promesa.p.proyeccion.cobranza.view.list</field>
+        <field name="model">promesa.p.proyeccion.cobranza</field>
+        <field name="arch" type="xml">
+            <list string="Proyección de Cobranza">
+                <field name="id"/>
+                <field name="convenio_id"/>
+                <field name="periodo_gestion"/>
+                <field name="gestor_id"/>
+                <field name="total"/>
+                <field name="exigible_total"/>
+                <field name="factible_presupuesto"/>
+                <field name="factible"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="promesa_p_proyeccion_cobranza_view_form" model="ir.ui.view">
+        <field name="name">promesa.p.proyeccion.cobranza.view.form</field>
+        <field name="model">promesa.p.proyeccion.cobranza</field>
+        <field name="arch" type="xml">
+            <form string="Proyección de Cobranza">
+                <sheet>
+                    <group>
+                        <group string="Información de convenio">
+                            <field name="convenio_id"/>
+                            <field name="periodo_gestion"/>
+                        </group>
+                        <group string="Factible Final">
+                            <field name="gestor_id" domain="[('id','in',gestores)]"/>
+                            <field name="factible"/>
+                        </group>
+                    </group>
+                    <group string="Importes">
+                        <field name="total"/>
+                        <field name="exigible_total"/>
+                        <field name="factible_presupuesto"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="promesa_p_proyeccion_cobranza_view_pivot" model="ir.ui.view">
+        <field name="name">promesa.p.proyeccion.cobranza.view.pivot</field>
+        <field name="model">promesa.p.proyeccion.cobranza</field>
+        <field name="arch" type="xml">
+            <pivot string="Análisis Promesas">
+                <field name="factible" type="measure"/>
+                <field name="factible_presupuesto" type="measure"/>
+                <field name="exigible_total" type="measure"/>
+                <field name="periodo_gestion" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="promesa_p_proyeccion_cobranza_view_graph" model="ir.ui.view">
+        <field name="name">promesa.p.proyeccion.cobranza.view.graph</field>
+        <field name="model">promesa.p.proyeccion.cobranza</field>
+        <field name="arch" type="xml">
+            <graph string="Gráfica Promesas" type="bar">
+                <field name="periodo_gestion" type="row"/>
+                <field name="exigible_total" type="measure"/>
+                <field name="factible" type="measure"/>
+                <field name="factible_presupuesto" type="measure"/>
+                <field name="total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="promesa_p_proyeccion_cobranza_action" model="ir.actions.act_window">
+        <field name="name">Proyección de Cobranza</field>
+        <field name="res_model">promesa.p.proyeccion.cobranza</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+    </record>
+</odoo>

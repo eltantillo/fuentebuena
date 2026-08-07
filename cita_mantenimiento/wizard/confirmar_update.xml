@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="confirmar_update_view_form" model="ir.ui.view">
+            <field name="name">confirmar.update.view.form</field>
+            <field name="model">cita.mantenimiento</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="d-flex align-items-center">
+                                <div class="alert alert-warning w-100 mb-2" role="alert">
+                                    <p>Por favor, proceda con cuidado; los datos serán actualizados automáticamente.</p>
+                                </div>
+                            </div>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="update_datos" string="Confirmar" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

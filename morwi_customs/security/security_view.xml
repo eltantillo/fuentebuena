@@ -1,0 +1,20 @@
+<odoo>
+    <data noupdate="1">
+        <!-- CATEGORY GROUP -->
+        <record id="operations_team_contact_groups" model="res.groups">
+            <field name="name">Operations Team: Grants permission to view customizations on the customer form</field>
+        </record>
+        <record id="collections_team_contact_groups" model="res.groups">
+            <field name="name">Collections Team: Grants permission to view customizations on the customer form</field>
+        </record>
+        <record id="claims_team_contact_groups" model="res.groups">
+            <field name="name">Claims Team: Grants permission to view customizations on the customer form</field>
+        </record>
+        <record id="sales_team_contact_groups" model="res.groups">
+            <field name="name">Sales Team: Grants permission to view customizations on the customer form</field>
+        </record>
+        <record id="customer_exp_team_contact_groups" model="res.groups">
+            <field name="name">Customer Experience Team: Grants permission to view customizations on the customer form</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="renta_auxilio_tipo_view_form" model="ir.ui.view">
+            <field name="name">renta.auxilio.tipo.view.form</field>
+            <field name="model">renta.auxilio.tipo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="renta_auxilio_tipo_view_list" model="ir.ui.view">
+            <field name="name">renta.auxilio.tipo.view.list</field>
+            <field name="model">renta.auxilio.tipo</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="renta_auxilio_tipo_action" model="ir.actions.act_window">
+            <field name="name">Tipo</field>
+            <field name="res_model">renta.auxilio.tipo</field>
+            <field name="view_mode">form,list</field>
+            <field name="view_id" ref="renta_auxilio_tipo_view_list"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="fleet_recepcion.valorar" id="fleet_recepcion_valorar" owl="1">
+        <div class="container text-center mt-3">
+            <h3>Vehiculo: <t t-esc="state.dataVehiculo.vin_sn"/></h3>
+        </div>
+        <div class="d-flex justify-content-center align-items-center vh-85 p-2 text-center">
+            <div class="position-relative d-inline-block" style="max-height: 90vh;">
+                <img src="/fleet_recepcion/static/src/imgs/vehiculo.png"
+                     class="img-fluid"
+                     style="width: auto; max-height: 85vh; display: block;"/>
+
+                <a href="#"
+                   id="btnFrontal"
+                   class="d-flex align-items-center justify-content-center recepcion"
+                   style="top: 87%; left: 47%;"
+                   t-on-click="showModalFrontal">
+                    <i class="fa fa-exclamation" id="iconFrontal"/>
+                </a>
+
+                <a href="#"
+                   id="btnTrasero"
+                   class="d-flex align-items-center justify-content-center recepcion"
+                   style="top: 10%; left: 47%;"
+                   t-on-click="showModalTrasero">
+                    <i class="fa fa-exclamation" id="iconTrasero"/>
+                </a>
+
+                <a href="#"
+                   id="btnlatIzquierdo"
+                   class="d-flex align-items-center justify-content-center recepcion"
+                   style="top: 50%; left: 78%;"
+                   t-on-click="showModalIzquierdo">
+                    <i class="fa fa-exclamation" id="iconlatIzquierdo"/>
+                </a>
+
+                <a href="#"
+                   id="btnlatDerecho"
+                   class="d-flex align-items-center justify-content-center recepcion"
+                   style="top: 50%; left: 13%;"
+                   t-on-click="showModalDerecho">
+                    <i class="fa fa-exclamation" id="iconlatDerecho"/>
+                </a>
+
+                <a href="#"
+                   id="btninteriorFrontal"
+                   class="d-flex align-items-center justify-content-center recepcion"
+                   style="top: 68%; left: 47%;"
+                   t-on-click="showInteriorFrontal">
+                    <i class="fa fa-exclamation" id="iconintFrontal"/>
+                </a>
+
+                <a href="#"
+                   id="btninteriores"
+                   class="d-flex align-items-center justify-content-center recepcion"
+                   style="top: 39%; left: 47%;"
+                   t-on-click="showInteriores">
+                    <i class="fa fa-exclamation" id="iconinteriores"/>
+                </a>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalinteriores" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Interiores</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <form  t-on-submit="submitFormValidate" id="form_interiores" class="needs-validation" novalidate="1">
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Interiores</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="interiores"
+                                               id="interiores_bueno" t-on-change="on_change_interiores" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="interiores_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="interiores"
+                                               id="interiores_malo"  t-on-change="on_change_interiores" value="Malo"/>
+                                        <label class="form-check-label" for="interiores_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="interiores_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Tapetes</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tapetes"
+                                               id="tapetes_bueno" t-on-change="on_change_tapetes" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="tapetes_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tapetes"
+                                               id="tapetes_malo" t-on-change="on_change_tapetes" value="Malo"/>
+                                        <label class="form-check-label" for="tapetes_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="tapetes_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Vidrios</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="vidrios"
+                                               id="vidrios_bueno" t-on-change="on_change_vidrios" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="vidrios_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="vidrios"
+                                               id="vidrios_malo" t-on-change="on_change_vidrios" value="Malo"/>
+                                        <label class="form-check-label" for="vidrios_malo">Malo</label>
+                                    </div>
+                                     <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="vidrios_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Birlos de seguridad</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="birlos"
+                                               id="birlos_bueno" t-on-change="on_change_birlos" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="birlos_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="birlos"
+                                               id="birlos_malo" t-on-change="on_change_birlos" value="Malo"/>
+                                        <label class="form-check-label" for="birlos_malo">Malo</label>
+                                    </div>
+                                     <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="birlos_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button class="btn btn-success-custom" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalintFrontal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Interior frontal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <form  t-on-submit="submitFormValidate" id="form_interior_frontal" class="needs-validation" novalidate="1">
+                            <div class="row section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                   <p class="text-bold">Tablero</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tablero"
+                                               id="tablero_bueno" t-on-change="on_change_tablero" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="tablero_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tablero"
+                                               id="tablero_malo" t-on-change="on_change_tablero" value="Malo"/>
+                                        <label class="form-check-label" for="tablero_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="tablero_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p class="text-bold">Estéreo</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="estereo"
+                                               id="estereo_bueno" t-on-change="on_change_estereo" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="estereo_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="estereo"
+                                               id="estereo_malo"  t-on-change="on_change_estereo" value="Malo"/>
+                                        <label class="form-check-label" for="estereo_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="estereo_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p class="text-bold">Clima</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="clima"
+                                               id="clima_bueno" t-on-change="on_change_clima" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="clima_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="clima"
+                                               id="clima_malo"  t-on-change="on_change_clima" value="Malo"/>
+                                        <label class="form-check-label" for="clima_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="clima_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                   <p class="text-bold">Espejo retrovisor</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="espejo_retrovisor"
+                                               id="espejo_retrovisor_bueno" t-on-change="on_change_espejo_retrovisor" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="espejo_retrovisor_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="espejo_retrovisor"
+                                               id="espejo_retrovisor_malo" t-on-change="on_change_espejo_retrovisor" value="Malo"/>
+                                        <label class="form-check-label" for="espejo_retrovisor_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="espejo_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button class="btn btn-success-custom" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modallatDerecho" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Lateral derecho</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <form  t-on-submit="submitFormValidate" id="form_lateral_derecho" class="needs-validation" novalidate="1">
+                            <div class="row section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Espejo</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="espejo_derecho"
+                                               id="espejo_derecho_bueno" t-on-change="on_change_espejo_derecho" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="espejo_derecho_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="espejo_derecho"
+                                               id="espejo_derecho_malo" t-on-change="on_change_espejo_derecho" value="Malo"/>
+                                        <label class="form-check-label" for="espejo_derecho_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="espejo_derecho_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Costado</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="costado_derecho"
+                                               id="costado_derecho_bueno" t-on-change="on_change_costado_derecho" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="costado_derecho_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="costado_derecho"
+                                               id="costado_derecho_malo" t-on-change="on_change_costado_derecho" value="Malo"/>
+                                        <label class="form-check-label" for="costado_derecho_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="costado_derecho_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button class="btn btn-success-custom" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modallatIzquierdo" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Lateral izquierdo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <form  t-on-submit="submitFormValidate" id="form_lateral_izquierdo" class="needs-validation" novalidate="1">
+                            <div class="row section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Espejo</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="espejo_izquierdo"
+                                               id="espejo_izquierdo_bueno" t-on-change="on_change_espejo_izquierdo" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="espejo_izquierdo_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="espejo_izquierdo"
+                                               id="espejo_izquierdo_malo" t-on-change="on_change_espejo_izquierdo" value="Malo"/>
+                                        <label class="form-check-label" for="espejo_izquierdo_malo">Malo</label>
+                                    </div>
+                                     <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="espejo_izquierdo_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Costado</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="costado_izquierdo"
+                                               id="costado_izquierdo_bueno" t-on-change="on_change_costado_izquierdo" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="costado_izquierdo_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="costado_izquierdo"
+                                               id="costado_izquierdo_malo" t-on-change="on_change_costado_izquierdo" value="Malo"/>
+                                        <label class="form-check-label" for="costado_izquierdo_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="costado_izquierdo_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Tapón de gasolina</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tapon_gasolina"
+                                               id="tapon_gasolina_bueno" t-on-change="on_change_tapon_gasolina" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="tapon_gasolina_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tapon_gasolina"
+                                               id="tapon_gasolina_malo" t-on-change="on_change_tapon_gasolina" value="Malo"/>
+                                        <label class="form-check-label" for="tapon_gasolina_malo">Malo</label>
+                                    </div>
+                                     <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="tapon_gasolina_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button class="btn btn-success-custom" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalTrasero" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Exterior trasero</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <form  t-on-submit="submitFormValidate" id="form_trasero" class="needs-validation" novalidate="1">
+                            <div class="row section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Cajuela</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="cajuela"
+                                               id="cajuela_bueno" t-on-change="on_change_cajuela" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="cajuela_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="cajuela"
+                                               id="cajuela_malo" t-on-change="on_change_cajuela" value="Malo"/>
+                                        <label class="form-check-label" for="cajuela_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="cajuela_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Calavera</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="calavera"
+                                               id="calavera_bueno" t-on-change="on_change_calavera" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="calavera_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="calavera"
+                                               id="calavera_malo" t-on-change="on_change_calavera" value="Malo"/>
+                                        <label class="form-check-label" for="calavera_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="calavera_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Defensa</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="defensa"
+                                               id="defensa_bueno" t-on-change="on_change_defensa" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="defensa_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="defensa"
+                                               id="defensa_malo" t-on-change="on_change_defensa" value="Malo"/>
+                                        <label class="form-check-label" for="defensa_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="defensa_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Llanta de refacción y gato</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="llantaref_gato"
+                                               id="llantaref_gato_bueno" t-on-change="on_change_llantaref_gato" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="defensa_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="llantaref_gato"
+                                               id="llantaref_gato_malo" t-on-change="on_change_llantaref_gato" value="Malo"/>
+                                        <label class="form-check-label" for="defensa_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="llanta_gato_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Reflejante y herramienta</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="refherramienta"
+                                               id="refherramienta_bueno" t-on-change="on_change_refherramienta" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="refherramienta_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="refherramienta"
+                                               id="refherramienta_malo" t-on-change="on_change_refherramienta" value="Malo"/>
+                                        <label class="form-check-label" for="refherramienta_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="ref_herramienta_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Porta placa trasera</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="portaplaca_trasera"
+                                               id="portaplaca_trasera_bueno" t-on-change="on_change_portaplaca_trasera" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="portaplaca_trasera_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="portaplaca_trasera"
+                                               id="portaplaca_trasera_malo" t-on-change="on_change_portaplaca_trasera" value="Malo"/>
+                                        <label class="form-check-label" for="portaplaca_trasera_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="portaplaca_trasera_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="d-flex justify-content-center">
+                                    <input type="file" id="fotoInput" accept="image/*" capture="environment" required="1" hidden="1" style="height: 200px; width: 200px;"/>
+                                    <div class="upload-box" id="uploadBox">
+                                      <label for="fotoInput" class="upload-label" id="uploadLabel" >
+                                        <i class="fa fa-camera" style="font-size: 80px;"/>
+                                        <span>ADD</span>
+                                      </label>
+                                      <img id="preview" class="img-preview" style="display:none;" />
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button class="btn btn-success-custom" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalFrontal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Exterior frontal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <form  t-on-submit="submitFormValidate" id="form_frontal" class="needs-validation" novalidate="1">
+                            <div class="row section-mod">
+                            <div class="col-md-4 col-sm-12">
+                                <p>Faros</p>
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="faro"
+                                           id="faro_bueno" t-on-change="on_change_faro" value="Bueno" required="True"/>
+                                    <label class="form-check-label" for="faro_bueno">Bueno</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="faro"
+                                           id="faro_malo" t-on-change="on_change_faro" value="Malo"/>
+                                    <label class="form-check-label" for="faro_malo">Malo</label>
+                                </div>
+                                <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="faro_observacion" invisible="1"/>
+                            </div>
+                        </div>
+                            <div class="row section-mod mt-2">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Cofre</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="cofre"
+                                               id="cofre_bueno" t-on-change="on_change_cofre" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="cofre_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="cofre"
+                                               id="cofre_malo" t-on-change="on_change_cofre" value="Malo"/>
+                                        <label class="form-check-label" for="cofre_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="cofre_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row section-mod mt-2">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Porta placa frontal</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="porta_placa_frontal"
+                                               id="porta_placa_frontal_malo" t-on-change="on_change_porta_placa_frontal" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="porta_placa_frontal_malo">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="porta_placa_frontal"
+                                               id="porta_placa_frontal_bueno" t-on-change="on_change_porta_placa_frontal" value="Malo"/>
+                                        <label class="form-check-label" for="porta_placa_frontal_bueno">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="porta_placa_frontal_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row section-mod mt-2">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Tapones y nível de liquído</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="taponnivel"
+                                               id="taponnivel_bueno" t-on-change="on_change_taponnivel" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="taponnivel_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="taponnivel"
+                                               id="taponnivel_malo" t-on-change="on_change_taponnivel" value="Malo"/>
+                                        <label class="form-check-label" for="taponnivel_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="taponnivel_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Varilla de aceite</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="varilla_aceite"
+                                               id="varilla_aceite_bueno" t-on-change="on_change_varilla_aceite" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="varilla_aceite_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="varilla_aceite"
+                                               id="varilla_aceite_malo" t-on-change="on_change_varilla_aceite" value="Malo"/>
+                                        <label class="form-check-label" for="varilla_aceite_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="varilla_aceite_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Nivel de aceite</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="nivel_aceite"
+                                               id="nivel_aceite_optimo" t-on-change="on_change_nivel_aceite" value="Optimo" required="True"/>
+                                        <label class="form-check-label" for="nivel_aceite_optimo">Optimo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="nivel_aceite"
+                                               id="nivel_aceite_medio" t-on-change="on_change_nivel_aceite" value="Medio"/>
+                                        <label class="form-check-label" for="nivel_aceite_medio">Medio</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="nivel_aceite"
+                                               id="nivel_aceite_bajo" t-on-change="on_change_nivel_aceite" value="Bajo"/>
+                                        <label class="form-check-label" for="nivel_aceite_bajo">Bajo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="nivel_aceite_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Anticongelante</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="anticongelante"
+                                               id="anticongelante_optimo" t-on-change="on_change_anticongelante" value="Optimo" required="True"/>
+                                        <label class="form-check-label" for="anticongelante_optimo">Optimo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="anticongelante"
+                                               id="anticongelante_medio" t-on-change="on_change_anticongelante" value="Medio"/>
+                                        <label class="form-check-label" for="anticongelante_medio">Medio</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="anticongelante"
+                                               id="anticongelante_bajo" t-on-change="on_change_anticongelante" value="Bajo"/>
+                                        <label class="form-check-label" for="anticongelante_bajo">Bajo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="anticongelante_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Liquido de frenos</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="liquido_frenos"
+                                               id="liquido_frenos_optimo" t-on-change="on_change_liquido_frenos" value="Optimo" required="True"/>
+                                        <label class="form-check-label" for="liquido_frenos_optimo">Optimo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="liquido_frenos"
+                                               id="liquido_frenos_medio" t-on-change="on_change_liquido_frenos" value="Medio"/>
+                                        <label class="form-check-label" for="liquido_frenos_medio">Medio</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="liquido_frenos"
+                                               id="liquido_frenos_bajo" t-on-change="on_change_liquido_frenos" value="Bajo"/>
+                                        <label class="form-check-label" for="liquido_frenos_bajo">Bajo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="liquido_frenos_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Facia</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="facia_frontal"
+                                               id="facia_frontal_bueno" t-on-change="on_change_facia_frontal" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="facia_frontal_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="facia_frontal"
+                                               id="facia_frontal_malo" t-on-change="on_change_facia_frontal" value="Malo"/>
+                                        <label class="form-check-label" for="facia_frontal_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="facia_frontal_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Limpiador</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="limpiador_frontal"
+                                               id="limpiador_frontal_bueno" t-on-change="on_change_limpiador_frontal" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="limpiador_frontal_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="limpiador_frontal"
+                                               id="limpiador_frontal_malo" t-on-change="on_change_limpiador_frontal" value="Malo"/>
+                                        <label class="form-check-label" for="limpiador_frontal_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="limpiador_frontal_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="row mt-2 section-mod">
+                                <div class="col-md-4 col-sm-12">
+                                    <p>Antena</p>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="antena"
+                                               id="antena_bueno" t-on-change="on_change_antena" value="Bueno" required="True"/>
+                                        <label class="form-check-label" for="antena_bueno">Bueno</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="antena"
+                                               id="antena_malo" t-on-change="on_change_antena" value="Malo"/>
+                                        <label class="form-check-label" for="antena_malo">Malo</label>
+                                    </div>
+                                    <input type="text" class="form-control mt-1 input-hidden" placeholder="Observaciones" id="antena_observacion" invisible="1"/>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-2">
+                                <button class="btn btn-success-custom" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

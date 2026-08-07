@@ -1,0 +1,53 @@
+:root {
+    --morado-oscuro: #4b1b7b;
+    --morado: #7a32c6;
+    --morado-claro: #c09ae9;
+    --morado-fondo: #f5ecff;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+h1, h2, h3, label {
+    color: var(--morado-oscuro);
+}
+
+.card {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.btn-morado {
+    background: linear-gradient(90deg, var(--morado) 0%, var(--morado-oscuro) 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+}
+
+.btn-morado:hover {
+    opacity: 0.9;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    background: var(--morado);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    background: var(--morado-claro);
+}
+
+.valor-dinero {
+    font-size: 40px;
+    color: var(--morado);
+    font-weight: bold;
+}
+
+.valor-total {
+    font-size: 32px;
+    color: var(--morado-oscuro);
+    font-weight: bold;
+}

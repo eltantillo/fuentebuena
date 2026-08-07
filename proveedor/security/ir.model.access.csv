@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_proveedor_tipo_all,access_proveedor_tipo_all,model_proveedor_tipo,,1,0,1,0
+access_proveedor_tipo_sys,access_proveedor_tipo_sys,model_proveedor_tipo,base.group_system,1,1,1,1
+access_proveedor_asignar_sys,access_proveedor_asignar_sys,model_proveedor_asignar_razon,base.group_system,1,1,1,1
+
+

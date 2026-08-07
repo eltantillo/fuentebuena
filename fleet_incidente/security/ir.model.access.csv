@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_incidente_tipo_sys,access_fleet_incidente_tipo_sys,model_fleet_incidente_tipo,base.group_system,1,1,1,1
+access_fleet_incidente_sys,access_fleet_incidente_sys,model_fleet_incidente,base.group_system,1,1,1,1
+
+
+access_fleet_incidente_tipo_sys,access_fleet_incidente_tipo_sys,model_fleet_incidente_tipo,,1,0,0,0
+access_fleet_incidente_sys,access_fleet_incidente_sys,model_fleet_incidente,,1,0,0,0

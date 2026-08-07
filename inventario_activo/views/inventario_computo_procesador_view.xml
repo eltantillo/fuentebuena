@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inventario_computo_procesador_view_form" model="ir.ui.view">
+            <field name="name">inventario.computo.procesador.view.form</field>
+            <field name="model">inventario.computo.procesador</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="fabricante_id"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="inventario_computo_procesador_view_list" model="ir.ui.view">
+            <field name="name">inventario.computo.procesador.view.list</field>
+            <field name="model">inventario.computo.procesador</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="fabricante_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="inventario_computo_procesador_action" model="ir.actions.act_window">
+            <field name="name">Inventario - Computo procesador</field>
+            <field name="res_model">inventario.computo.procesador</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="inventario_computo_procesador_view_list"/>
+        </record>
+    </data>
+</odoo>

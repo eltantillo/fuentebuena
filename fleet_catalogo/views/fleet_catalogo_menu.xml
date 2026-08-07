@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_catalogos_generales"
+                  name="Catálogos Generales"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="1"/>
+
+        <menuitem id="menu_fleet_catalogo_frecuencia_pago"
+                  name="Frecuencia de Pago"
+                  parent="menu_fleet_catalogos_generales"
+                  sequence="1"
+                  action="fleet_catalogo_frecuencia_pago_action"/>
+
+        <menuitem id="menu_fleet_catalogo_dependencia"
+                  name="Dependencia"
+                  parent="menu_fleet_catalogos_generales"
+                  sequence="2"
+                  action="fleet_catalogo_dependencia_action"/>
+
+        <menuitem id="menu_fleet_catalogo_orig_creacion"
+                  name="Origen de Creación"
+                  parent="menu_fleet_catalogos_generales"
+                  sequence="3"
+                  action="fleet_catalogo_orig_creacion_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_mantenimiento_config"
+          name="Mantenimientos"
+          sequence="50"
+          parent="fleet.fleet_configuration"/>
+
+        <menuitem id="menu_fleet_mantenimiento_etapa"
+                  name="Etapas"
+                  sequence="10"
+                  parent="menu_fleet_mantenimiento_config"
+                  action="fleet_mantenimiento_etapa_action"/>
+
+        <menuitem id="menu_fleet_mantenimiento_tipo_serv"
+                  name="Tipo - Servicios"
+                  sequence="20"
+                  parent="menu_fleet_mantenimiento_config"
+                  action="fleet_mantenimiento_servicio_tipo_action"/>
+
+        <menuitem id="menu_fleet_mantenimiento_categoria"
+                  name="Categoría"
+                  sequence="30"
+                  parent="menu_fleet_mantenimiento_config"
+                  action="fleet_mantenimiento_categoria_action"/>
+
+        <menuitem id="menu_fleet_mantenimiento"
+                  name="Mantenimientos"
+                  sequence="80"
+                  parent="fleet.fleet_vehicles"
+                  action="fleet_mantenimiento_action"/>
+
+        <menuitem id="menu_fleet_mantenimiento_catalogo"
+                  name="Mantenimiento"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="180"/>
+
+        <menuitem id="menu_fleet_mantenimiento_cat_servicio"
+                  name="Servicios"
+                  parent="menu_fleet_mantenimiento_catalogo"
+                  sequence="20"
+                  action="fleet_mantenimiento_servicio_action"/>
+
+        <menuitem id="menu_fleet_mantenimiento_cat_tipo"
+                  name="Tipo de mantenimiento"
+                  parent="menu_fleet_mantenimiento_catalogo"
+                  sequence="10"
+                  action="fleet_mantenimiento_tipo_action"/>
+
+        <menuitem id="menu_fleet_mantenimiento_unidad_medida"
+                  name="Unidad de Medida"
+                  parent="menu_fleet_mantenimiento_catalogo"
+                  sequence="30"
+                  action="fleet_mantenimiento_unidad_medida_action"/>
+
+    </data>
+</odoo>

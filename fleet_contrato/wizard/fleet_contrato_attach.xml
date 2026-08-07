@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_contrato_attach_view_form" model="ir.ui.view">
+            <field name="name">fleet.contrato.attach.view.form</field>
+            <field name="model">fleet.contrato.attach</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="archivo" required="1" widget="pdf_viewer"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="action_confirm" string="Confirmar" class="btn-info text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

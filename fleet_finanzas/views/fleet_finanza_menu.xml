@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_fondeo_vehicle_action" model="ir.actions.act_window">
+            <field name="name">Inventario</field>
+            <field name="res_model">fleet.vehicle</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+        </record>
+
+        <menuitem id="fleet_finanza_root"
+                  name="Finanzas"
+                  sequence="1"
+                  web_icon="fleet_finanzas,static/src/description/icon.png"/>
+
+        <menuitem id="fleet_finanza_vehículos"
+                  name="Vehículos"
+                  parent="fleet_finanza_root"
+                  sequence="10"
+                  action="fleet_fondeo_inherit_fleet_action" />
+
+        <menuitem id="fleet_finanza_asignar"
+                  name="Asignar fondeo"
+                  parent="fleet_finanza_root"
+                  sequence="20"
+                  action="fleet_finanza_asignar_action" />
+
+        <menuitem id="fleet_finanza_inventario"
+                  name="Inventario"
+                  parent="fleet_finanza_root"
+                  sequence="30"
+                  action="fleet_fondeo_vehicle_action" />
+
+        <menuitem id="fleet_fondeo_catalogo_menu"
+                  name="Catálogos"
+                  parent="fleet_finanza_root"
+                  sequence="40"/>
+
+        <menuitem id="fleet_fondeo_fuente_catalogo_menu"
+                  name="Fuente de fondeo"
+                  parent="fleet_fondeo_catalogo_menu"
+                  sequence="10"
+                  action="fleet_finanza_fuente_fondeo_action"/>
+
+        <menuitem id="fleet_fondeo_sesionario_catalogo_menu"
+                  name="Sesionario"
+                  parent="fleet_fondeo_catalogo_menu"
+                  sequence="20"
+                  action="fleet_finanza_sesionario_action"/>
+
+    </data>
+</odoo>

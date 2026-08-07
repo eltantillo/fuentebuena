@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="fleet_recepcion.recepcion" id="fleet_recepcion_recepcion" owl="1">
+        <div t-if="state.currentView === 'fleet_recepcion_recepcion'">
+            <div class="d-flex flex-column p-3 text-center align-items-center">
+                <h1>Buscar vehículo</h1>
+                <div class="d-flex justify-content-center mt-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio_numero_economico"/>
+                        <label class="form-check-label" for="radio_numero_economico">Número económico</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio_vin"/>
+                        <label class="form-check-label" for="radio_vin">Vin</label>
+                    </div>
+                </div>
+                <input class="form-control mr-sm-2 mt-3" type="search" id="input_busqueda" placeholder="Search"
+                       aria-label="Search"/>
+                <a class="btn btn-success mt-3" t-on-click="busqueda_vehiculo">Buscar</a>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal_info_vehiculo" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Información del vehículo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <t t-if="state.dataVehiculo">
+                            <div class="row">
+                                <div class="mt-2">
+                                    <label>VIN:
+                                        <t t-esc="state.dataVehiculo.vin_sn"/>
+                                    </label>
+                                </div>
+                                <div class="mt-2">
+                                    <label>Número economico:
+                                        <t t-esc="state.numero_economico"/>
+                                    </label>
+                                </div>
+                                <div class="mt-2">
+                                    <t t-if="state.dataVehiculo.model_id">
+                                        <label>Modelo del vehículo:
+                                            <t t-esc="state.dataVehiculo.model_id[1]"/>
+                                        </label>
+                                    </t>
+                                </div>
+                                <div class="mt-2">
+                                    <t t-if="state.dataVehiculo.producto_id">
+                                        <label>Producto:
+                                            <t t-esc="state.dataVehiculo.producto_id[1]"/>
+                                        </label>
+                                    </t>
+                                </div>
+                                <div class="mt-2">
+                                    <t t-if="state.dataVehiculo.plaza_id">
+                                        <label>Plaza:
+                                            <t t-esc="state.dataVehiculo.plaza_id[1]"/>
+                                        </label>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <a class="btn btn-primary mt-3" t-on-click="evaluar">
+                                Continuar con la recepción
+                            </a>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal_vehiculo_no_encontrado" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Vehiculo no encontrado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <p>Se ha realizado la busqueda, pero no se ha encontrado el vehiculo.</p>
+                            <p>Por favor, intente nuevamente, o cree un nuevo vehiculo</p>
+                        </div>
+                        <a class="btn btn-primary mt-3" t-on-click="crearVehiculoView">
+                            Crear nuevo vehiculo
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div t-if="state.currentView === 'fleet_recepcion_alta'">
+            <t t-call="fleet_recepcion.alta"/>
+        </div>
+
+        <div t-if="state.currentView === 'fleet_recepcion_valorar'">
+            <t t-call="fleet_recepcion.valorar"/>
+        </div>
+    </t>
+</templates>

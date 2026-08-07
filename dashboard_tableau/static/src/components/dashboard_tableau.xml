@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <div id="dashboard_tableau_mante" t-name="dashboard_tableau.dashboard_tableau_mante" owl="1" class="dashboard-container">
+        <script type='module' src='https://us-east-1.online.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js'/>
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">📊 Visualización de Mantenimientos (POC)</h1>
+        </div>
+        <div class="dashboard-card">
+            <tableau-viz id="tableauViz"
+                src='https://us-east-1.online.tableau.com/t/fuentebuena/views/TableroOperativoPilotea/Mantenimientos'
+                toolbar="bottom"
+                t-att-token="state.token"
+                device="desktop"
+                class="tableau-frame">
+                <viz-filter field="Id Plaza Agrupada (Dim Plaza)" t-att-value="state.plaza"/>
+            </tableau-viz>
+        </div>
+    </div>
+</templates>

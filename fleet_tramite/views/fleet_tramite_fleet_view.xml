@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_tramite_fleet_view_form" model="ir.ui.view">
+            <field name="name">fleet.tramite.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@name='polizas']" position="after">
+                    <page string="Trámites" name="tramites" invisible="id == False">
+                        <field name="tramite_ids" required="1">
+                            <list>
+                                <field name="tipo_tramite_id"/>
+                                <field name="folio"/>
+                                <field name="plaza_id"/>
+                                <field name="vin_sn"/>
+                                <field name="fecha_tramite"/>
+                                <field name="fecha_vencimiento_renovacion"/>
+                                <field name="importe"/>
+                                <field name="iva"/>
+                                <field name="total"/>
+                                <button name="action_archive" string="Archivar" type="object" icon="fa-archive"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

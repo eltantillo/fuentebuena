@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_contrato_view_form" model="ir.ui.view">
+            <field name="name">fleet_contrato_view_form</field>
+            <field name="model">fleet.vehicle.log.contract</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <field name="cancelado" invisible="1"/>
+                    <button name="cancelar_contrato"
+                            string="Motivo de cancelación"
+                            type="object"
+                            class="btn-warning text-white"
+                            invisible="cancelado == False"
+                            force_save="1"/>
+
+                    <button name="attach_contrato_asignar"
+                            string="Cargar contrato"
+                            type="object"
+                            class="btn-success text-white"
+                            groups="fleet_contrato.group_contratos"/>
+                </xpath>
+                <xpath expr="//form/sheet/widget[@name='web_ribbon']" position="replace">
+                    <widget name="web_ribbon" title="Baja" bg_color="text-bg-danger" invisible="cancelado == False"/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet" position="replace">
+                    <sheet string="Contrato">
+                        <group invisible="cancelado != True">
+                            <field name="fecha_cancelacion" readonly="1"/>
+                            <field name="motivo_cancelacion_id" readonly="1" widget="badge" decoration-danger="1"/>
+                        </group>
+                        <group>
+                            <group string="Datos del contrato" name="data_contrato">
+                                <field name="cie"/>
+                                <field name="ins_ref" string="Contrato"/>
+                                <field name="nombre_cliente" string="Nombre del arrendatario"/>
+                                <field name="cliente_id" widget="many2one_avatar" string="Arrendatario" readonly="1"/>
+                                <field name="num_plazos"/>
+                                <field name="condicion_vehiculo_id" readonly="1"/>
+                                <field name="id_solicitud"/>
+                                <field name="start_date"/>
+                                <field name="expiration_date"/>
+                            </group>
+                            <group string="Importes" name="data_importe">
+                                <field name="cost_frequency" invisible="1"/>
+                                <field name="importe_garantia"/>
+                                <field name="amount" string="Primera parcialidad de renta" widget="monetary" class="w-25"/>
+                                <label for="cost_generated"/>
+                                <div class="o_row">
+                                    <span class="w-25">
+                                        <field name="cost_generated" invisible="cost_frequency == 'no'" widget="monetary"/>
+                                    </span>
+                                    <field name="cost_frequency"/>
+                                </div>
+                            </group>
+                        </group>
+                        <group string="Información del vehículo" name="data_vehiculo">
+                            <field name="vehicle_id" readonly="id != False"/>
+                            <field name="numero_economico" readonly="1" invisible="1"/>
+                            <field name="vin_sn" readonly="1"/>
+                            <field name="producto_id" readonly="1"/>
+                            <field name="plaza_id" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Expediente" name="expediente">
+                                <field name="attach_contrato" widget="pdf_viewer"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_contrato_view_list" model="ir.ui.view">
+            <field name="name">fleet_contrato_view_list</field>
+            <field name="model">fleet.vehicle.log.contract</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="replace">
+                    <list>
+                        <field name="create_date"/>
+                        <field name="ins_ref"/>
+                        <field name="id_solicitud"/>
+                        <field name="vin_sn"/>
+                        <field name="start_date"/>
+                        <field name="expiration_date" widget="remaining_days"/>
+                        <field name="plaza_id"/>
+                        <field name="vehicle_id"/>
+                        <field name="nombre_cliente"/>
+                        <field name="cost_generated"/>
+                        <field name="cost_frequency"/>
+                        <field name="condicion_vehiculo_id"/>
+                        <field name="cie"/>
+                        <field name="state" widget="badge"
+                               decoration-warning="state == 'expired'" decoration-success="state == 'futur'" decoration-danger="state == 'closed'"
+                               decoration-info="state == 'open'"/>
+                    </list>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_vehicle_log_contract_inherit_search" model="ir.ui.view">
+            <field name="name">fleet.vehicle.log.contract.search</field>
+            <field name="model">fleet.vehicle.log.contract</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vehicle_id']" position="after">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <field string="Contrato" name="ins_ref" filter_domain="[('ins_ref','ilike', self)]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

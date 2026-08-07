@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_actualizar_odometro" model="ir.module.category">
+            <field name="name">Odometro Update</field>
+            <field name="description">Gestión de acceso a actualización de odometros</field>
+        </record>
+
+        <record id="group_actualizar_odometro" model="res.groups">
+            <field name="name">Actualizar odometro</field>
+        </record>
+    </data>
+</odoo>

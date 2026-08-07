@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="fleet_recepcion.alta" id="fleet_recepcion_alta" owl="1">
+        <div class="d-flex align-items-center justify-content-center" >
+            <form class="col-md-10 col-sm-10 col-xs-10" >
+                <div class="form-group mt-3">
+                    <label for="modelo_vehiculo_select">Modelo</label>
+                    <select t-model="state.vehiculo.model_id" id="modelo_vehiculo_select" class="form-select" required="required">
+                        <option value="" disabled="" selected="">Seleccione una opción</option>
+                        <t t-foreach="state.modelos_vehiculo" t-as="modelo" t-key="modelo.id">
+                            <option t-att-value="modelo.id">
+                                <t t-esc="modelo.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="input_vin">VIN</label>
+                    <input type="text" class="form-control" id="input_vin" t-model="state.vehiculo.vin_sn"/>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="input_num_economico">Número economico</label>
+                    <input type="text" class="form-control" id="input_num_economico"  t-model="state.vehiculo.numero_economico"/>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="producto_vehiculo_select">Producto</label>
+                    <select id="producto_vehiculo_select" t-model="state.vehiculo.producto_id" class="form-select" required="required">
+                        <option value="" disabled="" selected="">Seleccione una opción</option>
+                        <t t-foreach="state.productos" t-as="producto" t-key="producto.id">
+                            <option t-att-value="producto.id">
+                                <t t-esc="producto.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="input_factura">Factura</label>
+                    <input type="text" class="form-control" id="input_factura"  t-model="state.vehiculo.factura"/>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="input_year_model">Año de modelo</label>
+                    <input type="text" class="form-control" id="input_year_model" t-model="state.vehiculo.model_year"/>
+                </div>
+                 <a href="#" class="btn btn-primary mt-3" t-on-click="crearVehiculo">Crear vehículo</a>
+            </form>
+        </div>
+
+        <div class="modal fade" id="modal_vehiculo_creado" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">El vehículo ha sido creado con exito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                    </div>
+                    <div class="modal-body">
+                        <p>El vehiculo con vin <t t-esc="state.vehiculo.vin_sn"/> ha sido creado con exito</p>
+                    </div>
+                    <a href="#" class="btn btn-primary" t-on-click="continuarRecepcion">Continuar con la recepcion</a>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

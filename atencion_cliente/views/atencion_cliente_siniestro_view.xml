@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="atencion_cliente_siniestro_view_form" model="ir.ui.view">
+            <field name="name">atencion.cliente.siniestro.view.form</field>
+            <field name="model">atencion.cliente.siniestro</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Cliente">
+                                <field name="cliente_id" domain="[('es_cliente', '=', True)]"/>
+                                <field name="vehiculo_id" domain="[('driver_id', '=', cliente_id)]"/>
+                                <field name="vin_sn"/>
+                                <field name="plaza_id"/>
+                                <field name="estado_id"/>
+                                <field name="telefono"/>
+                                <field name="medio_contacto_id" widget="radio" options="{'horizontal': true}"/>
+                            </group>
+                            <group string="General">
+                                <field name="id" invisible="not id"/>
+                                <field name="create_date" string="Fecha de creación" invisible="not id"/>
+                                <field name="estatus_registro_id"/>
+                                <field name="seguimiento"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Informe de siniestro">
+                                <field name="num_reporte" string="# Reporte"/>
+                                <field name="num_siniestro" string="# Siniestro"/>
+                                <field name="ubicacion"/>
+                                <field name="conductor"/>
+                                <field name="telefono_conductor"/>
+                                <field name="fecha_ocurrido"/>
+                                <field name="fecha_reporte"/>
+                            </group>
+                            <group string="Descripción del siniestro">
+                                <field name="tipo_siniestro_id"/>
+                                <field name="siniestro_robo" invisible="1"/>
+                                <field name="responsabilidad" invisible="tipo_siniestro_id == siniestro_robo or not tipo_siniestro_id"/>
+                                <field name="volante_en_reparacion"/>
+                                <field name="con_deducible"/>
+                                <field name="caracteristica_id"/>
+                                <field name="detalle"/>
+                            </group>
+                        </group>
+                        <group string="Evidencias">
+                            <group>
+                                <field name="evidencia_1"/>
+                                <field name="evidencia_2"/>
+                            </group>
+                            <group>
+                                <field name="evidencia_3"/>
+                                <field name="evidencia_4"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Vehículos">
+                                <group>
+                                    <field name="vehiculo_ids"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_siniestro_view_list" model="ir.ui.view">
+            <field name="name">atencion.cliente.siniestro.view.list</field>
+            <field name="model">atencion.cliente.siniestro</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="create_date"/>
+                    <field name="vin_sn"/>
+                    <field name="plaza_id"/>
+                    <field name="detalle"/>
+                    <field name="seguimiento"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_siniestro_view_search" model="ir.ui.view">
+            <field name="name">atencion.cliente.siniestro.ps.view.search</field>
+            <field name="model">atencion.cliente.siniestro</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_siniestro_action" model="ir.actions.act_window">
+            <field name="name">Siniestro</field>
+            <field name="res_model">atencion.cliente.siniestro</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="atencion_cliente_siniestro_view_list"/>
+        </record>
+    </data>
+</odoo>

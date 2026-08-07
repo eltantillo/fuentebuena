@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <div id="factura_dashboard" t-name="factura.dashboard" owl="1" class="d-flex justify-content-center align-items-center">
+        <style>
+            .estilo-letra {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+            }
+        </style>
+        <div class="container mt-2 estilo-letra" style=" width: 100%;">
+            <div class="row  text-center ">
+                <div class="col-lg-6 col-sm-12 h-100 mb-1" >
+                    <div class="row">
+                        <div class="col mb-3">
+                            <div class="card shadow-sm border-0 p-3"
+                                 style="cursor: pointer;"
+                                 t-att-data-state="'draft'"
+                                 t-on-click="ver_factura">
+                                <div class="mb-2">
+                                    <i class="fa fa-pencil-square" style="color: #f39c12;font-size: 2rem" />
+                                </div>
+                                <h4 class="fw-bold mb-1">
+                                    <t t-esc="state.totalBorrador"/>
+                                </h4>
+                                <p class="text-muted mb-0" style="font-size: 1rem">Borrador</p>
+                            </div>
+                        </div>
+
+                        <div class="col mb-3">
+                            <div class="card shadow-sm border-0 p-3"
+                                 style="cursor: pointer;"
+                                 t-att-data-state="'posted'"
+                                 t-on-click="ver_factura">
+                                <div class="mb-2">
+                                    <i class="fa fa-check-circle" style="color: #28a745;font-size: 2rem;"/>
+                                </div>
+                                <h4 class="fw-bold mb-1">
+                                    <t t-esc="state.totalConfirmadas"/>
+                                </h4>
+                                <p class="text-muted mb-0" style="font-size: 1rem">Confirmadas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <div class="card shadow-sm border-0 p-3"
+                                 style="cursor: pointer;"
+                                 t-att-data-state="'cancel'"
+                                 t-on-click="ver_factura">
+                                <div class="mb-2">
+                                    <i class="fa fa-times-circle" style="color: red;font-size: 2rem;"/>
+                                </div>
+                                <h4 class="fw-bold mb-1">
+                                    <t t-esc="state.totalCanceladas"/>
+                                </h4>
+                                <p class="text-muted mb-0" style="font-size: 1rem">Canceladas</p>
+                            </div>
+                        </div>
+
+                        <div class="col mb-3">
+                            <div class="card shadow-sm border-0 p-3"
+                                 style="cursor: pointer;"
+                                 t-att-data-state="'all'"
+                                 t-on-click="ver_factura">
+                                <div class="mb-2">
+                                    <i class="fa fa-globe" style="color: #3498db ;font-size: 2rem;"/>
+                                </div>
+                                <h4 class="fw-bold mb-1">
+                                    <t t-esc="state.totalFacturas"/>
+                                </h4>
+                                <p class="text-muted mb-0" style="font-size: 1rem">Totales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12 d-flex flex-column align-items-center shadow-sm border-0 h-100" style="background-color: white;">
+                    <h4>Facturas por status</h4>
+                    <canvas t-ref="facturaChart" id="facturaChart" style="width: 70%; height: 225px;"/>
+                </div>
+            </div>
+
+            <div class="row text-center mt-2" >
+                    <div class="col-lg-6 col-sm-12 d-flex flex-column align-items-center shadow-sm border-0 h-100" style="background-color: white;">
+                        <h4>Facturas por aprobaciones</h4>
+                        <canvas t-ref="facturaChart2" id="facturaChart2" style="width: 70%; height: 250px;"/>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 h-100" >
+                        <div class="row">
+                            <div class="col mb-3">
+                                <div class="card shadow-sm border-0 p-3"
+                                     style="cursor: pointer; height: 100%"
+                                     t-att-data-tipo="'aprobacion'"
+                                     t-on-click="ver_facturas_especiales">
+                                    <div class="mb-2">
+                                        <i class="fa fa-clock-o" style="color: #F1C40F;font-size: 2rem" />
+                                    </div>
+                                    <h4 class="fw-bold mb-1">
+                                        <t t-esc="state.totalPendientes"/>
+                                    </h4>
+                                    <p class="text-muted mb-0" style="font-size: 1rem">Pendietes de aprobación</p>
+                                </div>
+                            </div>
+                            <div class="col mb-3">
+                                <div class="card shadow-sm border-0 p-3"
+                                     style="cursor: pointer; height: 100%"
+                                     t-att-data-tipo="'solicitar'"
+                                     t-on-click="ver_facturas_especiales">
+                                    <div class="mb-2">
+                                        <i class="fa fa-paper-plane" style="color: #5DADE2;font-size: 2rem" />
+                                    </div>
+                                    <h4 class="fw-bold mb-1">
+                                        <t t-esc="state.totalSolicitar"/>
+                                    </h4>
+                                    <p class="text-muted mb-0" style="font-size: 1rem">Para solicitar aprobación</p>
+                                </div>
+                            </div>
+                            <div class="col mb-3">
+                                <div class="card shadow-sm border-0 p-3"
+                                     style="cursor: pointer; height: 100%"
+                                     t-att-data-tipo="'proveedor'"
+                                     t-on-click="ver_facturas_especiales">
+                                    <div class="mb-2">
+                                        <i class="fa fa-hourglass-half" style="color: #A569BD;font-size: 2rem" />
+                                    </div>
+                                    <h4 class="fw-bold mb-1">
+                                        <t t-esc="state.totalProveedorPendiente"/>
+                                    </h4>
+                                    <p class="text-muted mb-0" style="font-size: 1rem">Pendientes de aprobación proveedor</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mt-0" style="height: 100px">
+                                <div class="card shadow-lg border-0 position-relative text-center rounded-4"
+                                     style="cursor: pointer; height: 100%; transition: transform 0.3s;background-color: #317f43;"
+                                     t-att-data-tipo="'confirmar'"
+                                     t-on-click="ver_facturas_especiales"
+                                     onmouseover="this.style.transform='scale(1.03)'"
+                                     onmouseout="this.style.transform='scale(1)'">
+                                    <h3 class="fw-bold text-white mb-1 display-5 mt-0">
+                                        <t t-esc="state.totalPorConfirmar"/>
+                                    </h3>
+
+                                    <p class=" text-white" style="font-size: 1.1rem">Por confirmar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</templates>

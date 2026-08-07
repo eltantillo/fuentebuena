@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_mantenimiento_servicio_view_form" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.servicio.view.form</field>
+            <field name="model">fleet.mantenimiento.servicio</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="mantenimiento_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_mantenimiento_servicio_view_list" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.servicio.view.list</field>
+            <field name="model">fleet.mantenimiento.servicio</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="mantenimiento_ids"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_mantenimiento_servicio_action" model="ir.actions.act_window">
+            <field name="name">Servicios</field>
+            <field name="res_model">fleet.mantenimiento.servicio</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_mantenimiento_servicio_view_list"/>
+        </record>
+    </data>
+</odoo>

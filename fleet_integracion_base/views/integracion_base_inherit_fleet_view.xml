@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="integracion_base_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">integracion.base.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <field name="mostrar_btn_bloqueo" readonly="1" invisible="1"/>
+                    <field name="mostrar_btn_desbloqueo" readonly="1" invisible="1"/>
+                    <button name="bloquear_vehiculo"
+                            string="Bloquear"
+                            type="object"
+                            class="btn btn-danger"
+                            icon="fa-lock"
+                            invisible="mostrar_btn_bloqueo"
+                            groups="base.group_system"/>
+                    <button name="desbloquear_vehiculo"
+                            string="Desbloquear"
+                            type="object"
+                            class="btn btn-success"
+                            icon="fa-unlock"
+                            invisible="mostrar_btn_desbloqueo"
+                            groups="base.group_system"/>
+                </xpath>
+                <xpath expr="//field[@name='image_128']" position="before">
+                    <field name="mostrar_msj_bloqueo" invisible="1"/>
+                    <field name="mostrar_msj_desbloqueo" invisible="1"/>
+                    <group name="peticion_bloqueo" invisible="mostrar_msj_bloqueo">
+                        <div class="d-flex align-items-center">
+                            <div class="alert alert-warning w-100 mb-2" role="alert">
+                                <span class="me-2">
+                                    <i class="fa fa-lock text-danger me-1"/>
+                                    <strong>Actualmente hay una petición de bloqueo en curso</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </group>
+                    <group name="peticion_desbloqueo" invisible="mostrar_msj_desbloqueo">
+                        <div class="d-flex align-items-center">
+                            <div class="alert alert-warning w-100 mb-2" role="alert">
+                                <span class="me-2">
+                                    <i class="fa fa-unlock text-success me-1"/>
+                                    <strong>Actualmente hay una petición de desbloqueo en curso</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='es_gnv']" position="before">
+                    <field name="external_gps_id" readonly="1" invisible="external_gps_id == False"/>
+                    <field name="external_estado_bloqueo" readonly="1" invisible="external_estado_bloqueo == False"/>
+                    <field name="external_gps_provider" readonly="1" invisible="external_gps_provider == False"/>
+                </xpath>
+                <xpath expr="//group[@name='info_add']" position="after">
+                    <group>
+                        <field name="external_ubicacion" readonly="1" widget="google_map_widget" invisible="external_ubicacion == False"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

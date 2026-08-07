@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_formulario_broker" name="Formulario bolsa de Broker">
+        <t t-set="page_name" t-value="'formulario_broker'"/>
+        <t t-call-assets="formulario.assets_frontend" t-css="true" t-js="true"/>
+        <script src="/formulario/static/src/js/bootstrap.bundle.min.js" type="text/javascript"/>
+        <script src="/formulario/static/src/js/validacion.js" type="text/javascript" />
+        <script src="/formulario/static/src/js/estado.js" type="text/javascript" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
+        <div class="container pt-3">
+          <div class="row justify-content-center align-items-start">
+            <div class="col-md-5">
+                <form action="/broker-form/submit" method="POST" class="row g-3 needs-validation formulario-transparente" id="formulario" novalidate="novalidate" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div style="display: none !important; visibility: hidden !important; opacity: 0; position: absolute; left: -9999px;">
+                        <label for="website_check">No llenar este campo</label>
+                        <input type="text" id="website_check" name="website_check" tabindex="-1" autocomplete="off"/>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label>Nombre</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="name" class="form-control rounded-2" required="required"/>
+                            <div class="invalid-feedback text-center rounded-3" style="color: red;">
+                              Rellena este campo, es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label>No. Teléfono</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="telefono"
+                                    class="form-control no-spinners rounded-2" required="required"
+                                    pattern="[0-9]{10}" title="Debe contener exactamente 10 dígitos"
+                                    maxlength="10"
+                                    inputmode="numeric"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                            <div class="invalid-feedback text-center rounded-3" style="color: red;">
+                              Rellena este campo, es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label>Correo</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="email" name="correo" class="form-control rounded-2" required="required"/>
+                            <div class="invalid-feedback text-center rounded-3" style="color: red;">
+                              Rellena este campo, es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label>Estado</label>
+                        </div>
+                        <div class="col-8">
+                            <select name="estado_id" class="form-select rounded-2" required="required" id="estado">
+                                <option value="">Seleccione una opción</option>
+                                <t t-foreach="estados" t-as="estado">
+                                    <option t-att-value="estado.id">
+                                        <t t-esc="estado.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <div class="invalid-feedback text-center rounded-3" style="color: red;">
+                              Por favor, seleccione una opción.
+                            </div>
+                        </div>
+                    </div>
+                    <div id="municipios-data" style="display:none;"
+                         t-att-data-convenios="json.dumps([{
+                             'id': municipio.id,
+                             'municipio': municipio.nombre_municipio or '',
+                             'estado': municipio.nombre_entidad or ''
+                         } for municipio in municipios])">
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label>Municipio</label>
+                        </div>
+                        <div class="col-8">
+                            <select name="municipio_id" id="municipio" class="form-select rounded-2" required="required">
+                                <option value="">Seleccione una opción</option>
+                            </select>
+                            <div class="invalid-feedback text-center rounded-3" style="color: red;">
+                              Por favor, seleccione una opción.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <label>Numero de trabajadores</label>
+                        </div>
+                        <div class="col-8">
+                            <select name="num_empleado" id="num_empleado" class="form-select rounded-2" required="required">
+                                <option value="">Seleccione una opción</option>
+                                <t t-foreach="num_emps" t-as="emps">
+                                    <option t-att-value="emps[0]"><t t-esc="emps[1]"/></option>
+                                </t>
+                            </select>
+                            <div class="invalid-feedback text-center rounded-3" style="color: red;">
+                              Por favor, seleccione una opción.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-12 text-center">
+                            <input type="checkbox" id="terminos" name="autorizacion_datos" required="required"/>
+                            <label>
+                                Acepto
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminosAnimador">
+                                    el uso de mis datos personales
+                                </a>
+                            </label>
+                            <div class="invalid-feedback text-center" style="color:red;">
+                                Debes aceptar el uso de datos personales.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                         <button type="submit" id="btn_submit" class="btn btn-primary btn-custom mb-1" style="width: 30%;">
+                            <span style="color: white; font-weight: bold;">Enviar</span>
+                         </button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="modalTerminosAnimador" tabindex="-1" aria-labelledby="modalTerminosAnimadorLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTerminosAnimadorLabel">
+                            Uso de datos personales.
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Al enviar este formulario, autorizo el tratamiento de mis datos personales para ser contactado(a), recibir asesoría y enviarme información y promociones relacionadas con productos de crédito.
+                        </p>
+                        <p>
+                            Reconozco que puedo solicitar la cancelación o revocación de mi consentimiento en cualquier momento, conforme a la legislación aplicable.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-modal-animador"
+                                onclick="document.getElementById('terminos').checked = true"
+                                data-bs-dismiss="modal">
+                            Aceptar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

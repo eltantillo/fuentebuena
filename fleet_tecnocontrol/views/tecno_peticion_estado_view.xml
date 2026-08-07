@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="tecno_peticion_estado_view_form" model="ir.ui.view">
+            <field name="name">tecno.peticion.estado.view.form</field>
+            <field name="model">tecno.peticion.estado</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tecno_peticion_estado_view_list" model="ir.ui.view">
+            <field name="name">tecno.peticion.estado.view.list</field>
+            <field name="model">tecno.peticion.estado</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="tecno_peticion_estado_action" model="ir.actions.act_window">
+            <field name="name">Estado de petición</field>
+            <field name="res_model">tecno.peticion.estado</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="tecno_peticion_estado_view_list"/>
+        </record>
+    </data>
+</odoo>

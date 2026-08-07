@@ -1,0 +1,26 @@
+-Duplicar el de factura, como Usuario factura, revocar la eliminación
+-Duplicar el de administrador, como usuario Gerente y añadir account.move
+
+
+-Reglas de registro: usuarios = [('create_uid', '=', user.id)]
+-Reglas de registro: gerente = ['|', ('create_uid', '=', user.id), ('create_uid.employee_id', 'child_of', user.employee_id.id)]
+
+
+-Deshabilitar la visibilidad de los botones mediante studio
+-Habilitar los aprobadores
+
+-Hacer la jerarquía
+
+
+plantilla: <p>Hola ${object.create_uid.employee_id.parent_id.name or ''},</p>
+<p>La factura <strong>${object.name}</strong> ha sido marcada como pendiente de aprobación.</p>
+
+<p>
+    <a href="${object.get_formview_url()}" style="background-color:#875A7B;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;">
+        Ver factura
+    </a>
+</p>
+
+<p>Gracias.</p>
+
+

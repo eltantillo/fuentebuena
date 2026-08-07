@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <div id="cita_mantenimiento_dashboard" t-name="cita_mantenimiento.dashboard" owl="1" class="d-flex justify-content-center align-items-center dashboard-bg">
+        <style>
+        .estilo-letra {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+        }
+
+        .dashboard-bg {
+            background: linear-gradient(135deg, #00eca1, #283a3e);
+            border-radius: 20px;
+            padding-bottom: 120px;
+        }
+
+        .dashboard-title{
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            color: #fde1ad;
+        }
+
+        .borde_verde {
+            border: 1px solid #fde1ad;
+            box-shadow:
+                0 4px 12px rgba(0,0,0,.04),
+                0 0 8px rgba(0,236,161,.12);
+            transition: all .2s ease;
+        }
+
+        .borde_verde:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 18px rgba(0,0,0,.08),
+                0 0 12px rgba(0,236,161,.18);
+        }
+
+        .dashboard-card {
+            background-color: white;
+            min-height: 170px;
+        }
+
+        .dashboard-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .dashboard-label {
+            font-size: 1rem;
+            color: #6b7280;
+        }
+    </style>
+
+        <div class="container mt-3 estilo-letra" style="width: 100%;">
+
+            <div class="text-center mb-4">
+                <h1 class="dashboard-title">
+                    📅 Citas de mantenimiento
+                </h1>
+            </div>
+            <div class="row text-center mb-4">
+                <div class="col-lg-9 col-sm-12 mb-3">
+                    <div class="d-flex flex-column align-items-center rounded-4 borde_verde h-100 dashboard-card p-3">
+                        <canvas t-ref="facturaChart" id="facturaChart" style="width: 100%; height: 20rem;"/>
+                    </div>
+                </div>
+                <!-- LATERAL DERECHO -->
+                <div class="col-lg-3 col-sm-12 d-flex flex-column gap-3 h-100">
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 flex-fill "
+                         style="cursor:pointer;"
+                         t-att-data-state="'hoy'"
+                         t-on-click="ver_cita">
+                        <div class="d-flex flex-column justify-content-center align-items-center p-3 h-100">
+
+                            <div class="dashboard-number">
+                                <t t-esc="state.totalHoy"/>
+                            </div>
+                            <div class="dashboard-label">
+                                Citas para hoy
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 flex-fill"
+                         style="cursor:pointer;"
+                         t-att-data-state="'tomorrow'"
+                         t-on-click="ver_cita">
+                        <div class="d-flex flex-column justify-content-center align-items-center p-3 h-100">
+                            <div class="dashboard-number">
+                                <t t-esc="state.totalTomorrow"/>
+                            </div>
+                            <div class="dashboard-label">
+                                Citas para mañana
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS INFERIORES -->
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                         style="cursor: pointer;"
+                         t-att-data-state="'Programada'"
+                         t-on-click="ver_cita">
+                        <div class="mb-3">
+                            <i class="fa fa-pencil-square"
+                               style="color:#f39c12;font-size:2.5rem"/>
+                        </div>
+                        <div class="dashboard-number">
+                            <t t-esc="state.totalProgramadas"/>
+                        </div>
+                        <div class="dashboard-label">
+                            Programadas
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                         style="cursor: pointer;"
+                         t-att-data-state="'Asistida'"
+                         t-on-click="ver_cita">
+                        <div class="mb-3">
+                            <i class="fa fa-check-circle"
+                               style="color:#28a745;font-size:2.5rem;"/>
+                        </div>
+                        <div class="dashboard-number">
+                            <t t-esc="state.totalAsistidas"/>
+                        </div>
+                        <div class="dashboard-label">
+                            Asistidas
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                         style="cursor: pointer;"
+                         t-att-data-state="'Inasistencia'"
+                         t-on-click="ver_cita">
+                        <div class="mb-3">
+                            <i class="fa fa-pencil-square"
+                               style="color:#4B5563;font-size:2.5rem"/>
+                        </div>
+                        <div class="dashboard-number">
+                            <t t-esc="state.totalInasistencia"/>
+                        </div>
+                        <div class="dashboard-label">
+                            Inasistencia
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                         style="cursor: pointer;"
+                         t-att-data-state="'Cancelada'"
+                         t-on-click="ver_cita">
+                        <div class="mb-3">
+                            <i class="fa fa-times-circle"
+                               style="color:red;font-size:2.5rem;"/>
+                        </div>
+                        <div class="dashboard-number">
+                            <t t-esc="state.totalCanceladas"/>
+                        </div>
+                        <div class="dashboard-label">
+                            Canceladas
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                         style="cursor: pointer;"
+                         t-att-data-state="'Reagendada'"
+                         t-on-click="ver_cita">
+                        <div class="mb-3">
+                            <i class="fa fa-calendar"
+                               style="color:#3498db;font-size:2.5rem;"/>
+                        </div>
+                        <div class="dashboard-number">
+                            <t t-esc="state.totalReagendadas"/>
+                        </div>
+                        <div class="dashboard-label">
+                            Reagendadas
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                         style="cursor: pointer;"
+                         t-att-data-state="'all'"
+                         t-on-click="ver_cita">
+                        <div class="mb-3">
+                            <i class="fa fa-globe"
+                               style="color:#7C3AED;font-size:2.5rem"/>
+                        </div>
+                        <div class="dashboard-number">
+                            <t t-esc="state.totalCitas"/>
+                        </div>
+                        <div class="dashboard-label">
+                            Totales
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</templates>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_fondeo_inherit_fleet_view_list" model="ir.ui.view">
+            <field name="name">fleet.fondeo.inherit.fleet.view.list</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="vin_sn"/>
+                    <field name="state_id"/>
+                    <field name="numero_economico"/>
+                    <field name="model_id"/>
+                    <field name="version"/>
+                    <field name="transmission"/>
+                    <field name="es_gnv"/>
+                    <field name="model_year"/>
+                    <field name="color"/>
+                    <field name="sesionario_id"/>
+                    <field name="fuente_fondeo_id"/>
+                    <field name="driver_id"/>
+                    <field name="flotilla_id"/>
+                    <field name="producto_id"/>
+                    <field name="plaza_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_finanza_inherit_view_form" model="ir.ui.view">
+            <field name="name">fleet.finanza.inherit.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//form/sheet/group[@name='proveedor']" position="replace">
+                    <group>
+                        <group string="Proveedor" name="proveedor">
+                            <field name="proveedor_id" wiget="many2one" options="{'no_create': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group string="Finanzas" name="finanzas">
+                            <field name="fuente_fondeo_id" wiget="many2one" readonly="1"/>
+                            <field name="sesionario_id" wiget="many2one" readonly="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_fondeo_inherit_fleet_action" model="ir.actions.act_window">
+            <field name="name">Vehículos</field>
+            <field name="res_model">fleet.vehicle</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_fondeo_inherit_fleet_view_list"/>
+            <field name="context">{'create': False, 'edit': False, 'delete': False,  'group_by': ['fuente_fondeo_id']}</field>
+        </record>
+    </data>
+</odoo>

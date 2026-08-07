@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record id="atencion_cliente_sequence" model="ir.sequence">
+            <field name="name">Atención a Cliente</field>
+            <field name="code">atencion_compra_seq</field>
+            <field name="prefix">AC</field>
+            <field name="padding">0</field>
+            <field name="number_next">1000</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

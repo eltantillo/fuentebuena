@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="formulario_broker_view_form" model="ir.ui.view">
+            <field name="name">formulario.broker.view.form</field>
+            <field name="model">formulario.broker</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Información de formulario">
+                            <field name="create_date" string="Fecha de registro"/>
+                            <field name="nombre"/>
+                            <field name="telefono"/>
+                            <field name="correo"/>
+                            <field name="estado_id"/>
+                            <field name="municipio_id"/>
+                            <field name="num_empleado"/>
+                            <field name="acepto_uso_datos"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="formulario_broker_view_list" model="ir.ui.view">
+            <field name="name">formulario.broker.view.list</field>
+            <field name="model">formulario.broker</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="create_date" string="Fecha de registro"/>
+                    <field name="nombre"/>
+                    <field name="telefono"/>
+                    <field name="correo"/>
+                    <field name="estado_id"/>
+                    <field name="municipio_id"/>
+                    <field name="num_empleado"/>
+                    <field name="acepto_uso_datos"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="formulario_broker_action" model="ir.actions.act_window">
+            <field name="name">Formulario Broker</field>
+            <field name="res_model">formulario.broker</field>
+            <field name="view_mode">form,list</field>
+            <field name="view_id" ref="formulario_broker_view_list"/>
+        </record>
+    </data>
+</odoo>

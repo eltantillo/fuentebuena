@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <div id="formulario_dashboard" t-name="formulario.dashboard" owl="1" class="d-flex justify-content-center align-items-center dashboard-bg" style="height: 100%">
+        <style>
+            .estilo-letra {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+            }
+
+            .dashboard-bg {
+                background: linear-gradient(135deg, #8e00ecff, #3a283eff);
+                border-radius: 20px;
+                padding-bottom: 120px;
+            }
+
+            .dashboard-title{
+                font-size: 32px;
+                font-weight: 700;
+                margin: 0;
+                color: #fde1ad;
+            }
+
+            .borde_verde {
+                border: 1px solid #fde1ad;
+                box-shadow:
+                    0 4px 12px rgba(0,0,0,.04),
+                    0 0 8px rgba(0,236,161,.12);
+                transition: all .2s ease;
+            }
+
+            .borde_verde:hover {
+                transform: translateY(-2px);
+                box-shadow:
+                    0 8px 18px rgba(0,0,0,.08),
+                    0 0 12px rgba(0,236,161,.18);
+            }
+
+            .dashboard-card {
+                background-color: white;
+                min-height: 200px;
+            }
+
+            .dashboard-number {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #1f2937;
+            }
+
+            .dashboard-label {
+                font-size: 1rem;
+                color: #6b7280;
+            }
+        </style>
+        <div class="row" style="height: 100%">
+            <h1 class="dashboard-title text-center pt-5">
+                📅 Formularios
+            </h1>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                        style="cursor: pointer;"
+                        t-att-data-state="'Préstamo sin buro'"
+                        t-on-click="ver_formulario">
+                    <div class="mb-3">
+                        <i class="fa fa-money"
+                            style="color:#f39c12;font-size:2.5rem"/>
+                    </div>
+                    <div class="dashboard-number">
+                        <t t-esc="state.totalPSinBuro"/>
+                    </div>
+                    <div class="dashboard-label">
+                        Préstamo sin buro
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                        style="cursor: pointer;"
+                        t-att-data-state="'Bolsa de trabajo'"
+                        t-on-click="ver_formulario">
+                    <div class="mb-3">
+                        <i class="fa fa-briefcase"
+                            style="color:#28a745;font-size:2.5rem;"/>
+                    </div>
+                    <div class="dashboard-number">
+                        <t t-esc="state.totalBolsaTrabajo"/>
+                    </div>
+                    <div class="dashboard-label">
+                        Bolsa de trabajo
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                        style="cursor: pointer;"
+                        t-att-data-state="'Solicita'"
+                        t-on-click="ver_formulario">
+                    <div class="mb-3">
+                        <i class="fa fa-file-text-o"
+                            style="color:#4B5563;font-size:2.5rem"/>
+                    </div>
+                    <div class="dashboard-number">
+                        <t t-esc="state.totalSolicita"/>
+                    </div>
+                    <div class="dashboard-label">
+                        Solicita
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                        style="cursor: pointer;"
+                        t-att-data-state="'Prospectos'"
+                        t-on-click="ver_formulario">
+                    <div class="mb-3">
+                        <i class="fa fa-users"
+                            style="color:red;font-size:2.5rem;"/>
+                    </div>
+                    <div class="dashboard-number">
+                        <t t-esc="state.totalProspecto"/>
+                    </div>
+                    <div class="dashboard-label">
+                        Prospectos
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                        style="cursor: pointer;"
+                        t-att-data-state="'Afilia tu Dependencia'"
+                        t-on-click="ver_formulario">
+                    <div class="mb-3">
+                        <i class="fa fa-link"
+                            style="color:#3498db;font-size:2.5rem;"/>
+                    </div>
+                    <div class="dashboard-number">
+                        <t t-esc="state.totalAfiliaDep"/>
+                    </div>
+                    <div class="dashboard-label">
+                        Afilia tu Dependencia
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                <div class="card rounded-4 borde_verde dashboard-card p-4 text-center"
+                        style="cursor: pointer;"
+                        t-att-data-state="'Empresas'"
+                        t-on-click="ver_formulario">
+                    <div class="mb-3">
+                        <i class="fa fa-building-o"
+                            style="color:#7C3AED;font-size:2.5rem"/>
+                    </div>
+                    <div class="dashboard-number">
+                        <t t-esc="state.totalEmpresas"/>
+                    </div>
+                    <div class="dashboard-label">
+                        Empresas
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</templates>

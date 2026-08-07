@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_recepcion"
+                  name="Recepción de Vehículos"
+                  parent="fleet.fleet_vehicles"
+                  sequence="10"
+                  action="fleet_recepcion_action"/>
+
+        <menuitem id="menu_fleet_recepcion_catalogo"
+                  name="Recepción"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="120"/>
+
+        <menuitem id="menu_fleet_recepcion_cat_lugar"
+                  name="Lugar de recepción"
+                  parent="menu_fleet_recepcion_catalogo"
+                  sequence="1"
+                  action="fleet_recepcion_lugar_action"/>
+
+        <menuitem id="menu_fleet_reges_vehiculo"
+                  name="Registrar vehiculo"
+                  parent="fleet.fleet_vehicles"
+                  sequence="40"
+                  groups="base.group_system"
+                  action="factura_recepcion_invoice_action"/>
+    </data>
+</odoo>

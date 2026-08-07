@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+complemento_pago_all,complemento_pago_all,model_complemento_pago,,1,0,0,0
+complemento_pago_group,complemento_pago_group,model_complemento_pago,group_complemento_pago,1,1,1,1
+complemento_pago_sys,complemento_pago_sys,model_complemento_pago,base.group_system,1,1,1,1

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="complemento_inherit_poliza_view_form" model="ir.ui.view">
+            <field name="name">complemento.inherit.poliza.view.form</field>
+            <field name="model">fleet.poliza</field>
+            <field name="inherit_id"  ref="fleet_poliza.fleet_poliza_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='factura']" position="after">
+                    <page name="complemento" string="Complementos de pago">
+                        <field name="complemento_ids" context="{'default_poliza_id': id}"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_recepcion_view_form" model="ir.ui.view">
+            <field name="name">fleet.recepcion.view.form</field>
+            <field name="model">fleet.recepcion</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <header>
+                        <button name="action_open_recepcion"
+                        type="object"
+                        string="Abrir Recepción"
+                        class="btn-primary"
+                        invisible="1"/>
+                    </header>
+                    <sheet>
+                        <group string="Datos de recepción" name="data_recepcion">
+                            <group>
+                                <field name="fecha_recepcion"/>
+                                <field name="condicion_vehiculo_id"/>
+                            </group>
+                            <group>
+                                <field name="lugar_recepcion_id"/>
+                                <field name="permiso_provicional"/>
+                            </group>
+                        </group>
+                        <group string="Información del vehículo" name="data_vehiculo">
+                            <field name="vehiculo_id"/>
+                            <field name="vin_sn" readonly="1"/>
+                            <field name="numero_economico" readonly="1"/>
+                            <field name="producto_id" readonly="1"/>
+                            <field name="plaza_id" readonly="1"/>
+                            <field name="modelo_id" readonly="1"/>
+                            <field name="ultimo_odometro" readonly="1"/>
+                        </group>
+                        <group name="data_eval_vehiculo_exterior">
+                            <group string="Exterior frontal" name="data_exterior_frontal">
+                                <field name="exterior_frontal_faro" widget="radio"  options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_faro_observacion" invisible="exterior_frontal_faro == 'Bueno'"/>
+                                <field name="exterior_frontal_cofre" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_cofre_observacion" invisible="exterior_frontal_cofre == 'Bueno'"/>
+                                <field name="exterior_frontal_portaplaca" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_portaplaca_observacion" invisible="exterior_frontal_portaplaca == 'Bueno'"/>
+                                <field name="exterior_frontal_tapon_liquido" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_tapon_liquido_observacion" invisible="exterior_frontal_tapon_liquido == 'Bueno'"/>
+                                <field name="exterior_frontal_varillaaceite" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_varillaaceite_observacion" invisible="exterior_frontal_varillaaceite == 'Bueno'"/>
+                                <field name="exterior_frontal_nivelaceite" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_nivelaceite_observacion" invisible="exterior_frontal_nivelaceite == 'Optimo'"/>
+                                <field name="exterior_frontal_anticongelante" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_anticongelante_observacion" invisible="exterior_frontal_anticongelante == 'Optimo'"/>
+                                <field name="exterior_frontal_liquidofrenos" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_liquidofrenos_observacion" invisible="exterior_frontal_liquidofrenos == 'Optimo'"/>
+                                <field name="exterior_frontal_facia" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_facia_observacion" invisible="exterior_frontal_facia == 'Bueno'"/>
+                                <field name="exterior_frontal_limpiador" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_limpiador_observacion" invisible="exterior_frontal_limpiador == 'Bueno'"/>
+                                <field name="exterior_frontal_antena" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_frontal_antena_observacion" invisible="exterior_frontal_antena == 'Bueno'"/>
+                            </group>
+                            <group string="Exterior trasero" name="data_exterior_trasero">
+                                <field name="exterior_trasero_cajuela" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_trasero_cajuela_observacion" invisible="exterior_trasero_cajuela == 'Bueno'"/>
+                                <field name="exterior_trasero_calavera" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_trasero_calavera_observacion" invisible="exterior_trasero_calavera == 'Bueno'"/>
+                                <field name="exterior_trasero_defensa" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_trasero_defensa_observacion" invisible="exterior_trasero_defensa == 'Bueno'"/>
+                                <field name="exterior_trasero_llantaref_gato" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_trasero_llantaref_gato_observacion" invisible="exterior_trasero_llantaref_gato == 'Bueno'"/>
+                                <field name="exterior_trasero_refherramienta" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_trasero_refherramienta_observacion" invisible="exterior_trasero_refherramienta == 'Bueno'"/>
+                                <field name="exterior_trasero_portaplaca" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_trasero_portaplaca_observacion" invisible="exterior_trasero_portaplaca == 'Bueno'"/>
+                            </group>
+                        </group>
+                        <group name="data_eval_vehiculo_lateral">
+                            <group string="Exterior lateral derecho" name="data_lateral_exterior_derecho">
+                                <field name="exterior_lat_derecho_espejo" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_lat_derecho_espejo_observacion" invisible="exterior_lat_derecho_espejo == 'Bueno'"/>
+                                <field name="exterior_lat_derecho_costado" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_lat_derecho_costado_observacion" invisible="exterior_lat_derecho_costado == 'Bueno'"/>
+                            </group>
+                            <group string="Exterior lateral izquierdo" name="data_lateral_exterior_izquierdo">
+                                <field name="exterior_lat_izquierdo_espejo" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_lat_izquierdo_espejo_observacion" invisible="exterior_lat_izquierdo_espejo == 'Bueno'"/>
+                                <field name="exterior_lat_izquierdo_costado" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_lat_izquierdo_costado_observacion" invisible="exterior_lat_izquierdo_costado == 'Bueno'"/>
+                                <field name="exterior_lat_izquierdo_tapon" widget="radio" options="{'horizontal': true}"/>
+                                <field name="exterior_lat_izquierdo_tapon_observacion" invisible="exterior_lat_izquierdo_tapon == 'Bueno'"/>
+                            </group>
+                        </group>
+                        <group name="data_eval_vehiculo_interior">
+                            <group string="Interior frontal" name="data_interior_frontal">
+                                <field name="interior_frontal_tablero" widget="radio" options="{'horizontal': true}"/>
+                                <field name="interior_frontal_tablero_observacion" invisible="interior_frontal_tablero == 'Bueno'"/>
+                                <field name="interior_frontal_estereo" widget="radio" options="{'horizontal': true}"/>
+                                <field name="interior_frontal_estereo_observacion" invisible="interior_frontal_estereo == 'Bueno'"/>
+                                <field name="interior_frontal_clima" widget="radio" options="{'horizontal': true}"/>
+                                <field name="interior_frontal_clima_observacion" invisible="interior_frontal_clima == 'Bueno'"/>
+                                <field name="interior_frontal_espejo_retrovisor" widget="radio" options="{'horizontal': true}"/>
+                                <field name="interior_frontal_espejo_retrovisor_observacion" invisible="interior_frontal_espejo_retrovisor == 'Bueno'"/>
+                            </group>
+                            <group string="Interiores">
+                                <field name="interiores" widget="radio" options="{'horizontal': true}"/>
+                                <field name="interiores_observacion" invisible="interiores == 'Bueno'"/>
+                                <field name="tapetes" widget="radio" options="{'horizontal': true}"/>
+                                <field name="tapetes_observacion" invisible="tapetes == 'Bueno'"/>
+                                <field name="vidrios" widget="radio" options="{'horizontal': true}"/>
+                                <field name="vidrios_observacion" invisible="vidrios == 'Bueno'"/>
+                                <field name="birlos_seguridad" widget="radio" options="{'horizontal': true}"/>
+                                <field name="birlos_seguridad_observacion" invisible="birlos_seguridad == 'Bueno'"/>
+                            </group>
+                        </group>
+                        <group name="data_entrega_recibe">
+                            <group string="Entregó">
+                                <field name="persona_entrega"/>
+                                <field name="persona_entrega_firma" widget="signature"/>
+                            </group>
+                            <group string="Recibió">
+                                <field name="persona_recibe"/>
+                                <field name="persona_recibe_firma" widget="signature"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Cronos fotografíco">
+                                <group>
+                                    <group>
+                                        <field name="foto_vin" widget="image"/>
+                                        <field name="foto_lateral_izquierdo" widget="image"/>
+                                        <field name="foto_frente" widget="image"/>
+                                    </group>
+                                    <group>
+                                        <field name="foto_toldo" widget="image"/>
+                                        <field name="foto_lateral_derecho" widget="image"/>
+                                        <field name="foto_trasero" widget="image"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_recepcion_view_list" model="ir.ui.view">
+            <field name="name">fleet.recepcion.view.list</field>
+            <field name="model">fleet.recepcion</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="condicion_vehiculo_id"/>
+                    <field name="vehiculo_id"/>
+                    <field name="vin_sn"/>
+                    <field name="lugar_recepcion_id"/>
+                    <field name="persona_recibe"/>
+                    <field name="persona_entrega"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_recepcion_view_search" model="ir.ui.view">
+            <field name="name">fleet.recepcion.view.search</field>
+            <field name="model">fleet.recepcion</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="fleet_recepcion_action" model="ir.actions.act_window">
+            <field name="name">Recepción</field>
+            <field name="res_model">fleet.recepcion</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_recepcion_view_list"/>
+        </record>
+    </data>
+</odoo>

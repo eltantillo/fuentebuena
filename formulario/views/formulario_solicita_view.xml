@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record  id="formulario_solicita_view_form" model="ir.ui.view">
+            <field name="name">formulario.solicita.view.form</field>
+            <field name="model">formulario.solicita</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Datos del usuario">
+                            <field name="create_date" string="Fecha de creación"/>
+                            <field name="nombre"/>
+                            <field name="rfc"/>
+                            <field name="telefono"/>
+                            <field name="correo"/>
+                            <field name="estado_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="formulario_solicita_view_list" model="ir.ui.view">
+            <field name="name">formulario.solicita.view.list</field>
+            <field name="model">formulario.solicita</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="create_date" string="Fecha de creación"/>
+                    <field name="nombre"/>
+                    <field name="rfc"/>
+                    <field name="telefono"/>
+                    <field name="correo"/>
+                    <field name="estado_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="formulario_solicita_action" model="ir.actions.act_window">
+            <field name="name">Formulario solicita</field>
+            <field name="res_model">formulario.solicita</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="formulario_solicita_view_list"/>
+        </record>
+    </data>
+</odoo>

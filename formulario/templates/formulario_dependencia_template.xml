@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_formulario_institucion" name="Formulario Dependencia">
+        <t t-set="head">
+            <!-- Google tag (gtag.js) -->
+            <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-TTL6TDLW17"></script>
+            <script type="text/javascript">
+                window.dataLayer = window.dataLayer || [];
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag('js', new Date());
+                gtag('config', 'G-TTL6TDLW17');
+            </script>
+        </t>
+        <t t-call="website.layout">
+            <t t-set="title">Afilia tu Institución</t>
+            <t t-set="page_name" t-value="'formulario_institucion'"/>
+            <script src="/formulario/static/src/js/validacion.js" type="text/javascript"/>
+            <link rel="stylesheet" href="/formulario/static/src/css/style_form.css"/>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
+            <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+                <br/>
+                <section class="oe_structure"></section>
+                <div id="card-formulario-animador">
+                    <h1>Registra tu institución aquí</h1>
+                    <br/>
+                    <div class="container mt-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <form action="/afilia-tu-institucion/submit" method="POST" class="row g-3 needs-validation" id="formulario-animador" novalidate="novalidate">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                     <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Nombre completo</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="nombre_completo" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Número de teléfono</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="numero_telefono"
+                                                   class="form-control rounded-2"
+                                                   pattern="[0-9]{10}"
+                                                   maxlength="10"
+                                                   inputmode="numeric"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                                   required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Debe tener 10 dígitos
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Correo electrónico</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="email"
+                                                   name="correo_electronico"
+                                                   class="form-control rounded-2"
+                                                   required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Ingresa un correo válido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Dependencia o Ayuntamiento</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="dependencia_ayuntamiento" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Puesto</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="puesto" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Categoría de empelado</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="categoria_id" class="form-select rounded-2" required="required">
+                                                <option value="">Seleccione una opción</option>
+                                                <t t-foreach="categora_empleado" t-as="cat">
+                                                    <option t-att-value="cat.id"><t t-esc="cat.name"/></option>
+                                                </t>
+                                            </select>
+                                            <div class="invalid-feedback text-center" style="color:red;">Selecciona una actividad</div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>¿Perteneces a un sindicato?</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="pertenece_sindicato" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Medio de contacto institucional con tu dependencia</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="medio_contacto_institucional" class="form-control rounded-2" required="required"/>
+                                            <small class="text-muted" style="font-size: 0.8em; line-height: 1;">No se deberán de incluir los medios de contacto personales de los servidores públicos.</small>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Nombre del contacto</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="nombre_contacto" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Puesto del contacto</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="puesto_contacto" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Nombre del presidente municipal</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="nombre_presidente_municipal" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-animador" style="padding: 8px 30px;">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+                <section class="oe_structure"></section>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gestion_caido_view_form" model="ir.ui.view">
+            <field name="name">gestion.caido.view.form</field>
+            <field name="model">gestion.caido</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="mostrar_btn_retencion" invisible="1"/>
+                        <field name="mostrar_btn_lib_retencion" invisible="1"/>
+                        <field name="mostrar_page_retencion" invisible="1"/>
+                        <field name="mostrar_btn_cambio_etapa" invisible="1"/>
+                        <button name="cambiar_etapa" type="object" string="Cambiar de etapa" class="btn-info" icon="fa-arrow-circle-right" invisible="mostrar_btn_cambio_etapa or id == False"/>
+                        <button name="retener" type="object" string="Retener" class="btn-warning" icon="fa-stop" invisible="mostrar_btn_retencion"/>
+                        <button name="liberar_retencion" type="object" string="Liberar retención" class="btn-success" icon="fa-play" invisible="mostrar_btn_lib_retencion"/>
+                        <field name="domain" invisible="1"/>
+                        <field name="estado_id" widget="statusbar" domain="domain"/>
+                    </header>
+                    <sheet>
+                        <group string="Datos de Gestión" invisible="id == False">
+                            <group>
+                                <field name="gestor_id" readonly="1"/>
+                                <field name="motivo_cancelacion_id" readonly="1" invisible="motivo_cancelacion_id == False"/>
+                            </group>
+                            <group>
+                                <label for="gestion_activa" string="Gestión" class="my-auto"/>
+                                <div class="d-flex align-items-center my-auto">
+                                    <span class="badge bg-100 text-dark border rounded-pill d-inline-flex align-items-center justify-content-center gap-2 px-3 py-1 fs-6 fw-normal">
+                                        <span class="rounded-circle bg-success flex-shrink-0"
+                                              style="width: 8px; height: 8px;"
+                                              invisible="gestion_activa != 'Activa'"/>
+                                        <span class="rounded-circle bg-danger flex-shrink-0"
+                                              style="width: 8px; height: 8px;"
+                                              invisible="gestion_activa == 'Activa'"/>
+                                        <field name="gestion_activa" readonly="1" nolabel="1" class="m-0 p-0"/>
+                                    </span>
+                                </div>
+                            </group>
+                        </group>
+                        <group string="Datos de retención" invisible="mostrar_page_retencion">
+                            <field name="fecha_incio_retencion" readonly="1"/>
+                            <field name="fecha_estimada_retencion" readonly="1"/>
+                            <field name="fecha_finalizacion_retencion" readonly="1"/>
+                            <field name="motivo_retencion" readonly="1"/>
+                        </group>
+                        <group>
+                            <group string="Información del vehículo">
+                                <field name="vehiculos_permitidos_ids" invisible="1"/>
+                                <field name="vehiculo_id" domain="[('id','in', vehiculos_permitidos_ids)]" required="1"/>
+                                <field name="gestores_permitidos" invisible="1"/>
+                                <field name="gestor_id" domain="[('id','in', gestores_permitidos)]" required="1" invisible="id != False"/>
+                                <field name="token_access" required="1" invisible="id != False"/>
+                                <field name="model_id"/>
+                                <field name="version_id"/>
+                                <field name="vin_sn"/>
+                                <field name="plaza_id"/>
+                                <field name="producto_id"/>
+                            </group>
+                            <group string="Datos del contrato">
+                                <field name="estado" widget="badge"
+                                       decoration-success="estado == 'open'"
+                                       decoration-danger="estado in ('expired', 'closed')"/>
+                                <field name="contato_id"/>
+                                <field name="nombre_arrendatario" invisible="arrendatario_id"/>
+                                <field name="arrendatario_id" invisible="nombre_arrendatario"/>
+                                <field name="cie"/>
+                                <field name="num_contrato"/>
+                            </group>
+                        </group>
+                        <group string="Datos del conductor">
+                            <field name="cliente_id"/>
+                            <field name="correo_cliente"/>
+                            <field name="telefono_cliente"/>
+                        </group>
+                        <notebook>
+                            <page string="Evidencia posesión" readonly="1">
+                                <group>
+                                    <group>
+                                        <field name="cordenadas_posesion" widget="google_map_display"/>
+                                    </group>
+                                    <group>
+                                        <field name="ultima_ubi_vehiculo" widget="google_map_display"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Llave">
+                                        <field name="evidencia_llave_posesion" widget="image"
+                                               options="{'accepted_file_extensions': 'image/*', 'capture': 'camera'}"/>
+                                    </group>
+                                    <group string="Tarjeta de circulación">
+                                        <field name="evidencia_tarjeta_posesion" widget="image"
+                                               options="{'accepted_file_extensions': 'image/*', 'capture': 'camera'}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Evidencia recuperación" readonly="1">
+                                <group>
+                                    <group>
+                                        <field name="cordenadas_recuperacion" widget="google_map_display"/>
+                                    </group>
+                                    <group>
+                                        <field name="ubi_vehiculo_recuperacion" widget="google_map_display"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Evidencia 1">
+                                        <field name="evidencia_recuperacion_uno" widget="image"
+                                               options="{'accepted_file_extensions': 'image/*', 'capture': 'camera'}"/>
+                                    </group>
+                                    <group string="Evidencia 2">
+                                        <field name="evidencia_recuperacion_dos" widget="image"
+                                               options="{'accepted_file_extensions': 'image/*', 'capture': 'camera'}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Eventos">
+                                <field name="track_ids" create="false" delete="false" readonly="1">
+                                    <list>
+                                        <field name="evento"/>
+                                        <field name="fecha_inicio"/>
+                                        <field name="fecha_finalizacion"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="gestion_caido_view_list" model="ir.ui.view">
+            <field name="name">gestion.caido.view.list</field>
+            <field name="model">gestion.caido</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="vin_sn"/>
+                    <field name="plaza_id"/>
+                    <field name="nombre_arrendatario" invisible="arrendatario_id"/>
+                    <field name="arrendatario_id" invisible="nombre_arrendatario"/>
+                    <field name="num_contrato"/>
+                    <field name="estado_id"/>
+                    <field name="gestion_activa"
+                           widget="badge"
+                           decoration-success="gestion_activa == 'Activa'"
+                           decoration-danger="gestion_activa == 'Inactiva'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="gestion_caido_view_search" model="ir.ui.view">
+            <field name="name">gestion.caido.view.search</field>
+            <field name="model">gestion.caido</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <field string="CIE" name="cie" filter_domain="[('cie', 'ilike', self)]"/>
+                    <field string="Número de contrato" name="num_contrato" filter_domain="[('num_contrato', 'ilike', self)]"/>
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Plaza - Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]" />
+                    <filter string="Plaza - Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]" />
+                    <filter string="Plaza - Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]" />
+                    <filter string="Plaza - León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]" />
+                    <filter string="Plaza - Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]" />
+                    <separator/>
+                    <filter string="Activa" name="ativa" domain="[('gestion_activa', '=', '#28a745')]" />
+                    <filter string="Inactiva" name="inactiva" domain="[('gestion_activa', '=', '#dc3545')]" />
+                    <separator/>
+                    <filter string="Estado" name="groupby_estado" context="{'group_by': 'estado_id'}"/>
+                    <filter string="Plaza" name="groupby_plaza" context="{'group_by': 'plaza_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="gestion_caido_view_kanban" model="ir.ui.view">
+            <field name="name">gestion.caido.view.kanban</field>
+            <field name="model">gestion.caido</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="estado_id" class="o_kanban_example">
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click p-3 rounded shadow-sm border-start border-4 border-primary bg-white">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <strong class="o_kanban_record_title text-primary fs-6 pe-2">
+                                        <field name="rec_name"/>
+                                    </strong>
+                                    <div class="d-flex align-items-center bg-light px-2 py-1 rounded-pill border">
+                                        <span class="rounded-circle me-1"
+                                              t-attf-style="background-color: #{record.gestion_activa.raw_value}; width: 10px; height: 10px; display: inline-block;"/>
+                                        <small class="fw-bold text-muted" style="font-size: 0.75rem;">
+                                            <field name="gestion_activa"/>
+                                        </small>
+                                    </div>
+                                </div>
+                                <hr class="my-2 text-muted opacity-25"/>
+                                <div class="o_kanban_record_body">
+                                    <div class="d-flex align-items-center mb-2 text-secondary">
+                                        <i class="fa fa-car fa-fw me-2 text-primary opacity-75"/>
+                                        <span class="fw-semibold text-dark"><field name="vehiculo_id"/></span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fa fa-map-marker fa-fw me-2 text-danger fs-5"/>
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 fs-6 fw-bold">
+                                            <field name="plaza_id"/>
+                                        </span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted small">
+                                        <i class="fa fa-barcode fa-fw me-2"/>
+                                        <span class="font-monospace"><field name="vin_sn"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="gestion_caido_action" model="ir.actions.act_window">
+            <field name="name">Gestión de caídos</field>
+            <field name="res_model">gestion.caido</field>
+            <field name="view_mode">list,form,search,kanban</field>
+            <field name="view_id" ref="gestion_caido_view_list"/>
+        </record>
+    </data>
+</odoo>

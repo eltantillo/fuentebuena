@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_odometro_view_form" model="ir.ui.view">
+            <field name="name">fleet.odometro.view.form</field>
+            <field name="model">fleet.vehicle.odometer</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_odometer_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="replace">
+                    <sheet>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="vehicle_id"/>
+                            <field name="vin_sn" readonly="1"/>
+                            <field name="driver_id" string="Cliente"/>
+                            <label for="value"/>
+                            <div class="o_row">
+                                <field name="value" class="oe_inline"/>
+                                <field name="unit" class="ms-2"/>
+                            </div>
+                        </group>
+                    </sheet>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_odometro_view_list" model="ir.ui.view">
+            <field name="name">fleet.odometro.view.list</field>
+            <field name="model">fleet.vehicle.odometer</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="create_date"/>
+                    <field name="vehicle_id"/>
+                    <field name="vin_sn"/>
+                    <field name="driver_id" string="Cliente"/>
+                    <field name="value"/>
+                    <field name="unit"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_odometro_action" model="ir.actions.act_window">
+            <field name="name">Odómetros</field>
+            <field name="res_model">fleet.vehicle.odometer</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_odometro_view_list"/>
+        </record>
+
+        <menuitem id="fleet.fleet_vehicle_odometer_menu"
+                  name="Odómetros"
+                  sequence="10"
+                  parent="fleet.fleet_vehicles"
+                  action="fleet_odometro.fleet_odometro_action"/>
+    </data>
+</odoo>

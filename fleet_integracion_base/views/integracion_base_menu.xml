@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="integracion_base_bloqueo_menu"
+                  name="Peticiones de bloqueo"
+                  parent="fleet.fleet_vehicles"
+                  sequence="210"
+                  action="integracion_base_bloqueo_action"/>
+    </data>
+</odoo>

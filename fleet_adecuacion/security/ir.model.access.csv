@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_adecuacion_catalogo_sys,access_fleet_adecuacion_catalogo_sys,model_fleet_adecuacion_catalogo,base.group_system,1,1,1,1
+access_fleet_adecuacion_sys,access_fleet_adecuacion_sys,model_fleet_adecuacion,base.group_system,1,1,1,1
+access_fleet_adecuacion_config_sys,access_fleet_adecuacion_config_sys,model_fleet_adecuacion_config,base.group_system,1,1,1,1
+
+access_fleet_adecuacion_catalogo_all,access_fleet_adecuacion_catalogo_all,model_fleet_adecuacion_catalogo,,1,0,0,0
+access_fleet_adecuacion_all,access_fleet_adecuacion_all,model_fleet_adecuacion,,1,0,0,0
+access_fleet_adecuacion_config_all,access_fleet_adecuacion_config_all,model_fleet_adecuacion_config,,1,0,0,0
+
+
+access_adecuacion_config_edit_user,access_adecuacion_config_edit_user,model_fleet_adecuacion_config,fleet_customer.group_config_plantilla,1,1,1,0

@@ -1,0 +1,1 @@
+from . import opcion_compra_inherit

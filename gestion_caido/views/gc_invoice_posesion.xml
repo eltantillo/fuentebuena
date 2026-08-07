@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gc_invoice_posesion_action" model="ir.actions.client">
+            <field name="name">GC Posesión</field>
+            <field name="tag">gc_posesion_posesion</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

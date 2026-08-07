@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="formulario_prestamo_sin_buro_view_form" model="ir.ui.view">
+        <field name="name">formulario.prestamo.sin.buro.view.form</field>
+        <field name="model">formulario.prestamo.sin.buro</field>
+        <field name="arch" type="xml">
+            <form string="formulario_prestamo_sin_buro_form">
+                <sheet>
+                    <group string="Datos del usuario">
+                        <field name="ver_convenio" invisible="True"/>
+                        <field name="create_date" string="Fecha de creación"/>
+                        <field name="es_trabajador_ayuntamiento"/>
+                        <field name="nombre"/>
+                        <field name="apellido"/>
+                        <field name="correo" widget="email"/>
+                        <field name="telefono" widget="phone"/>
+                        <field name="estado_id"/>
+                        <field name="convenio_id"  domain="[('estado_id', '=', estado_id)]"/>
+                        <field name="puesto_ocupado_id" widget="many2one"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="formulario_prestamo_sin_buro_view_list" model="ir.ui.view">
+        <field name="name">formulario.prestamo.sin.buro.view.list</field>
+        <field name="model">formulario.prestamo.sin.buro</field>
+        <field name="arch" type="xml">
+            <list string="formulario_prestamo_sin_buro_list">
+                <field name="create_date" string="Fecha de creación"/>
+                <field name="es_trabajador_ayuntamiento"/>
+                <field name="nombre"/>
+                <field name="apellido"/>
+                <field name="correo" widget="email"/>
+                <field name="telefono" widget="phone"/>
+                <field name="estado_id"/>
+                <field name="puesto_ocupado_id" widget="many2one"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="formulario_prestamo_sin_buro_action" model="ir.actions.act_window">
+        <field name="name">Formulario préstamo sin buro</field>
+        <field name="res_model">formulario.prestamo.sin.buro</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="formulario_prestamo_sin_buro_view_list"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cm_ultimo_cambio_mail_template"  model="mail.template">
+            <field name="name">Correo de notifiación - Ultimo cambio</field>
+            <field name="model_id" ref="cita_mantenimiento.model_cita_mantenimiento"/>
+            <field name="subject">Cita mantenimiento / {{object.vehiculo_id.display_name}}</field>
+                <field name="body_html">
+                    <![CDATA[
+                    <div style="box-sizing:border-box;font-size:13px;background-color: #FCFCFC; border-radius: 10px; padding: 20px; position: relative;">
+
+                        <img src="https://www.aprecia.com.mx/firmas/Pilotea.png"
+                             alt="Logo"
+                             style="border-style:none;box-sizing:border-box;vertical-align:middle;position: absolute; top: 10px; right: 10px; height: 50px;"
+                             width="140.828"
+                             height="50"/>
+
+                        <h2 style="margin:0px 0 6px 0;box-sizing:border-box;font-size:19.5px;color:#091124;line-height:1.2;text-align: center; font-weight: bold;">
+                            Ultima reagenda automatica 
+                        </h2>
+
+                        <br/>
+
+                        <div class="row" style="margin:0 -16px 0 -16px;box-sizing:border-box;font-size:13px;">
+                            <div class="col" style="padding:0 16px 0 16px;box-sizing:border-box;font-size:13px;max-width:100%;width:100%;position:relative;" width="100%">
+
+                               <span style="font-weight: bolder;">Cliente:</span>
+                               <t t-out="object.cliente_id.name"/> <br/>
+
+                               <span style="font-weight: bolder;">Vehículo:</span>
+                               <t t-out="object.vehiculo_id.display_name"/> <br/>
+
+                            </div>
+                        </div>
+
+                        <div style="margin:20px auto; max-width:450px; padding:12px; background-color:#ffe6e6; border-radius:8px; text-align:center; border:1px solid #f5c2c2;">
+                            <span style="color:#a94442; font-weight:bold; font-size:14px;">
+                                ⚠️ Esta es la ultima oportunidad para poder acudir a tu mantenimiento, de lo contrario tu unidad será bloqueada.
+                            </span>
+                        </div>
+
+                        <span style="font-weight: bolder;">Datos de cita:</span>
+                        <div style="margin:20px auto; max-width:450px; padding:16px; background-color:#f4f6f9; border-radius:10px; border:1px solid #dfe3e8;">
+                            <h3 style="margin:0 0 10px 0; font-size:16px; color:#091124; text-align:center;">
+                                📅 Datos de tu cita
+                            </h3>
+                            <div style="font-size:13px; line-height:1.6;">
+                                <span style="font-weight:bold;">Fecha de inicio:</span>
+                                <t t-out="format_datetime(object.fecha_cita_inicio, tz='America/Mexico_City', dt_format='dd/MM/yyyy HH:mm:ss')"/> <br/>
+                                <span style="font-weight:bold;">Fecha de fin:</span>
+                                <t t-out="format_datetime(object.fecha_cita_fin, tz='America/Mexico_City', dt_format='dd/MM/yyyy HH:mm:ss')"/> <br/>
+                                <span style="font-weight:bold;">Proveedor:</span>
+                                <t t-out="object.proveedor_id.name"/> <br/>
+                            </div>
+                        </div>
+                    </div>
+                    ]]>
+                </field>
+        </record>
+    </data>
+</odoo>

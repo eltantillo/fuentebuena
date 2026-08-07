@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_adecuacion_view_form" model="ir.ui.view">
+            <field name="name">fleet.adecuacion.view.form</field>
+            <field name="model">fleet.adecuacion</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header/>
+                    <sheet>
+                        <group>
+                            <group string="Datos de adecuación" name="data_adecuacion">
+                                <field name="validacion_gps" invisible="1"/>
+                                <field name="validacion_gnv" invisible="1"/>
+                                <field name="adecuacion_id" required="1"/>
+                                <field name="fecha_instalacion" required="validacion_gps or validacion_gnv"/>
+                                <field name="num_serie" required="validacion_gps or validacion_gnv"/>
+                                <field name="imei" required="validacion_gps"/>
+                                <field name="marca" required="validacion_gps or validacion_gnv"/>
+                                <field name="modelo" required="validacion_gps"/>
+                                <field name="proveedor_adecuacion" invisible="1"/>
+                                <field name="proveedor_id"  domain="[('es_proveedor', '=', True),('tipo_proveedor_ids', 'in', proveedor_adecuacion)]"
+                                       required="validacion_gps or validacion_gnv" options="{'no_create': True, 'no_create_edit': True}"/>
+                            </group>
+                            <group string="Importes" name="data_importe">
+                                <field name="importe" required="1"/>
+                                <field name="iva" required="validacion_gps or validacion_gnv"/>
+                                <field name="total" required="validacion_gps or validacion_gnv"/>
+                                <field name="instalacion_incluida" widget="boolean_toggle" required="validacion_gps or validacion_gnv"/>
+                                <field name="incluido_valor_vehiculo"/>
+                                <field name="total_general" required="validacion_gps or validacion_gnv"/>
+                            </group>
+                        </group>
+                        <group string="Información del vehículo" name="data_vehiculo">
+                            <field name="vehiculo_id" required="1"/>
+                            <field name="vin_sn" readonly="1"/>
+                            <field name="numero_economico" readonly="1"/>
+                            <field name="producto_id" readonly="1"/>
+                            <field name="plaza_id" readonly="1"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Costo de instalación" invisible="instalacion_incluida == True">
+                                <group>
+                                    <field name="instalacion_proveedor_id"/>
+                                    <field name="instalacion_importe"/>
+                                    <field name="instalacion_iva"/>
+                                    <field name="instalacion_total"/>
+                                </group>
+                            </page>
+                            <page string="Expediente">
+                                <field name="expediente_arch" widget="pdf_viewer"/>
+                            </page>
+                            <page string="Factura" name="factura">
+                                <group string="Factura">
+                                    <field name="expendiente_factura" widget="pdf_viewer"/>
+                                </group>
+                                <group string="XML">
+                                    <field name="expediente_arch_xml"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_adecuacion_view_list" model="ir.ui.view">
+            <field name="name">fleet.adecuacion.view.list</field>
+            <field name="model">fleet.adecuacion</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="adecuacion_id"/>
+                    <field name="vehiculo_id"/>
+                    <!--<field name="vehiculo_id.vin_sn"/>-->
+                    <field name="importe"/>
+                    <field name="iva"/>
+                    <field name="total"/>
+                    <field name="expediente_arch"/>
+                    <field name="total_general"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_adecuacion_view_search" model="ir.ui.view">
+            <field name="name">fleet.adecuacion.view.search</field>
+            <field name="model">fleet.adecuacion</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="GPS" name="GPS" domain="[('adecuacion_id.name', '=', 'GPS')]"/>
+                    <filter string="GNV" name="GNV" domain="[('adecuacion_id.name', '=', 'GNV')]"/>
+                    <filter string="Estereo" name="Estereo" domain="[('adecuacion_id.name', '=', 'Estereo')]"/>
+                    <separator/>
+                    <filter string="Plaza - Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]" />
+                    <filter string="Plaza - Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]" />
+                    <filter string="Plaza - Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]" />
+                    <filter string="Plaza - León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]" />
+                    <filter string="Plaza - Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]" />
+                    <group>
+                        <filter string="Tipo de adecuación" name="groupby_adecuacion" context="{'group_by': 'adecuacion_id'}"/>
+                        <filter string="Plaza" name="groupby_plaza" context="{'group_by': 'plaza_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="fleet_adecuacion_action" model="ir.actions.act_window">
+            <field name="name">Adecuaciones</field>
+            <field name="res_model">fleet.adecuacion</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_adecuacion_view_list"/>
+        </record>
+    </data>
+</odoo>

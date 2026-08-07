@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="tecno_inherit_ac_siniestro_view_form"  model="ir.ui.view">
+            <field name="name">tecno.inherit.ac.siniestro.view.form</field>
+            <field name="model">atencion.cliente.siniestro</field>
+            <field name="inherit_id" ref="atencion_cliente.atencion_cliente_siniestro_view_form"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//field[@name='fecha_reporte']" position="after">
+                    <field name="ultima_ubicacion" invisible="1"/>
+                    <button name="obtener_ubicacion"
+                            type="object"
+                            class="btn btn-success text-white btn-sm"
+                            style="margin-top: 2px">
+                            Registrar ubicación
+                    </button>
+                </xpath>
+                <xpath expr="//form/sheet/group[2]" position="after">
+                    <group string="Ubicación siniestro">
+                        <field name="ultima_ubicacion" readonly="1" widget="google_map_display"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

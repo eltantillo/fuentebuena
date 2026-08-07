@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_incidente"
+                  name="Incidentes"
+                  sequence="150"
+                  parent="fleet.fleet_vehicles"
+                  action="fleet_incidente_action"/>
+
+        <menuitem id="menu_fleet_incidente_catalogo"
+                  name="Incidente"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="160"/>
+
+        <menuitem id="menu_fleet_catalogo_tipo"
+                  name="Tipo de incidente"
+                  parent="menu_fleet_incidente_catalogo"
+                  sequence="1"
+                  action="fleet_incidente_tipo_action"/>
+    </data>
+</odoo>

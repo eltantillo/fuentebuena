@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="promesa_p_periodo_nom_convenio_view_list" model="ir.ui.view">
+        <field name="name">promesa.p.periodo.nom.convenio.view.list</field>
+        <field name="model">promesa.p.periodo.nom.convenio</field>
+        <field name="arch" type="xml">
+            <list string="Periodos Nómina Convenio">
+                <field name="id"/>
+                <field name="convenio_id"/>
+                <field name="year_periodo_nomina"/>
+                <field name="frecuencia_nomina_id"/>
+                <field name="num_periodo"/>
+                <field name="periodo"/>
+                <field name="periodo_gestion"/>
+                <field name="gestor_id"/>
+                <field name="responsable_id"/>
+                <field name="monto_enviado_descuento"/>
+                <field name="monto_retenido"/>
+                <field name="monto_recibido"/>
+                <field name="monto_pendiente"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="promesa_p_periodo_nom_convenio_view_form" model="ir.ui.view">
+        <field name="name">promesa.p.periodo.nom.convenio.view.form</field>
+        <field name="model">promesa.p.periodo.nom.convenio</field>
+        <field name="arch" type="xml">
+            <form string="Periodo Nómina Convenio">
+                <sheet>
+                    <group>
+                        <group string="Información del Periodo">
+                            <field name="year_periodo_nomina"/>
+                            <field name="frecuencia_nomina_id"/>
+                            <field name="tipo_frecuencia"/>
+                            <field name="num_periodo"/>
+                            <field name="periodo"/>
+                            <field name="fecha_envio_lista"/>
+                            <field name="periodo_gestion"/>
+                            <field name="clientes_descontado"/>
+                            <field name="num_clientes_retenidos"/>
+                        </group>
+                        <group string="Importes">
+                            <field name="id_proceso_convenio"/>
+                            <field name="monto_enviado_descuento"/>
+                            <field name="monto_retenido"/>
+                            <field name="monto_recibido"/>
+                            <field name="descuento_vs_retenido"/>
+                            <field name="retenido_vs_recibido"/>
+                            <field name="por_cobrar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Convenio">
+                            <field name="convenio_id"/>
+                            <field name="periodos_con_atraso"/>
+                            <field name="celula"/>
+                            <field name="zona"/>
+                        </group>
+                        <group string="Gestión">
+                            <field name="responsable_id" domain="[('id','in',responsables)]"/>
+                            <field name="gestor_id" domain="[('id','in',gestores)]"/>
+                            <field name="fecha_inicio_gestion"/>
+                            <field name="fecha_fin_gestion"/>
+                            <field name="monto_pendiente"/>
+                        </group>
+                    </group>
+                    <group string="Promesas">
+                        <field name="promesa_ids"/>
+                    </group>
+                    <notebook>
+                        <page string="Estatus">
+                            <group>
+                                <field name="estatus_convenio"/>
+                                <field name="estatus_colocacion"/>
+                                <field name="estatus_cumplimiento"/>
+                                <field name="estatus_lista"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="promesa_p_periodo_nom_convenio_view_pivot" model="ir.ui.view">
+        <field name="name">promesa.p.periodo.nom.convenio.view.pivot</field>
+        <field name="model">promesa.p.periodo.nom.convenio</field>
+        <field name="arch" type="xml">
+            <pivot string="Análisis Periodos Nómina Convenio">
+                <field name="monto_enviado_descuento" type="measure"/>
+                <field name="monto_retenido" type="measure"/>
+                <field name="monto_recibido" type="measure"/>
+                <field name="monto_pendiente" type="measure"/>
+
+                <field name="convenio_id" type="row"/>
+                <field name="year_periodo_nomina" type="col"/>
+                <field name="gestor_id" type="row"/>
+                <field name="responsable_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="promesa_p_periodo_nom_convenio_view_graph" model="ir.ui.view">
+        <field name="name">promesa.p.periodo.nom.convenio.view.graph</field>
+        <field name="model">promesa.p.periodo.nom.convenio</field>
+        <field name="arch" type="xml">
+            <graph string="Gráfica Periodos Nómina Convenio" type="bar">
+                <field name="year_periodo_nomina" type="row"/>
+                <field name="monto_recibido" type="measure"/>
+                <field name="monto_retenido" type="measure"/>
+                <field name="monto_enviado_descuento" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="promesa_p_periodo_nom_convenio_view_search" model="ir.ui.view">
+        <field name="name">promesa.p.periodo.nom.convenio.view.search</field>
+        <field name="model">promesa.p.periodo.nom.convenio</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Periodos Nómina Convenio">
+                <field name="convenio_id"/>
+                <field name="year_periodo_nomina"/>
+                <field name="num_periodo"/>
+                <field name="gestor_id"/>
+                <field name="responsable_id"/>
+                <separator/>
+                <filter string="Agrupar por Convenio"
+                        name="group_by_convenio"
+                        context="{'group_by': 'convenio_id'}"/>
+                <filter string="Agrupar por Año"
+                        name="group_by_year"
+                        context="{'group_by': 'year_periodo_nomina'}"/>
+                <filter string="Agrupar por Gestor"
+                        name="group_by_gestor"
+                        context="{'group_by': 'gestor_id'}"/>
+                <filter string="Agrupar por Responsable"
+                        name="group_by_responsable"
+                        context="{'group_by': 'responsable_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="promesa_p_periodo_nom_convenio_action" model="ir.actions.act_window">
+        <field name="name">Periodos Nómina Convenio</field>
+        <field name="res_model">promesa.p.periodo.nom.convenio</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="context">{'search_default_group_by_convenio_id': 1}</field>
+    </record>
+</odoo>

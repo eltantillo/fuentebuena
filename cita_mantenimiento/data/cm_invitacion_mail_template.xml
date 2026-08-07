@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cm_invitacion_mail_template"  model="mail.template">
+            <field name="name">Correo de invitación - Crea tu cita</field>
+            <field name="model_id" ref="fleet_mantenimiento.model_fleet_mantenimiento"/>
+            <field name="subject">Crea una cita para tu mantenimiento - {{object.id}} -{{object.vehiculo_id.display_name}}</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="box-sizing:border-box;font-size:13px;background-color: #FCFCFC; border-radius: 10px; padding: 20px; position: relative;">
+                    <img src="https://www.aprecia.com.mx/firmas/Pilotea.png"
+                         alt="Logo"
+                         style="border-style:none;box-sizing:border-box;vertical-align:middle;position: absolute; top: 10px; right: 10px; height: 50px;"
+                         width="140.828"
+                         height="50"/>
+
+                    <h2 style="margin:0px 0 6px 0;box-sizing:border-box;font-size:19.5px;color:#091124;line-height:1.2;text-align: center; font-weight: bold;">
+                        Crea una cita para tu mantenimiento
+                    </h2>
+                    <br/>
+                    <div class="row" style="margin:0 -16px 0 -16px;box-sizing:border-box;font-size:13px;">
+                        <div class="col" style="padding:0 16px 0 16px;box-sizing:border-box;font-size:13px;max-width:100%;width:100%;position:relative;" width="100%">
+                           <span style="font-weight: bolder;">Cliente:</span>
+                           <t t-out="object.vehiculo_id.driver_id.name"/> <br/>
+                           <span style="font-weight: bolder;">Vehículo:</span>
+                           <t t-out="object.vehiculo_id.display_name"/> <br/>
+                        </div>
+                    </div>
+                    <div style="text-align:center; margin:20px 0;">
+                        <a href="https://pilotea.simplybook.me"
+                           style="display:inline-block; background-color:#00eca1; color:#ffffff; padding:12px 20px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:14px;">
+                            👉 Agenda tu cita aquí
+                        </a>
+                    </div>
+
+                </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gc_retencion_view_form" model="ir.ui.view">
+            <field name="name">gc.retencion.view.form</field>
+            <field name="model">gc.retencion</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="fecha_estimada_retencion" required="1"/>
+                            <field name="motivo_retencion" required="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="confirmar" string="Confirmar" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

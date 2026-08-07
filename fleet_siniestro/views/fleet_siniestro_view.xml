@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_siniestro_view_form" model="ir.ui.view">
+            <field name="name">fleet.siniestro.view.form</field>
+            <field name="model">fleet.siniestro</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="etapa_id" widget="statusbar" options="{'clickable': true}"/>
+                        <field name="mostrar_boton" invisible="1" readonly="1"/>
+                        <field name="mostrar_renta_auxilio" invisible="1" readonly="1"/>
+                        <field name="mostrar_terminar_renta" invisible="1" readonly="1"/>
+                        <button name="renta_auxilio"
+                                type="object"
+                                class="btn btn-success"
+                                invisible="mostrar_renta_auxilio"
+                                string="Asignar renta auxilio">
+                        </button>
+                        <button name="return_terminar_renta_auxilio"
+                                type="object"
+                                class="btn btn-danger"
+                                invisible="mostrar_terminar_renta"
+                                string="Terminar renta auxilio">
+                        </button>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Información del siniestro">
+                                <field name="fase_id"/>
+                                <field name="proveedor_siniestro" invisible="1"/>
+<!--                                <field name="aseguradora_id"  required="1"/>-->
+                                <field name="aseguradora_id" domain="[('es_proveedor', '=', True),('tipo_proveedor_ids', 'in', proveedor_siniestro)]" required="1"/>
+                                <field name="siniestro_tipo_id" required="1"/>
+                                <field name="folio"/>
+                                <field name="siniestro"/>
+                                <field name="movilidad_id" required="1"/>
+                                <field name="siniestro_estatus_id"/>
+                            </group>
+                            <group string="Fechas de siniestro">
+                                <field name="unidad_sin_dano"/>
+                                <field name="fecha_ingreso_valuacion" invisible="etapa_id != 17"/>
+                                <field name="fecha_ingreso_reparacion" invisible="etapa_id != 17"/>
+                                <field name="fecha_compromiso_entrega" invisible="etapa_id != 17"/>
+                                <field name="fecha_entrega" invisible="unidad_sin_dano"/>
+                                <field name="fecha_cierre"/>
+                            </group>
+                        </group>
+                        <group name="data_vehiculo_cliente">
+                            <group string="Información del vehículo" name="data_vehiculo">
+                                <field name="estado_actual_id" readonly="1"/>
+                                <field name="vehiculo_id"/>
+                                <field name="numero_economico" readonly="1" invisible="1"/>
+                                <field name="vin_sn" readonly="1"/>
+                                <field name="producto_id" readonly="1"/>
+                                <field name="plaza_id" readonly="1"/>
+                            </group>
+                            <group string="Informacicón del cliente" name="data_conductor">
+                                <field name="cliente_id" invisible="cliente_id == False"/>
+                                <field name="cliente_nombre" invisible="cliente_id != False"/>
+                                <field name="cliente_email" invisible="1"/>
+                                <field name="cliente_telefono"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Evento" name="data_evento">
+                                <field name="fecha_hora_suceso"/>
+                                <field name="fecha_hora_notifiacion"/>
+                                <field name="ubicacion"/>
+                                <field name="conductor"/>
+                                <field name="telefono_conductor"/>
+                                <field name="descripcion_siniestro"/>
+                            </group>
+                            <group string="Dictamen" name="data_dictamen">
+                                <field name="folio_aseguradora"/>
+                                <field name="dictamen" widget="radio" options="{'horizontal': true}"  required="1"/>
+                                <field name="existe_responsable" invisible="dictamen != 'afectado' or not dictamen"/>
+                                <field name="responsable_seguro" invisible="existe_responsable != 'si'"/>
+                                <field name="aseguradora" invisible="responsable_seguro != 'si'"/>
+                                <field name="numero_acta" invisible="existe_responsable != 'no'"/>
+                                <field name="dentro_cobertura" widget="radio" options="{'horizontal': true}" invisible="dictamen != 'responsable' or not dictamen"/>
+                                <field name="deducible" invisible="dictamen != 'responsable' or not dictamen"/>
+                                <field name="aseguradora" invisible="dentro_cobertura != 'si'"/>
+                                <field name="perdida_total"/>
+                                <field name="taller"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_siniestro_view_list" model="ir.ui.view">
+            <field name="name">fleet.siniestro.view.list</field>
+            <field name="model">fleet.siniestro</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="fase_id"/>
+                    <field name="vin_sn"/>
+                    <field name="plaza_id"/>
+                    <field name="aseguradora_id"/>
+                    <field name="siniestro"/>
+                    <field name="movilidad_id"/>
+                    <field name="siniestro_estatus_id"/>
+                    <field name="conductor"/>
+                    <field name="etapa_id"/>
+                    <field name="fecha_hora_suceso"/>
+                    <field name="fecha_compromiso_entrega"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_siniestro_view_search" model="ir.ui.view">
+            <field name="name">fleet.siniestro.view.search</field>
+            <field name="model">fleet.siniestro</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <field string="Plaza" name="plaza_id"/>
+                    <field string="Producto" name="producto_id"/>
+                    <filter string="Archivados" name="archivados" domain="[('active', '=', False)]"/>
+                    <separator>
+                        <filter string="Abiertos" name="abiertos" domain="[('fase_id.name', '=', 'Abierto')]"/>
+                    </separator>
+                    <separator/>
+                        <filter string="Plaza - Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]" />
+                        <filter string="Plaza - Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]" />
+                        <filter string="Plaza - Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]" />
+                        <filter string="Plaza - León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]" />
+                        <filter string="Plaza - Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]" />
+                        <filter string="Plaza - Mty-Besta" name="plaza_mty_besta" domain="[('plaza_id.name', '=', 'Mty-Besta')]" />
+                    <separator/>
+                    <separator/>
+                    <group>
+                        <filter string="Etapa" name="groupby_etapa" context="{'group_by': 'etapa_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="fleet_siniestro_view_kanban" model="ir.ui.view">
+            <field name="name">fleet.siniestro.view.kanban</field>
+            <field name="model">fleet.siniestro</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="etapa_id" class="o_kanban_example">
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click">
+                                <strong><field name="etapa_id"/></strong>
+                                <div><field name="siniestro_tipo_id"/></div>
+                                <div><field name="vehiculo_id"/></div>
+                                <div><field name="conductor"/></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="fleet_siniestro_action" model="ir.actions.act_window">
+            <field name="name">Siniestro</field>
+            <field name="res_model">fleet.siniestro</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="view_id" ref="fleet_siniestro_view_kanban" />
+        </record>
+    </data>
+</odoo>

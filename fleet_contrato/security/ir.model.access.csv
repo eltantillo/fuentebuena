@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_contrato_condicion_vehiculo,access_fleet_contrato_condicion_vehiculo,model_fleet_contrato_condicion_vehiculo,,1,1,1,1
+access_fleet_contrato_motivo_cancelacion,access_fleet_contrato_motivo_cancelacion,model_fleet_contrato_motivo_cancelacion,,1,1,1,1
+access_fleet_contrato_cancelacion,access_fleet_contrato_cancelacion,model_fleet_contrato_cancelacion,,1,1,1,1
+access_fleet_contrato_attach,access_fleet_contrato_attach,model_fleet_contrato_attach,,1,1,1,1

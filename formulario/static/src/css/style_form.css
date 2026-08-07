@@ -1,0 +1,146 @@
+body { background-color: #f4f0f8 !important; }
+html { background-color: #f4f0f8 !important; }
+
+#card-formulario-animador {
+    background-color: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 30px 40px;
+}
+
+#card-formulario-animador h1 {
+    background: linear-gradient(135deg, #552988, #7a3db8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+#formulario-animador label {
+    font-weight: 600;
+    color: #3a1f5c;
+    font-size: 0.95rem;
+}
+
+#formulario-animador .form-control,
+#formulario-animador .form-select {
+    border: 1.5px solid #c9b8e8;
+    border-radius: 8px !important;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #faf8ff;
+    color: #2d1a4a;
+}
+
+#formulario-animador .form-control:focus,
+#formulario-animador .form-select:focus {
+    border-color: #552988;
+    box-shadow: 0 0 0 3px rgba(85, 41, 136, 0.15);
+    outline: none;
+    background-color: #ffffff;
+}
+
+#formulario-animador .select2-container--default .select2-selection--single {
+    border: 1.5px solid #c9b8e8 !important;
+    border-radius: 8px !important;
+    height: 38px !important;
+    background-color: #faf8ff !important;
+    padding: 4px 10px !important;
+}
+
+#formulario-animador .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #2d1a4a !important;
+    line-height: 30px !important;
+}
+
+#formulario-animador .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px !important;
+}
+
+#formulario-animador .select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: #552988 !important;
+    box-shadow: 0 0 0 3px rgba(85, 41, 136, 0.15) !important;
+}
+
+#formulario-animador .btn-animador {
+    background-color: #552988;
+    border-color: #552988;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.05rem;
+    border-radius: 10px !important;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#formulario-animador .btn-animador:hover {
+    background-color: #3f1f66;
+    border-color: #3f1f66;
+}
+
+#formulario-animador .btn-animador:active {
+    transform: scale(0.98);
+}
+
+#formulario-animador input[type="checkbox"] {
+    accent-color: #552988;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+#formulario-animador a[data-bs-target="#modalTerminosAnimador"] {
+    color: #552988;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+#formulario-animador .invalid-feedback {
+    font-size: 0.82rem;
+}
+
+#modalTerminosAnimador .modal-header {
+    background-color: #552988;
+    color: white;
+}
+
+#modalTerminosAnimador .modal-title {
+    color: white !important;
+    font-weight: 700;
+}
+
+#modalTerminosAnimador .btn-close {
+    filter: invert(1);
+}
+
+#modalTerminosAnimador .modal-body p {
+    color: #3a1a5c;
+    line-height: 1.6;
+}
+
+#modalTerminosAnimador .btn-modal-animador {
+    background-color: #552988;
+    border-color: #552988;
+    color: white;
+    font-weight: bold;
+}
+
+#modalTerminosAnimador .btn-modal-animador:hover {
+    background-color: #3f1f66;
+    border-color: #3f1f66;
+}
+
+.no-mostrar {
+    display:none !important;
+}

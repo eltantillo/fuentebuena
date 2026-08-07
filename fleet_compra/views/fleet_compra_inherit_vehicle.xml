@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_compra_inherit_vehicle_view_form" model="ir.ui.view">
+            <field name="name">fleet.compra.inherit.vehicle.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fecha_orden_compra']" position="before">
+                    <field name="orden_compra_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_customer_inherit_view_list" model="ir.ui.view">
+            <field name="name">fleet.customer.inherit.view.list</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="replace">
+                    <list>
+                        <field name="vin_sn"/>
+                        <field name="numero_economico"/>
+                        <field name="license_plate"/>
+                        <field name="brand_id" string="Fabricante"/>
+                        <field name="model_id"/>
+                        <field name="version"/>
+                        <field name="transmission"/>
+                        <field name="es_gnv"/>
+                        <field name="model_year"/>
+                        <field name="color"/>
+                        <field name="driver_id"/>
+                        <field name="flotilla_id"/>
+                        <field name="producto_id"/>
+                        <field name="plaza_id"/>
+                        <field name="state_id"/>
+                        <field name="ultimo_cambio_etapa"/>
+                        <field name="acquisition_date"/>
+                        <field name="fecha_recepcion"/>
+                        <field name="odometro_mod"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    </list>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

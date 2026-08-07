@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="promesa_p_celula_view_list" model="ir.ui.view">
+        <field name="name">promesa.p.celula.view.list</field>
+        <field name="model">promesa.p.celula</field>
+        <field name="arch" type="xml">
+            <list string="Células">
+                <field name="celula_id"/>
+                <field name="name"/>
+                <field name="zona_id"/>
+                <field name="zona_name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="promesa_p_celula_view_form" model="ir.ui.view">
+        <field name="name">promesa.p.celula.view.form</field>
+        <field name="model">promesa.p.celula</field>
+        <field name="arch" type="xml">
+            <form string="Célula">
+                <sheet>
+                    <group>
+                        <field name="celula_id"/>
+                        <field name="name"/>
+                        <field name="zona_id"/>
+                        <field name="zona_name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="promesa_p_celula_action" model="ir.actions.act_window">
+        <field name="name">Células</field>
+        <field name="res_model">promesa.p.celula</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="promesa_p_celula_view_list"/>
+    </record>
+</odoo>

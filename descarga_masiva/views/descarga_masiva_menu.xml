@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="descarga_masiva_action" model="ir.actions.act_window">
+        <field name="name">Descargas masivas</field>
+        <field name="res_model">descarga.masiva</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="descarga_masiva_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem  id="descarga_masiva_root"
+               name="Descarga masiva"
+               sequence="10"
+               web_icon="descarga_masiva,static/src/description/icon.png"
+               action="descarga_masiva_action"
+               groups="base.group_user"/>
+</odoo>

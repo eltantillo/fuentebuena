@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_contrato" model="ir.module.category">
+            <field name="name">Contrato</field>
+            <field name="description">Gestión de acceso a contratos</field>
+        </record>
+
+        <record id="group_contratos" model="res.groups">
+            <field name="name">Acceso a contratos</field>
+        </record>
+    </data>
+</odoo>

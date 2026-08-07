@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="inventario_activo_menu_root"
+                  name="Inventario activos"
+                  sequence="5"
+                  web_icon="inventario_activo,static/src/description/icon.png"/>
+
+        <menuitem id="inventario_activo"
+                  name="Activos"
+                  sequence="1"
+                  parent="inventario_activo_menu_root"/>
+
+        <menuitem id="inventario_activo_computo"
+                  name="Computo"
+                  sequence="1"
+                  parent="inventario_activo"
+                  action="inventario_computo_activo_action"/>
+
+        <menuitem id="inventario_activo_telefonia"
+                  name="Telefonía"
+                  sequence="1"
+                  parent="inventario_activo"
+                  action="inventario_telefonia_activo_action"/>
+
+        <menuitem id="inventario_activo_impresora"
+                  name="Impresoras"
+                  sequence="3"
+                  parent="inventario_activo"
+                  action="inventario_impresora_action"/>
+
+        <menuitem id="inventario_activo_linea"
+                  name="Líneas"
+                  sequence="4"
+                  action="inventario_linea_action"
+                  parent="inventario_activo"/>
+
+        <menuitem id="inventario_contrato"
+                  name="Contratos"
+                  sequence="2"
+                  parent="inventario_activo_menu_root"
+                  action="inventario_contrato_action"/>
+
+
+        <menuitem id="inventario_catalogo"
+                  name="Catalogos"
+                  sequence="3"
+                  parent="inventario_activo_menu_root"/>
+
+        <menuitem id="inventario_activo_configuracion"
+                  name="Configuración"
+                  sequence="4"
+                  parent="inventario_activo_menu_root"/>
+
+        <menuitem id="inventario_catalogo_fabricante"
+                  name="Fabricantes"
+                  sequence="1"
+                  parent="inventario_catalogo"
+                  action="inventario_fabricante_action"/>
+
+        <menuitem id="inventario_catalogo_modelo"
+                  name="Modelos"
+                  sequence="2"
+                  parent="inventario_catalogo"
+                  action="inventario_modelo_action"/>
+
+        <menuitem id="inventario_catalogo_proveedor"
+                  name="Proveedores de activo"
+                  sequence="3"
+                  parent="inventario_catalogo"
+                  action="inventario_proveedor_activo_action"/>
+
+        <menuitem id="activo_configuracion_ubicacion"
+                  name="Ubicación"
+                  sequence="1"
+                  parent="inventario_activo_configuracion"
+                  action="inventario_ubicacion_action"/>
+
+        <menuitem id="activo_configuracion_estatus"
+                  name="Estatus"
+                  sequence="2"
+                  parent="inventario_activo_configuracion"
+                  action="inventario_estatus_action"/>
+
+        <menuitem id="activo_configuracion_esquema_adquisicion"
+                  name="Esquema de adquisición"
+                  sequence="3"
+                  parent="inventario_activo_configuracion"
+                  action="inventario_esquema_adquisicion_action"/>
+
+        <menuitem id="activo_configuracion_tipo_garantia"
+                  name="Tipo de garantía"
+                  sequence="4"
+                  parent="inventario_activo_configuracion"
+                  action="inventario_tipo_garantia_action"/>
+
+        <menuitem id="activo_configuracion_contrato"
+                  name="Contrato"
+                  sequence="5"
+                  parent="inventario_activo_configuracion"/>
+
+        <menuitem id="activo_configuracion_computo"
+                  name="Computo"
+                  sequence="6"
+                  parent="inventario_activo_configuracion"/>
+
+        <menuitem id="activo_configuracion_telefonia"
+                  name="Telefonía"
+                  sequence="7"
+                  parent="inventario_activo_configuracion"/>
+
+        <menuitem id="activo_configuracion_impresora"
+                  name="Impresora"
+                  sequence="8"
+                  parent="inventario_activo_configuracion"/>
+
+        <menuitem id="activo_configuracion_linea"
+                  name="Línea"
+                  sequence="9"
+                  parent="inventario_activo_configuracion"/>
+
+        <menuitem id="activo_configuracion_computo_etapa"
+                  name="Etapa"
+                  sequence="1"
+                  parent="activo_configuracion_computo"
+                  action="inventario_computo_etapa_action"/>
+
+        <menuitem id="activo_configuracion_computo_alamcenamiento"
+                  name="Almacenamiento"
+                  sequence="2"
+                  parent="activo_configuracion_computo"
+                  action="inventario_computo_almacenamiento_action"/>
+
+        <menuitem id="activo_configuracion_computo_pocesador"
+                  name="Procesador"
+                  sequence="3"
+                  parent="activo_configuracion_computo"
+                  action="inventario_computo_procesador_action"/>
+
+        <menuitem id="activo_configuracion_region"
+                  name="Región"
+                  sequence="1"
+                  parent="activo_configuracion_linea"
+                  action="inventario_region_action"/>
+
+        <menuitem id="activo_configuracion_etapa_linea"
+                  name="Linea etapa"
+                  sequence="2"
+                  parent="activo_configuracion_linea"
+                  action="inventario_linea_etapa_action"/>
+
+        <menuitem id="activo_configuracion_plan"
+                  name="Plan"
+                  sequence="3"
+                  parent="activo_configuracion_linea"
+                  action="inventario_plan_action"/>
+
+        <menuitem id="activo_configuracion_impresora_etapa"
+                  name="Etapa"
+                  sequence="1"
+                  parent="activo_configuracion_impresora"
+                  action="inventario_impresora_etapa_action"/>
+
+        <menuitem id="activo_configuracion_impresora_conectividad"
+                  name="Conectividad"
+                  sequence="2"
+                  parent="activo_configuracion_impresora"
+                  action="inventario_impresora_conectividad_action"/>
+
+        <menuitem id="activo_configuracion_impresora_consumible"
+                  name="Consumible"
+                  sequence="3"
+                  parent="activo_configuracion_impresora"
+                  action="inventario_impresora_consumible_action"/>
+
+        <menuitem id="activo_configuracion_contrato_estado"
+                  name="Etapa"
+                  sequence="1"
+                  parent="activo_configuracion_contrato"
+                  action="inventario_contrato_etapa_action"/>
+
+        <menuitem id="activo_configuracion_telefonia_etapa"
+                  name="Etapas"
+                  sequence="1"
+                  parent="activo_configuracion_telefonia"
+                  action="inventario_telefonia_etapa_action"/>
+    </data>
+</odoo>

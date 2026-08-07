@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_tramite"
+                  name="Trámites"
+                  sequence="40"
+                  parent="fleet.fleet_vehicles"
+                  action="fleet_tramite_action"/>
+
+        <menuitem id="menu_fleet_tramite_catalogo"
+                  name="Trámite"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="120"/>
+
+        <menuitem id="menu_fleet_tramite_motivo_pago"
+                  name="Motivos de pago"
+                  parent="menu_fleet_tramite_catalogo"
+                  sequence="1"
+                  action="fleet_tramite_motivo_pago_action"/>
+
+        <menuitem id="menu_fleet_tramite_tipo"
+                  name="Tipo de trámite"
+                  parent="menu_fleet_tramite_catalogo"
+                  sequence="2"
+                  action="fleet_tramite_tipo_action"/>
+
+        <menuitem id="menu_fleet_tramite_config_data"
+                  name="Trámite"
+                  parent="fleet_customer.menu_fleet_config_det"
+                  action="fleet_tramite_config_action"
+                  sequence="2"/>
+    </data>
+</odoo>

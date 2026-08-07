@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="group_accountant_director" model="res.groups">
+            <field name="name">Director</field>
+            <field name="implied_ids" eval="[(4,ref('account.group_account_manager')), (4, ref('account.group_account_invoice'))]"/>
+        </record>
+
+        <record id="group_accountant_gerente" model="res.groups">
+            <field name="name">Gerente</field>
+            <field name="implied_ids" eval="[(4,ref('account.group_account_manager')), (4, ref('account.group_account_invoice'))]"/>
+        </record>
+
+        <record id="group_accountant_usuario_factura" model="res.groups">
+            <field name="name">Usuario factura</field>
+            <field name="implied_ids" eval="[(4,ref('account.group_account_invoice'))]"/>
+        </record>
+
+        <record id="account_move_rule_usuario_factura" model="ir.rule">
+            <field name="name">Facturas del propio usuario</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('factura.group_accountant_usuario_factura'))]"/>
+        </record>
+
+        <record id="account_move_rule_gerente" model="ir.rule">
+            <field name="name">Facturas del gerente</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="domain_force">['|', ('create_uid', '=', user.id), ('create_uid.employee_id', 'child_of', user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('factura.group_accountant_gerente'))]"/>
+        </record>
+
+        <record id="account_move_rule_director" model="ir.rule">
+            <field name="name">Facturas del director</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="domain_force">['|', ('create_uid', '=', user.id), ('create_uid.employee_id', 'child_of', user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('factura.group_accountant_director'))]"/>
+        </record>
+    </data>
+</odoo>

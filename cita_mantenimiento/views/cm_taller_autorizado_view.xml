@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cm_taller_autorizado_view_form" model="ir.ui.view">
+            <field name="name">cm.taller.autorizado.view.form</field>
+            <field name="model">cm.taller.autorizado</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Información general">
+                            <field name="brand_id" required="1"/>
+                            <field name="plaza_id" required="1"/>
+                            <field name="km_permitido" required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Talleres">
+                                <field name="taller_autorizado_ids" required="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cm_taller_autorizado_view_list" model="ir.ui.view">
+            <field name="name">cm.taller.autorizado.view.list</field>
+            <field name="model">cm.taller.autorizado</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="brand_id"/>
+                    <field name="plaza_id"/>
+                    <field name="km_permitido"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="cm_taller_autorizado_action" model="ir.actions.act_window">
+            <field name="name">Talleres autorizados</field>
+            <field name="res_model">cm.taller.autorizado</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="cm_taller_autorizado_view_list"/>
+        </record>
+
+    </data>
+</odoo>

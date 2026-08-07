@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_orden_compra_alta_vehiculo_view_form" model="ir.ui.view">
+            <field name="name">fleet.orden.compra.alta.vehiculo.view.form</field>
+            <field name="model">alta.vehiculo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="estado_id" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group string="Alta de vehículo" name="data_vehiculo">
+                            <group>
+                                <field name="model_id" required="True"/>
+                                <field name="version_id" required="True" domain="[('model_id', '=', model_id)]"/>
+                                <field name="year" required="True"/>
+                                <field name="color" required="True"/>
+                                <field name="es_gnv" required="True"/>
+                                <field name="transmission" required="True"/>
+                            </group>
+                            <group>
+                                <field name="vin_sn" required="True"/>
+                                <field name="num_motor" required="True"/>
+                                <field name="flotilla_id" required="True"/>
+                                <field name="producto_id" required="True" domain="[('flotilla_id', '=', flotilla_id)]"/>
+                                <field name="plaza_id" required="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="alta" type="object" string="Alta" class="btn-success"/>
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

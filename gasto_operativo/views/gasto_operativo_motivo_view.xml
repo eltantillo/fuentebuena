@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gasto_operativo_motivo_view_form" model="ir.ui.view">
+            <field name="name">gasto.operativo.motivo.view.form</field>
+            <field name="model">gasto.operativo.motivo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="gasto_operativo_motivo_view_list" model="ir.ui.view">
+            <field name="name">gasto.operativo.motivo.view.list</field>
+            <field name="model">gasto.operativo.motivo</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="gasto_operativo_motivo_action" model="ir.actions.act_window">
+            <field name="name">Gasto Operativo - Motivo</field>
+            <field name="res_model">gasto.operativo.motivo</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="gasto_operativo_motivo_view_list"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_customer_inherit_view_form" model="ir.ui.view">
+            <field name="name">fleet.customer.inherit.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state_id']" position="replace">
+                    <field name="state_id"/>
+                    <field name="baja" invisible="1"/>
+                    <field name="required_disponible" invisible="1"/>
+                    <field name="mostrar_driver" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//form/sheet/group[1]/group[1]" position="replace">
+                    <group string="Conductor" invisible="mostrar_driver == False">
+                        <field name="active" invisible="1"/>
+                        <field name="vehicle_type" invisible="1"/>
+                        <field name="driver_id" domain="['|', ('company_id', '=', False ), ('company_id', '=', company_id)]" widget="many2one_avatar"/>
+                        <field name="future_driver_id" widget="many2one_avatar"/>
+                        <field name="plan_to_change_car" groups="fleet.fleet_group_manager" invisible="vehicle_type != 'car'"/>
+                        <field name="plan_to_change_bike" groups="fleet.fleet_group_manager"  invisible="vehicle_type != 'bike'"/>
+                        <field name="next_assignation_date"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//widget[@name='web_ribbon']" position="replace">
+                    <widget name="web_ribbon" title="Baja" bg_color="text-bg-danger" invisible="baja == False"/>
+                </xpath>
+
+                <xpath expr="//field[@name='future_driver_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//label[@for='plan_to_change_car']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='plan_to_change_car']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='page_tax_info']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='model_year']" position="replace">
+                    <field name="model_year" required="required_disponible"/>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook/page[@name='page_model']/group/group/field[@name='model_year']" position="before">
+                    <field name="brand_id" string="Fabricante" required="required_disponible"/>
+                    <field name="nombre_modelo" required="required_disponible"/>
+                    <field name="version" domain="[('model_id', '=', model_id)]" required="1"/>
+                    <field name="modelo_factura" required="required_disponible"/>
+                </xpath>
+                <xpath expr="//field[@name='plan_to_change_car']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='manager_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='location']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='write_off_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="replace">
+                    <field name="es_gnv" required="1"/>
+                </xpath>
+
+                <xpath expr="//form/sheet/div/field[@name='tag_ids']" position="after">
+                    <group invisible="baja == False">
+                        <br/>
+                        <field name="baja" readonly="1"/>
+                        <field name="fecha_baja" readonly="1"/>
+                        <field name="motivo_baja_id" readonly="1" widget="badge" decoration-danger="1"/>
+                    </group>
+                    <field name="mostrar_fecha_prox_reacond" invisible="1"/>
+                    <group string="Reacondicionamiento" invisible="mostrar_fecha_prox_reacond == False">
+                        <field name="fecha_prox_reacondicionamiento" />
+                    </group>
+                </xpath>
+
+                <xpath expr="//form/sheet/div/button[4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='acquisition_date']" position="replace">
+                    <field name="acquisition_date" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='acquisition_date']" position="after">
+                    <field name="numero_motor" required="1"/>
+                    <field name="condicion_vehiculo_id"/>
+                    <field name="uso_vehiculo_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='vin_sn']" position="replace">
+                    <field name="vin_sn" required="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='vehicle_properties']" position="after">
+                    <group string="Información adicional" name="info_add">
+                        <group>
+                            <field name="numero_economico" readonly="1"/>
+                            <field name="mostrar_sub_etapa" invisible="1"/>
+                            <field name="sub_etapas_ids" invisible="1"/>
+                            <field name="sub_etapa_id" invisible="mostrar_sub_etapa == False" domain="[('id','in', sub_etapas_ids)]"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="ultimo_cambio_etapa" readonly="1"/>
+                            <field name="flotilla_id" required="1"/>
+                            <field name="producto_id" required="1" domain="[('flotilla_id', '=', flotilla_id)]" />
+                            <field name="plaza_id" required="1"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <xpath expr="//form/sheet/group[@name='info_add']" position="before">
+                    <group string="Proveedor" name="proveedor">
+                        <field name="proveedor_id" wiget="many2one" options="{'no_create': True, 'no_create_edit': True}"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='note']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='trailer_hook']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='page_model']/group/group[2]" position="replace">
+                    <group string="MOTOR">
+                        <field name="fuel_type" required="required_disponible"/>
+                        <field name="transmission" invisible="vehicle_type != 'car'" required="required_disponible"/>
+                    </group>
+                </xpath>
+
+<!--                <xpath expr="//field[@name='fuel_type']" position="replace">-->
+<!--                    <field name="fuel_type" required="required_disponible"/>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//field[@name='transmission']" position="replace">-->
+<!--                    <field name="transmission" required="required_disponible"/>-->
+<!--                </xpath>-->
+
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Adquisición" name="adquisicion" invisible="id == False">
+                        <group >
+                            <group string="Datos de Adquisición">
+                                <field name="fecha_adquisicion"  required="required_disponible"/>
+                                <field name="condicion_adquisicion_id"  required="required_disponible"/>
+                            </group>
+                            <group string="Importes">
+                                <field name="importe_adquisicion"  required="required_disponible"/>
+                                <field name="iva_adquisicion"  required="required_disponible"/>
+                                <field name="importe_total_adquisicion"  required="required_disponible"/>
+                                <field name="valor_residual_adquisicion" readonly="1"  required="required_disponible"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Factura">
+                                <field name="factura"  required="required_disponible"/>
+                                <field name="fecha_factura"  required="required_disponible"/>
+                                <field name="folio_uuid"  required="required_disponible"/>
+                                <field name="fecha_carta_porte"/>
+                                <field name="folio_carta_porte"/>
+                            </group>
+                            <group string="Orden de compra">
+                                <field name="fecha_recepcion"/>
+                                <field name="fecha_orden_compra"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Factura vehículo" name="factura_vehiculo">
+                                <field name="factura_vehiculo" widget="pdf_viewer"  required="required_disponible"/>
+                            </page>
+                            <page string="Opción a compra" name="opcion_compra">
+                                <field name="opcion_compra" widget="pdf_viewer"  required="required_disponible"/>
+                            </page>
+                        </notebook>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='doors']" position="replace">
+                    <field name="doors" required="required_disponible"/>
+                </xpath>
+
+                <xpath expr="//field[@name='color']" position="replace">
+                    <field name="color" required="required_disponible"/>
+                </xpath>
+
+                <xpath expr="//field[@name='seats']" position="replace">
+                    <field name="seats" required="required_disponible"/>
+                </xpath>
+
+                <xpath expr="//field[@name='seats']" position="before">
+                    <field name="color_interior" required="required_disponible"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_customer_inherit_view_list" model="ir.ui.view">
+            <field name="name">fleet.customer.inherit.view.list</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list" position="replace">
+                    <list>
+                        <field name="vin_sn"/>
+                        <field name="numero_economico"/>
+                        <field name="license_plate"/>
+                        <field name="brand_id" string="Fabricante"/>
+                        <field name="model_id"/>
+                        <field name="version"/>
+                        <field name="transmission"/>
+                        <field name="es_gnv"/>
+                        <field name="model_year"/>
+                        <field name="color"/>
+                        <field name="driver_id"/>
+                        <field name="flotilla_id"/>
+                        <field name="producto_id"/>
+                        <field name="plaza_id"/>
+                        <field name="state_id"/>
+                        <field name="ultimo_cambio_etapa"/>
+                        <field name="acquisition_date"/>
+                        <field name="fecha_recepcion"/>
+                    </list>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_customer_inherit_search" model="ir.ui.view">
+            <field name="name">fleet.customer.inherit.search</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <field string="Plaza" name="plaza_id"/>
+                    <field string="Producto" name="producto_id"/>
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <separator/>
+                    <filter string="Producto" name="groupby_producto" context="{'group_by': 'producto_id'}"/>
+                    <filter string="Plaza" name="groupby_plaza" context="{'group_by': 'plaza_id'}"/>
+                </xpath>
+                <xpath expr="//search/filter[@name='available']" position="replace">
+                    <filter string="Disponible" name="v_disponible" domain="[('state_id.name', '=', 'Disponible')]" />
+                    <filter string="Reacondicionamiento" name="v_reacondicionamiento" domain="[('state_id.name', '=', 'Reacondicionamiento')]" />
+                </xpath>
+                <xpath expr="//search/filter[@name='bikes']" position="replace">
+                    <separator/>
+                    <filter string="Producto - Pilotea" name="producto_pilotea" domain="[('producto_id.name', '=', 'Pilotea')]" />
+                    <filter string="Producto - Pilotea seminuevos" name="producto_pilotea_sem" domain="[('producto_id.name', '=', 'Pilotea seminuevos')]" />
+                    <filter string="Producto - Pilotea NC" name="producto_pilotea_nc" domain="[('producto_id.name', '=', 'Pilotea Nuevos conductores')]" />
+                    <filter string="Producto - Pilotea turismo" name="producto_pilotea_turismo" domain="[('producto_id.name', '=', 'Pilotea Turismo')]" />
+                    <filter string="Producto - Casco punto" name="producto_casco_punto" domain="[('producto_id.name', '=', 'Casco-Punto')]" />
+                    <filter string="Producto - Casco taxi" name="producto_casco_taxi" domain="[('producto_id.name', '=', 'Casco-Taxis')]" />
+                    <filter string="Producto - Flotilla interna" name="producto_interna" domain="[('producto_id.name', '=', 'Flotilla interna')]" />
+                    <filter string="Producto - Besta" name="producto_besta" domain="[('producto_id.name', '=', 'Besta')]" />
+                    <filter string="Producto - Renta auxilio" name="producto_renta_au" domain="[('producto_id.name', '=', 'Renta Auxilio')]" />
+                    <separator/>
+                    <filter string="Plaza - Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]" />
+                    <filter string="Plaza - Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]" />
+                    <filter string="Plaza - Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]" />
+                    <filter string="Plaza - León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]" />
+                    <filter string="Plaza - Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]" />
+                    <filter string="Plaza - Mty-Besta" name="plaza_mty_besta" domain="[('plaza_id.name', '=', 'Mty-Besta')]" />
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_vehicle_view_pivot" model="ir.ui.view">
+            <field name="name">fleet.vehicle.view.pivot</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="arch" type="xml">
+                <pivot string="Análisis de Flotilla" disable_linking="False">
+                    <field name="plaza_id"      type="row"/>
+                    <field name="producto_id"   type="row"/>
+                    <field name="state_id"      type="col"/>
+                    <field name="id"                    string="Núm. vehículos"   type="measure"/>
+                    <field name="importe_adquisicion"   string="Importe adq."     type="measure"/>
+                    <field name="importe_total_adquisicion" string="Importe total" type="measure"/>
+                    <field name="valor_residual_adquisicion" string="Valor residual" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="fleet_customer_inherit_view_kanban" model="ir.ui.view">
+            <field name="name">fleet.customer.inherit.view.kanban</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//t[@t-name='card']" position="replace">
+                    <t t-name="card" class="flex-row mb-2">
+                        <aside class="d-flex align-items-center me-2">
+                            <field name="image_128" widget="image" options="{'img_class': 'object-fit-cover'}"/>
+                        </aside>
+                        <main>
+                            <div style="color: #6366F1;">
+                                <t t-if="record.sub_etapa_id.raw_value">
+                                    <field class="fw-bolder fs-5" name="sub_etapa_id"/>
+                                </t>
+                            </div>
+                            <div>
+                                <t t-if="record.license_plate.raw_value">
+                                    <field class="fw-bolder fs-5" name="license_plate"/>:
+                                </t>
+                                <field class="fw-bolder fs-5" name="model_id"/>
+                            </div>
+                            <div >
+                                <t t-if="record.vin_sn.raw_value">
+                                    <field class="fw-bolder fs-5" name="vin_sn"/>
+                                </t>
+                            </div>
+                            <div class="d-flex gap-1" t-if="record.driver_id.raw_value">
+                                <field name="driver_id" widget="many2one_avatar"/>
+                                <field name="driver_id" class="small pt-1 pb-1"/>
+                            </div>
+                            <div class="small">
+                                <t t-if="record.future_driver_id.raw_value">Future Driver : <field name="future_driver_id"/></t>
+                            </div>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </main>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+        <record id='fleet.fleet_vehicle_action' model='ir.actions.act_window'>
+            <field name="name">Vehicles</field>
+            <field name="path">fleet</field>
+            <field name="res_model">fleet.vehicle</field>
+            <field name="view_mode">list,kanban,form,pivot</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Ready to manage your fleet more efficiently?
+              </p><p>
+                Let's create your first vehicle.
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

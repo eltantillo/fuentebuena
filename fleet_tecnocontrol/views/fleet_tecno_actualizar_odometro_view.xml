@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_tecno_actualizar_odometro_view_form" model="ir.ui.view">
+            <field name="name">fleet.tecno.actualizar.odometro.view.form</field>
+            <field name="model">fleet.tecno.actualizar.odometro</field>
+            <field name="arch" type="xml">
+                <form string="Actualizar odómetro">
+                    <header>
+                       <field name="etapa_id" widget="statusbar"  options="{'clickable': True}" />
+                    </header>
+                    <sheet>
+                        <group string="Información del vehículo">
+                            <field name="vehicle_id" widget="many2one" required="1"/>
+                            <field name="cliente"/>
+                            <field name="vin"/>
+                            <field name="odometro" required="1"/>
+                        </group>
+                        <group string="Tecnocontrol">
+                            <field name="mensaje" readonly="1" />
+                            <field name="codigo" readonly="1" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="fleet_tecno_actualizar_odometro_view_list" model="ir.ui.view">
+            <field name="name">fleet.tecno.actualizar.odometro.view.list</field>
+            <field name="model">fleet.tecno.actualizar.odometro</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="vehicle_id" widget="many2one"/>
+                    <field name="cliente"/>
+                    <field name="vin"/>
+                    <field name="mensaje"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_tecno_actualizar_odometro_action" model="ir.actions.act_window">
+            <field name="name">Actualizar odómetro</field>
+            <field name="res_model">fleet.tecno.actualizar.odometro</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_tecno_actualizar_odometro_view_list"/>
+        </record>
+    </data>
+</odoo>

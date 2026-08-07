@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="factura_move_lines_view_list" model="ir.ui.view">
+            <field name="name">factura.move.lines.view.list</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="codigo_sat"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="factura_move_lines_action" model="ir.actions.act_window">
+            <field name="name">Move Lines</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="factura_move_lines_view_list"/>
+            <field name="context">{'create': False, 'edit': False, 'group_by': ['codigo_sat']}</field>
+        </record>
+
+<!--        <menuitem id="factura_move_lines_menu"-->
+<!--                  name="Lineas de factura"-->
+<!--                  parent="menu_factura_root"-->
+<!--                  sequence="20"-->
+<!--                  action="factura_move_lines_action"/>-->
+    </data>
+</odoo>

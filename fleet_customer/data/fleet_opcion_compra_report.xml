@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_opcion_compra_template">
+        <t t-call="web.html_container" t-options='{"data-report-margin-top": "0"}'>
+            <meta charset="UTF-8"/>
+            <main>
+                <div class="page" style="background:white; color:#222; padding:40px; font-family:'DejaVu Sans'; font-size:15px; text-align:center;">
+                    <t t-set="logo" t-value="request.env['ir.config_parameter'].sudo().get_param('web.base.url') + '/fleet_customer/static/src/img/pilotea.png'" />
+                    <img t-att-src="logo" alt="Logo" style="
+                        position: fixed;
+                        top: 30%;
+                        left: 27%;
+                        width: 50%;
+                        opacity: 0.12;"/>
+
+                    <h2 style="margin-bottom:40px; padding-top: 10rem">
+                        Opción de compra al término del Arrendamiento
+                    </h2>
+
+                    <p style="margin: 0 auto 30px auto; width:80%; text-align:justify;">
+                        El vehículo descrito a continuación tiene a la presente la siguiente estimación de costo de venta,
+                        no definitiva, correspondiente a su arrendamiento puro.
+                    </p>
+
+                    <table style="margin: 0 auto 40px auto; border-collapse: collapse; width:70%; font-size:14px; padding:50px;">
+                        <tr>
+                            <th style="border:1px solid #555; padding:10px; background:#f2f2f2;">Número de Serie (VIN)</th>
+                            <th style="border:1px solid #555; padding:10px; background:#f2f2f2;">Opción de Compra</th>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid #555; padding:14px; font-weight:bold;">
+                                <span t-esc="docs.vin_sn or ''"/>
+                            </td>
+                            <td style="border:1px solid #555; padding:14px; font-weight:bold; font-size:16px;">
+                                $<span t-esc="'{:,.2f}'.format(docs.valor_residual_adquisicion or 0.0)"/> + IVA
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p style="margin: 0 auto 60px auto; width:80%; text-align:justify;">
+                        Los datos anteriores son de carácter informativo y no representan una oferta formal por parte de
+                        <strong>FOMEPADE SAPI de CV SOFOM ENR.</strong>
+                    </p>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

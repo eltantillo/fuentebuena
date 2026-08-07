@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="integracion_base_bloqueo_view_form" model="ir.ui.view">
+            <field name="name">integracion.base.bloqueo.view.form</field>
+            <field name="model">integracion.base.bloqueo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                         <field name="estado_peticion" widget="statusbar" options="{'clickable': 1}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Información de petición">
+                                <field name="create_date" string="Fecha de registro" invisible="id == False"/>
+                                <field name="vehiculo_id" required="1"/>
+                                <field name="tipo" required="1"/>
+                                <field name="write_date" string="Ultima modificación" invisible="id == False"/>
+                            </group>
+                            <group string="Mensaje de error" invisible="not msg_error">
+                                <field name="msg_error" readonly="1"/>
+                            </group>
+                        </group>
+                        <group string="Información vehículo">
+                            <field name="vin_sn"/>
+                            <field name="producto_id"/>
+                            <field name="plaza_id"/>
+                            <field name="proveedor_gps"/>
+                            <field name="id_gps"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="integracion_base_bloqueo_view_list" model="ir.ui.view">
+            <field name="name">integracion.base.bloqueo.view.list</field>
+            <field name="model">integracion.base.bloqueo</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="vin_sn"/>
+                    <field name="plaza_id"/>
+                    <field name="proveedor_gps"/>
+                    <field name="estado_peticion" widget="badge"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="integracion_base_bloqueo_action" model="ir.actions.act_window">
+            <field name="name">Peticiones de bloqueo</field>
+            <field name="res_model">integracion.base.bloqueo</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="integracion_base_bloqueo_view_list"/>
+        </record>
+    </data>
+</odoo>

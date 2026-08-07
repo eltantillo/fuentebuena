@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gestion_caido_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">gestion.caido.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <field name="btn_confirmar_recepcion" readonly="1" invisible="1"/>
+                    <button name="confirmar_recepcion"
+                            string="Confirmar recepción"
+                            type="object"
+                            class="btn-success text-white"
+                            invisible="btn_confirmar_recepcion"
+                            force_save="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='image_128']" position="before">
+                    <field name="edit_vehicle" invisible="1"/>
+                    <group name="evidencia_recuperacion" invisible="edit_vehicle">
+                        <div class="d-flex align-items-center">
+                            <div class="alert alert-danger w-100 mb-2" role="alert">
+                                <span class="me-2"><strong>Es necesaria la evidencia de recuperación</strong></span>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+
+                <xpath expr="//sheet" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

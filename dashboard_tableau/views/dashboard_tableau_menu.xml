@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="fleet_dashboard_tableau_menu_root"
+                  name="Dashboards"
+                  sequence="1"
+                  groups="group_lector_dashboard"
+                  web_icon="dashboard_tableau,static/src/description/icon.png"/>
+
+        <menuitem id="fleet_dashboard_tableau"
+                  name="Mantenimientos"
+                  sequence="1"
+                  parent="fleet_dashboard_tableau_menu_root"
+                  action="dashboard_tableau_action"/>
+    </data>
+</odoo>

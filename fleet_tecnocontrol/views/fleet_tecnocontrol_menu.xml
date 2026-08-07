@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="fleet_tecnocontrol_root"
+                  name="Tecnocontrol"
+                  sequence="10"
+                  groups="base.group_system"
+                  web_icon="fleet_tecnocontrol,static/src/description/icon.png"/>
+
+        <menuitem id="fleet_tecnocontrol_peticion_bloqueo"
+                  name="Peticiones de Bloqueo"
+                  sequence="1"
+                  parent="fleet_tecnocontrol_root"
+                  action="fleet_tecno_peticion_bloqueo_action"/>
+
+        <menuitem id="fleet_tecnocontrol_no_gps"
+                  name="Gps sin vehículo"
+                  sequence="2"
+                  parent="fleet_tecnocontrol_root"
+                  action="fleet_tecno_no_gps_action"/>
+
+        <menuitem id="fleet_tecnocontrol_config"
+                  name="Configuración"
+                  groups="base.group_system"
+                  sequence="3"
+                  parent="fleet_tecnocontrol_root"/>
+
+        <menuitem id="fleet_tecnocontrol_config_estado"
+                  name="Estado de petición"
+                  sequence="1"
+                  parent="fleet_tecnocontrol_config"
+                  action="tecno_peticion_estado_action"/>
+
+        <menuitem id="fleet_tecnocontrol_config_tipo"
+                  name="Tipo de petición"
+                  sequence="2"
+                  parent="fleet_tecnocontrol_config"
+                  action="tecno_peticion_bloqueo_tipo_action"/>
+
+        <menuitem id="fleet_tecnocontrol_respuesta_tipo"
+                  name="Respuestas de petición"
+                  sequence="3"
+                  parent="fleet_tecnocontrol_config"
+                  action="fleet_tecno_peticion_respuesta_action"/>
+
+        <menuitem id="fleet_tecnocontrol_etapa_act_odometro"
+                  name="Etapas de actualizar odometro"
+                  sequence="4"
+                  parent="fleet_tecnocontrol_config"
+                  action="actualizar_odometro_etapa_action"/>
+
+        <menuitem id="menu_fleet_actualizar_odometro"
+                  name="Actualizar odometro"
+                  sequence="160"
+                  parent="fleet.fleet_vehicles"
+                  action="fleet_tecno_actualizar_odometro_action"/>
+    </data>
+</odoo>

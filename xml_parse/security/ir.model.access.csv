@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_xml_parse_sys,access_xml_parse_sys,model_xml_parse,,1,0,0,0
+access_xml_parse_all,access_xml_parse_all,model_xml_parse,base.group_system,1,1,1,1
+
+access_xml_adecuacion_sys,access_xml_adecuacion_sys,model_adecuacion,,1,0,0,0
+access_xml_adecuacion_all,access_xml_adecuacion_all,model_adecuacion,base.group_system,1,1,1,1

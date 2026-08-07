@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="mantenimiento_ti_menu_root"
+                  name="Mantenimiento TI"
+                  sequence="5"
+                  web_icon="mantenimiento_ti,static/src/description/icon.png"/>
+
+        <menuitem id="mantenimiento_ti_menu_configuracion"
+                  name="Configuración"
+                  sequence="3"
+                  parent="mantenimiento_ti_menu_root"/>
+
+        <menuitem id="mantenimiento_preventivo_menu"
+                  name="Mantenimiento preventivo"
+                  sequence="1"
+                  parent="mantenimiento_ti_menu_configuracion"/>
+
+        <menuitem id="gasto_ti_menu"
+                  name="Gasto TI"
+                  sequence="2"
+                  parent="mantenimiento_ti_menu_configuracion"/>
+
+        <menuitem id="mantenimiento_preventivo_menu_etapa"
+                  name="Etapa"
+                  sequence="1"
+                  parent="mantenimiento_preventivo_menu"
+                  action="mantenimiento_preventivo_etapa_action"/>
+
+        <menuitem id="mantenimiento_preventivo_menu_actividad"
+                  name="Actividades"
+                  sequence="2"
+                  parent="mantenimiento_preventivo_menu"
+                  action="mantenimiento_cat_actividad_action"/>
+
+        <menuitem id="mantenimiento_preventivo_menu_proveedor"
+                  name="Proveedor TI"
+                  sequence="3"
+                  parent="mantenimiento_preventivo_menu"
+                  action="mantenimiento_ti_proveedor_action"/>
+
+        <menuitem id="mantenimiento_preventivo_menu_cat_serv_prov"
+                  name="Categoría de servicio TI"
+                  sequence="4"
+                  parent="mantenimiento_preventivo_menu"
+                  action="mantenimiento_cat_servicio_prov_action"/>
+
+        <menuitem id="gasto_ti_menu_cat_serv_prov"
+                  name="Etapa"
+                  sequence="5"
+                  parent="gasto_ti_menu"
+                  action="mantenimiento_gasto_ti_etapa_action"/>
+    </data>
+</odoo>

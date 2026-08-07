@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_siniestro_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">fleet.siniestro.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/div/button[3]" position="after">
+                    <field name="mostrar_page_renta_aux" invisible="1"/>
+                    <button name="return_action_to_siniestro"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-exclamation-triangle"
+                        help="Muestra los siniestros">
+                        <field name="num_siniestros" widget="statinfo" string="Siniestros"/>
+                    </button>
+                </xpath>
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Siniestros" name="siniestros" invisible="id == False">
+                        <field name="siniestro_ids" />
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Renta Auxilio" name="renta_auxilio" invisible="mostrar_page_renta_aux">
+                        <field name="renta_auxilio_ids" widget="renta_auxilio_timeline" nolabel="1">
+                        <list invisible="1">
+                            <field name="vehiculo_siniestro_id"/>
+                            <field name="vehiculo_renta_id"/>
+                            <field name="conductor_id"/>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_final"/>
+                            <field name="dias_renta"/>
+                            <field name="estado"/>
+                        </list>
+                    </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,138 @@
+<odoo>
+    <data>
+
+        <record id="cm_config_msg_view_form" model="ir.ui.view">
+            <field name="name">cm.config.msg.view.form</field>
+            <field name="model">cm.config.msg</field>
+            <field name="arch" type="xml">
+
+                <form class="o_settings_form_view">
+                    <sheet>
+                        <div class="oe_title mb-4">
+                            <h1 class="fw-bold">Configuración de Mensajes</h1>
+                            <div class="text-muted">
+                                Personaliza los mensajes mostrados durante las validaciones de citas.
+                            </div>
+                        </div>
+                        <notebook>
+                            <!-- VALIDACIONES DE KM -->
+                            <page string="Kilometraje">
+                                <div class="row g-3">
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+                                            <div class="fw-bold mb-2">
+                                                Rango mínimo
+                                            </div>
+                                            <div class="text-muted small mb-2">
+                                                Mensaje mostrado cuando la unidad aún no alcanza el kilometraje requerido.
+                                            </div>
+                                            <field name="msg_rango_minimo"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+                                            <div class="fw-bold mb-2">
+                                                Rango máximo
+                                            </div>
+                                            <div class="text-muted small mb-2">
+                                                Mensaje mostrado cuando la unidad excede el kilometraje permitido.
+                                            </div>
+                                            <field name="msg_rango_maximo"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+                                            <div class="fw-bold mb-2">
+                                                Desfase de mantenimientos
+                                            </div>
+                                            <div class="text-muted small mb-2">
+                                                Mensaje mostrado cuando existe un desfase en el historial de mantenimientos.
+                                            </div>
+                                            <field name="msg_desfase_mantenimientos"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+                                            <div class="fw-bold mb-2">
+                                                Primer mantenimiento
+                                            </div>
+                                            <div class="text-muted small mb-2">
+                                                Mensaje mostrado cuando aún no es posible agendar el primer mantenimiento.
+                                            </div>
+                                            <field name="msg_primer_mantenimiento"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+                            <!-- REAGENDAS -->
+                            <page string="Reagendas">
+                                <div class="row g-3">
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+                                            <div class="fw-bold mb-2">
+                                                Máximo de reagendas
+                                            </div>
+                                            <div class="text-muted small mb-2">
+                                                Mensaje mostrado cuando se alcanza el límite permitido.
+                                            </div>
+                                            <field name="msg_max_reagendas"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- ERRORES GENERALES -->
+                            <page string="Errores">
+                                <div class="row g-3">
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+                                            <div class="fw-bold mb-2">
+                                                Placa no encontrada
+                                            </div>
+                                            <div class="text-muted small mb-2">
+                                                Mensaje mostrado cuando no existe información para la placa capturada.
+                                            </div>
+                                            <field name="msg_placa_no_encontrada"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+                                            <div class="fw-bold mb-2">
+                                                Placa diferente plaza
+                                            </div>
+                                            <div class="text-muted small mb-2">
+                                                Mensaje mostrado cuando una placa no corresponde a la plaza seleccionada.
+                                            </div>
+                                            <field name="msg_placa_otra_plaza"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button
+                            type="object"
+                            name="confirm_change"
+                            string="Guardar Cambios"
+                            class="btn btn-primary"/>
+                        <button
+                            string="Descartar"
+                            special="cancel"
+                            class="btn btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="cm_config_msg_view_action" model="ir.actions.act_window">
+            <field name="name">Configuración de Mensajes</field>
+            <field name="res_model">cm.config.msg</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cm_config_msg_view_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="formulario_medio_contacto_view_form" model="ir.ui.view">
+            <field  name="name">formulario.medio.contacto.view.form</field>
+            <field name="model">medio.contacto</field>
+            <field name="arch" type="xml">
+                <form string="Formulario medio de contacto">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="formulario_medio_contacto_view_list" model="ir.ui.view">
+            <field name="name">formulario.medio.contacto.view.list</field>
+            <field name="model">medio.contacto</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="formulario_medio_contacto_action" model="ir.actions.act_window">
+            <field name="name">Medios de contacto</field>
+            <field name="res_model">medio.contacto</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="formulario_medio_contacto_view_list"/>
+        </record>
+
+    </data>
+</odoo>

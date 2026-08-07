@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="atencion_cliente_geocerca_view_form" model="ir.ui.view">
+            <field name="name">atencion.cliente.geocerca.view.form</field>
+            <field name="model">atencion.cliente.geocerca</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Cliente">
+                                <field name="cliente_id" domain="[('es_cliente', '=', True)]"/>
+                                <field name="vehiculo_id" domain="[('driver_id', '==', cliente_id)]"/>
+                                <field name="vin_sn"/>
+                                <field name="plaza_id"/>
+                            </group>
+                            <group string="Solicitud">
+                                <field name="create_date" string="Fecha"/>
+                                <field name="create_uid" string="Asesor"/>
+                                <field name="motivo"/>
+                                <field name="solucion"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_geocerca_view_list" model="ir.ui.view">
+            <field name="name">atencion.cliente.geocerca.view.list</field>
+            <field name="model">atencion.cliente.geocerca</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                    <field name="vin_sn"/>
+                    <field name="plaza_id"/>
+                    <field name="motivo"/>
+                    <field name="solucion"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_geocerca_view_search" model="ir.ui.view">
+            <field name="name">atencion.cliente.geocerca.view.search</field>
+            <field name="model">atencion.cliente.geocerca</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="atencion_cliente_geocerca_action" model="ir.actions.act_window">
+            <field name="name">Geocerca</field>
+            <field name="res_model">atencion.cliente.geocerca</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="atencion_cliente_geocerca_view_list"/>
+        </record>
+    </data>
+</odoo>

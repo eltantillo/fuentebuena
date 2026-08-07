@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_pilotea" model="ir.module.category">
+            <field name="name">Pilotea</field>
+            <field name="description">Gestión de acceso a Pilotea</field>
+        </record>
+
+        <record id="group_gerente_operacion" model="res.groups">
+            <field name="name">Gerente de operaciones</field>
+        </record>
+
+        <record id="group_auxiliar_analista_operacion" model="res.groups">
+            <field name="name">Auxiliar/Analista operaciones</field>
+        </record>
+
+        <record id="group_gerente_mantenimiento" model="res.groups">
+            <field name="name">Gerente de mantenimiento</field>
+        </record>
+
+        <record id="group_auxiliar_mantenimiento" model="res.groups">
+            <field name="name">Auxiliar de mantenimiento</field>
+        </record>
+
+        <record id="group_gerente_comercial" model="res.groups">
+            <field name="name">Gerente comercial</field>
+        </record>
+
+        <record id="group_director_comercial" model="res.groups">
+            <field name="name">Director comercial</field>
+        </record>
+
+        <record id="group_coordinador_compra" model="res.groups">
+            <field name="name">Coordinador de compras</field>
+        </record>
+
+        <record id="group_auxiliar_analista_compra" model="res.groups">
+            <field name="name">Auxiliar/Analista de compra</field>
+        </record>
+
+        <record id="group_credito" model="res.groups">
+            <field name="name">Credito</field>
+        </record>
+
+        <record id="group_lider_atencion_cliente" model="res.groups">
+            <field name="name">Líder de atención a clientes</field>
+        </record>
+
+        <record id="group_ejecutivo_atencion_cliente" model="res.groups">
+            <field name="name">Ejecutivo atención a clientes</field>
+        </record>
+
+        <record id="group_finanzas" model="res.groups">
+            <field name="name">Finanzas</field>
+        </record>
+
+        <record id="group_lectura_flota" model="res.groups">
+            <field name="name">Lectura flota</field>
+        </record>
+
+        <record id="group_lectura_agenda" model="res.groups">
+            <field name="name">Lectura agenda</field>
+        </record>
+
+        <record id="fleet_vehicle_all_access" model="ir.rule">
+            <field name="name">Vehículos - Acceso total</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_lider_atencion_cliente'),
+                    ref('group_ejecutivo_atencion_cliente'),
+                    ref('group_finanzas'),
+                    ref('group_credito'),
+                    ref('group_coordinador_compra'),
+                    ref('group_auxiliar_analista_compra'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_vehicle_plaza_flot" model="ir.rule">
+            <field name="name">Vehículos por plaza</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids),('producto_id.flotilla_id.id','in',user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_vehicle_contrato_plaza_flot" model="ir.rule">
+            <field name="name">Contratos por plaza</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle_log_contract"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids),('producto_id.flotilla_id.id','in',user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="cita_mantenimiento_plaza" model="ir.rule">
+            <field name="name">Citas de mantenimiento por plaza</field>
+            <field name="model_id" ref="cita_mantenimiento.model_cita_mantenimiento"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_odometro_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Odometros por plaza</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle_odometer"/>
+            <field name="domain_force">[('vehicle_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehicle_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_recepcion_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Recepcion por plaza</field>
+            <field name="model_id" ref="fleet_recepcion.model_fleet_recepcion"/>
+            <field name="domain_force">[('vehiculo_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_poliza_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Poliza por plaza</field>
+            <field name="model_id" ref="fleet_poliza.model_fleet_poliza"/>
+            <field name="domain_force">[('vehiculo_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_tramite_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Tramite por plaza</field>
+            <field name="model_id" ref="fleet_tramite.model_fleet_tramite"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_siniestro_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Siniestro por plaza</field>
+            <field name="model_id" ref="fleet_siniestro.model_fleet_siniestro"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids), ('producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_mantenimiento_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Mantenimiento por plaza</field>
+            <field name="model_id" ref="fleet_mantenimiento.model_fleet_mantenimiento"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids), ('producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_incidente_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Incidente por plaza</field>
+            <field name="model_id" ref="fleet_incidente.model_fleet_incidente"/>
+            <field name="domain_force">[('vehiculo_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_gasto_operativo_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Gasto operativo por plaza</field>
+            <field name="model_id" ref="gasto_operativo.model_gasto_operativo"/>
+            <field name="domain_force">[('vehiculo_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_adecuacion_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Adecuaccion por plaza</field>
+            <field name="model_id" ref="fleet_adecuacion.model_fleet_adecuacion"/>
+            <field name="domain_force">[('vehiculo_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_movimiento_misc_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Movimientos misc por plaza</field>
+            <field name="model_id" ref="fleet_movimiento_misc.model_fleet_movimiento_misc"/>
+            <field name="domain_force">[('vehiculo_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_mantenimiento'),
+                    ref('group_auxiliar_mantenimiento'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_agenda_entrega_evento_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Evento por plaza</field>
+            <field name="model_id" ref="fleet_agenda_entrega.model_agenda_entrega_evento"/>
+            <field name="domain_force">[('agenda_id.plaza_id.id', 'in', user.plaza_ids.ids), ('agenda_id.producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_credito'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="fleet_agenda_entrega_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Agenda entrega por plaza</field>
+            <field name="model_id" ref="fleet_agenda_entrega.model_agenda_entrega"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids), ('producto_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                    ref('group_gerente_comercial'),
+                    ref('group_director_comercial'),
+                ])
+            ]"/>
+        </record>
+
+        <record id="atencion_cliente_siniestro_por_plaza_flotilla" model="ir.rule">
+            <field name="name">Siniestro por plaza</field>
+            <field name="model_id" ref="atencion_cliente.model_atencion_cliente_siniestro"/>
+            <field name="domain_force">[('vehiculo_id.plaza_id.id', 'in', user.plaza_ids.ids), ('vehiculo_id.flotilla_id.id', 'in', user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gerente_operacion'),
+                    ref('group_auxiliar_analista_operacion'),
+                ])
+            ]"/>
+        </record>
+    </data>
+</odoo>

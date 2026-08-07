@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_poliza_view_form" model="ir.ui.view">
+            <field name="name">fleet.poliza.view.form</field>
+            <field name="model">fleet.poliza</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Datos de póliza" name="data_poliza">
+                                <field name="tipo_poliza_id" widget="radio" options="{'horizontal': True}" required="1"/>
+                                <field name="num_poliza" required="1"/>
+                                <field name="proveedor_polizas" invisible="1"/>
+                                <field name="proveedor_id"  domain="[('es_proveedor', '=', True),('tipo_proveedor_ids', 'in', proveedor_polizas)]"
+                                       required="1" options="{'no_create': True, 'no_create_edit': True}"/>
+                                <field name="tipo_cobertura_id" required="1"/>
+                                <field name="fecha_inicio" required="1"/>
+                                <field name="fecha_vencimiento" required="1"/>
+                                <field name="tipo_valor_id" required="1"/>
+                            </group>
+                            <group string="Importes" name="data_importe">
+                                <field name="prima_neta"/>
+                                <field name="gasto_expedicion"/>
+                                <field name="iva"/>
+                                <field name="importe_total"/>
+                            </group>
+                        </group>
+                        <group string="Información del vehículo" name="data_vehiculo">
+                            <field name="vehiculo_id" required="1"/>
+                            <field name="vin_sn" readonly="1"/>
+                            <field name="numero_economico" readonly="1"/>
+                            <field name="producto_id" readonly="1"/>
+                            <field name="plaza_id" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Expediente" name="expediente">
+                                <field name="attach_poliza" widget="pdf_viewer" required="1"/>
+                            </page>
+                            <page string="Factura" name="factura">
+                                <group string="Factura">
+                                    <field name="attach_factura" widget="pdf_viewer"/>
+                                </group>
+                                <group string="XML">
+                                    <field name="attach_poliza_xml"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_poliza_view_list" model="ir.ui.view">
+            <field name="name">fleet.poliza.view.list</field>
+            <field name="model">fleet.poliza</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="tipo_poliza_id"/>
+                    <field name="num_poliza"/>
+                    <field name="proveedor_id"/>
+                    <field name="vehiculo_id"/>
+                    <field name="vin_sn"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_vencimiento"/>
+                    <field name="tipo_cobertura_id"/>
+                    <field name="prima_neta"/>
+                    <field name="gasto_expedicion"/>
+                    <field name="iva"/>
+                    <field name="importe_total"/>
+                    <field name="attach_poliza"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_poliza_view_calendar" model="ir.ui.view">
+            <field name="name">fleet.poliza.view.calendar</field>
+            <field name="model">fleet.poliza</field>
+            <field name="arch" type="xml">
+                <calendar string="Pólizas"
+                          date_start="fecha_inicio">
+                </calendar>
+            </field>
+        </record>
+
+        <record id="fleet_poliza_view_search" model="ir.ui.view">
+            <field name="name">fleet.poliza.view.search</field>
+            <field name="model">fleet.poliza</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <separator/>
+                    <filter string="Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]"/>
+                    <filter string="Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]"/>
+                    <filter string="Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]"/>
+                    <filter string="León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]"/>
+                    <filter string="Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="fleet_poliza_action" model="ir.actions.act_window">
+            <field name="name">Polizas</field>
+            <field name="res_model">fleet.poliza</field>
+            <field name="view_mode">list,form,calendar</field>
+            <field name="view_id" ref="fleet_poliza_view_list"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_contrato"
+                  name="Contrato"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="50"/>
+
+        <menuitem id="menu_fleet_contrato_condicion_vehiuclo"
+                  name="Condición de Vehiculo"
+                  parent="menu_fleet_contrato"
+                  sequence="1"
+                  action="fleet_contrato_condicion_vehiculo_action"/>
+
+        <menuitem id="menu_fleet_contrato_motivo_cancelacion"
+                  name="Motivo de cancelación"
+                  parent="menu_fleet_contrato"
+                  sequence="2"
+                  action="fleet_contrato_motivo_cancelacion_action"/>
+    </data>
+</odoo>

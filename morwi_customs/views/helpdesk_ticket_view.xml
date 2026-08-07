@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit_custom_fields" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit.custom.fields</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page[@name='description']" position="after">
+                <page string="Additional Info" name="additional_info">
+                    <field name="show_gnv_next_ruling_date" invisible="1"/>
+                    <field name="show_tentative_delivery_date" invisible="1"/>
+                    <field name="show_pound_exit_date" invisible="1"/>
+                    <field name="show_claim_status" invisible="1"/>
+                    <field name="show_tracking_log" invisible="1"/>
+                    <field name="show_advisor_id" invisible="1"/>
+                    <field name="show_info_evidence" invisible="1"/>
+                    <field name="show_specific_request" invisible="1"/>
+                    <field name="show_capture_evidence" invisible="1"/>
+                    <field name="show_payment_voucher_id" invisible="1"/>
+                    <field name="show_amount" invisible="1"/>
+                    <field name="show_date" invisible="1"/>
+                    <field name="show_bank_id" invisible="1"/>
+                    <field name="show_reference_cie" invisible="1"/>
+                    <field name="show_extension_folio" invisible="1"/>
+                    <field name="show_issue_description" invisible="1"/>
+                    <field name="show_location" invisible="1"/>
+                    <field name="show_customer_availability" invisible="1"/>
+                    <field name="show_photos_video_evidence" invisible="1"/>
+                    <field name="show_event_datetime" invisible="1"/>
+                    <field name="show_event_narrative" invisible="1"/>
+                    <field name="show_accident_photos" invisible="1"/>
+                    <field name="show_insurance_authority_report" invisible="1"/>
+                    <field name="show_gps_location" invisible="1"/>
+                    <field name="show_procedure_document" invisible="1"/>
+                    <field name="show_fleet_customer_plaza_id" invisible="1"/>
+                    <field name="show_fine_evidence" invisible="1"/>
+                    <field name="show_origin_destination" invisible="1"/>
+                    <field name="show_reason" invisible="1"/>
+                    <field name="show_trip_duration" invisible="1"/>
+                    <field name="show_app_trip" invisible="1"/>
+                    <field name="show_debt_claim_extension_validation" invisible="1"/>
+                    <field name="show_legal_name" invisible="1"/>
+                    <field name="show_fiscal_zip" invisible="1"/>
+                    <field name="show_fiscal_regime" invisible="1"/>
+                    <field name="show_fiscal_usage" invisible="1"/>
+                    <field name="show_fiscal_proof_document" invisible="1"/>
+                    <field name="show_requested_period" invisible="1"/>
+                    <field name="show_referral_code" invisible="1"/>
+                    <field name="show_promotion" invisible="1"/>
+                    <field name="show_delivery_evidence_date" invisible="1"/>
+                    <field name="show_fleet_customer_producto_id" invisible="1"/>
+                    <field name="show_contract_end_date" invisible="1"/>
+                    <field name="show_balance_amount" invisible="1"/>
+                    <field name="show_customer_intent" invisible="1"/>
+                    <field name="show_fleet_vehicle_id" invisible="1"/>
+                    <field name="show_case_status_confirmed" invisible="1"/>
+                    <field name="show_payment_management_result" invisible="1"/>
+                    <field name="show_final_response_sent" invisible="1"/>
+                    <field name="show_closed_stage_id" invisible="1"/>
+                    <field name="show_invoice_corrected" invisible="1"/>
+                    <field name="show_correction_commitment_date" invisible="1"/>
+                    <field name="show_closure_evidence" invisible="1"/>
+                    <field name="show_corrected_info_channel" invisible="1"/>
+                    <field name="show_commercial_responsible_notified" invisible="1"/>
+                    <field name="show_procedure_validated" invisible="1"/>
+                    <field name="show_response_instruction_document" invisible="1"/>
+                    <field name="show_follow_up_responsible_id" invisible="1"/>
+                    <field name="show_benefit_validated" invisible="1"/>
+                    <field name="show_benefit_request_result" invisible="1"/>
+                    <field name="show_benefit_rejection_reason" invisible="1"/>
+                    <field name="show_termination_requirements_confirmed" invisible="1"/>
+                    <field name="show_termination_next_step" invisible="1"/>
+                    <field name="show_maintenance_appointment_datetime" invisible="1"/>
+                    <field name="show_diagnosis_confirmed" invisible="1"/>
+                    <field name="show_customer_informed_status" invisible="1"/>
+                    <field name="show_geofence_authorization" invisible="1"/>
+                    <field name="show_conditions_communicated" invisible="1"/>
+
+                    <group string="GNV">
+                        <field name="gnv_next_ruling_date" invisible="not show_gnv_next_ruling_date"/>
+                    </group>
+                    <group string="Delivery">
+                        <field name="tentative_delivery_date" invisible="not show_tentative_delivery_date"/>
+                    </group>
+                    <group string="Impound Lot">
+                        <field name="pound_exit_date" invisible="not show_pound_exit_date"/>
+                    </group>
+                    <group string="Claim">
+                        <field name="claim_status" invisible="not show_claim_status"/>
+                    </group>
+                    <group string="General Follow-up">
+                        <field name="tracking_log" invisible="not show_tracking_log"/>
+                        <field name="advisor_id" invisible="not show_advisor_id"/>
+                        <field name="info_evidence" invisible="not show_info_evidence"/>
+                        <field name="specific_request" invisible="not show_specific_request"/>
+                        <field name="capture_evidence" invisible="not show_capture_evidence"/>
+                    </group>
+                    <group string="Payment">
+                        <field name="payment_voucher_id" invisible="not show_payment_voucher_id"/>
+                        <field name="amount" invisible="not show_amount"/>
+                        <field name="date" invisible="not show_date"/>
+                        <field name="bank_id" invisible="not show_bank_id"/>
+                        <field name="reference_cie" invisible="not show_reference_cie"/>
+                        <field name="extension_folio" invisible="not show_extension_folio"/>
+                    </group>
+                    <group string="Service / Issue">
+                        <field name="issue_description" invisible="not show_issue_description"/>
+                        <field name="location" invisible="not show_location"/>
+                        <field name="customer_availability" invisible="not show_customer_availability"/>
+                        <field name="photos_video_evidence" invisible="not show_photos_video_evidence"/>
+                    </group>
+                    <group string="Accident">
+                        <field name="event_datetime" invisible="not show_event_datetime"/>
+                        <field name="event_narrative" invisible="not show_event_narrative"/>
+                        <field name="accident_photos" invisible="not show_accident_photos"/>
+                        <field name="insurance_authority_report" invisible="not show_insurance_authority_report"/>
+                        <field name="gps_location" invisible="not show_gps_location"/>
+                    </group>
+                    <group string="Procedure">
+                        <field name="procedure_document" invisible="not show_procedure_document"/>
+                        <field name="fleet_customer_plaza_id" invisible="not show_fleet_customer_plaza_id"/>
+                        <field name="fine_evidence" invisible="not show_fine_evidence"/>
+                    </group>
+                    <group string="Trip">
+                        <field name="origin_destination" invisible="not show_origin_destination"/>
+                        <field name="reason" invisible="not show_reason"/>
+                        <field name="trip_duration" invisible="not show_trip_duration"/>
+                        <field name="app_trip" invisible="not show_app_trip"/>
+                        <field name="debt_claim_extension_validation" invisible="not show_debt_claim_extension_validation"/>
+                    </group>
+                    <group string="Fiscal Data">
+                        <field name="legal_name" invisible="not show_legal_name"/>
+                        <field name="fiscal_zip" invisible="not show_fiscal_zip"/>
+                        <field name="fiscal_regime" invisible="not show_fiscal_regime"/>
+                        <field name="fiscal_usage" invisible="not show_fiscal_usage"/>
+                        <field name="fiscal_proof_document" invisible="not show_fiscal_proof_document"/>
+                    </group>
+                    <group string="Referral / Promotion">
+                        <field name="requested_period" invisible="not show_requested_period"/>
+                        <field name="referral_code" invisible="not show_referral_code"/>
+                        <field name="promotion" invisible="not show_promotion"/>
+                        <field name="delivery_evidence_date" invisible="not show_delivery_evidence_date"/>
+                    </group>
+                    <group string="Contract">
+                        <field name="fleet_customer_producto_id" invisible="not show_fleet_customer_producto_id"/>
+                        <field name="contract_end_date" invisible="not show_contract_end_date"/>
+                        <field name="balance_amount" invisible="not show_balance_amount"/>
+                        <field name="customer_intent" invisible="not show_customer_intent"/>
+                    </group>
+                    <group string="Case Closure">
+                        <field name="fleet_vehicle_id" invisible="not show_fleet_vehicle_id"/>
+                        <field name="case_status_confirmed" invisible="not show_case_status_confirmed"/>
+                        <field name="payment_management_result" invisible="not show_payment_management_result"/>
+                        <field name="final_response_sent" invisible="not show_final_response_sent"/>
+                        <field name="closed_stage_id" invisible="not show_closed_stage_id"/>
+                    </group>
+                    <group string="Billing Correction">
+                        <field name="invoice_corrected" invisible="not show_invoice_corrected"/>
+                        <field name="correction_commitment_date" invisible="not show_correction_commitment_date"/>
+                        <field name="closure_evidence" invisible="not show_closure_evidence"/>
+                        <field name="corrected_info_channel" invisible="not show_corrected_info_channel"/>
+                        <field name="commercial_responsible_notified" invisible="not show_commercial_responsible_notified"/>
+                        <field name="procedure_validated" invisible="not show_procedure_validated"/>
+                        <field name="response_instruction_document" invisible="not show_response_instruction_document"/>
+                    </group>
+                    <group string="Benefit">
+                        <field name="follow_up_responsible_id" invisible="not show_follow_up_responsible_id"/>
+                        <field name="benefit_validated" invisible="not show_benefit_validated"/>
+                        <field name="benefit_request_result" invisible="not show_benefit_request_result"/>
+                        <field name="benefit_rejection_reason" invisible="not show_benefit_rejection_reason"/>
+                    </group>
+                    <group string="Termination">
+                        <field name="termination_requirements_confirmed" invisible="not show_termination_requirements_confirmed"/>
+                        <field name="termination_next_step" invisible="not show_termination_next_step"/>
+                    </group>
+                    <group string="Maintenance">
+                        <field name="maintenance_appointment_datetime" invisible="not show_maintenance_appointment_datetime"/>
+                        <field name="diagnosis_confirmed" invisible="not show_diagnosis_confirmed"/>
+                        <field name="customer_informed_status" invisible="not show_customer_informed_status"/>
+                    </group>
+                    <group string="Geofence">
+                        <field name="geofence_authorization" invisible="not show_geofence_authorization"/>
+                        <field name="conditions_communicated" invisible="not show_conditions_communicated"/>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_catalogo_frecuencia_inherit_poliza_view_form" model="ir.ui.view">
+            <field name="name">fleet.catalogo.frecuencia.inherit.poliza.view.form</field>
+            <field name="model">fleet.poliza</field>
+            <field name="inherit_id" ref="fleet_poliza.fleet_poliza_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='prima_neta']" position="before">
+                    <field name="frecuencia_pago_id" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_catalogo_frecuencia_inherit_tramite_view_form" model="ir.ui.view">
+            <field name="name">fleet.catalogo.frecuencia.inherit.tramite.view.form</field>
+            <field name="model">fleet.tramite</field>
+            <field name="inherit_id" ref="fleet_tramite.fleet_tramite_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='estado']" position="after">
+                    <field name="frecuencia_pago_id" string="Periodicidad" required="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+    <record id="catalogo_frecuencia_inherit_tramite_config_view_form" model="ir.ui.view">
+        <field name="name">catalogo.frecuencia.inherit.tramite.config.view.form</field>
+        <field name="model">fleet.tramite.config</field>
+        <field name="inherit_id" ref="fleet_tramite.fleet_tramite_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='motivo_pago_id']" position="after">
+                <field name="frecuencia_pago_id" required="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="catalogo_frecuencia_inherit_poliza_config_view_form" model="ir.ui.view">
+        <field name="name">catalogo.frecuencia.inherit.poliza.config.view.form</field>
+        <field name="model">fleet.poliza.config</field>
+        <field name="inherit_id" ref="fleet_poliza.fleet_poliza_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tipo_cobertura_id']" position="after">
+                <field name="frecuencia_pago_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

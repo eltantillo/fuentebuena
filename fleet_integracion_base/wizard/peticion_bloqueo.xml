@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="peticion_bloqueo_view_form" model="ir.ui.view">
+            <field name="name">peticion.bloqueo.view.form</field>
+            <field name="model">peticion.bloqueo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="d-flex align-items-center">
+                                <div class="alert alert-warning w-100 mb-2" role="alert">
+                                    <p>Por favor, proceda con cuidado; se enviará la solicitud al servicio GPS.</p>
+                                </div>
+                            </div>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="action_confirm" string="Confirmar" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

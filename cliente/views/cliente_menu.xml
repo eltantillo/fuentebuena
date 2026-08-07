@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cliente_action" model="ir.actions.act_window">
+            <field name="name">Clientes</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form,kanban</field>
+            <field name="domain">[('es_cliente', '=', True )]</field>
+            <field name="context">{'default_es_cliente': True, 'default_company_id':2}</field>
+        </record>
+
+        <menuitem id="menu_cliente_root"
+                  name="Clientes Pilotea"
+                  sequence="1"
+                  action="cliente_action"
+                  groups="base.group_system"
+                  web_icon="cliente,static/src/description/icon.png"/>
+    </data>
+</odoo>

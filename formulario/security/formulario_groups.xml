@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_formulario" model="ir.module.category">
+            <field name="name">Formularios</field>
+            <field name="description">Gestión de acceso a formularios</field>
+        </record>
+
+        <record id="group_manager" model="res.groups">
+            <field name="name">Administrador de formularios</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_write,perm_read,perm_create,perm_unlink
+fleet_compra_categoria_access_sys,fleet_compra_categoria_access_sys,model_fleet_compra_categoria,base.group_system,1,1,1,1
+fleet_compra_condicion_access_sys,fleet_compra_condicion_access_sys,model_fleet_compra_condicion,base.group_system,1,1,1,1
+fleet_compra_etapa_access_sys,fleet_compra_etapa_access_sys,model_fleet_compra_etapa,base.group_system,1,1,1,1
+fleet_orden_compra_access_sys,fleet_orden_compra_access_sys,model_fleet_orden_compra,base.group_system,1,1,1,1
+fleet_orden_compra_line_access_sys,fleet_orden_compra_line_access_sys,model_fleet_orden_compra_line,base.group_system,1,1,1,1
+fleet_orden_alta_vehiculo_access_sys,fleet_orden_alta_vehiculo_access_sys,model_alta_vehiculo,base.group_system,1,1,1,1
+
+fleet_compra_categoria_access,fleet_compra_categoria_access,model_fleet_compra_categoria,,0,1,0,0
+fleet_compra_condicion_access,fleet_compra_condicion_access,model_fleet_compra_condicion,,0,1,0,0
+fleet_compra_etapa_access,fleet_compra_etapa_access,model_fleet_compra_etapa,,0,1,0,0
+fleet_orden_compra_access,fleet_orden_compra_access,model_fleet_orden_compra,,0,1,0,0
+fleet_orden_compra_line_access,fleet_orden_compra_line_access,model_fleet_orden_compra_line,,0,1,0,0
+fleet_orden_alta_vehiculo_access,fleet_orden_alta_vehiculo_access,model_alta_vehiculo,,0,1,0,0

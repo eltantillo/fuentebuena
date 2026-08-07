@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="formulario_prospecto_animador_view_form" model="ir.ui.view">
+            <field name="name">formulario.prospecto.animador.view.form</field>
+            <field name="model">formulario.prospecto.animador</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Datos del usuario">
+                            <field name="create_date" string="Fecha de creación"/>
+                            <field name="nombre"/>
+                            <field name="apellido"/>
+                            <field name="rfc"/>
+                            <field name="celular"/>
+                            <field name="confirmacion_celular"/>
+                            <field name="convenio_id"/>
+                            <field name="celula_id"/>
+                            <field name="region_id"/>
+                            <field name="uso_datos"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="formulario_prospecto_animador_view_list" model="ir.ui.view">
+            <field name="name">formulario.prospecto.animador.view.list</field>
+            <field name="model">formulario.prospecto.animador</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="create_date" string="Fecha de creación"/>
+                    <field name="nombre"/>
+                    <field name="apellido"/>
+                    <field name="rfc"/>
+                    <field name="celular"/>
+                    <field name="convenio_id"/>
+                    <field name="uso_datos"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="formulario_prospecto_animador_action" model="ir.actions.act_window">
+            <field name="name">Prospectos Animador</field>
+            <field name="res_model">formulario.prospecto.animador</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>

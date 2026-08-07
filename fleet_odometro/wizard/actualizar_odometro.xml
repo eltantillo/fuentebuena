@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="actualizar_odometro_view_form" model="ir.ui.view">
+            <field name="name">actualizar.odometro.view.form</field>
+            <field name="model">actualizar.odometro</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="d-flex align-items-center">
+                                <div class="alert alert-warning w-100 mb-2" role="alert">
+                                    <p>Por favor, proceda con cuidado; el odometro se actualizará en el registro actual y con el proveedor gps.</p>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="km_actualizar"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="actualizar_odometro" string="Confirmar" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

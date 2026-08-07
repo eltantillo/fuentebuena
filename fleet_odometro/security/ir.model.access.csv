@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_actualizar_odometro_sys,access_actualizar_odometro_sys,model_actualizar_odometro,base.group_system,1,1,1,1
+access_actualizar_odometro_group,access_actualizar_odometro_group,model_actualizar_odometro,group_actualizar_odometro,1,1,1,1

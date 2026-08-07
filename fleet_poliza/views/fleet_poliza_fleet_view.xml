@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_poliza_inherit_view_form" model="ir.ui.view">
+            <field name="name">fleet.poliza.inherit.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook" position="inside" >
+                    <page string="Pólizas de seguro" name="polizas" invisible="id == False">
+                        <field name="poliza_ids" />
+                    </page>
+                </xpath>
+
+                <xpath expr="//form/sheet/div/button[3]" position="after">
+                    <button name="return_action_to_poliza"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text"
+                        help="Muestra las polizas">
+                        <field name="num_polizas" widget="statinfo" string="Polizas"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

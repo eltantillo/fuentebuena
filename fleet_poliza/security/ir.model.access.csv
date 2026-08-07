@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_poliza_sys,access_fleet_poliza_sys,model_fleet_poliza,base.group_system,1,1,1,1
+access_fleet_poliza_tipo_cobertura_sys,access_fleet_poliza_tipo_cobertura_sys,model_fleet_poliza_tipo_cobertura,base.group_system,1,1,1,1
+access_fleet_poliza_tipo_valor_sys,access_fleet_poliza_tipo_valor_sys,model_fleet_poliza_tipo_valor,base.group_system,1,1,1,1
+access_fleet_poliza_tipo_sys,access_fleet_poliza_tipo_sys,model_fleet_poliza_tipo,base.group_system,1,1,1,1
+access_fleet_poliza_config_sys,access_fleet_poliza_config_sys,model_fleet_poliza_config,base.group_system,1,1,1,1
+
+access_fleet_poliza_all,access_fleet_poliza_all,model_fleet_poliza,,1,0,0,0
+access_fleet_poliza_tipo_cobertura_all,access_fleet_poliza_tipo_cobertura_all,model_fleet_poliza_tipo_cobertura,,1,0,0,0
+access_fleet_poliza_tipo_valor_all,access_fleet_poliza_tipo_valor_all,model_fleet_poliza_tipo_valor,,1,0,0,0
+access_fleet_poliza_tipo_all,access_fleet_poliza_tipo_all,model_fleet_poliza_tipo,,1,0,0,0
+access_fleet_poliza_config_all,access_fleet_poliza_config_all,model_fleet_poliza_config,,1,0,0,0
+
+access_poliza_config_edit_user,access_poliza_config_edit_user,model_fleet_poliza_config,fleet_customer.group_config_plantilla,1,1,1,0

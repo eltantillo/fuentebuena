@@ -1,0 +1,161 @@
+<odoo>
+    <data>
+
+        <record id="cm_config_view_form" model="ir.ui.view">
+            <field name="name">cm.config.view.form</field>
+            <field name="model">cm.config</field>
+            <field name="arch" type="xml">
+
+                <form class="o_settings_form_view">
+                    <sheet>
+
+                        <div class="oe_title mb-4">
+                            <h1 class="fw-bold">Configuración de Parámetros de Mantenimiento</h1>
+                            <div class="text-muted">Ajustes generales del sistema de mantenimiento</div>
+                        </div>
+
+                        <notebook>
+
+                            <!-- REAGENDAMIENTO -->
+                            <page string="Reagendamiento">
+
+                                <div class="row g-3">
+
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fa fa-calendar-times-o me-2 text-primary"/>
+                                                <div class="fw-bold">Máx. Reagendas</div>
+                                            </div>
+
+                                            <div class="text-muted small mb-2">
+                                                Número máximo de veces que se puede reagendar una cita manualmente.
+                                            </div>
+
+                                            <field name="max_reagendas"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="p-3 border rounded shadow-sm bg-white h-100">
+
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fa fa-refresh me-2 text-success"/>
+                                                <div class="fw-bold">Reagendas automáticas</div>
+                                            </div>
+
+                                            <div class="text-muted small mb-2">
+                                                Reagendaciones automáticas permitidas por el sistema.
+                                            </div>
+
+                                            <field name="max_reagendas_au"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </page>
+
+                            <!-- KILOMETRAJE -->
+                            <page string="Kilometraje">
+
+                                <div class="row g-3">
+
+                                    <div class="col-lg-4">
+                                        <div class="p-3 border rounded bg-light h-100">
+
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fa fa-arrow-down me-2 text-danger"/>
+                                                <div class="fw-bold">Límite inferior</div>
+                                            </div>
+
+                                            <div class="text-muted small mb-2">
+                                                Permite anticipar el mantenimiento antes del objetivo.
+                                            </div>
+
+                                            <field name="limite_inferior"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="p-3 border rounded bg-light h-100">
+
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fa fa-arrow-up me-2 text-warning"/>
+                                                <div class="fw-bold">Límite superior</div>
+                                            </div>
+
+                                            <div class="text-muted small mb-2">
+                                                Tolerancia después del kilometraje objetivo.
+                                            </div>
+
+                                            <field name="limite_superior"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="p-3 border rounded bg-light h-100">
+
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fa fa-tachometer me-2 text-primary"/>
+                                                <div class="fw-bold">KM promedio</div>
+                                            </div>
+
+                                            <div class="text-muted small mb-2">
+                                                Estimación diaria de uso del vehículo.
+                                            </div>
+
+                                            <field name="km_promedio"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </page>
+
+                            <!-- SEGURIDAD -->
+                            <page string="Seguridad">
+
+                                <div class="p-4 border rounded shadow-sm bg-white">
+
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fa fa-shield me-2 text-dark"/>
+                                        <div class="fw-bold">Llave Maestra</div>
+                                    </div>
+
+                                    <div class="text-muted small mb-3">
+                                        Permite omitir validaciones estrictas de kilometraje al programar citas.
+                                    </div>
+
+                                    <!-- FIX ODOO 19: checkbox correcto -->
+                                    <field name="llave_creacion" string="Activar modo administrador"/>
+
+                                </div>
+
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+
+                    <footer>
+                        <button type="object" name="confirm_change" string="Guardar Cambios" class="btn btn-primary"/>
+                        <button string="Descartar" special="cancel" class="btn btn-secondary"/>
+                    </footer>
+
+                </form>
+
+            </field>
+        </record>
+
+        <record id="cm_config_view_action" model="ir.actions.act_window">
+            <field name="name">Parámetros de Configuración</field>
+            <field name="res_model">cm.config</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cm_config_view_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

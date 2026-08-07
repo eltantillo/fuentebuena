@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cliente_inherit_res_partner_view_form" model="ir.ui.view">
+            <field name="name">cliente.inherit.res.partner.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group[1]/group[2]" position="inside">
+                    <field name="es_cliente" invisible="1"/>
+                    <field name="fecha_nacimiento" invisible="es_cliente == False"/>
+                    <field name="primer_nombre" invisible="es_cliente == False"/>
+                    <field name="segundo_nombre" invisible="es_cliente == False"/>
+                    <field name="apellido_paterno" invisible="es_cliente == False"/>
+                    <field name="apellido_materno" invisible="es_cliente == False"/>
+                    <field name="genero" invisible="es_cliente == False"/>
+                    <field name="curp" invisible="es_cliente == False"/>
+                    <field name="user_landing_id" invisible="es_cliente == False"/>
+                </xpath>
+                <xpath expr="//field[@name='function']" position="attributes">
+                    <attribute name="invisible">es_cliente == True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">es_cliente == True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                    <attribute name="invisible">es_cliente == True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="cliente_inherit_res_partner_view_list" model="ir.ui.view">
+            <field name="name">cliente.inherit.res.partner.view.list</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='complete_name']" position="before">
+                    <field name="id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

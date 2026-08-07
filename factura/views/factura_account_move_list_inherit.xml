@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="factura_validacion_view_list" model="ir.ui.view">
+            <field name="name">factura.validacion.view.list</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/field[@name='status_in_payment']" position="after">
+                    <field name="etapa_aprobacion" string="Etapa de aprobación" widget="badge"
+                           decoration-warning="etapa_aprobacion == 'pendiente'"
+                           decoration-success="etapa_aprobacion == 'aprobada'"/>
+                    <field name="factura_para_aprobacion" string="Factura para aprobación"/>
+                    <field name="proveedor_sin_confirmar" string="Proveedor sin confirmar"/>
+                    <field name="factura_para_confirmar" string="Factura para confirmar"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

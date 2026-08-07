@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_tramite_view_form" model="ir.ui.view">
+            <field name="name">fleet.tramite.view.form</field>
+            <field name="model">fleet.tramite</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Datos de trámite" name="data_tramite">
+                                <field name="validacion_tarjeta_c" invisible="1"/>
+                                <field name="validacion_emplacamiento" invisible="1"/>
+                                <field name="tipo_tramite_id" required="1"/>
+                                <field name="folio" required="validacion_tarjeta_c or validacion_emplacamiento"/>
+                                <field name="fecha_tramite" required="validacion_tarjeta_c or validacion_emplacamiento"/>
+                                <field name="fecha_vencimiento_renovacion"/>
+                                <field name="dependencia" required="validacion_tarjeta_c or validacion_emplacamiento"/>
+                                <field name="estado" required="validacion_tarjeta_c or validacion_emplacamiento"/>
+                                <field name="motivo_pago_id" required="validacion_tarjeta_c or validacion_emplacamiento"/>
+                            </group>
+                            <group string="Importes" name="data_importe">
+                                <field name="importe"/>
+                                <field name="aplica_iva"/>
+                                <field name="iva"/>
+                                <field name="total" required="validacion_emplacamiento"/>
+                            </group>
+                        </group>
+                        <group string="Información del vehículo" name="data_vehiculo">
+                            <field name="vehiculo_id" required="1"/>
+                            <field name="vin_sn" readonly="1"/>
+                            <field name="numero_economico" readonly="1"/>
+                            <field name="producto_id" readonly="1"/>
+                            <field name="plaza_id" readonly="1"/>
+                        </group>
+                        <group string="Observaciones" name="observacion">
+                            <field name="observacion"/>
+                        </group>
+                        <notebook>
+                            <page string="Expediente" name="expediente">
+                                <field name="expediente" widget="hybrid_field" required="1"/>
+                            </page>
+                            <page string="Factura" name="factura">
+                                <group string="Factura">
+                                    <field name="expediente_factura" widget="pdf_viewer"/>
+                                </group>
+                                <group string="XML">
+                                    <field name="expediente_xml"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_tramite_view_list" model="ir.ui.view">
+            <field name="name">fleet.tramite.view.list</field>
+            <field name="model">fleet.tramite</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="plaza_id"/>
+                    <field name="numero_economico"/>
+                    <field name="vin_sn"/>
+                    <field name="tipo_tramite_id"/>
+                    <field name="fecha_tramite"/>
+                    <field name="fecha_vencimiento_renovacion"/>
+                    <field name="importe"/>
+                    <field name="iva"/>
+                    <field name="total"/>
+                </list>
+            </field>
+        </record>
+
+
+        <record id="fleet_tramite_view_search" model="ir.ui.view">
+            <field name="name">fleet.tramite.view.search</field>
+            <field name="model">fleet.tramite</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]"/>
+                    <filter string="Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]"/>
+                    <filter string="Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]"/>
+                    <filter string="León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]"/>
+                    <filter string="Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]"/>
+                    <field string="Plaza" name="plaza_id"/>
+                    <field string="Producto" name="producto_id"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="fleet_tramite_action" model="ir.actions.act_window">
+            <field name="name">Trámites</field>
+            <field name="res_model">fleet.tramite</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_tramite_view_list"/>
+        </record>
+    </data>
+</odoo>

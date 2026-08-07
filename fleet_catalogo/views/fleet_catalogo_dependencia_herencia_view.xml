@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_cat_dependencia_inherit_mov_misc_view_form" model="ir.ui.view">
+            <field name="name">fleet.cat.dependencia.inherit.mov.misc.view.form</field>
+            <field name="model">fleet.movimiento.misc</field>
+            <field name="inherit_id" ref="fleet_movimiento_misc.fleet_movimiento_misc_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='folio']" position="after">
+                    <field name="dependencia_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

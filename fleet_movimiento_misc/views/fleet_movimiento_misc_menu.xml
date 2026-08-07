@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_movimiento_misc"
+                  name="Movimientos Misceláneos"
+                  sequence="30"
+                  parent="fleet.menu_root"/>
+
+        <menuitem id="menu_fleet_movimiento_miscelaneo"
+                  name="Movimientos"
+                  sequence="10"
+                  parent="menu_fleet_movimiento_misc"
+                  action="fleet_movimiento_misc_action"/>
+
+        <menuitem id="menu_fleet_movimiento_misc_pago"
+                  name="Pagos"
+                  sequence="20"
+                  parent="menu_fleet_movimiento_misc"
+                  action="fleet_movimiento_misc_pago_action"/>
+
+        <menuitem id="menu_fleet_movimiento_misc_config"
+                  name="Movimientos Misceláneos"
+                  sequence="40"
+                  parent="fleet.fleet_configuration"/>
+
+        <menuitem id="menu_fleet_movimiento_misc_etapa"
+                  name="Etapas"
+                  sequence="100"
+                  parent="menu_fleet_movimiento_misc_config"
+                  action="fleet_movimiento_misc_etapa_action"/>
+
+        <menuitem id="menu_fleet_movimiento_misc_catalogo"
+                  name="Movimientos Misceláneos"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="180"/>
+
+        <menuitem id="menu_fleet_movimiento_misc_tipo"
+                  name="Tipo"
+                  parent="menu_fleet_movimiento_misc_catalogo"
+                  sequence="1"
+                  action="fleet_movimiento_misc_tipo_action"/>
+
+        <menuitem id="menu_fleet_movimiento_misc_motivo"
+                  name="Motivo"
+                  parent="menu_fleet_movimiento_misc_catalogo"
+                  sequence="2"
+                  action="fleet_movimiento_misc_motivo_action"/>
+    </data>
+</odoo>

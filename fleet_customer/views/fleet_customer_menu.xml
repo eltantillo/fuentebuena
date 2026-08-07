@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_catalogos"
+                  name="Catálogos"
+                  parent="fleet.menu_root"
+                  sequence="40"
+                  groups="base.group_system"/>
+
+        <menuitem id="menu_fleet_plantilla"
+                  name="Plantillas Configuración"
+                  parent="fleet.menu_root"
+                  groups="group_config_plantilla"
+                  sequence="110"/>
+
+        <menuitem id="menu_fleet_config_det"
+                  name="Datos predeterminados"
+                  parent="menu_fleet_plantilla"
+                  sequence="1"/>
+
+        <menuitem id="menu_fleet_vehiculo"
+                  name="Vehiculo"
+                  parent="menu_fleet_catalogos"
+                  sequence="2"/>
+
+        <menuitem id="menu_fleet_flotilla"
+                  name="Flotilla"
+                  parent="menu_fleet_vehiculo"
+                  sequence="10"
+                  action="fleet_customer_flotilla_action"/>
+
+        <menuitem id="menu_fleet_plaza"
+                  name="Plaza"
+                  parent="menu_fleet_vehiculo"
+                  sequence="20"
+                  action="fleet_customer_plaza_action"/>
+
+        <menuitem id="menu_fleet_producto"
+                  name="Producto"
+                  parent="menu_fleet_vehiculo"
+                  sequence="30"
+                  action="fleet_customer_producto_action"/>
+
+        <menuitem id="menu_fleet_indicador_etapa"
+                  name="Indicador de categoria"
+                  parent="menu_fleet_vehiculo"
+                  sequence="40"
+                  action="fleet_customer_indicador_categoria_action"/>
+
+        <menuitem id="menu_fleet_categoria_etapa"
+                  name="Categoría de Etapa"
+                  parent="menu_fleet_vehiculo"
+                  sequence="50"
+                  action="fleet_customer_categoria_etapa_action"/>
+
+        <menuitem id="menu_fleet_sub_etapa"
+                  name="Sub Etapas"
+                  parent="menu_fleet_vehiculo"
+                  sequence="60"
+                  action="fleet_customer_sub_etapa_action"/>
+
+        <menuitem id="menu_fleet_sub_condicion_vehiculo"
+                  name="Condición de Vehiculo"
+                  parent="menu_fleet_vehiculo"
+                  sequence="70"
+                  action="fleet_customer_condicion_vehiculo_action"/>
+
+        <menuitem id="menu_fleet_uso_vehiculo"
+                  name="Usos de Vehiculo"
+                  parent="menu_fleet_vehiculo"
+                  sequence="80"
+                  action="fleet_customer_uso_vehiculo_action"/>
+
+        <menuitem id="menu_fleet_categoria_agrupacion"
+                  name="Categoría de agrupación"
+                  parent="menu_fleet_vehiculo"
+                  sequence="90"
+                  action="fleet_customer_categoria_agrupacion_action"/>
+
+        <menuitem id="menu_fleet_motivo_baja"
+                  name="Motivo de baja"
+                  parent="menu_fleet_vehiculo"
+                  sequence="100"
+                  action="fleet_customer_motivo_baja_action"/>
+
+        <menuitem id="menu_fleet_vehiculo_version"
+                  name="Versión"
+                  parent="fleet.fleet_vehicles_configuration"
+                  sequence="30"
+                  action="fleet_customer_version_action"/>
+
+        <menuitem action="fleet.fleet_vehicle_log_services_action"
+                  parent="fleet.fleet_vehicles"
+                  id="fleet.fleet_vehicle_log_services_menu"
+                  groups="base.group_system"
+                  active="False"
+                  sequence="3"/>
+    </data>
+</odoo>

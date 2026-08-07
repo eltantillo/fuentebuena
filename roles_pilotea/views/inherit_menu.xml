@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="auth_signup_fields_custom" inherit_id="auth_signup.fields">
+        <xpath expr="//div[hasclass('field-password')]" position="replace"/>
+        <xpath expr="//div[hasclass('field-confirm_password')]" position="replace"/>
+    </template>
+
+    <template id="auth_signup_form_custom" inherit_id="auth_signup.signup">
+        <xpath expr="//button[@type='submit']" position="replace"/>
+    </template>
+    <data>
+        <menuitem id="fleet_agenda_entrega.fleet_agenda_entrega_menu"
+                  name="Agenda de Entrega"
+                  web_icon="fleet_agenda_entrega,static/src/description/icon.png"
+                  sequence="1"
+                  groups="group_gerente_operacion,group_auxiliar_analista_operacion,group_gerente_comercial,group_director_comercial,group_credito,base.group_system,group_lectura_agenda"/>
+
+        <menuitem id="atencion_cliente.atencion_cliente_menu"
+                  name="Atención al cliente"
+                  web_icon="atencion_cliente,static/src/description/icon.png"
+                  groups="group_gerente_operacion,group_auxiliar_analista_operacion,group_lider_atencion_cliente,group_ejecutivo_atencion_cliente,base.group_system"
+                  sequence="1"/>
+
+        <menuitem id="fleet_agenda_entrega.agenda_entrega_evento_menu"
+                  name="Eventos"
+                  parent="fleet_agenda_entrega.fleet_agenda_entrega_menu"
+                  sequence="4"
+                  groups="group_gerente_operacion,group_auxiliar_analista_operacion,group_credito,base.group_system"
+                  action="fleet_agenda_entrega.agenda_entrega_evento_action"/>
+
+        <menuitem id="fleet_compra.fleet_compra_menu_root"
+                  name="Compras"
+                  sequence="1"
+                  web_icon="fleet_compra,static/src/description/icon.png"
+                  groups="base.group_system,group_coordinador_compra,group_auxiliar_analista_compra"/>
+
+        <menuitem id="roles_pilotea_motivo_cambio_agenda_menu"
+                  name="Motivos de cambio"
+                  parent="fleet_agenda_entrega.agenda_entrega_config_menu"
+                  sequence="1"
+                  action="roles_pilotea_motivo_cambio_agenda_action"/>
+
+        <record id="fleet.fleet_configuration" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('base.group_system')])]"/>
+        </record>
+
+        <record id="fleet.fleet_vehicles" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('base.group_system'),
+                                                   ref('roles_pilotea.group_auxiliar_mantenimiento'),
+                                                   ref('roles_pilotea.group_ejecutivo_atencion_cliente'),
+                                                   ref('roles_pilotea.group_lectura_flota')])]"/>
+        </record>
+
+        <record id="fleet.menu_root" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('base.group_system'),
+                                                   ref('roles_pilotea.group_auxiliar_mantenimiento'),
+                                                   ref('roles_pilotea.group_ejecutivo_atencion_cliente'),
+                                                   ref('roles_pilotea.group_lectura_flota')])]"/>
+        </record>
+
+        <menuitem id="fleet_finanzas.fleet_finanza_root"
+                  name="Finanzas"
+                  sequence="1"
+                  groups="base.group_system,group_finanzas"
+                  web_icon="fleet_finanzas,static/src/description/icon.png"/>
+
+        <menuitem id="cliente.menu_cliente_root"
+                  name="Clientes Pilotea"
+                  sequence="1"
+                  action="cliente.cliente_action"
+                  groups="base.group_system,group_gerente_operacion,group_auxiliar_analista_operacion"
+                  web_icon="cliente,static/src/description/icon.png"/>
+
+        <menuitem id="menu_fleet_exlcusion_config"
+                  name="Configuración"
+                  sequence="100"
+                  parent="fleet.fleet_configuration"/>
+
+        <menuitem id="menu_fleet_exlcusion_correo"
+                  name="Exclusiones de correo"
+                  sequence="100"
+                  parent="menu_fleet_exlcusion_config"
+                  action="roles_pilotea_exclusion_action"/>
+
+        <menuitem id="menu_fleet_exlcusion_correo_tipo"
+                  name="Tipo de exclusiones"
+                  sequence="110"
+                  parent="menu_fleet_exlcusion_config"
+                  action="roles_pilotea_exclusion_tipo_action"/>
+    </data>
+</odoo>

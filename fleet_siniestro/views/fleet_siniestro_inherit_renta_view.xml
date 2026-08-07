@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_siniestro_inherit_renta_view_form" model="ir.ui.view">
+            <field name="name">fleet.siniestro.inherit.renta.view.form</field>
+            <field name="model">fleet.siniestro</field>
+            <field name="inherit_id"  ref="fleet_siniestro_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='data_vehiculo_cliente']"  position="after">
+                    <field name="aplica_renta_auxilio" invisible="1"/>
+                    <group string="Renta Auxilio" invisible="aplica_renta_auxilio != 'no'" name="data_renta_auxilio_no">
+                        <field name="aplica_renta_auxilio" widget="radio" options="{'horizontal': True}"/>
+                        <field name="motivo_id"/>
+                        <field name="detalles_motivo"/>
+                    </group>
+                    <group string="Renta Auxilio" invisible="aplica_renta_auxilio != 'si'" name="data_renta_auxilio_si">
+                        <field name="renta_auxilio_id" invisible="1"/>
+                        <group>
+                            <field name="aplica_renta_auxilio" widget="radio" options="{'horizontal': True}"/>
+                            <field name="vehiculo_renta_id"/>
+                            <field name="estado"/>
+                        </group>
+                        <group>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_final"/>
+                            <field name="dias_renta"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="promesa_p_estado_cumplimiento_view_list" model="ir.ui.view">
+        <field name="name">promesa.p.estado.cumplimiento.view.list</field>
+        <field name="model">promesa.p.estado.cumplimiento</field>
+        <field name="arch" type="xml">
+            <list string="Estado de Cumplimiento">
+                <field name="id"/>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="promesa_p_estado_cumplimiento_view_form" model="ir.ui.view">
+        <field name="name">promesa.p.estado.cumplimiento.view.form</field>
+        <field name="model">promesa.p.estado.cumplimiento</field>
+        <field name="arch" type="xml">
+            <form string="Estado de Cumplimiento">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="promesa_p_estado_cumplimiento_action" model="ir.actions.act_window">
+        <field name="name">Estados de Cumplimiento</field>
+        <field name="res_model">promesa.p.estado.cumplimiento</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="promesa_p_estado_cumplimiento_view_list"/>
+    </record>
+
+</odoo>

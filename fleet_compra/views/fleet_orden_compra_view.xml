@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_orden_compra_view" model="ir.ui.view">
+            <field name="name">fleet.orden.compra.view.form</field>
+            <field name="model">fleet.orden.compra</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="alta_vehiculo" type="object" string="Alta vehiculo" class="btn-success" icon="fa-car"/>
+                        <button name="%(report_action_compra)d"
+                                string="Imprimir"
+                                type="action"
+                                class="btn-primary"
+                                icon="fa-print"
+                                invisible="id == False"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <group>
+                                <field name="fecha_solicitud" required="1"/>
+                                <field name="categoria_id" required="1"/>
+                                <field name="proveedor_coches" invisible="1"/>
+                                <field name="proveedor_id"  domain="[('es_proveedor', '=', True),('tipo_proveedor_ids', 'in', proveedor_coches)]" required="1"/>
+                                <field name="razon_social_ids" invisible="proveedor_id == False" widget="many2many_tags"/>
+                                <field name="condicion_id"/>
+                                <field name="etapa_id"/>
+                            </group>
+                            <group>
+                                <field name="create_date" string="Fecha de creación"/>
+                                <field name="sub_total"/>
+                                <field name="iva"/>
+                                <field name="total"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="nota"/>
+                        </group>
+                        <notebook>
+                            <page name="lineas_compra" string="Líneas de compra">
+                                <field name="line_ids" widget="one2many_list"/>
+                            </page>
+                            <page name="lineas_vehiculo" string="Vehículos">
+                                <field name="vehiculo_ids" widget="one2many_list">
+                                    <list delete="false" create="false">
+                                        <field name="model_id"/>
+                                        <field name="version"/>
+                                        <field name="model_year"/>
+                                        <field name="transmission"/>
+                                        <field name="es_gnv"/>
+                                        <field name="color"/>
+                                        <field name="vin_sn"/>
+                                        <field name="numero_motor"/>
+                                        <field name="flotilla_id"/>
+                                        <field name="producto_id"/>
+                                        <field name="plaza_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_orden_compra_view_list" model="ir.ui.view">
+            <field name="name">fleet.orden.compra.view.list</field>
+            <field name="model">fleet.orden.compra</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="fecha_solicitud"/>
+                    <field name="categoria_id"/>
+                    <field name="proveedor_id"/>
+                    <field name="condicion_id"/>
+                    <field name="etapa_id"/>
+                    <field name="create_date"/>
+                    <field name="sub_total"/>
+                    <field name="iva"/>
+                    <field name="total"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_orden_compra_view_kanban" model="ir.ui.view">
+            <field name="name">fleet.orden.compra.view.kanban</field>
+            <field name="model">fleet.orden.compra</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="etapa_id" class="o_kanban_example">
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click">
+                                <strong><field name="name"/></strong>
+                                <div><field name="fecha_solicitud"/></div>
+                                <div><field name="proveedor_id"/></div>
+                                <div><field name="condicion_id"/></div>
+                                <div><field name="categoria_id"/></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="fleet_orden_compra_view_search" model="ir.ui.view">
+            <field name="name">fleet.orden.compra.view.search</field>
+            <field name="model">fleet.orden.compra</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="fleet_orden_compra_action" model="ir.actions.act_window">
+            <field name="name">Orden de compra</field>
+            <field name="res_model">fleet.orden.compra</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="view_id" ref="fleet_orden_compra_view_kanban"/>
+        </record>
+    </data>
+</odoo>

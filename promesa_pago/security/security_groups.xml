@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_cobranza" model="ir.module.category">
+            <field name="name">Cobranza</field>
+            <field name="description">Gestión de acceso a CObranza</field>
+        </record>
+
+        <record id="group_cobranza" model="res.groups">
+            <field name="name">Cobranza</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_movimiento_misc_pago_view_form" model="ir.ui.view">
+            <field name="name">flee.movimiento.misc.pago.view.form</field>
+            <field name="model">fleet.movimiento.misc.pago</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="monto_pendiente" string="Monto pendiente" readonly="1"/>
+                            <field name="movimiento_id" required="1"/>
+                            <field name="monto" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_movimiento_misc_pago_view_list" model="ir.ui.view">
+            <field name="name">fleet.movimiento.misc.pago.view.list</field>
+            <field name="model">fleet.movimiento.misc.pago</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="movimiento_id"/>
+                    <field name="monto"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_movimiento_misc_pago_action" model="ir.actions.act_window">
+            <field name="name">Pagos</field>
+            <field name="res_model">fleet.movimiento.misc.pago</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_movimiento_misc_pago_view_list"/>
+        </record>
+    </data>
+</odoo>

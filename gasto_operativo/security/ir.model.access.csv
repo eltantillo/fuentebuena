@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_go_metodo_pago_sys,access_fleet_go_metodo_pago_sys,model_gasto_operativo_metodo_pago,base.group_system,1,1,1,1
+access_fleet_go_motivo_sys,access_fleet_go_motivo_sys,model_gasto_operativo_motivo,base.group_system,1,1,1,1
+access_fleet_go_concepto_sys,access_fleet_go_concepto_sys,model_gasto_operativo_concepto,base.group_system,1,1,1,1
+access_fleet_go_sys,access_fleet_go_sys,model_gasto_operativo,base.group_system,1,1,1,1
+
+
+
+access_fleet_go_metodo_pago_all,access_fleet_go_metodo_pago_all,model_gasto_operativo_metodo_pago,,1,0,0,0
+access_fleet_go_motivo_all,access_fleet_go_motivo_all,model_gasto_operativo_motivo,,1,0,0,0
+access_fleet_go_concepto_all,access_fleet_go_concepto_all,model_gasto_operativo_concepto,,1,0,0,0
+access_fleet_go_all,access_fleet_go_all,model_gasto_operativo,,1,0,0,0

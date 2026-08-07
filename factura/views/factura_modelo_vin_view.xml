@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="factura_modelo_vin_view_form" model="ir.ui.view">
+            <field name="model">factura.modelo.vin</field>
+            <field name="name">factura.modelo.vin.view.form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="modelo_auto"/>
+                            <field name="prefijo_vin"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="factura_modelo_vin_view_list" model="ir.ui.view">
+            <field name="model">factura.modelo.vin</field>
+            <field name="name">factura.modelo.vin.view.list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="modelo_auto"/>
+                    <field name="prefijo_vin"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="factura_modelo_vin_action" model="ir.actions.act_window">
+            <field name="name">Modelo VIN prefijo</field>
+            <field name="res_model">factura.modelo.vin</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="factura_modelo_vin_view_list"/>
+        </record>
+    </data>
+</odoo>

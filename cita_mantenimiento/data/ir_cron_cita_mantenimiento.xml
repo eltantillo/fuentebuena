@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_cita_mantenimiento" model="ir.cron">
+            <field name="name">Reagenda cada 24 horas</field>
+            <field name="model_id" ref="model_cita_mantenimiento"/>
+            <field name="state">code</field>
+            <field name="code">model.reagendar_cita()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>
+

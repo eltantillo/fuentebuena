@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="atencion_cliente_interaccion_view_form" model="ir.ui.view">
+            <field name="name">atencion.cliente.interaccion.view.form</field>
+            <field name="model">atencion.cliente.interaccion</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="name" readonly="1"/>
+                        <group string="Solicitud">
+                            <group>
+                                <field name="folio" readonly="1"/>
+                                <field name="cliente_id" domain="[('es_cliente', '=', True)]"/>
+                                <field name="vehiculo_id"  domain="[('driver_id', '=', cliente_id)]"/>
+                                <field name="medio_contacto_id" widget="radio" options="{'horizontal': true}"/>
+                                <field name="create_uid" string="Ejecutivo"/>
+                                <field name="etapa_id"/>
+                                <field name="comentario"/>
+                            </group>
+                            <group>
+                                <field name="tipo_solicitud_id" widget="radio"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Información del vehículo">
+                                <field name="vin_sn"/>
+                                <field name="matricula"/>
+                                <field name="plaza_id"/>
+                                <field name="modelo_id"/>
+                                <field name="kilometraje"/>
+                                <field name="fecha_asignation" invisible="1"/>
+                            </group>
+                            <group string="Información del contrato">
+                                <field name="cie"/>
+                                <field name="fecha_inicio_arrendamiento"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Poliza de seguro">
+                                <group>
+                                    <field name="poliza_ids"/>
+                                </group>
+                            </page>
+                            <page string="Trámites">
+                                <group>
+                                    <field name="tramite_ids"/>
+                                </group>
+                            </page>
+                            <page string="Factura">
+                                <group>
+                                    <field name="factura" widget="pdf_viewer"/>
+                                </group>
+                            </page>
+                            <page string="Contratos">
+                                <group>
+                                    <field name="contrato_ids"/>
+                                </group>
+                            </page>
+                            <page string="Adaptaciones">
+                                <group>
+                                    <field name="adaptacion_ids"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_interaccion_view_list" model="ir.ui.view">
+            <field name="name">atencion.cliente.interaccion.view.list</field>
+            <field name="model">atencion.cliente.interaccion</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="create_date"/>
+                    <field name="folio"/>
+                    <field name="cliente_id"/>
+                    <field name="tipo_solicitud_id"/>
+                    <field name="vin_sn"/>
+                    <field name="plaza_id"/>
+                    <field name="comentario"/>
+                    <field name="create_uid"/>
+                    <field name="etapa_id"/>
+                </list>
+            </field>
+        </record>
+
+
+        <record id="atencion_cliente_interaccion_view_search" model="ir.ui.view">
+            <field name="name">atencion.cliente.interaccion.view.search</field>
+            <field name="model">atencion.cliente.interaccion</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                    <field string="Tipo solicitud" name="tipo_solicitud_id"/>
+                    <separator/>
+                    <filter string="Etapa" name="groupby_etapa" context="{'group_by': 'etapa_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_interaccion_view_kanban" model="ir.ui.view">
+            <field name="name">atencion.cliente.interaccion.viewkanban</field>
+            <field name="model">atencion.cliente.interaccion</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="etapa_id" class="o_kanban_example">
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click">
+                                <strong><field name="name"/></strong>
+                                <div><field name="vin_sn"/></div>
+                                <div><field name="plaza_id"/></div>
+                                <div><field name="tipo_solicitud_id"/></div>
+                                <div><field name="medio_contacto_id"/></div>
+                                <div><field name="comentario"/></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_interaccion_action" model="ir.actions.act_window">
+            <field name="name">Interacciones</field>
+            <field name="res_model">atencion.cliente.interaccion</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="view_id" ref="atencion_cliente_interaccion_view_kanban"/>
+        </record>
+
+    </data>
+</odoo>

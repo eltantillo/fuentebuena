@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="factura_account_move_line_inherit" model="ir.ui.view">
+            <field name="name">factura.account.move.line.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='product_id']" position="after">
+                    <field name="codigo_sat"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='codigo_sat']" position="after">
+                    <field name="descripcion"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='codigo_sat']" position="before">
+                    <field name="product_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

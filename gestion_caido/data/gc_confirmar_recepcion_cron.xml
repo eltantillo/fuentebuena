@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ir_cron_create" model="ir.cron">
+            <field name="name">Confirmar recepción</field>
+            <field name="model_id" ref="model_gestion_caido"/>
+            <field name="state">code</field>
+            <field name="code">model.confirmacion_recepcion_cron()</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

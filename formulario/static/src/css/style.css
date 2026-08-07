@@ -1,0 +1,33 @@
+body {
+    background-color: transparent !important;
+}
+
+.container {
+    background-color: transparent !important;
+}
+
+html {
+    background-color: transparent !important;
+}
+
+.no-spinners::-webkit-inner-spin-button,
+.no-spinners::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-spinners {
+    -moz-appearance: textfield;
+}
+
+.no-mostrar {
+    display:none;
+}
+
+
+.btn-primary.btn-custom {
+  --bs-btn-bg: #552988;
+  --bs-btn-border-color: #552988;
+  --bs-btn-hover-bg: #3f1f66;
+  --bs-btn-hover-border-color: #3f1f66;
+}

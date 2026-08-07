@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_mantenimiento_servicio_tipo_view_form" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.servicio.tipo.view.form</field>
+            <field name="model">fleet.mantenimiento.servicio.tipo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" required="1" readonly="1"/>
+                            <field name="valor"/>
+                            <field name="unidad_medida_id"/>
+                            <field name="mantenimiento_tipo_id"/>
+                            <field name="es_primer_mantenimiento"/>
+                            <field name="categoria_id"/>
+                            <field name="serivicio_ids" widget="many2many" domain="[('mantenimiento_ids', 'in', mantenimiento_tipo_id)]"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_mantenimiento_servicio_tipo_view_list" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.servicio.tipo.view.list</field>
+            <field name="model">fleet.mantenimiento.servicio.tipo</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="mantenimiento_tipo_id"/>
+                    <field name="valor"/>
+                    <field name="categoria_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_mantenimiento_servicio_tipo_action" model="ir.actions.act_window">
+            <field name="name">Mantenimiento - Servicios</field>
+            <field name="res_model">fleet.mantenimiento.servicio.tipo</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_mantenimiento_servicio_tipo_view_list"/>
+        </record>
+    </data>
+</odoo>

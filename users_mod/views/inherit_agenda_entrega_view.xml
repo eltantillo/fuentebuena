@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inherit_agenda_entrega_view_form" model="ir.ui.view">
+            <field name="name">inherit.agenda.entrega.view.form</field>
+            <field name="model">agenda.entrega</field>
+            <field name="inherit_id" ref="fleet_agenda_entrega.agenda_entrega_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='dictamen_id']" position="before">
+                    <field name="plaza_ids" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='dictamen_id']" position="attributes">
+                    <attribute name="domain">[('estado_vehiculo', 'in', [27,17]),('plaza_id','in', plaza_ids)]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lugar_entrega_id']" position="attributes">
+                    <attribute name="domain">[('plaza_ids', 'in', plaza_ids)]</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

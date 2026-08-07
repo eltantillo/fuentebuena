@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="formulario_dependencia_view_form" model="ir.ui.view">
+        <field name="name">formulario.dependencia.view.form</field>
+        <field name="model">formulario.dependencia</field>
+        <field name="arch" type="xml">
+            <form string="formulario_dependencia_form">
+                <sheet>
+                    <group>
+                        <group string="Información laboral">
+                            <field name="dependencia_ayuntamiento"/>
+                            <field name="nombre_presidente_municipal"/>
+                            <field name="puesto"/>
+                            <field name="categoria_empleado_id" widget="many2one"/>
+                            <field name="pertenece_sindicato"/>
+                        </group>
+                        <group string="Información personal">
+                            <field name="create_date" string="Fecha de creación"/>
+                            <field name="nombre_completo"/>
+                            <field name="numero_telefono" widget="phone"/>
+                            <field name="correo_electronico" widget="email"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group  string="Datos de contacto">
+                            <field name="nombre_contacto"/>
+                            <field name="puesto_contacto"/>
+                            <field name="medio_contacto_institucional" string="Medio contacto"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="formulario_dependencia_view_list" model="ir.ui.view">
+        <field name="name">formulario.dependencia.view.list</field>
+        <field name="model">formulario.dependencia</field>
+        <field name="arch" type="xml">
+            <list string="formulario_dependencia_list">
+                <field name="create_date" string="Fecha de creación"/>
+                <field name="nombre_completo"/>
+                <field name="numero_telefono" widget="phone"/>
+                <field name="correo_electronico" widget="email"/>
+                <field name="dependencia_ayuntamiento"/>
+                <field name="puesto"/>
+                <field name="categoria_empleado_id" widget="many2one"/>
+                <field name="pertenece_sindicato"/>
+                <field name="nombre_contacto"/>
+                <field name="puesto_contacto"/>
+                <field name="nombre_presidente_municipal"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="formulario_dependencia_action" model="ir.actions.act_window">
+        <field name="name">Formulario Dependencia</field>
+        <field name="res_model">formulario.dependencia</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="formulario_dependencia_view_list"/>
+    </record>
+
+</odoo>

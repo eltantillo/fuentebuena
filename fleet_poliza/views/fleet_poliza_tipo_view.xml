@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_poliza_tipo_view_form" model="ir.ui.view">
+            <field name="name">fleet.poliza.tipo.view.form</field>
+            <field name="model">fleet.poliza.tipo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </form>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_poliza_tipo_view_list" model="ir.ui.view">
+            <field name="name">fleet.poliza.tipo.view.list</field>
+            <field name="model">fleet.poliza.tipo</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_poliza_tipo_action"  model="ir.actions.act_window">
+            <field name="name">Tipo</field>
+            <field name="res_model">fleet.poliza.tipo</field>
+            <field name="view_mode">form,list</field>
+            <field name="view_id" ref="fleet_poliza_tipo_view_list"/>
+        </record>
+    </data>
+</odoo>

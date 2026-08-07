@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="roles_pilotea_inherit_agenda_entrega_form" model="ir.ui.view">
+            <field name="name">roles.pilotea.inherit.agenda.entrega.form</field>
+            <field name="model">agenda.entrega</field>
+            <field name="inherit_id" ref="fleet_agenda_entrega.agenda_entrega_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='crear_evento']" position="attributes">
+                    <attribute name="groups">roles_pilotea.group_credito</attribute>
+                </xpath>
+                <xpath expr="//button[@name='evidencia']" position="attributes">
+                    <attribute name="groups">roles_pilotea.group_gerente_comercial,roles_pilotea.group_gerente_operacion,
+                                             roles_pilotea.group_auxiliar_analista_operacion</attribute>
+                </xpath>
+<!--                <xpath expr="//field[@name='telefono_cliente']" position="after">-->
+<!--                    <field name="empleados_disponibles" readonly="1"  invisible="1"/>-->
+<!--                </xpath>-->
+                <!--- Pestaña de solicitud  -->
+                <xpath expr="//field[@name='dictamen_id']" position="before">
+                    <field name="edicion_habilitada" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='dictamen_id']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email_cliente']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//field[@name='telefono_cliente']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//field[@name='num_empleado']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//field[@name='fecha_entrega']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lugar_entrega_id']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//field[@name='canalizacion_id']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//field[@name='indicaciones']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada</attribute>
+                </xpath>
+
+                <!--- Pestaña de credito  -->
+                <xpath expr="//field[@name='dictamen_id']" position="before">
+                    <field name="edicion_habilitada_credito" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='req_instrumentacion']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada_credito</attribute>
+                </xpath>
+                <xpath expr="//field[@name='estatus_comprobante_deposito']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada_credito</attribute>
+                </xpath>
+                <xpath expr="//group[@name='data_entrega']" position="before">
+                    <field name="motivo_cambio_hora_id" invisible="1"/>
+                    <div class="d-flex align-items-center" invisible="motivo_cambio_hora_id == False">
+                        <div class="alert alert-warning w-100 mb-2" role="alert">
+                            <span class="me-2"><strong>Motivo de cambio de hora:</strong></span>
+                            <field name="motivo_cambio_hora_id" readonly="1"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//group[@name='data_entrega']" position="replace">
+                    <div class="d-flex align-items-center" style="gap: 8px; margin-bottom: 12px">
+                        <label for="fecha_confirmada" class="o_form_label">Fecha confirmada</label>
+                        <field name="fecha_confirmada" readonly="1"/>
+                        <button name="cambiar_hora"
+                                type="object"
+                                class="btn btn-warning text-white btn-sm"
+                                style="margin-top: 2px"
+                                groups="roles_pilotea.group_gerente_operacion"
+                                invisible="etapa_id not in [1, 2] or motivo_cambio_hora_id != False">
+                            Cambiar hora
+                        </button>
+                    </div>
+                </xpath>
+
+                <!--- Pestaña de entrega  -->
+<!--                <xpath expr="//field[@name='ejecutivo_id']" position="attributes">-->
+<!--                    <attribute name="domain">[('id', 'in', empleados_disponibles)]</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='ejecutivo_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='nota']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada_operacion</attribute>
+                </xpath>
+                <xpath expr="//field[@name='foto_entrega']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada_operacion</attribute>
+                </xpath>
+                <xpath expr="//field[@name='autorizacion_uso']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada_operacion</attribute>
+                </xpath>
+                <xpath expr="//field[@name='evidencia_autorizacion']" position="attributes">
+                    <attribute name="readonly">edicion_habilitada_operacion</attribute>
+                </xpath>
+
+                <!--   Etapa -->
+                <xpath expr="//field[@name='etapa_id']" position="attributes">
+                    <attribute name="readonly">edicion_etapa</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="roles_pilotea_inherit_agenda_entrega_kanban" model="ir.ui.view">
+            <field name="name">roles.pilotea.inherit.agenda.entrega.kanban</field>
+            <field name="model">agenda.entrega</field>
+            <field name="inherit_id" ref="fleet_agenda_entrega.agenda_entrega_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[field[@name='eventos_pendientes']]" position="attributes">
+                    <attribute name="groups">roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion</attribute>
+                </xpath>
+                <xpath expr="//div[field[@name='eventos_solventados']]" position="attributes">
+                    <attribute name="groups">roles_pilotea.group_credito</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

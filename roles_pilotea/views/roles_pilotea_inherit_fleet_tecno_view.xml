@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="roles_pilotea_inherit_fleet_tecnocontrol_view_form"  model="ir.ui.view">
+            <field name="name">roles.pilotea.inherit.fleet.tecnocontrol.view.form</field>
+            <field name="model">atencion.cliente.siniestro</field>
+            <field name="inherit_id" ref="fleet_tecnocontrol.tecno_inherit_ac_siniestro_view_form"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//button[@name='obtener_ubicacion']"   position="replace">
+                    <button name="obtener_ubicacion"
+                            type="object"
+                            groups="roles_pilotea.group_lider_atencion_cliente,roles_pilotea.group_ejecutivo_atencion_cliente"
+                            class="btn btn-success text-white btn-sm"
+                            style="margin-top: 2px">
+                            Registrar ubicación
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

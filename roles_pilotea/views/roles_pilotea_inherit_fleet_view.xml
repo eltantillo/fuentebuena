@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="roles_pilotea_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">roles.pilotea.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='action_accept_driver_change']" position="before">
+                    <button name="dar_baja"
+                            string="Dar de baja"
+                            type="object"
+                            class="btn-danger text-white"
+                            invisible="1"
+                            groups ="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,
+                            roles_pilotea.group_auxiliar_mantenimiento,roles_pilotea.group_coordinador_compra,roles_pilotea.group_auxiliar_analista_compra"
+                            force_save="1"/>
+                </xpath>
+                <xpath expr="//form/header/button[@name='dar_baja']" position="before">
+                    <button name="asigar_opcion_compra"
+                            string="Opción a compra"
+                            type="object"
+                            class="btn-info text-white"
+                            invisible="id == False"
+                            groups ="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,
+                            roles_pilotea.group_auxiliar_mantenimiento,roles_pilotea.group_coordinador_compra,roles_pilotea.group_auxiliar_analista_compra,base.group_system"
+                            force_save="1"/>
+                </xpath>
+
+                <xpath expr="//form/header/button[@name='asigar_opcion_compra']" position="before">
+                    <field name="mostrar_terminar_renta" readonly="1" invisible="1"/>
+                    <button name="return_terminar_renta_auxilio"
+                            string="Terminar renta auxilio"
+                            type="object"
+                            class="btn-danger text-white"
+                            invisible="mostrar_terminar_renta"
+                            groups ="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,
+                            roles_pilotea.group_auxiliar_mantenimiento,base.group_system"
+                            force_save="1"/>
+                </xpath>
+                <xpath expr="//button[@name='return_terminar_renta_auxilio']" position="before">
+                    <field name="mostrar_renta_aux" readonly="1" invisible="1"/>
+                    <button name="renta_auxilio"
+                            string="Asignar renta"
+                            type="object"
+                            class="btn-success text-white"
+                            invisible="mostrar_renta_aux"
+                            force_save="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='es_gnv']" position="before">
+                    <field name="gerente_flota_id"/>
+                </xpath>
+
+<!--                <xpath expr="//page[@name='data_semaforo']" position="attributes">-->
+<!--                     <attribute name="groups">roles_pilotea.group_gerente_mantenimiento,roles_pilotea.group_auxiliar_mantenimiento,base.group_system</attribute>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>

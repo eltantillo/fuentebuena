@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="fleet_siniestro_menu"
+                  name="Siniestros"
+                  parent="fleet.fleet_vehicles"
+                  sequence="50"
+                  action="fleet_siniestro_action"/>
+
+        <menuitem id="fleet_siniestro_renta_auxilio_menu"
+                  name="Rentas Auxilio"
+                  parent="fleet.fleet_vehicles"
+                  sequence="200"
+                  action="fleet_siniestro_renta_auxilio_track_action"/>
+
+        <menuitem id="fleet_siniestro_catalogo_menu"
+                  name="Siniestro"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="130"/>
+
+        <menuitem id="fleet_siniestro_tipo_menu"
+                  name="Tipo de Siniestro"
+                  parent="fleet_siniestro_catalogo_menu"
+                  sequence="1"
+                  action="fleet_siniestro_tipo_action"/>
+
+        <menuitem id="fleet_siniestro_movilidad_menu"
+                  name="Movilidad"
+                  parent="fleet_siniestro_catalogo_menu"
+                  sequence="2"
+                  action="fleet_siniestro_movilidad_action"/>
+
+        <menuitem id="fleet_siniestro_estatus_menu"
+                  name="Estatus"
+                  parent="fleet_siniestro_catalogo_menu"
+                  sequence="3"
+                  action="fleet_siniestro_estatus_action"/>
+
+        <menuitem id="fleet_siniestro_fase_menu"
+                  name="Fase"
+                  parent="fleet_siniestro_catalogo_menu"
+                  sequence="4"
+                  action="fleet_siniesto_fase_action"/>
+
+        <menuitem id="menu_fleet_siniestro_config"
+                  name="Siniestros"
+                  sequence="60"
+                  parent="fleet.fleet_configuration"/>
+
+        <menuitem id="menu_fleet_renta_config"
+                  name="Renta Auxilio"
+                  sequence="70"
+                  parent="fleet.fleet_configuration"/>
+
+        <menuitem id="fleet_renta_motivo_menu"
+                  name="Motivo"
+                  parent="menu_fleet_renta_config"
+                  sequence="1"
+                  action="fleet_siniestro_motivo_renta_action"/>
+
+        <menuitem id="fleet_renta_tipo_menu"
+                  name="Tipo"
+                  parent="menu_fleet_renta_config"
+                  sequence="2"
+                  action="renta_auxilio_tipo_action"/>
+
+        <menuitem id="menu_fleet_siniestro_etapa"
+                  name="Etapas"
+                  sequence="10"
+                  parent="menu_fleet_siniestro_config"
+                  action="fleet_siniestro_etapa_action"/>
+    </data>
+</odoo>

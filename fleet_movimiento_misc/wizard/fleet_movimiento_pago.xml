@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_movimiento_pago_view_form" model="ir.ui.view">
+            <field name="name">fleet.movimiento.pago.view.form</field>
+            <field name="model">fleet.movimiento.pago</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <p>El monto pendiente es de:</p>
+                            <field name="monto_pendiente" readonly="1"/>
+                            <p>Ingresa el monto para realizar el pago</p>
+                            <field name="movimiento_id" invisible="1" />
+                            <field name="monto" required="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="action_confirm" string="Confirmar pago" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

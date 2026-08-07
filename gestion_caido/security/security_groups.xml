@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_gestion_caido" model="ir.module.category">
+            <field name="name">Gestión de caídos</field>
+            <field name="description">Reglas de acceso a gestión de caídos</field>
+        </record>
+
+        <record id="group_gestor_caido" model="res.groups">
+            <field name="name">Administrador de Gestión de Caídos</field>
+        </record>
+
+        <record id="group_gestor_caido_lectura" model="res.groups">
+            <field name="name">Lector de Gestión de Caídos</field>
+        </record>
+
+        <record id="gestion_caido_plaza_flot" model="ir.rule">
+            <field name="name">Gestiones por plaza</field>
+            <field name="model_id" ref="model_gestion_caido"/>
+            <field name="domain_force">[('plaza_id.id', 'in', user.plaza_ids.ids),('producto_id.flotilla_id.id','in',user.flotilla_ids.ids)]</field>
+            <field name="groups" eval="[
+                (6, 0, [
+                    ref('group_gestor_caido'),
+                    ref('group_gestor_caido_lectura'),
+                ])
+            ]"/>
+        </record>
+    </data>
+</odoo>

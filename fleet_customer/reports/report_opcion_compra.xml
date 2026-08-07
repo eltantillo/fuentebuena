@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="report_opcion_compra" model="ir.actions.report">
+        <field name="name">Opcion a Compra</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fleet_customer.report_opcion_compra_template</field>
+        <field name="binding_model_id" ref="model_fleet_vehicle"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">
+            'Opcion_compra_%s' % (object.vin_sn)
+        </field>
+    </record>
+</odoo>

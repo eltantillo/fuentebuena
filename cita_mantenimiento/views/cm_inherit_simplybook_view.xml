@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cm_inherit_simplybook_view_form" model="ir.ui.view">
+            <field name="name">cm.inherit.simplybook.view.form</field>
+            <field name="model">cita.mantenimiento</field>
+            <field name="inherit_id" ref="cita_mantenimiento_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='comparacion']" position="replace">
+                    <separator/>
+                    <group name="datos">
+                        <group string="Datos Odoo">
+                            <field name="nombre_cliente"/>
+                            <field name="correo_cliente"/>
+                            <field name="telefono_cliente" string="Teléfono de cliente"/>
+                            <field name="odometro" readonly="1"/>
+                        </group>
+                        <group string="Datos Simplybook">
+                            <field name="name_simplybook" string="Nombre de cliente"  readonly="1"/>
+                            <field name="correo_simplybook" string="Correo de cliente" readonly="1"/>
+                            <field name="telefono_simplybook" string="Teléfono de cliente" readonly="1"/>
+                            <field name="odometro_simplybook" string="Odometro" readonly="1"/>
+                        </group>
+                    </group>
+                    <div class="oe_button_box" style="text-align: center; width: 100%; margin-top: 20px;">
+                        <button name="model_update"
+                                type="object"
+                                string="Actualizar datos"
+                                class="btn-primary"
+                                icon="fa-cloud-upload"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

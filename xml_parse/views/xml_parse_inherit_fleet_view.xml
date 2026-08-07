@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="xml_parse_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">xml.parse.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='factura_vehiculo']" position="after">
+                    <page string="Factura XML" name="factura_ve_xml">
+                        <field name="xml_factura"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

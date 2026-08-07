@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cita_mantenimiento_view_form" model="ir.ui.view">
+            <field name="name">cita.mantenimiento.view.form</field>
+            <field name="model">cita.mantenimiento</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="etapa_id" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <form>
+                            <group string="Información de la cita">
+                                <field name="mantenimiento_id"/>
+                                <field name="cliente_id"/>
+                                <field name="vehiculo_id"/>
+                                <field name="proveedor_id"/>
+                                <field name="fecha_cita_inicio"/>
+                                <field name="fecha_cita_fin"/>
+                            </group>
+                            <group string="Datos del vehículo">
+                                <field name="cliente_id"/>
+                                <field name="matricula"/>
+                                <field name="vin_sn"/>
+                                <field name="producto_id"/>
+                                <field name="plaza_id"/>
+                            </group>
+                            <group string="Comparación de datos" name="comparacion">
+                                <field name="nombre_cliente"/>
+                                <field name="correo_cliente"/>
+                                <field name="telefono_cliente"/>
+                            </group>
+                        </form>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="cita_mantenimiento_view_list" model="ir.ui.view">
+            <field name="name">cita.mantenimiento.view.list</field>
+            <field name="model">cita.mantenimiento</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="matricula"/>
+                    <field name="mantenimiento_id"/>
+                    <field name="cliente_id"/>
+                    <field name="vehiculo_id"/>
+                    <field name="proveedor_id"/>
+                    <field name="fecha_cita_inicio"/>
+                    <field name="fecha_cita_fin"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="cita_mantenimiento_view_search" model="ir.ui.view">
+            <field name="name">cita.mantenimiento.view.search</field>
+            <field name="model">cita.mantenimiento</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="matricula" name="matricula"/>
+                    <field string="VIN" name="vin_sn"/>
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Citas para hoy"
+                        name="citas_hoy"
+                        domain="[('fecha_cita_inicio','&gt;=', context_today()),
+                                 ('fecha_cita_inicio','&lt;', context_today() + relativedelta(days=1))]"/>
+                    <filter string="Citas para mañana"
+                        name="citas_manana"
+                        domain="[('fecha_cita_inicio','&gt;=', context_today() + relativedelta(days=1)),
+                                 ('fecha_cita_inicio','&lt;', context_today() + relativedelta(days=2))]"/>
+                    <group>
+                        <filter string="Etapa" name="groupby_etapa" context="{'group_by': 'etapa_id'}"/>
+                        <filter string="Proveedor" name="groupby_proveedor" context="{'group_by': 'proveedor_id'}"/>
+                        <filter string="Vehículo" name="groupby_vehiculo" context="{'group_by': 'vehiculo_id'}"/>
+                        <filter string="Plaza" name="groupby_plaza" context="{'group_by': 'plaza_id'}"/>
+                    </group>
+                    <separator/>
+                    <filter string="Mantenimiento Menor A" name="categoria_a" domain="[('mantenimiento_id.tipo_mantenimiento_servicio_id.categoria_id.name', '=', 'Mantenimiento Menor A')]" />
+                    <filter string="Mantenimiento Medio B" name="categoria_b" domain="[('mantenimiento_id.tipo_mantenimiento_servicio_id.categoria_id.name', '=', 'Mantenimiento Medio B')]" />
+                    <filter string="Mantenimiento Mayor C" name="categoria_c" domain="[('mantenimiento_id.tipo_mantenimiento_servicio_id.categoria_id.name', '=', 'Mantenimiento Mayor C')]" />
+                    <separator/>
+                    <filter string="Plaza - Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]" />
+                    <filter string="Plaza - Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]" />
+                    <filter string="Plaza - Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]" />
+                    <filter string="Plaza - León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]" />
+                    <filter string="Plaza - Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]" />
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cita_mantenimiento_view_calendar" model="ir.ui.view">
+            <field name="name">cita.mantenimiento.view.calendar</field>
+            <field name="model">cita.mantenimiento</field>
+            <field name="arch" type="xml">
+                <calendar string="Calendario de citas"
+                          date_start="fecha_cita_inicio"
+                          date_stop="fecha_cita_fin"
+                          color="color">
+                    <field name="vehiculo_id"/>
+                </calendar>
+            </field>
+        </record>>
+
+        <record id="cita_mantenimiento_action" model="ir.actions.act_window">
+            <field name="name">Citas de mantenimiento</field>
+            <field name="res_model">cita.mantenimiento</field>
+            <field name="view_mode">list,form,calendar</field>
+        </record>
+    </data>
+</odoo>

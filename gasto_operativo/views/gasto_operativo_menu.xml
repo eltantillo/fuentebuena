@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_gasto_operativo"
+                  name="Gasto Operativo"
+                  sequence="150"
+                  parent="fleet.fleet_vehicles"
+                  action="gasto_operativo_action"/>
+
+        <menuitem id="menu_fleet_gasto_operativo_catalogo"
+                  name="Gasto Operativo"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="160"/>
+
+        <menuitem id="menu_fleet_catalogo_motivo"
+                  name="Motivo"
+                  parent="menu_fleet_gasto_operativo_catalogo"
+                  sequence="1"
+                  action="gasto_operativo_motivo_action"/>
+
+        <menuitem id="menu_fleet_catalogo_concepto"
+                  name="Concepto"
+                  parent="menu_fleet_gasto_operativo_catalogo"
+                  sequence="2"
+                  action="gasto_operativo_concepto_action"/>
+
+
+        <menuitem id="menu_fleet_catalogo_metodo_pago"
+                  name="Método de pago"
+                  parent="menu_fleet_gasto_operativo_catalogo"
+                  sequence="3"
+                  action="gasto_operativo_metodo_pago_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_recepcion_lugar_sys,access_fleet_recepcion_lugar_sys,model_fleet_recepcion_lugar,base.group_system,1,1,1,1
+access_fleet_recepcion_sys,access_fleet_recepcion_sys,model_fleet_recepcion,base.group_system,1,1,1,1
+
+
+access_fleet_recepcion_lugar_all,access_fleet_recepcion_lugar_all,model_fleet_recepcion_lugar,,1,0,0,0
+access_fleet_recepcion_all,access_fleet_recepcion_all,model_fleet_recepcion,,1,0,0,0

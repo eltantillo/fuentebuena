@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_poliza_template">
+        <t t-call="web.html_container" t-options='{"data-report-margin-top": "0"}'>
+            <meta charset="UTF-8"/>
+            <main>
+            <div class="page" style="
+                position:relative;
+                background:white;
+                color:#222;
+                padding:40px;
+                padding-bottom:380px;
+                font-family:'DejaVu Sans';
+                font-size:13px;">
+
+                    <table style="width:100%; margin-bottom:15px;">
+                        <tr>
+                            <td style="width:50%; text-align:left;">
+                                <t t-set="logo"
+                                   t-value="request.env['ir.config_parameter'].sudo().get_param('web.base.url') + '/fleet_compra/static/src/img/fuentebuena.svg'" />
+                                <img t-att-src="logo" alt="Logo" style="width:160px;"/>
+                            </td>
+                            <td style="width:50%; text-align:right; font-size:14px;">
+                                <strong>ORDEN DE COMPRA</strong><br/>
+                                <span style="color:#555;">
+                                    <t t-esc="docs.name or ''"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <hr style="border:0; border-top:2px solid #999; margin-bottom:25px;"/>
+
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                        <tr>
+                            <td style="padding:8px;">
+                                <strong>Proyecto</strong><br/>Pilotea
+                            </td>
+                            <td style="padding:8px;">
+                                <strong>Fecha de solicitud</strong><br/>
+                                <t t-esc="docs.fecha_solicitud or ''"/>
+                            </td>
+                            <td style="padding:8px;">
+                                <strong>Condición de compra</strong><br/>
+                                <t t-esc="docs.condicion_id.name or ''"/>
+                            </td>
+                            <td style="padding:8px;">
+                                <strong>Proveedor</strong><br/>
+                                <t t-esc="docs.proveedor_id.name or ''"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="
+                        border:1px solid #bbb;
+                        border-radius:6px;
+                        padding:15px;
+                        margin-bottom:25px;
+                        background:#fafafa;
+                    ">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="padding:6px;">
+                                    <strong>Facturar a</strong><br/>
+                                    FOMEPADE SAPI DE CV<br/>SOFOM ENR
+                                </td>
+                                <td style="padding:6px;">
+                                    <strong>RFC</strong><br/>FOM0612078Z6
+                                </td>
+                                <td style="padding:6px;">
+                                    <strong>Correo</strong><br/>
+                                    miguel.ramos@fuentebuena.com
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <t t-if="docs.proveedor_id.razones_sociales_ids">
+                        <h3 style="font-size:15px; margin-bottom:10px;">
+                            Razones sociales
+                        </h3>
+                        <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:30px;">
+                            <thead>
+                                <tr style="background:#eaeaea;">
+                                    <th style="padding:7px;">Nombre</th>
+                                    <th style="padding:7px;">Contacto</th>
+                                    <th style="padding:7px;">Correo</th>
+                                    <th style="padding:7px;">Teléfono</th>
+                                    <th style="padding:7px;">RFC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs.proveedor_id.razones_sociales_ids" t-as="razon">
+                                    <t t-set="contacto" t-value="razon.child_ids and razon.child_ids[0] or False"/>
+                                    <tr>
+                                        <td style="padding:6px;"><t t-esc="razon.name"/></td>
+                                        <td style="padding:6px;"><t t-esc="contacto and contacto.display_name or ''"/></td>
+                                        <td style="padding:6px;"><t t-esc="razon and razon.email or ''"/></td>
+                                        <td style="padding:6px;"><t t-esc="razon and razon.phone or ''"/></td>
+                                        <td style="padding:6px;"><t t-esc="razon and razon.vat or ''"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+
+                    <h3 style="font-size:15px; margin-bottom:10px;">
+                        Detalle de la compra
+                    </h3>
+
+                    <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                        <thead>
+                            <tr style="background:#eaeaea;">
+                                <th style="padding:7px;">Modelo</th>
+                                <th style="padding:7px;">Transmisión</th>
+                                <th style="padding:7px;">Precio</th>
+                                <th style="padding:7px;">IVA</th>
+                                <th style="padding:7px;">Total Unit.</th>
+                                <th style="padding:7px;">GNV</th>
+                                <th style="padding:7px;">Costo GNV</th>
+                                <th style="padding:7px;">Auto + GNV</th>
+                                <th style="padding:7px;">Unidades</th>
+                                <th style="padding:7px;">Total</th>
+                            </tr>
+                        </thead>
+                        <t t-set="line_count" t-value="len(docs.line_ids)"/>
+                        <tbody>
+                            <t t-foreach="docs.line_ids" t-as="line">
+                                <tr>
+                                    <td style="padding:6px;"><t t-esc="line.model_id.name"/></td>
+                                    <td style="padding:6px;"><t t-esc="line.transmision"/></td>
+                                    <td style="padding:6px; text-align:right;"><t t-esc="'${:,.2f}'.format(line.precio_unitario)"/></td>
+                                    <td style="padding:6px; text-align:right;"><t t-esc="'${:,.2f}'.format(line.iva)"/></td>
+                                    <td style="padding:6px; text-align:right;"><t t-esc="'${:,.2f}'.format(line.precio_unitario)"/></td>
+                                    <td style="padding:6px; text-align:center;"><t t-esc="'Sí' if line.gnv else 'No'"/></td>
+                                    <td style="padding:6px; text-align:right;"><t t-esc="'${:,.2f}'.format(line.costo_gnv or 0)"/></td>
+                                    <td style="padding:6px; text-align:right;"><t t-esc="'${:,.2f}'.format(line.auto_gnv or 0)"/></td>
+                                    <td style="padding:6px; text-align:center;"><t t-esc="line.unidad"/></td>
+                                    <td style="padding:6px; text-align:right;"><t t-esc="'${:,.2f}'.format(line.total or 0)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top:20px; text-align:right; font-size:15px;">
+                        <strong>Total:</strong>
+                        <t t-esc="'${:,.2f}'.format(docs.total or 0)"/>
+                    </div>
+
+                    <table style="width:100%; margin-top:4rem; text-align:center; font-size:13px;">
+                        <tr>
+                            <td>Elaboró</td>
+                            <td>Autoriza</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top:30px;">_______________________________</td>
+                            <td style="padding-top:30px;">_______________________________</td>
+                        </tr>
+                        <tr>
+                            <td><t t-esc="docs.create_uid.name or ''"/></td>
+                            <td>Miguel Angel Ramos Garza</td>
+                        </tr>
+                    </table>
+
+                    <div style="
+                        position:fixed;
+                        bottom:10;
+                        left:40px;
+                        right:40px;
+                        padding-top:6px;
+                        border-top:2px solid #333;
+                        text-align:center;
+                        font-size:14px;
+                    ">
+                        www.fuentebuena.com
+                    </div>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

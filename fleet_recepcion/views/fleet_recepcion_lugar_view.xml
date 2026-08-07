@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_recepcion_lugar_view_form" model="ir.ui.view">
+            <field name="name">fleet.recepcion.lugar.view.form</field>
+            <field name="model">fleet.recepcion.lugar</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_recepcion_lugar_view_list" model="ir.ui.view">
+            <field name="name">fleet.recepcion.lugar.view.list</field>
+            <field name="model">fleet.recepcion.lugar</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_recepcion_lugar_action" model="ir.actions.act_window">
+            <field name="name">Lugar de recepción</field>
+            <field name="res_model">fleet.recepcion.lugar</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_recepcion_lugar_view_list" />
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gestion_caido.PosesionTemplate" owl="1">
+        <div class="modal d-block tabindex='-1' role='dialog'">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" style="color: white; !important">Captura de Evidencia</h5>
+                        <button type="button" class="btn-close btn-close-white" t-on-click="cancelar" aria-label="Close"/>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+                            <i class="fa fa-map-marker me-2 fa-lg"/>
+                            <div>
+                                <strong t-esc="state.gpsStatus"/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 p-3 border-secondary">
+                                    <h6>Fotografía 1 *</h6>
+
+                                    <div class="my-2 d-flex justify-content-center align-items-center bg-light rounded" style="height: 180px; border: 2px dashed #ccc;">
+                                        <t t-if="state.foto1">
+                                            <img t-att-src="'data:image/jpeg;base64,' + state.foto1" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-muted"><i class="fa fa-camera fa-2x d-block mb-1"/> Sin imagen</span>
+                                        </t>
+                                    </div>
+                                    <input type="file"
+                                           accept="image/*"
+                                           capture="environment"
+                                           class="d-none"
+                                           t-ref="inputFoto1"
+                                           t-on-change="(ev) => this.onFotoSelected(ev, 1)"/>
+
+                                    <button class="btn btn-outline-primary mt-2" t-on-click="() => this.inputFoto1.el.click()">
+                                        <i class="fa fa-camera me-1"/> Tomar Foto 1
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 p-3 border-secondary">
+                                    <h6>Fotografía 2 *</h6>
+
+                                    <div class="my-2 d-flex justify-content-center align-items-center bg-light rounded" style="height: 180px; border: 2px dashed #ccc;">
+                                        <t t-if="state.foto2">
+                                            <img t-att-src="'data:image/jpeg;base64,' + state.foto2" style="max-height: 100%; max-width: 100%; object-fit: contain;"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-muted"><i class="fa fa-camera fa-2x d-block mb-1"/> Sin imagen</span>
+                                        </t>
+                                    </div>
+                                    <input type="file"
+                                           accept="image/*"
+                                           capture="environment"
+                                           class="d-none"
+                                           t-ref="inputFoto2"
+                                           t-on-change="(ev) => this.onFotoSelected(ev, 2)"/>
+
+                                    <button class="btn btn-outline-primary mt-2" t-on-click="() => this.inputFoto2.el.click()">
+                                        <i class="fa fa-camera me-1"/> Tomar Foto 2
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" t-on-click="cancelar" t-att-disabled="state.isSaving">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-success m-1" t-on-click="guardarEvidencia" t-att-disabled="state.isSaving">
+                            <t t-if="state.isSaving">
+                                <i class="fa fa-spinner fa-spin me-1"/> Guardando...
+                            </t>
+                            <t t-else="">
+                                <i class="fa fa-check me-1"/> Confirmar
+                            </t>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

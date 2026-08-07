@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_gracias" name="Gracias">
+        <t t-call="website.layout">
+            <t t-set="title">Gracias</t>
+            <br/>
+            <div class="d-flex justify-content-center align-items-center mt-5">
+                <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.15); max-width: 600px;"
+                     class="d-flex flex-column align-items-center text-center p-4">
+                    <img src="/formulario/static/src/icons/fav.png" width="50" height="50"/>
+                    <h1 style="color: #552988;font-size: 2.5em;margin-bottom: 10px;letter-spacing: 1px; font-weight: bold;">
+                        ¡Gracias por registrarte!
+                    </h1>
+                    <h5>En breve nos pondremos en contacto contigo.</h5>
+                </div>
+            </div>
+            <br/>
+        </t>
+    </template>
+</odoo>

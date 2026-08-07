@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_mantenimiento_etapa_view_form" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.etapa.view.form</field>
+            <field name="model">fleet.mantenimiento.etapa</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="es_etapa_realizado"/>
+                            <field name="es_etapa_programado"/>
+                            <field name="sequence"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_mantenimiento_etapa_view_list" model="ir.ui.view">
+            <field name="name">fleet.mantenimiento.etapa.view.list</field>
+            <field name="model">fleet.mantenimiento.etapa</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="sequence"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_mantenimiento_etapa_action" model="ir.actions.act_window">
+            <field name="name">Etapas</field>
+            <field name="res_model">fleet.mantenimiento.etapa</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_mantenimiento_etapa_view_list" />
+        </record>
+    </data>
+</odoo>

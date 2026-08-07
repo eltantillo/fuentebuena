@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="atencion_cliente_siniestro_mail_template"  model="mail.template">
+            <field name="name">Correo de notifiación - siniestro</field>
+            <field name="model_id" ref="atencion_cliente.model_atencion_cliente_siniestro"/>
+            <field name="subject">Informe de siniestro / {{object.display_name}}</field>
+            <field name="body_html">
+                <![CDATA[
+                  <div style="box-sizing:border-box;font-size:13px;background-color: #FCFCFC; border-radius: 10px; padding: 20px; position: relative;">
+                        <img src="https://www.aprecia.com.mx/firmas/Pilotea.png" alt="Logo" style="border-style:none;box-sizing:border-box;vertical-align:middle;position: absolute; top: 10px; right: 10px; height: 50px;" width="140.828" height="50">
+                        <h2 style="margin:0px 0 6px 0;box-sizing:border-box;font-size:19.5px;color:#091124;line-height:1.2;text-align: center; font-weight: bold;">Informe de siniestro<br></h2>
+                        <br>
+                        <div class="row" style="margin:0 -16px 0 -16px;box-sizing:border-box;font-size:13px;">
+                            <div class="col" style="padding:0 16px 0 16px;box-sizing:border-box;font-size:13px;max-width:100%;width:100%;position:relative;" width="100%">
+                                <span style="font-weight: bolder;">Cliente:</span> <t t-out="object.cliente_id.name" data-oe-t-inline="true" contenteditable="false"></t> <br>
+                               <span style="font-weight: bolder;">Telefono Contacto:</span> <t t-out="object.telefono" data-oe-t-inline="true" contenteditable="false"></t> <br>
+                                <span style="font-weight: bolder;">VIN:</span> <t t-out="object.vin_sn" data-oe-t-inline="true" contenteditable="false"></t> <br>
+                                <span style="font-weight: bolder;">Plaza:</span> <t t-out="object.plaza_id.name" data-oe-t-inline="true" contenteditable="false"></t> <br>
+                            </div>
+                        </div>
+                        <hr style="margin:12px 0 12px 0;border-top-color:rgba(0, 0, 0, 0.1);border-top-style:solid;border-top-width:1px;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;overflow-y:visible;overflow-x:visible;height:0px;box-sizing:content-box;">
+                        <div class="row" style="margin:0 -16px 0 -16px;box-sizing:border-box;font-size:13px;">
+                            <div class="col-6" style="padding:0 16px 0 16px;box-sizing:border-box;font-size:13px;max-width:50%;width:100%;position:relative;" width="100%">
+                                <span style="font-weight: bolder;">Ubicación:</span> <t t-out="object.ubicacion" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Conductor:</span> <t t-out="object.conductor" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Fecha ocurrido:</span> <t t-out="object.fecha_ocurrido" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Fecha reporte:</span> <t t-out="object.fecha_reporte" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Responsabilidad:</span> <t t-out="object.responsabilidad.name" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">No. de reporte:</span> <t t-out="object.num_reporte" data-oe-t-inline="true" contenteditable="false"></t><br>
+                            </div>
+                            <div class="col-6" style="padding:0 16px 0 16px;box-sizing:border-box;font-size:13px;max-width:50%;width:100%;position:relative;" width="100%">
+                                <span style="font-weight: bolder;">No. siniestro:</span> <t t-out="object.num_siniestro" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Tipo siniestro:</span> <t t-out="object.tipo_siniestro_id.name" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Volante de reparación:</span> <t t-out="object.volante_en_reparacion" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Con deducible:</span> <t t-out="object.con_deducible" data-oe-t-inline="true" contenteditable="false"></t><br>
+                                <span style="font-weight: bolder;">Características:</span> <t t-out="object.caracteristica_id.name" data-oe-t-inline="true" contenteditable="false"></t><br>
+                            </div>
+                        </div>
+                        <hr style="margin:12px 0 12px 0;border-top-color:rgba(0, 0, 0, 0.1);border-top-style:solid;border-top-width:1px;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;overflow-y:visible;overflow-x:visible;height:0px;box-sizing:content-box;">
+                        <div class="row" style="margin:0 -16px 0 -16px;box-sizing:border-box;font-size:13px;">
+                            <div class="col" style="padding:0 16px 0 16px;box-sizing:border-box;font-size:13px;max-width:100%;width:100%;position:relative;" width="100%">
+                                <span style="font-weight: bolder;">Detalles:<br><br></span>&nbsp;<t t-out="object.detalle" data-oe-t-inline="true" contenteditable="false"></t><br>
+                            </div>
+                        </div>
+                        <hr style="margin:12px 0 12px 0;border-top-color:rgba(0, 0, 0, 0.1);border-top-style:solid;border-top-width:1px;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;overflow-y:visible;overflow-x:visible;height:0px;box-sizing:content-box;">
+                        <span style="font-weight: bolder;">Evidencia fotográfica:<br><br></span>
+                        <div class="row" style="box-sizing:border-box;margin:0 -16px;font-size:13px;">
+                            <div class="col-6 text-center" style="box-sizing:border-box;font-size:13px;max-width:50%;width:100%;position:relative;padding:0 16px;text-align:center;" width="100%">
+                                <t t-if="object.evidencia_1">
+                                    <div style="text-align: center; margin: 20px 0;">
+                                        <a t-attf-href="/web/content/#{object._name}/#{object.id}/evidencia_1?download=true"
+                                           style="display: inline-block; padding: 10px 20px; background-color: #875A7B; color: white; text-decoration: none; border-radius: 5px;">
+                                            📥 Descargar Evidencia 1
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="col-6 text-center" style="box-sizing:border-box;font-size:13px;max-width:50%;width:100%;position:relative;padding:0 16px;text-align:center;" width="100%">
+                                <t t-if="object.evidencia_2">
+                                    <div style="text-align: center; margin: 20px 0;">
+                                        <a t-attf-href="/web/content/#{object._name}/#{object.id}/evidencia_2?download=true"
+                                           style="display: inline-block; padding: 10px 20px; background-color: #875A7B; color: white; text-decoration: none; border-radius: 5px;">
+                                            📥 Descargar Evidencia 2
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="row" style="box-sizing:border-box;margin:0 -16px;font-size:13px;">
+                            <div class="col-6 text-center" style="box-sizing:border-box;font-size:13px;max-width:50%;width:100%;position:relative;padding:0 16px;text-align:center;" width="100%">
+                                <t t-if="object.evidencia_3">
+                                    <div style="text-align: center; margin: 20px 0;">
+                                        <a t-attf-href="/web/content/#{object._name}/#{object.id}/evidencia_3?download=true"
+                                           style="display: inline-block; padding: 10px 20px; background-color: #875A7B; color: white; text-decoration: none; border-radius: 5px;">
+                                            📥 Descargar Evidencia 3
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="col-6 text-center" style="box-sizing:border-box;font-size:13px;max-width:50%;width:100%;position:relative;padding:0 16px;text-align:center;" width="100%">
+                                <t t-if="object.evidencia_4">
+                                    <div style="text-align: center; margin: 20px 0;">
+                                        <a t-attf-href="/web/content/#{object._name}/#{object.id}/evidencia_4?download=true"
+                                           style="display: inline-block; padding: 10px 20px; background-color: #875A7B; color: white; text-decoration: none; border-radius: 5px;">
+                                            📥 Descargar Evidencia 4
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

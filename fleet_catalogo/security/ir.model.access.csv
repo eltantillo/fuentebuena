@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fleet_catalogo_frecuencia_pago,access_fleet_catalogo_frecuencia_pago,model_fleet_catalogo_frecuencia_pago,base.group_system,1,1,1,1
+access_fleet_catalogo_frecuencia_pago_all,access_fleet_catalogo_frecuencia_pago_all,model_fleet_catalogo_frecuencia_pago,,1,0,0,0
+
+access_fleet_catalogo_dependencia,access_fleet_catalogo_dependencia,model_fleet_catalogo_dependencia,,1,1,1,1
+access_fleet_catalogo_orig_creacion,access_fleet_catalogo_orig_creacion,model_fleet_catalogo_orig_creacion,,1,1,1,1

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inventario_linea_view_form" model="ir.ui.view">
+            <field name="name">inventario.linea.view.form</field>
+            <field name="model">inventario.linea</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="etapa_id" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" readonly="1"/></h1>
+                        <group>
+                            <group string="Información">
+                                <field name="telefono"/>
+                                <field name="region_id"/>
+                                <field name="cuenta_padre"/>
+                                <field name="plan_id"/>
+                                <field name="razon_social_selection"/>
+                                <field name="estatus_adendum"/>
+                                <field name="num_plazos"/>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_termino"/>
+                                <field name="incluye_celular"/>
+                            </group>
+                            <group string="Asignación">
+                                <field name="empleado_id"/>
+                                <field name="fecha_asignacion"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Costos">
+                                <field name="subtotal"/>
+                                <field name="iva"/>
+                                <field name="total"/>
+                            </group>
+                            <group string="Generales">
+                                <field name="mb_aginados"/>
+                                <field name="dia_corte"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="inventario_linea_view_list" model="ir.ui.view">
+            <field name="name">inventario.linea.view.list</field>
+            <field name="model">inventario.linea</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="inventario_linea_action" model="ir.actions.act_window">
+            <field name="name">Líneas</field>
+            <field name="res_model">inventario.linea</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="inventario_linea_view_list"/>
+        </record>
+    </data>
+</odoo>

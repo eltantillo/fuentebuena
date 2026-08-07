@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_template" name="Pilotea - Portal">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="web.assets_frontend" t-js="true" t-css="true"/>
+            </t>
+            <body style="overflow: hidden; !important">
+                <div id="portal_main"/>
+            </body>
+        </t>
+    </template>
+</odoo>

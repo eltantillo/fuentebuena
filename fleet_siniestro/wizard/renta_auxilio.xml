@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_siniestro_renta_auxilio_form" model="ir.ui.view">
+            <field name="name">fleet.siniestro.renta.auxilio.form</field>
+            <field name="model">renta.auxilio</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="d-flex align-items-center">
+                                <div class="alert alert-warning w-100 mb-2" role="alert">
+                                    <p>Por favor, proceda con cuidado; los datos serán asociados automáticamente.</p>
+                                </div>
+                            </div>
+                        </group>
+                        <field name="mostrar_aplica_renta" invisible="1" readonly="1"/>
+                        <field name="motrar_tipo" invisible="1" readonly="1"/>
+                        <field name="mostrar_seleccionar_siniestro" invisible="1" readonly="1"/>
+                        <group invisible="motrar_tipo">
+                            <field name="tipo_rent_aux" widget="radio" options="{'horizontal': True}"/>
+                            <field name="cliente_id" domain="[('es_cliente', '=', True)]"/>
+                        </group>
+                        <group invisible="motrar_tipo">
+                            <field name="vehiculo_original_id" domain="[('driver_id', '=', cliente_id)]"/>
+                        </group>
+                        <group invisible="mostrar_seleccionar_siniestro">
+                            <field name="siniestros_aplicables_ids" readonly="1" invisible="1"/>
+                            <field name="siniestro_id" domain="[('id', 'in', siniestros_aplicables_ids)]"/>
+                        </group>
+                        <group invisible="mostrar_aplica_renta">
+                            <field name="aplica_renta_auxilio" widget="radio" options="{'horizontal': True}" required="1"/>
+                        </group>
+                        <group invisible="not aplica_renta_auxilio == 'no'">
+                            <field name="motivo_id" required="aplica_renta_auxilio == 'no'"/>
+                            <field name="detalles_motivo" required="aplica_renta_auxilio == 'no'"/>
+                        </group>
+                        <group invisible="not aplica_renta_auxilio == 'si'">
+                            <field name="vehiculos_renta_ids" invisible="1"/>
+                            <field name="etapa_id" readonly="1" invisible="1"/>
+                            <field name="producto_id" readonly="1" invisible="1"/>
+                            <field name="vehiculo_id" domain="[('id','in', vehiculos_renta_ids)]" required="aplica_renta_auxilio == 'si'"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="action_renta_auxilio" string="Confirmar" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

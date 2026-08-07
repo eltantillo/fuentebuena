@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_customer_baja_view_form" model="ir.ui.view">
+            <field name="name">fleet.customer.baja.view.form</field>
+            <field name="model">fleet.customer.baja</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <p>Usted esta a punto de dar de baja a un vehiculo, por favor seleccione un motivo</p>
+                        </group>
+                        <group>
+                            <field name="motivo_id" required="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="action_confirm" string="Confirmar" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

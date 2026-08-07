@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="complemento_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">complemento.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id"  ref="fleet_customer.fleet_customer_inherit_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='factura_vehiculo']" position="after">
+                    <page name="complemento" string="Complementos de pago">
+                        <field name="complemento_ids" context="{'default_fleet_vehicle_id': id}"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

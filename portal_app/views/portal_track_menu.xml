@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_poliza_tack"
+                  name="Seguimiento de descargas"
+                  sequence="20"
+                  parent="fleet_poliza.menu_fleet_poliza"
+                  action="portal_track_poliza_action"/>
+    </data>
+</odoo>

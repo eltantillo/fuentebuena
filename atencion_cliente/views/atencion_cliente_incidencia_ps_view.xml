@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="atencion_cliente_incidencia_ps_view_form" model="ir.ui.view">
+            <field name="name">atencion.cliente.incidencia.ps.view.form</field>
+            <field name="model">atencion.cliente.incidencia.ps</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Cliente">
+                                <field name="cliente_id" domain="[('es_cliente', '=', True)]"/>
+                                <field name="vehiculo_id" domain="[('driver_id', '=', cliente_id)]"/>
+                                <field name="vin_sn"/>
+                                <field name="plaza_id"/>
+                            </group>
+                            <group string="Incidencia">
+                                <field name="create_date" readonly="1" string="Asesor"/>
+                                <field name="causa_id"/>
+                                <field name="incidencia"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Vehículos">
+                                <field name="vehiculo_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_incidencia_ps_view_list" model="ir.ui.view">
+            <field name="name">atencion.cliente.incidencia.ps.view.list</field>
+            <field name="model">atencion.cliente.incidencia.ps</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="create_date"/>
+                    <field name="vin_sn"/>
+                    <field name="plaza_id"/>
+                    <field name="causa_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_incidencia_ps_view_search" model="ir.ui.view">
+            <field name="name">atencion.cliente.incidencia.ps.view.search</field>
+            <field name="model">atencion.cliente.incidencia.ps</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_incidencia_ps_action" model="ir.actions.act_window">
+            <field name="name">Incidencia PS</field>
+            <field name="res_model">atencion.cliente.incidencia.ps</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="atencion_cliente_incidencia_ps_view_list"/>
+        </record>
+    </data>
+</odoo>

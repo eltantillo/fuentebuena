@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_incidente_view_form" model="ir.ui.view">
+            <field name="name">fleet.incidente.view.form</field>
+            <field name="model">fleet.incidente</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Datos de incidente" name="data_incidente">
+                                <field name="tipo_incidente_id"/>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_prevista"/>
+                                <field name="fecha_cierre"/>
+                                <field name="descripcion"/>
+                            </group>
+                            <group string="Importes" name="data_importe">
+                                <field name="importe"/>
+                                <field name="iva"/>
+                                <field name="total"/>
+                            </group>
+                        </group>
+                        <group string="Información del vehículo" name="data_vehiculo">
+                            <field name="vehiculo_id"/>
+                            <field name="odometro"/>
+                            <field name="numero_economico"/>
+                            <field name="vin_sn"/>
+                            <field name="producto_id"/>
+                            <field name="plaza_id"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_incidente_view_list" model="ir.ui.view">
+            <field name="name">fleet.incidente.view.list</field>
+            <field name="model">fleet.incidente</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="vehiculo_id"/>
+                    <field name="tipo_incidente_id"/>
+                    <field name="odometro"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_incidente_view_search" model="ir.ui.view">
+            <field name="name">fleet.incidente.view.search</field>
+            <field name="model">fleet.incidente</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <field string="Plaza" name="plaza_id"/>
+                    <field string="Producto" name="producto_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="fleet_incidente_action" model="ir.actions.act_window">
+            <field name="name">Incidentes</field>
+            <field name="res_model">fleet.incidente</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_incidente_view_list"/>
+        </record>
+    </data>
+</odoo>

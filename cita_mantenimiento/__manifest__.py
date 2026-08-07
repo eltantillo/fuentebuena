@@ -1,0 +1,43 @@
+{
+    'name': 'Cita Mantenimiento',
+    'version': '1.0',
+    'description': """ Modúlo para gestionar las citas de mantenimiento""",
+    'depends': [
+        'base',
+        'fleet_mantenimiento',
+        'mail'
+    ],
+    'images': ['static/src/description/icon.png'],
+    'data': [
+        'data/cm_invitacion_mail_template.xml',
+        'data/cm_ultimo_cambio.xml',
+        'data/ir_cron_cita_mantenimiento.xml',
+        'data/ir_cron_agenda_automatica.xml',
+        'data/ir_con_create_cita.xml',
+        'security/security_groups.xml',
+        'security/ir.model.access.csv',
+        'views/cita_mantenimiento_etapa_view.xml',
+        'views/cita_mantenimiento_view.xml',
+        'views/cm_inherit_simplybook_view.xml',
+        'views/cm_inherit_mantenimiento_view.xml',
+        'views/cm_proveedor_plaza_view.xml',
+        'views/cita_mantenimiento_config_view.xml',
+        'views/cita_mantenimiento_dashboard.xml',
+        'views/cm_taller_autorizado_view.xml',
+        'wizard/asistir_cita.xml',
+        'wizard/inasistencia_cita.xml',
+        'wizard/cm_config.xml',
+        'wizard/cm_config_msg.xml',
+        'wizard/confirmar_update.xml',
+        'views/cita_mantenimiento_menu.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'cita_mantenimiento/static/src/components/dashboard.js',
+            'cita_mantenimiento/static/src/components/dashboard.xml',
+            'cita_mantenimiento/static/lib/chart/chart.js',
+        ],
+    },
+    'installable': True,
+    'auto_install': False,
+}

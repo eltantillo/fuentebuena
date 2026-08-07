@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="adecuacion_view_form" model="ir.ui.view">
+            <field name="name">adecuacion.view.form</field>
+            <field name="model">adecuacion</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Datos adecuación">
+                                <field name="tipo_adecuacion_id" required="1"/>
+                                <field name="fecha_instalacion"/>
+                                <field name="num_serie" string="N° de serie"/>
+                                <field name="imei" string="IMEI"/>
+                                <field name="marca"/>
+                                <field name="modelo"/>
+                                <field name="proveedor_id"/>
+                            </group>
+                            <group string="Importes">
+                                <field name="importe"/>
+                                <field name="iva"/>
+                                <field name="total"/>
+                                <field name="instalacion_incluida" widget="boolean_toggle"/>
+                                <field name="incluido_valor_vehiculo"/>
+                                <field name="total_general"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Información del vehículo" name="data_vehiculo">
+                                <field name="vehiculo_id" required="1"/>
+                                <field name="vin_sn" readonly="1"/>
+                                <field name="numero_economico" readonly="1"/>
+                                <field name="producto_id" readonly="1"/>
+                                <field name="plaza_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Expediente" name="expediente">
+
+                            </page>
+                            <page string="Costo de instalación" invisible="instalacion_incluida == True">
+                                <group>
+                                    <field name="instalacion_proveedor_id"/>
+                                    <field name="instalacion_importe"/>
+                                    <field name="instalacion_iva"/>
+                                    <field name="instalacion_total"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="insertar_adecuacion" string="Confirmar" class="btn-success text-white" />
+                        <button string="Cancelar" special="cancel"  class="btn-danger"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

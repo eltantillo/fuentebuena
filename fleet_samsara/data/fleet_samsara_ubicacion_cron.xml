@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+          <record id="fleet_samsara_ubicacion_cron" model="ir.cron">
+            <field name="name">Ultima ubicación cada 24 horas(Samsara)</field>
+            <field name="model_id" ref="model_fleet_samsara"/>
+            <field name="state">code</field>
+            <field name="code">model.ultima_ubicacion_vehicle()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

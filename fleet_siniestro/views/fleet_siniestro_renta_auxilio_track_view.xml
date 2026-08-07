@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_siniestro_renta_auxilio_track_form" model="ir.ui.view">
+            <field name="name">fleet.siniestro.renta.auxilio.track.form</field>
+            <field name="model">fleet.siniestro.renta.auxilio.track</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="estado" widget="statusbar" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group string="Información de Renta Auxilio">
+                            <field name="tipo_id"/>
+                        </group>
+                        <group>
+                            <group string="Datos de Renta">
+                                <field name="vehiculo_renta_id"/>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_final"/>
+                                <field name="dias_renta"/>
+                            </group>
+                            <group string="Datos Originales">
+                                <field name="conductor_id"/>
+                                <field name="vehiculo_siniestro_id" string="Vehículo original"/>
+                            </group>
+                        </group>
+                        <group string="Información de siniestro">
+                            <field name="fleet_siniestro_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_siniestro_renta_auxilio_track_list" model="ir.ui.view">
+            <field name="name">fleet.siniestro.renta.auxilio.track.list</field>
+            <field name="model">fleet.siniestro.renta.auxilio.track</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="vehiculo_siniestro_id"/>
+                    <field name="vehiculo_renta_id"/>
+                    <field name="conductor_id"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_final"/>
+                    <field name="dias_renta"/>
+                    <field name="estado"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_siniestro_renta_auxilio_track_action" model="ir.actions.act_window">
+            <field name="name">Renta Auxilio Track</field>
+            <field name="res_model">fleet.siniestro.renta.auxilio.track</field>
+            <field name="view_mode">form,list</field>
+            <field name="view_id" ref="fleet_siniestro_renta_auxilio_track_list"/>
+        </record>
+    </data>
+</odoo>

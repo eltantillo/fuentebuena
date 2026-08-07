@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="mantenimiento_ti_proveedor_view_form" model="ir.ui.view">
+            <field name="name">mantenimiento.ti.proveedor.view.form</field>
+            <field name="model">mantenimiento.ti.proveedor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="monto_ultimo_pago"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="mantenimiento_ti_proveedor_view_list" model="ir.ui.view">
+            <field name="name">mantenimiento.ti.proveedor.view.list</field>
+            <field name="model">mantenimiento.ti.proveedor</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="monto_ultimo_pago"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="mantenimiento_ti_proveedor_action" model="ir.actions.act_window">
+            <field name="name">Mantenimiento - TI / Proveedor</field>
+            <field name="res_model">mantenimiento.ti.proveedor</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="mantenimiento_ti_proveedor_view_list"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_aprecia_root"
+                  name="Formularios"
+                  sequence="1"
+                  groups="group_manager"
+                  web_icon="formulario,static/src/description/icon.png" />
+
+        <menuitem id="formulario_dashboard"
+                  name="Dashboard"
+                  parent="menu_aprecia_root"
+                  action="formulario_dashboard_action"
+                  groups="base.group_system"
+                  sequence="1"/>
+
+        <menuitem id="formularios_menu"
+                  name="Formularios"
+                  parent="menu_aprecia_root"
+                  sequence="10" />
+
+        <menuitem id="formulario_catalogo_menu"
+                  name="Catálogos"
+                  parent="menu_aprecia_root"
+                  sequence="20" />
+
+        <menuitem id="formulario_configuracion_menu"
+                  name="Configuración"
+                  parent="menu_aprecia_root"
+                  sequence="30" />
+
+        <menuitem id="formulario_renegociar_menu"
+                  name="Renegociar deuda"
+                  parent="formularios_menu"
+                  action="formulario_renegociar_action"
+                  sequence="10" />
+
+        <menuitem id="formulario_prestamo_sin_buro_menu"
+                  name="Préstamo sin buro"
+                  parent="formularios_menu"
+                  action="formulario_prestamo_sin_buro_action"
+                  sequence="20" />
+
+        <menuitem id="formulario_bolsa_trabajo"
+                  name="Bolsa de trabajo"
+                  parent="formularios_menu"
+                  action="formulario_bolsa_trabajo_action"
+                  sequence="30" />
+
+        <menuitem id="formulario_servicio_cliente"
+                  name="Servicio al cliente"
+                  parent="formularios_menu"
+                  action="formulario_servicio_cliente_action"
+                  sequence="40" />
+
+        <menuitem id="formulario_solicita"
+                  name="Solicita"
+                  parent="formularios_menu"
+                  action="formulario_solicita_action"
+                  sequence="50" />
+
+        <menuitem id="formulario_prospecto"
+                  name="Prospecto"
+                  parent="formularios_menu"
+                  action="formulario_prospecto_action"
+                  sequence="60" />
+
+        <menuitem id="formulario_prospecto_colaborador"
+                  name="Prospecto colaborador"
+                  parent="formularios_menu"
+                  action="formulario_prospecto_colaborador_action"
+                  sequence="70" />
+
+        <menuitem id="formulario_prospecto_animador"
+                  name="Prospecto animador"
+                  parent="formularios_menu"
+                  action="formulario_prospecto_animador_action"
+                  sequence="80" />
+
+        <menuitem id="formulario_dependencia"
+                  name="Afilia tu dependencia"
+                  parent="formularios_menu"
+                  action="formulario_dependencia_action"
+                  sequence="90" />
+
+        <menuitem id="formulario_empresa"
+                  name="Empresas"
+                  parent="formularios_menu"
+                  action="formulario_empresa_action"
+                  sequence="100" />
+
+        <menuitem id="formulario_broker"
+                  name="Brokers"
+                  parent="formularios_menu"
+                  action="formulario_broker_action"
+                  sequence="110" />
+
+        <menuitem id="formulario_renegociar_cat"
+                  name="Renegociar"
+                  parent="formulario_catalogo_menu"
+                  sequence="10" />
+
+        <menuitem id="formulario_bolsa_t_cat"
+                  name="Bolsa trabajo"
+                  parent="formulario_catalogo_menu"
+                  sequence="20" />
+
+        <menuitem id="formulario_medio_contacto_menu"
+                  name="Medios de contacto"
+                  parent="formulario_renegociar_cat"
+                  action="formulario_medio_contacto_action"
+                  sequence="10" />
+
+        <menuitem id="formulario_puesto_ocupado_menu"
+                  name="Puesto que desempeña"
+                  parent="formulario_renegociar_cat"
+                  action="formulario_puesto_ocupado_action"
+                  sequence="20" />
+
+        <menuitem id="formulario_area_menu"
+                  name="Bolsa Trabajo - Area"
+                  parent="formulario_bolsa_t_cat"
+                  action="bolsa_trabajo_area_action"
+                  sequence="10" />
+
+        <menuitem id="formulario_producto_menu"
+                  name="Producto"
+                  parent="formulario_catalogo_menu"
+                  action="formulario_producto_action"
+                  sequence="50" />
+
+        <menuitem id="formulario_actividad_menu"
+                  name="Actividad"
+                  parent="formulario_catalogo_menu"
+                  action="formulario_actividad_action"
+                  sequence="60" />
+
+        <menuitem id="formulario_puesto_trabajo_menu"
+                  name="Puesto trabajo"
+                  parent="formulario_catalogo_menu"
+                  action="formulario_puesto_trabajo_action"
+                  sequence="70" />
+
+        <menuitem id="formulario_region_menu"
+                  name="Región"
+                  parent="formulario_configuracion_menu"
+                  action="formulario_region_action"
+                  sequence="10" />
+
+        <menuitem id="formulario_celula_menu"
+                  name="Célula"
+                  parent="formulario_configuracion_menu"
+                  action="formulario_celula_action"
+                  sequence="20" />
+
+        <menuitem id="formulario_convenio_menu"
+                  name="Convenios"
+                  parent="formulario_configuracion_menu"
+                  action="formulario_convenio_action"
+                  sequence="30" />
+
+        <menuitem id="formulario_ayuntamiento_menu"
+                  name="Ayuntamientos"
+                  parent="formulario_configuracion_menu"
+                  action="formulario_ayuntamiento_action"
+                  sequence="40" />
+
+        <menuitem id="formulario_empresa_menu"
+                  name="Empresas"
+                  parent="formulario_configuracion_menu"
+                  action="formulario_empresa_config_action"
+                  sequence="50" />
+    </data>
+</odoo>

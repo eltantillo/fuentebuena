@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_formulario_solicita" name="Formulario Solicita">
+        <t t-call="website.layout">
+            <t t-set="title">Solicita</t>
+            <t t-set="page_name" t-value="'formulario_solicita'"/>
+            <script src="/formulario/static/src/js/validacion.js" type="text/javascript" />
+            <link rel="stylesheet" href="/formulario/static/src/css/style_form.css"/>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
+            <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+                <br/>
+                <section class="oe_structure"></section>
+                <div id="card-formulario-animador">
+                    <h1>Solicita tu préstamo</h1>
+                    <br/>
+                    <div class="container mt-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <form action="/solicita/submit" method="POST" id="formulario-animador" class="needs-validation"  novalidate="novalidate">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Nombre</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="nombre" placeholder="Nombre" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Rellena este campo, es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>RFC</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="rfc" placeholder="Apellido" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Rellena este campo, es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Número de teléfono</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="telefono" placeholder="Teléfono"
+                                                   class="form-control rounded-2 no-spinners" required="required"
+                                                   pattern="[0-9]{10}" title="Debe contener exactamente 10 dígitos"
+                                                   maxlength="10"
+                                                   inputmode="numeric"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Debe tener 10 dígitos
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Correo electrónico</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="email" name="correo" placeholder="Correo" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Ingresa un correo válido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Estado</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="estado" id="estado" class="form-select rounded-2" required="required">
+                                                <option value="">Seleccione una opción</option>
+                                                <t t-foreach="estados" t-as="estado">
+                                                    <option t-att-value="estado.id"><t t-esc="estado.name"/></option>
+                                                </t>
+                                            </select>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Por favor, seleccione una opción.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-animador">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+                <section class="oe_structure"></section>
+            </div>
+        </t>
+    </template>
+</odoo>

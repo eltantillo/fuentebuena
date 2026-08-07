@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_formulario_empresa" name="Formulario Empresas">
+        <t t-call="website.layout">
+            <t t-set="title">Empresas</t>
+            <t t-set="page_name" t-value="'formulario_empresa'"/>
+            <script src="/formulario/static/src/js/validacion.js" type="text/javascript"/>
+            <link rel="stylesheet" href="/formulario/static/src/css/style_form.css"/>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
+            <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+                <br/>
+                <section class="oe_structure"></section>
+                <div id="card-formulario-animador">
+                    <div class="d-flex align-items-center gap-3 mb-4 px-3 px-md-4 py-3 rounded-3 border"
+                         style="background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+                                box-shadow: 0 2px 12px rgba(99,102,241,0.06); border-color: #e8eaf0 !important;">
+                        <div t-if="empresa.logo"
+                             class="d-none d-sm-flex align-items-center justify-content-center flex-shrink-0 rounded-3 border p-2 bg-white"
+                             style="box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-color: #f0f0f5 !important;">
+                            <img t-att-src="'/web/image/formulario.empresa.config/%s/logo' % empresa.id"
+                                 style="max-height: 60px; max-width: 140px; width: auto; height: auto; object-fit: contain;"/>
+                        </div>
+                        <div t-if="empresa.logo"
+                             class="d-none d-sm-block flex-shrink-0"
+                             style="width: 1px; height: 48px;
+                                    background: linear-gradient(to bottom, transparent, #d1d5db, transparent);"/>
+                        <div class="flex-grow-1 overflow-hidden">
+                            <p class="mb-1 fw-semibold text-uppercase"
+                               style="font-size: 0.7rem; letter-spacing: 0.08em; color: #7c3aed;">
+                                Formulario de solicitud
+                            </p>
+                            <h1 class="mb-0 fw-bold text-truncate"
+                                style="font-size: clamp(1.2rem, 3vw, 1.6rem); color: #111827; line-height: 1.2;">
+                                Solicita tu crédito aquí
+                            </h1>
+                            <p class="mb-0 text-secondary" style="font-size: 0.95rem;">
+                                <t t-esc="empresa.name"/>
+                            </p>
+                        </div>
+                        <div t-if="empresa.logo"
+                             class="d-flex d-sm-none align-items-center justify-content-center flex-shrink-0 rounded-3 border p-2 bg-white ms-auto"
+                             style="box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-color: #f0f0f5 !important;">
+                            <img t-att-src="'/web/image/formulario.empresa.config/%s/logo' % empresa.id"
+                                 style="max-height: 44px; max-width: 100px; width: auto; height: auto; object-fit: contain;"/>
+                        </div>
+
+                    </div>
+                    <br/>
+                    <div class="container mt-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <form t-att-action="'/empresa/%s/submit' % empresa.slug" method="POST" class="row g-3 needs-validation" id="formulario-animador" novalidate="novalidate">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                     <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Nombre completo</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="nombre_completo" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Número de teléfono</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="numero_telefono"
+                                                   class="form-control rounded-2"
+                                                   pattern="[0-9]{10}"
+                                                   maxlength="10"
+                                                   inputmode="numeric"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                                   required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Debe tener 10 dígitos
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>Correo electrónico</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="email"
+                                                   name="correo_electronico"
+                                                   class="form-control rounded-2"
+                                                   required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Ingresa un correo válido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>RFC</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="rfc" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-12 text-center">
+                                            <input type="checkbox" id="terminos" name="autorizacion_datos" required="required"/>
+                                            <label>
+                                                Acepto
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminosAnimador">
+                                                    el uso de mis datos personales
+                                                </a>
+                                            </label>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Debes aceptar el uso de datos personales.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-animador" style="padding: 8px 30px;">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+                <div class="modal fade" id="modalTerminosAnimador" tabindex="-1" aria-labelledby="modalTerminosAnimadorLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTerminosAnimadorLabel">
+                                    Uso de datos personales.
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Al enviar este formulario, autorizo el tratamiento de mis datos personales para ser contactado(a), recibir asesoría y enviarme información y promociones relacionadas con productos de crédito.
+                                </p>
+                                <p>
+                                    Reconozco que puedo solicitar la cancelación o revocación de mi consentimiento en cualquier momento, conforme a la legislación aplicable.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-modal-animador"
+                                        onclick="document.getElementById('terminos').checked = true"
+                                        data-bs-dismiss="modal">
+                                    Aceptar
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="oe_structure"></section>
+            </div>
+        </t>
+    </template>
+</odoo>

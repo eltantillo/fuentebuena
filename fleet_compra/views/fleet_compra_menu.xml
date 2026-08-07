@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="fleet_compra_menu_root"
+                  name="Compras"
+                  sequence="1"
+                  web_icon="fleet_compra,static/src/description/icon.png"
+                  groups="base.group_system"/>
+
+        <menuitem id="fleet_orden_compra_menu"
+                  name="Ordenes de compra"
+                  sequence="1"
+                  parent="fleet_compra_menu_root"
+                  action="fleet_orden_compra_action"/>
+
+        <menuitem id="fleet_compra_config_menu"
+                 name="Configuración"
+                 parent="fleet_compra_menu_root"
+                 groups="base.group_system"
+                 sequence="2"/>
+
+        <menuitem id="fleet_compra_categoria_menu"
+                  name="Categoría"
+                  sequence="1"
+                  parent="fleet_compra_config_menu"
+                  action="fleet_compra_categoria_action"/>
+
+        <menuitem id="fleet_compra_condicion_menu"
+                  name="Condición"
+                  parent="fleet_compra_config_menu"
+                  sequence="2"
+                  action="fleet_compra_condicion_action"/>
+
+        <menuitem id="fleet_compra_etapa"
+                  name="Etapa"
+                  sequence="3"
+                  parent="fleet_compra_config_menu"
+                  action="fleet_compra_etapa_action"/>
+
+    </data>
+</odoo>

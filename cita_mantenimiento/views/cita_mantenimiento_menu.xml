@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="cita_mante_bloquear_action" model="ir.actions.server">
+            <field name="name">🔒 Enviar a bloqueo</field>
+            <field name="model_id" ref="model_cita_mantenimiento"/>
+            <field name="binding_model_id" ref="model_cita_mantenimiento"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.crear_peticion_bloqueo()
+            </field>
+        </record>
+
+        <record id="cita_mante_asistir_action" model="ir.actions.server">
+            <field name="name">✅ Marcar como asistida</field>
+            <field name="model_id" ref="model_cita_mantenimiento"/>
+            <field name="binding_model_id" ref="model_cita_mantenimiento"/>
+            <field name="state">code</field>
+            <field name="code">
+               action = records.asistir_cita()
+            </field>
+        </record>
+
+        <record id="cita_mante_inasistencia_action" model="ir.actions.server">
+            <field name="name">❌️ Marcar como inasistencia</field>
+            <field name="model_id" ref="model_cita_mantenimiento"/>
+            <field name="binding_model_id" ref="model_cita_mantenimiento"/>
+            <field name="state">code</field>
+            <field name="code">
+               action = records.inasistencia_cita()
+            </field>
+        </record>
+
+        <record id="cita_mantenimiento_bloqueo_action" model="ir.actions.act_window">
+            <field name="name">Citas para bloqueo</field>
+            <field name="res_model">cita.mantenimiento</field>
+            <field name="view_mode">list,form,calendar</field>
+            <field name="domain">[('contador_reagenda_au','&gt;=', 3)]</field>
+        </record>
+
+        <record id="cita_disponible_mantenimiento_action" model="ir.actions.act_window">
+            <field name="name">Citas</field>
+            <field name="res_model">cita.mantenimiento</field>
+            <field name="view_mode">list,form,calendar</field>
+            <field name="domain">[('etapa_id.name','in', ['Programada','Reagendada'])]</field>
+        </record>
+
+
+        <menuitem id="cita_mantenimiento_root"
+                  name="Citas de mantenimiento"
+                  groups="group_cita_mantenimiento,base.group_system"
+                  web_icon="cita_mantenimiento,static/src/description/icon.png"/>
+
+        <menuitem id="cita_mante_dashboard"
+                  name="Tablero"
+                  parent="cita_mantenimiento_root"
+                  sequence="1"
+                  groups="group_cita_mantenimiento"
+                  action="cita_mantenimiento_dashboard_action"/>
+
+        <menuitem id="cita_mantenimiento"
+                  parent="cita_mantenimiento_root"
+                  name="Citas"
+                  sequence="2"
+                  action="cita_disponible_mantenimiento_action"/>
+
+        <menuitem id="cita_mantenimiento_bloqueo"
+                  parent="cita_mantenimiento_root"
+                  name="Citas a bloquear"
+                  sequence="3"
+                  action="cita_mantenimiento_bloqueo_action"/>
+
+        <menuitem id="cita_mantenimiento_configuracion"
+                  parent="cita_mantenimiento_root"
+                  name="Configuración"
+                  groups="base.group_system,group_cita_mantenimiento_config"
+                  sequence="4"/>
+
+        <menuitem id="menu_cita_mantenimiento_config"
+                  name="Configuración"
+                  parent="cita_mantenimiento_configuracion"
+                  sequence="0"
+                  action="action_cita_mantenimiento_config"
+                  groups="base.group_system"/>
+
+        <menuitem id="menu_cita_mantenimiento_config_param"
+                  name="Parametros"
+                  parent="cita_mantenimiento_configuracion"
+                  sequence="1"
+                  action="cm_config_view_action"
+                  groups="group_cita_mantenimiento_config,base.group_system"/>
+
+        <menuitem id="menu_cita_mantenimiento_config_msg_param"
+                  name="Mensajes"
+                  parent="cita_mantenimiento_configuracion"
+                  sequence="6"
+                  action="cm_config_msg_view_action"
+                  groups="group_cita_mantenimiento_config,base.group_system"/>
+
+        <menuitem id="cita_mantenimiento_conf_etapa"
+                  parent="cita_mantenimiento_configuracion"
+                  name="Etapa"
+                  action="cita_mantenimiento_etapa_action"
+                  sequence="2"/>
+
+        <menuitem id="cita_mantenimiento_conf_plaza_prov"
+                  parent="cita_mantenimiento_configuracion"
+                  name="Proveedor - Plaza"
+                  action="cm_proveedor_plaza_action"
+                  sequence="3"/>
+
+        <menuitem id="cita_mantenimiento_conf_taller_au"
+                  parent="cita_mantenimiento_configuracion"
+                  name="Talleres autorizados"
+                  action="cm_taller_autorizado_action"
+                  sequence="4"/>
+    </data>
+</odoo>

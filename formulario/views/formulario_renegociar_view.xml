@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="formulario_renegociar_view_form" model="ir.ui.view">
+        <field name="name">formulario.renegociar.view.form</field>
+        <field name="model">formulario.renegociar</field>
+        <field name="arch" type="xml">
+            <form string="formulario_renegociar_form">
+                <sheet>
+                    <group string="Datos del usuario">
+                        <field name="create_date" string="Fecha de creación"/>
+                        <field name="nombre"/>
+                        <field name="apellido"/>
+                        <field name="correo" widget="email"/>
+                        <field name="telefono" widget="phone"/>
+                        <field name="estado_id"/>
+                        <field name="puesto_ocupado_id" widget="many2one"/>
+                        <field name="medio_contacto_id" widget="many2one"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="formulario_renegociar_view_list" model="ir.ui.view">
+        <field name="name">formulario.renegociar.view.list</field>
+        <field name="model">formulario.renegociar</field>
+        <field name="arch" type="xml">
+            <list string="formulario_renegociar_list">
+                <field name="create_date" string="Fecha de creación"/>
+                <field name="nombre"/>
+                <field name="apellido"/>
+                <field name="correo" widget="email"/>
+                <field name="telefono" widget="phone"/>
+                <field name="estado_id"/>
+                <field name="puesto_ocupado_id" widget="many2one"/>
+                <field name="medio_contacto_id" widget="many2one"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="formulario_renegociar_action" model="ir.actions.act_window">
+        <field name="name">Formulario renegociar deuda</field>
+        <field name="res_model">formulario.renegociar</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="formulario_renegociar_view_list"/>
+    </record>
+
+</odoo>

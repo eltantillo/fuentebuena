@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="agenda_entrega_view_form" model="ir.ui.view">
+            <field name="name">agenda.entrega.view.form</field>
+            <field name="model">agenda.entrega</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                         <field name="foto_entrega" invisible="1"/>
+                        <field name="etapa_id" widget="statusbar" options="{'clickable': True}"/>
+                        <button name="crear_evento"
+                                type="object"
+                                class="btn btn-success"
+                                string="Registrar evento"
+                                invisible="id == False or etapa_id not in [1,2]">
+                        </button>
+                        <field name="mostrar_evento" invisible="1"/>
+                        <button name="mostrar_eventos"
+                                type="object"
+                                class="btn btn-primary text-white"
+                                invisible="id == False">
+                                Eventos
+                        </button>
+                        <button name="evidencia"
+                                type="object"
+                                class="btn btn-info"
+                                string="Subir evidencia"
+                                invisible="etapa_id  not in [2,3] or foto_entrega != False">
+                        </button>
+                    </header>
+                    <sheet>
+                        <notebook>
+                            <page string="Solicitud" name="page_solicitud">
+                                <group>
+                                    <group string="Datos de dictamen" name="data_dictamen">
+                                        <field name="dictamen_valido_ids" invisible="1"/>
+                                        <field name="dictamen_id" required="1" domain="[('id', 'in', dictamen_valido_ids)]"/>
+                                        <field name="cliente"/>
+                                        <field name="estatus_dictamen"/>
+                                        <field name="email_cliente" string="Email del cliente" readonly="1"/>
+                                        <field name="telefono_cliente" string="Teléfono del cliente" readonly="1"/>
+                                    </group>
+                                    <group string="Datos de solicitud" name="data_solicitud">
+                                        <field name="asesor_id"/>
+                                        <field name="num_empleado" readonly="1"/>
+                                        <field name="fecha_entrega" required="1"/>
+                                        <field name="lugar_entrega_id" required="1"/>
+                                        <field name="canalizacion_id" required="1"/>
+                                        <field name="indicaciones"/>
+                                    </group>
+                                </group>
+                                <group string="Información del vehículo" name="data_vehiculo">
+                                    <group>
+                                        <field name="vehiculo_id"/>
+                                        <field name="modelo_vehiculo_id"/>
+                                        <field name="version"/>
+                                        <field name="vin_sn"/>
+                                        <field name="condicion_vehiculo_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="color"/>
+                                        <field name="year"/>
+                                        <field name="producto_id"/>
+                                        <field name="plaza_id"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Crédito" name="page_credito">
+                                <group string="Mesa de control" name="data_mesa_control">
+                                    <field name="req_instrumentacion"/>
+                                    <field name="estatus_comprobante_deposito"/>
+                                </group>
+                            </page>
+                            <page string="Entrega" name="page_entrega">
+                                <group string="Entrega" name="data_entrega">
+                                    <field name="fecha_confirmada" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="ejecutivo_id" readonly="1"/>
+                                    <field name="nota"/>
+                                </group>
+                                <notebook>
+                                    <page string="Evidencia de entrega">
+                                        <group>
+                                            <group>
+                                                <field name="autorizacion_uso"/>
+                                                <field name="evidencia_autorizacion" widget="pdf_viewer" invisible="autorizacion_uso == False"/>
+                                            </group>
+                                            <group>
+                                                <field name="foto_entrega" widget="image"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="agenda_entrega_view_list" model="ir.ui.view">
+            <field name="name">agenda.entrega.view.list</field>
+            <field name="model">agenda.entrega</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="dictamen_id"/>
+                    <field name="vin_sn"/>
+                    <field name="modelo_vehiculo_id"/>
+                    <field name="plaza_id"/>
+                    <field name="fecha_entrega"/>
+                    <field name="req_instrumentacion"/>
+                    <field name="estatus_comprobante_deposito"/>
+                    <field name="fecha_confirmada"/>
+                    <field name="asesor_id"/>
+                    <field name="num_empleado"/>
+                    <field name="etapa_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="agenda_entrega_view_kanban" model="ir.ui.view">
+            <field name="name">agenda.entrega.view.kanban</field>
+            <field name="model">agenda.entrega</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="etapa_id" class="o_kanban_example">
+                    <templates>
+                        <t t-name="card">
+                            <field name="instrumentacion_correcta" invisible="1"/>
+                            <div class="oe_kanban_global_click" t-att-class="record.instrumentacion_correcta.raw_value ? 'kanban-success-card' : ''">
+<!--                                <div invisible="not instrumentacion_correcta"-->
+<!--                                     style="display:flex; align-items:center; gap:6px;">-->
+<!--                                    <span class="badge rounded-pill"-->
+<!--                                          style="background-color:#146c43; color:white;">-->
+<!--                                        Instrumentación correcta-->
+<!--                                    </span>-->
+<!--                                </div>-->
+                                <strong><field name="rec_name"/></strong>
+                                <div><field name="vehiculo_id"/></div>
+                                <div><field name="plaza_id"/></div>
+                                <div><field name="matricula"/></div>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    <span>📅</span>
+                                    <field name="fecha_entrega"/>
+                                    <span>-</span>
+                                    <span>⏱</span>
+                                    <div class="badge rounded-pill"
+                                         style="background-color:#198754; color:white; padding:4px 8px;">
+                                        <field name="hora_confirmada"/>
+                                    </div>
+                                </div>
+                                <div invisible="eventos_pendientes == 0" style="display:flex; align-items:center; gap:6px;">
+                                    <strong>Eventos pendientes:</strong>
+                                    <field name="eventos_pendientes" widget="badge" decoration-warning="1"/>
+                                </div>
+                                <div invisible="eventos_solventados == 0" style="display:flex; align-items:center; gap:6px;">
+                                    <strong>Eventos atendidos:</strong>
+                                    <field name="eventos_solventados" widget="badge" decoration-info="1"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="agenda_entrega_view_search" model="ir.ui.view">
+            <field name="name">agenda.entrega.view.search</field>
+            <field name="model">agenda.entrega</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="Cliente" name="cliente"/>
+                    <field string="LandingID" name="id_landing"/>
+                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>
+                    <group>
+                        <filter string="Plaza" name="groupby_plaza"  context="{'group_by': 'plaza_id'}"/>
+                        <filter string="Etapa" name="groupby_etapa" context="{'group_by': 'etapa_id'}"/>
+                    </group>
+                    <separator/>
+                    <filter string="Plaza - Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]" />
+                    <filter string="Plaza - Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]" />
+                    <filter string="Plaza - Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]" />
+                    <filter string="Plaza - León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]" />
+                    <filter string="Plaza - Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]" />
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+        <record id="agenda_entrega_action" model="ir.actions.act_window">
+            <field name="name">Agenda Entrega</field>
+            <field name="res_model">agenda.entrega</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="view_id" ref="agenda_entrega_view_kanban"/>
+        </record>
+    </data>
+</odoo>

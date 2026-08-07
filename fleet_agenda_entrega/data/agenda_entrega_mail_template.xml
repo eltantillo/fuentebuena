@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="agenda_entrega_mail_template" model="mail.template">
+            <field name="name">Agenda entrega</field>
+            <field name="model_id" ref="model_agenda_entrega"/>
+            <field name="subject">Nueva agenda de entrega / {{object.rec_name}}</field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="box-sizing:border-box;font-size:13px;background-color: #FCFCFC; border-radius: 10px; padding: 20px; position: relative;">
+                      <img src="https://www.pilotea.mx/assets/landing/branding-imagotipo-horizontal-full-color-lg-4daf4d22a4a6126e02a1a044434584002e58ad2d9c51dec50de8cc2914a83a86.svg" alt="Logo" style="border-style:none;box-sizing:border-box;vertical-align:middle;position: absolute; top: 10px; right: 10px; height: 50px;" width="140.82" height="50">
+                      <h2 style="margin:0px 0 6px 0;box-sizing:border-box;font-size:19.5px;color:#091124;line-height:1.2;text-align: center; font-weight: bold;">Solicitud de entrega</h2>
+                      <br>
+                      Hola,<br><br>Se ha programado una nueva solicitud de entrega:<br><br>
+                      <span style="font-weight: bolder;">Etapa:</span> <t t-out="object.etapa_id.name" data-oe-t-inline="true" contenteditable="false"></t>
+                      <br><br>
+                      <span style="font-weight: bolder;">Cliente:</span> <t t-out="object.dictamen_id.cliente" data-oe-t-inline="true" contenteditable="false"></t>
+                      <br><br>
+                      <span style="font-weight: bolder;">Plaza:</span> <t t-out="object.dictamen_id.plaza_id.name" data-oe-t-inline="true" contenteditable="false"></t>
+                      <br><br>
+                      <span style="font-weight: bolder;">Asesor:</span> <t t-out="object.dictamen_id.asesor_id.name" data-oe-t-inline="true" contenteditable="false"></t>
+                    </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

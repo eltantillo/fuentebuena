@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inventario_computo_activo_view_form" model="ir.ui.view">
+            <field name="name">inventario.computo.activo.view.form</field>
+            <field name="model">inventario.computo.activo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="etapa_id" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <group string="Estado de baja" invisible="mostrar_baja">
+                            <field name="fecha_baja"/>
+                            <field name="motivo_baja"/>
+                        </group>
+                        <group>
+                            <group string="Datos del equipo">
+                                <field name="validado" widget="color_picker"/>
+                                <field name="modelo_id"/>
+                                <field name="fabricante_id"/>
+                                <field name="proveedor_id"/>
+                                <field name="estatus_id"/>
+                                <field name="etiqueta_seguridad_num"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group>
+                            <field name="mostrar_asignacion" invisible="1"/>
+                            <group string="Información de asignación" invisible="mostrar_asignacion">
+                                <field name="empleado_id"/>
+                                <field name="puesto_id"/>
+                                <field name="fecha_asignacion"/>
+                                <field name="ubicacion_stock_id"/>
+                            </group>
+                            <field name="mostrar_stock" invisible="1"/>
+                            <group string="Información de stock" invisible="mostrar_stock">
+                                <field name="fecha_ingreso_stock"/>
+                                <field name="ubicacion_stock_id"/>
+                            </group>
+                        </group>
+                        <group string="Especificaciones">
+                            <field name="mac_wifi"/>
+                            <field name="procesador_id"/>
+                            <field name="generacion"/>
+                            <field name="ram"/>
+                            <field name="almacenamiento"/>
+                            <field name="tipo_almacenamiento_id"/>
+                            <field name="doble_unidad"/>
+                        </group>
+                        <notebook>
+                            <page string="Aquisición">
+                                <group>
+                                    <field name="contrato_id"/>
+                                    <field name="importe"/>
+                                    <field name="iva"/>
+                                    <field name="total"/>
+                                    <field name="esquema_ad_id"/>
+                                </group>
+                            </page>
+                            <page string="Garantía">
+                                <group>
+                                    <field name="tipo_garantia_id"/>
+                                    <field name="fecha_vigencia"/>
+                                    <field name="vigente"/>
+                                </group>
+                            </page>
+                            <page string="Resguardo">
+                                <group>
+                                    <field name="resguardo_attach"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="inventario_computo_activo_view_list" model="ir.ui.view">
+            <field name="name">inventario.computo.activo.view.list</field>
+            <field name="model">inventario.computo.activo</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="fecha_asignacion"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="name"/>
+                    <field name="fabricante_id"/>
+                    <field name="modelo_id"/>
+                    <field name="procesador_id"/>
+                    <field name="ram"/>
+                    <field name="almacenamiento"/>
+                    <field name="ram"/>
+                    <field name="etapa_id"/>
+                    <field name="ubicacion_stock_id"/>
+                    <field name="empleado_id"/>
+                    <field name="puesto_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="inventario_computo_activo_action" model="ir.actions.act_window">
+            <field name="name">Inventario - Computo</field>
+            <field name="res_model">inventario.computo.activo</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="inventario_computo_activo_view_list"/>
+        </record>
+    </data>
+</odoo>

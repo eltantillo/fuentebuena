@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="atencion_cliente_menu"
+                  name="Atención al cliente"
+                  web_icon="atencion_cliente,static/src/description/icon.png"
+                  sequence="1"/>
+
+        <menuitem id="atencion_cliente_interaccion"
+                  name="Interacción"
+                  parent="atencion_cliente_menu"
+                  action="atencion_cliente_interaccion_action"
+                  sequence="10"/>
+
+        <menuitem id="atencion_cliente_incidencia"
+                  name="Incidencia"
+                  parent="atencion_cliente_menu"
+                  action="atencion_cliente_incidencia_action"
+                  sequence="20"/>
+
+        <menuitem id="atencion_cliente_siniestro"
+                  name="Siniestro"
+                  parent="atencion_cliente_menu"
+                  action="atencion_cliente_siniestro_action"
+                  sequence="30"/>
+
+        <menuitem id="atencion_cliente_incidencia_ps"
+                  name="Incidencia PS"
+                  parent="atencion_cliente_menu"
+                  action="atencion_cliente_incidencia_ps_action"
+                  sequence="40"/>
+
+        <menuitem id="atencion_cliente_geocerca"
+                  name="Geocerca"
+                  parent="atencion_cliente_menu"
+                  action="atencion_cliente_geocerca_action"
+                  sequence="50"/>
+
+        <menuitem id="atencion_cliente_catalogos"
+                  name="Catalogos"
+                  parent="atencion_cliente_menu"
+                  groups="base.group_system"
+                  sequence="60"/>
+
+        <menuitem id="atencion_cliente_catalogo_causa_incidencia"
+                  name="Causa incidencia"
+                  parent="atencion_cliente_catalogos"
+                  sequence="10"
+                  action="atencion_cliente_causa_incidencia_action"/>
+
+        <menuitem id="atencion_cliente_catalogo_causa_incidencia_ps"
+                  name="Causa incidencia PS"
+                  parent="atencion_cliente_catalogos"
+                  sequence="20"
+                  action="atencion_cliente_causa_incidencia_ps_action"/>
+
+        <menuitem id="atencion_cliente_catalogo_interaccion_stage"
+                  name="Interaccion etapa"
+                  parent="atencion_cliente_catalogos"
+                  sequence="30"
+                  action="atencion_cliente_interaccion_stage_action"/>
+
+        <menuitem id="atencion_cliente_catalogo_medio_contacto"
+                  name="Medio contacto"
+                  parent="atencion_cliente_catalogos"
+                  sequence="40"
+                  action="atencion_cliente_medio_contacto_action"/>
+
+        <menuitem id="atencion_cliente_catalogo_tipo_solicitud"
+                  name="Tipo solicitud"
+                  parent="atencion_cliente_catalogos"
+                  sequence="50"
+                  action="atencion_cliente_tipo_solicitud_action"/>
+
+        <menuitem id="atencion_cliente_status_registro_solicitud"
+                  name="Estatus de registro"
+                  parent="atencion_cliente_catalogos"
+                  sequence="60"
+                  action="atencion_cliente_status_registro_action"/>
+
+        <menuitem id="atencion_cliente_caracteristica"
+                  name="Caracteristicas"
+                  parent="atencion_cliente_catalogos"
+                  sequence="70"
+                  action="atencion_cliente_caracteristica_action"/>
+
+        <menuitem id="atencion_cliente_responsabilidad"
+                  name="Responsabilidad"
+                  parent="atencion_cliente_catalogos"
+                  sequence="80"
+                  action="atencion_cliente_responsabilidad_action"/>
+    </data>
+</odoo>

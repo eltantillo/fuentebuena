@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="template_formulario_prospecto_animador" name="Formulario Prospecto Animador">
+        <t t-call="website.layout">
+            <t t-set="title">Prospecto animador</t>
+            <t t-set="page_name" t-value="'formulario_prospecto_animador'"/>
+            <script src="/formulario/static/src/js/validacion.js" type="text/javascript"/>
+            <link rel="stylesheet" href="/formulario/static/lib/select2/select2.min.css"/>
+            <link rel="stylesheet" href="/formulario/static/src/css/style_form.css"/>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
+            <script src="/formulario/static/lib/select2/select2.min.js"/>
+            <script src="/formulario/static/src/js/select2.js"/>
+            <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+                <br/>
+                <div id="card-formulario-animador">
+                    <h1><i class="bi bi-credit-card-fill me-2"/> Adquiere tu crédito digital y participa en nuestra promoción.</h1>
+                    <br/>
+                    <div class="container mt-4">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <form action="/experienciadigital/submit" method="POST"
+                                      class="row g-3 needs-validation"
+                                      id="formulario-animador" novalidate="novalidate">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="row mb-2">
+                                        <div class="col-3 text-start">
+                                            <label>Nombre</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" name="nombre" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3 text-start">
+                                            <label>Apellido</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" name="apellido" class="form-control rounded-2" required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Campo obligatorio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3 text-start">
+                                            <label>RFC</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" name="rfc" class="form-control rounded-2"
+                                                   maxlength="13"
+                                                   style="text-transform:uppercase;"
+                                                   required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Ingresa un RFC válido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3 text-start">
+                                            <label>Celular</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" name="celular"
+                                                   class="form-control rounded-2"
+                                                   pattern="[0-9]{10}"
+                                                   maxlength="10"
+                                                   inputmode="numeric"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                                   required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Debe tener 10 dígitos
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3 text-start">
+                                            <label>Confirmar Celular</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" name="confirmacion_celular"
+                                                   class="form-control rounded-2"
+                                                   pattern="[0-9]{10}"
+                                                   maxlength="10"
+                                                   inputmode="numeric"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                                   required="required"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Confirma el número correctamente
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3 text-start">
+                                            <label>Convenio</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="convenio_id" class="form-select rounded-2" required="required">
+                                                <option value="">Seleccione una opción</option>
+                                                <t t-foreach="convenios" t-as="conv">
+                                                    <option t-att-value="conv.id">
+                                                        <t t-esc="conv.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Selecciona un convenio
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-12 text-center">
+                                            <input type="checkbox" id="terminos" name="terminos_condiciones" required="required"/>
+                                            <label>
+                                                Acepto
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminosAnimador">
+                                                    el uso de mis datos personales
+                                                </a>
+                                            </label>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Debes aceptar el uso de datos personales.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-animador">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </t>
+
+        <div class="modal fade" id="modalTerminosAnimador" tabindex="-1" aria-labelledby="modalTerminosAnimadorLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTerminosAnimadorLabel">
+                            Uso de datos personales.
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Al enviar este formulario, autorizo el tratamiento de mis datos personales para ser contactado(a), recibir asesoría y enviarme información y promociones relacionadas con productos de crédito.
+                        </p>
+                        <p>
+                            Reconozco que puedo solicitar la cancelación o revocación de mi consentimiento en cualquier momento, conforme a la legislación aplicable.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-modal-animador"
+                                onclick="document.getElementById('terminos').checked = true"
+                                data-bs-dismiss="modal">
+                            Aceptar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

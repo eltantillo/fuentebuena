@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="promesa_p_pago_view_form" model="ir.ui.view">
+            <field name="name">promesa.p.pago.view.form</field>
+            <field name="model">promesa.p.pago</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Información de promesa">
+                                <field name="promesa_id"/>
+                                <field name="fecha_pago"/>
+                                <field name="importe_pago"/>
+                                <field name="observaciones"/>
+                            </group>
+                            <group string="Datos de pago">
+                                <field name="banco_id"/>
+                                <field name="numero_cuenta"/>
+                                <field name="cie"/>
+                                <field name="referencia"/>
+                                <field name="referencia_dos"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="promesa_p_pago_view_list" model="ir.ui.view">
+            <field name="name">promesa.p.pago.view.list</field>
+            <field name="model">promesa.p.pago</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="fecha_pago"/>
+                    <field name="importe_pago"/>
+                    <field name="promesa_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="promesa_p_pago_action" model="ir.actions.act_window">
+            <field name="name">Pagos</field>
+            <field name="res_model">promesa.p.pago</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="promesa_p_pago_view_list"/>
+        </record>
+    </data>
+</odoo>

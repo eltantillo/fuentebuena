@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="proveedor_proveedor_action" model="ir.actions.act_window">
+            <field name="name">Proveedores</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="domain">[('es_proveedor', '=', True )]</field>
+            <field name="context">{'default_es_proveedor': True}</field>
+        </record>
+
+        <menuitem id="menu_proveedor_root"
+                  name="Proveedores"
+                  sequence="1"
+                  groups="base.group_system"
+                  web_icon="proveedor,static/src/description/icon.png" />
+
+        <menuitem id="proveedor_menu"
+                  name="Proveedores"
+                  sequence="10"
+                  parent="menu_proveedor_root"
+                  action="proveedor_proveedor_action"/>
+
+        <menuitem id="proveedor_tipo_menu"
+                  name="Tipo de Proveedor"
+                  sequence="20"
+                  parent="menu_proveedor_root"
+                  action="proveedor_tipo_action"/>
+    </data>
+</odoo>

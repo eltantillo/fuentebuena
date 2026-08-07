@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="roles_pilotea_inherit_evento_form" model="ir.ui.view">
+            <field name="name">roles.pilotea.inherit.evento.form</field>
+            <field name="model">agenda.entrega.evento</field>
+            <field name="inherit_id" ref="fleet_agenda_entrega.agenda_entrega_evento_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_atender']" position="attributes">
+                    <attribute name="groups">roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_operacion</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tipo_evento_id']" position="after">
+                    <field name="edicion_habilitada"/>
+                </xpath>
+                <xpath expr="//field[@name='descripcion_solventacion']" position="attributes">
+                    <attribute name="readonly">not edicion_habilitada</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_reincidencia']" position="attributes">
+                    <attribute name="groups">roles_pilotea.group_credito</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_solventar']" position="attributes">
+                    <attribute name="groups">roles_pilotea.group_credito</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_adecuacion_config_view_form" model="ir.ui.view">
+            <field name="name">fleet.adecuacion.config.view.form</field>
+            <field name="model">fleet.adecuacion.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Configuración">
+                            <field name="plaza_id"/>
+                            <field name="tipo_adecuacion_id"/>
+                            <field name="importe"/>
+                            <field name="proveedor_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_adecuacion_config_view_list" model="ir.ui.view">
+            <field name="name">fleet.adecuacion.config.view.list</field>
+            <field name="model">fleet.adecuacion.config</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="plaza_id"/>
+                    <field name="tipo_adecuacion_id"/>
+                    <field name="importe"/>
+                    <field name="proveedor_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_adecuacion_config_action" model="ir.actions.act_window">
+            <field name="name">Datos default / Adecuación</field>
+            <field name="res_model">fleet.adecuacion.config</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_adecuacion_config_view_list"/>
+        </record>
+    </data>
+</odoo>

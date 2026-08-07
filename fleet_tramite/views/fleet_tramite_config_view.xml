@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_tramite_config_view_form" model="ir.ui.view">
+            <field name="name">fleet.tramite.config.view.form</field>
+            <field name="model">fleet.tramite.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="tipo_tramite_id"/>
+                            <field name="dependencia"/>
+                            <field name="estado"/>
+                            <field name="plaza_id"/>
+                            <field name="motivo_pago_id"/>
+                            <field name="importe"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fleet_tramite_config_view_list" model="ir.ui.view">
+            <field name="name">fleet.tramite.config.view.list</field>
+            <field name="model">fleet.tramite.config</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="tipo_tramite_id"/>
+                    <field name="dependencia"/>
+                    <field name="estado"/>
+                    <field name="plaza_id"/>
+                    <field name="motivo_pago_id"/>
+                    <field name="importe"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="fleet_tramite_config_action" model="ir.actions.act_window">
+            <field name="name">Datos default / Trámite</field>
+            <field name="res_model">fleet.tramite.config</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="fleet_tramite_config_view_list"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="portal_track_poliza_view_form" model="ir.ui.view">
+            <field name="name">portal.track.poliza.view.form</field>
+            <field name="model">portal.track.poliza</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="etapa" widget="statusbar" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Vehículo">
+                                <field name="vehiculo_id" required="1"/>
+                                <field name="vin_sn"/>
+                                <field name="matricula"/>
+                                <field name="plaza_id"/>
+                            </group>
+                            <group string="Cliente">
+                                <field name="cliente_id" required="1" readonly="1"/>
+                            </group>
+                        </group>
+                        <group string="Información de descargas">
+                            <field name="fecha_hora_descarga" readonly="1"/>
+                            <field name="fecha_hora_ult_desc" readonly="1"/>
+                            <field name="num_descargas" readonly="1"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="portal_track_poliza_view_list" model="ir.ui.view">
+            <field name="name">portal.track.poliza.view.list</field>
+            <field name="model">portal.track.poliza</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="vehiculo_id"/>
+                    <field name="vin_sn"/>
+                    <field name="matricula"/>
+                    <field name="plaza_id"/>
+                    <field name="cliente_id"/>
+                    <field name="fecha_hora_descarga"/>
+                    <field name="fecha_hora_ult_desc" readonly="1"/>
+                    <field name="num_descargas"/>
+                    <field name="etapa" string="Estado" widget="badge"
+                           decoration-warning="etapa == 'pendiente'"
+                           decoration-success="etapa == 'descargado'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="portal_track_poliza_view_search" model="ir.ui.view">
+            <field name="name">portal.track.poliza.view.search</field>
+            <field name="model">portal.track.poliza</field>
+            <field name="arch" type="xml">
+                <search string="All vehicles">
+                    <field string="VIN/sn" name="vin_sn" filter_domain="[('vin_sn', 'ilike', self)]"/>
+                    <filter string="Plaza - Puebla" name="plaza_puebla" domain="[('plaza_id.name', '=', 'Puebla')]" />
+                    <filter string="Plaza - Monterrey" name="plaza_monterrey" domain="[('plaza_id.name', '=', 'Monterrey')]" />
+                    <filter string="Plaza - Queretaro" name="plaza_queretaro" domain="[('plaza_id.name', '=', 'Queretaro')]" />
+                    <filter string="Plaza - León" name="plaza_leon" domain="[('plaza_id.name', '=', 'León')]" />
+                    <filter string="Plaza - Guadalajara" name="plaza_guadalajara" domain="[('plaza_id.name', '=', 'Guadalajara')]" />
+                    <separator/>
+                    <filter string="Estado - Pendiente" name="est_pendiente" domain="[('etapa', '=', 'pendiente')]" />
+                    <filter string="Estado - Descargado" name="est_descargado" domain="[('etapa', '=', 'descargado')]" />
+                    <separator/>
+                    <filter string="Plaza" name="groupby_plaza" context="{'group_by': 'plaza_id'}"/>
+                    <filter string="Estado" name="groupby_estado" context="{'group_by': 'etapa'}"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="portal_track_poliza_action" model="ir.actions.act_window">
+            <field name="name">Descargas de polizas</field>
+            <field name="res_model">portal.track.poliza</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="portal_track_poliza_view_list"/>
+        </record>
+    </data>
+</odoo>

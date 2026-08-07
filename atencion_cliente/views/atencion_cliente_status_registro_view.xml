@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="atencion_cliente_status_registro_view_form" model="ir.ui.view">
+            <field name="name">atencion.cliente.status.registro.view.form</field>
+            <field name="model">atencion.cliente.status.registro</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="name"/>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_status_registro_view_list" model="ir.ui.view">
+            <field name="name">atencion.cliente.status.registro.view.list</field>
+            <field name="model">atencion.cliente.status.registro</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="atencion_cliente_status_registro_action" model="ir.actions.act_window">
+            <field name="name">Estatus de registro</field>
+            <field name="res_model">atencion.cliente.status.registro</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="atencion_cliente_status_registro_view_list"/>
+        </record>
+    </data>
+</odoo>

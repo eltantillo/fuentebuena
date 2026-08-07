@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_poliza"
+                  name="Pólizas de Seguro"
+                  sequence="30"
+                  parent="fleet.fleet_vehicles"/>
+
+        <menuitem id="menu_fleet_poliza_ac"
+                  name="Pólizas"
+                  sequence="10"
+                  parent="menu_fleet_poliza"
+                  action="fleet_poliza_action"/>
+
+        <menuitem id="menu_fleet_poliza_catalogo"
+                  name="Póliza"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="120"/>
+
+        <menuitem id="menu_fleet_poliza_tipo_"
+                  name="Tipo"
+                  parent="menu_fleet_poliza_catalogo"
+                  sequence="1"
+                  action="fleet_poliza_tipo_action"/>
+
+        <menuitem id="menu_fleet_poliza_tipo_cobertura"
+                  name="Tipo de Cobertura"
+                  parent="menu_fleet_poliza_catalogo"
+                  sequence="2"
+                  action="fleet_poliza_tipo_cobertura_action"/>
+
+        <menuitem id="menu_fleet_poliza_tipo_valor"
+                  name="Tipo de Valor"
+                  parent="menu_fleet_poliza_catalogo"
+                  sequence="3"
+                  action="fleet_poliza_tipo_valor_action"/>
+
+        <menuitem id="menu_fleet_poliza_config_data"
+                  name="Póliza"
+                  parent="fleet_customer.menu_fleet_config_det"
+                  action="fleet_poliza_config_action"
+                  sequence="3"/>
+
+    </data>
+</odoo>

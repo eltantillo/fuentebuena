@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="promesa_p_menu"
+                  name="Promesas de Pago"
+                  web_icon="promesa_pago,static/src/description/icon.png"/>
+
+        <menuitem id="promesa_p_periodo_nomina_conv"
+                  name="Periodo de nomina convenio"
+                  parent="promesa_p_menu"
+                  sequence="10"
+                  action="promesa_p_periodo_nom_convenio_action"/>
+
+        <menuitem id="promesa_p_promesa"
+                  name="Promesas"
+                  parent="promesa_p_menu"
+                  sequence="20"
+                  action="promesa_p_promesa_action"/>
+
+                <menuitem id="promesa_p_pago"
+                  name="Pagos"
+                  parent="promesa_p_menu"
+                  sequence="30"
+                  action="promesa_p_pago_action"/>
+
+        <menuitem id="promesa_p_proyeccion"
+                  name="Proyección cobranza"
+                  parent="promesa_p_menu"
+                  sequence="40"
+                  action="promesa_p_proyeccion_cobranza_action"/>
+
+        <menuitem id="promesa_p_catalogos"
+                  name="Catálogos"
+                  sequence="50"
+                  parent="promesa_p_menu"/>
+
+        <menuitem id="promesa_p_cat_roles"
+                  name="Roles"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_rol_action"/>
+
+        <menuitem id="promesa_p_cat_ecv_proc_nom"
+                  name="Ecv Proc Nómina"
+                  parent="promesa_p_catalogos"
+                  action="promesa_ecv_proc_nomina_action"/>
+
+        <menuitem id="promesa_p_cat_ins_financiera"
+                  name="Institución financiera"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_ins_financiera_action"/>
+
+        <menuitem id="promesa_p_cat_estado_cumplimiento"
+                  name="Estado de cumplimiento"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_estado_cumplimiento_action"/>
+
+        <menuitem id="promesa_p_cat_ecv_promesa_pago"
+                  name="ECV promesa de pago"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_ecv_promesa_pago_action"/>
+
+        <menuitem id="promesa_p_cat_zona"
+                  name="Zona"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_zona_action"/>
+
+        <menuitem id="promesa_p_cat_celula"
+                  name="Célula"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_celula_action"/>
+
+        <menuitem id="promesa_p_cat_convenio"
+                  name="Convenios"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_convenio_action"/>
+
+        <menuitem id="promesa_p_cat_frecuencia_nomina"
+                  name="Frecuencia nómina"
+                  parent="promesa_p_catalogos"
+                  action="promesa_p_frecuencia_nomina_action"/>
+    </data>
+</odoo>

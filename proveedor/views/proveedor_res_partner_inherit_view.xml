@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="proveedor_res_partner_view_form" model="ir.ui.view">
+            <field name="name">proveedor.res.partner.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='vat']" position="after">-->
+<!--                    <field name="tipo_proveedor"/>-->
+<!--                </xpath>-->
+                <xpath expr="//form/sheet" position="before">
+<!--                    <field name="etapa" invisible="1"/>-->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <!--<button name="action_confirmar"
+                                    string="Enviar a confirmación"
+                                    type="object"
+                                    class="btn-info text-white me-2"
+                                    invisible="etapa != 'borrador'"
+                                    force_save="1"/>-->
+<!--                            <button name="validar_js"-->
+<!--                                    string="Enviar para confirmación"-->
+<!--                                    type="object"-->
+<!--                                    class="btn-primary text-white me-2"-->
+<!--                                    force_save="1"-->
+<!--                                    invisible="etapa != 'borrador'"-->
+<!--                                    context="{'from_js': True}"/>-->
+
+<!--                            <button name="action_borrador"-->
+<!--                                    string="Borrador"-->
+<!--                                    type="object"-->
+<!--                                    groups="proveedor.group_manager"-->
+<!--                                    class="btn-info text-white me-2"-->
+<!--                                    force_save="1"/>-->
+
+                            <button name="action_abrir_asignacion"
+                                    string="Agregar razón social"
+                                    type="object"
+                                    groups="base.group_system"
+                                    class="btn-primary text-white me-2"
+                                    force_save="1"/>
+                        </div>
+<!--                        <div>-->
+<!--                            <field name="etapa" widget="statusbar"/>-->
+<!--                        </div>-->
+                    </div>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='contact_addresses']" position="after">
+                    <page string="Razones sociales" invisible="not razones_sociales_ids">
+                        <group>
+                            <field name="razones_sociales_ids"/>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//page[@name='internal_notes']" position="replace">
+                    <field name="es_proveedor" invisible="1"/>
+                    <page string="Tipo de proveedor" name="data_tipo_proveedor"  invisible="es_proveedor == False">
+                        <group>
+                            <field name="tipo_proveedor_ids"/>
+                        </group>
+                    </page>
+                </xpath>
+<!--                <xpath expr="//form/sheet/field[@name='image_1920']" position="before">-->
+<!--                    <div class="row" name="aprobaciones"-->
+<!--                         invisible="etapa == 'borrador'">-->
+<!--                        <div class="col-4">-->
+<!--                            <p>Aprobación Administración: <field name="aprobacion_administracion" widget="boolean_toggle"/></p>-->
+<!--                        </div>-->
+<!--                        <div class="col-4">-->
+<!--                            <p>Aprobación Contabilidad: <field name="aprobacion_contabilidad" widget="boolean_toggle"/></p>-->
+<!--                        </div>-->
+<!--                        <div class="col-4">-->
+<!--                            <p>Aprobación Tesorería: <field name="aprobacion_tesoreria" widget="boolean_toggle"/></p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>

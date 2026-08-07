@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_fleet_adecuacion"
+                  name="Adecuaciones"
+                  sequence="20"
+                  parent="fleet.menu_root"
+                  action="fleet_adecuacion_action"/>
+
+        <menuitem id="menu_fleet_adecuacion_catalogo"
+                  name="Adecuación"
+                  parent="fleet_customer.menu_fleet_catalogos"
+                  sequence="110"/>
+
+        <menuitem id="menu_fleet_adecuacion_config_data"
+                  name="Adecuación"
+                  parent="fleet_customer.menu_fleet_config_det"
+                  action="fleet_adecuacion_config_action"
+                  sequence="1"/>
+
+        <menuitem id="menu_fleet_adecuacion_cat"
+                  name="Adecuaciones"
+                  parent="menu_fleet_adecuacion_catalogo"
+                  sequence="3"
+                  action="fleet_adecuacion_catalogo_action"/>
+
+    </data>
+</odoo>

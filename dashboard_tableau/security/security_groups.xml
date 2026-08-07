@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_dashboard_tableau" model="ir.module.category">
+            <field name="name">Tableau</field>
+            <field name="description">Gestión de acceso a tableau</field>
+        </record>
+
+        <record id="group_lector_dashboard" model="res.groups">
+            <field name="name">Lector de Dashboard</field>
+        </record>
+    </data>
+</odoo>

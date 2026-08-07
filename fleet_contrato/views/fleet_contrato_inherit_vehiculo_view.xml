@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="fleet_contrato_inherit_fleet_view_form" model="ir.ui.view">
+            <field name="name">fleet.contrato.inherit.fleet.view.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/div/button[3]" position="before">
+                    <button name="return_action_to_open"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-book"
+                        context="{'xml_id':'fleet_vehicle_log_contract_action', 'search_default_inactive': not active}"
+                        help="show the contract for this vehicle">
+                        <field name="contract_count" widget="statinfo" string="Contratos"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

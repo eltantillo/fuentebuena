@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="agenda_entrega_evento_view_form" model="ir.ui.view">
+            <field name="name">agenda.entrega.evento.view.form</field>
+            <field name="model">agenda.entrega.evento</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="mostrar_status" invisible="1"/>
+                        <field name="mostrar_estatus" invisible="1"/>
+                        <field name="status_id" widget="statusbar" invisible="mostrar_status == False"/>
+                        <field name="estatus_id" widget="statusbar" invisible="mostrar_estatus == False"/>
+                        <button name="action_reincidencia" type="object" class="btn btn-danger" string="Reincidencia" invisible="status_id != 4"/>
+                        <button name="action_atender" type="object" class="btn btn-info" string="Atender" invisible="status_id == 2 or estatus_id == 3 or status_id == 4"/>
+                        <button name="action_solventar" type="object" class="btn btn-success" string="Solventar" invisible="status_id == 2 or estatus_id == 3 or status_id == 1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="incidencia_id" invisible="1"/>
+                            <field name="agenda_id" readonly="1"/>
+                            <field name="tipo_evento_id" readonly="1"/>
+                            <field name="descripcion" readonly="1"/>
+                            <field name="descripcion_solventacion"/>
+                        </group>
+                        <notebook>
+                            <page name="data_incidencias" string="Reincidencia" invisible="incidencia_id == False">
+                                <group>
+                                    <field name="incidencia_id" string="Reincidencia ligada" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="agenda_entrega_evento_view_list" model="ir.ui.view">
+            <field name="name">agenda.entrega.evento.view.list</field>
+            <field name="model">agenda.entrega.evento</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="agenda_id" readonly="1"/>
+                    <field name="tipo_evento_id" />
+                    <field name="descripcion"/>
+                    <field name="status_id" widget="badge" decoration-warning="status_id == 1" decoration-success="status_id == 2"
+                           decoration-danger="status_id == 3" decoration-info="status_id == 4"/>
+                    <field name="descripcion_solventacion"/>
+                </list>
+            </field>
+        </record>
+
+<!--        <record id="agenda_entrega_evento_view_search" model="ir.ui.view">-->
+<!--            <field name="name">agenda.entrega.evento.view.search</field>-->
+<!--            <field name="model">agenda.entrega.evento</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="All vehicles">-->
+<!--                    <filter string="Archivados" name="archivado" domain="[('active', '=', False)]"/>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="agenda_entrega_evento_action" model="ir.actions.act_window">
+            <field name="name">Eventos</field>
+            <field name="res_model">agenda.entrega.evento</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="agenda_entrega_evento_view_list"/>
+        </record>
+    </data>
+</odoo>
