@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <record id="user_blocklist" model="res.users" context="{'no_reset_password': True}">
+        <field name="name">Mr Blocklist Admin</field>
+        <field name="login">blocklist</field>
+        <field name="password">blocklist</field>
+        <field name="email">blocklist_admin@yourcompany.com</field>
+        <field name="company_id" ref="base.demo_company_mx" />
+        <field name="company_ids" eval="[Command.link(ref('base.demo_company_mx'))]" />
+        <field name="tz">America/Mexico_City</field>
+        <field name="lang">es_MX</field>
+        <!-- NOTE: These groups are defined specifically for the user of this module.
+        For other modules, it is important not to add additional groups that grant access to technical
+        features unnecessarily.
+        In this case, base.group_system is included to allow explanation of the scheduled action and the
+        related system parameter.
+        -->
+        <field
+            name="group_ids"
+            eval="[Command.set([ref('base.group_user'), ref('account.group_account_manager'), ref('base.group_system'), ref('base.group_partner_manager'), ref('l10n_mx_partner_blocklist.group_partner_blacklist')])]"
+        />
+    </record>
+
+</odoo>

@@ -1,0 +1,1753 @@
+<odoo>
+    <!-- Form View for Asset Management -->
+    <record id="view_asset_form" model="ir.ui.view">
+        <field name="name">asset.management.form</field>
+        <field name="model">asset.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- Status bar at the top of the form -->
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button string="Print Label" name="action_open_label_layout"
+                            type="object" class="oe_highlight" icon="fa-print"
+                            groups="sdlc_asset_management.assets_user_group,sdlc_asset_management.assets_admin_group,base.group_system"/>
+                </header>
+                <sheet>
+                    <!-- Title section with asset name -->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <!-- Main content organized in groups -->
+                    <group>
+                        <!-- Basic Information group -->
+                        <group string="Basic Information">
+                            <field name="product_id"/>
+                            <field name="serial_number"/>
+                            <field name="barcode"/>
+                            <field name="asset_type_id"/>
+                            <field name="condition"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="model_type" widget="radio"/>
+                            <field name="initial_stock" invisible="model_type == 'single'"
+                                   required="model_type == 'multiple'"/>
+                            <field name="current_stock" invisible="model_type == 'single'"/>
+                            <field name="active_transfers" invisible="model_type == 'single'"/>
+                        </group>
+                        <!-- Financial Information group -->
+                        <group string="Financial Information">
+                            <field name="amount"/>
+                            <field name="invoice_id"/>
+                            <field name="invoice_date"/>
+                            <field name="current_amount" readonly="1"/>
+                        </group>
+                        <!-- Depreciation Settings group -->
+                        <group string="Depreciation Settings">
+                            <field name="depreciation_apply"/>
+                            <field name="total_depreciation_amount"/>
+                            <field name="last_depreciation_date"/>
+                            <field name="depreciation_count"/>
+                        </group>
+                        <!-- Maintenance Information group -->
+                        <group string="Maintenance Information">
+                            <field name="total_maintenance_amount" readonly="1"/>
+                            <field name="maintenance_count"/>
+                            <field name="next_maintenance_date"/>
+                        </group>
+                        <!-- Vendor And Warranty group -->
+                        <group string="Vendor And Warranty">
+                            <field name="expired_warranty_date"/>
+                            <field name="remaining_warranty"/>
+                            <field name="vendor_id"/>
+                        </group>
+                        <!-- Assignment & Location -->
+                        <group string="Assignment &amp; Location">
+                            <field name="department_id"/>
+                            <field name="responsible_user_id"/>
+                            <field name="current_location"/>
+                            <field name="transfer_count"/>
+                        </group>
+                    </group>
+                    <!-- Documentation & Notes -->
+                    <group>
+                        <group string="Documentation">
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </group>
+                        <group string="Notes">
+                            <field name="notes" placeholder="Internal notes about this asset..."/>
+                        </group>
+                    </group>
+                    <!-- Notebook for additional details -->
+                    <notebook>
+                        <!-- Transfer Page -->
+                        <page string="Transfer" groups="sdlc_asset_management.transfer_user_group,base.group_system">
+                            <field name="transfer_ids" context="{'default_from_location': current_location}">
+                                <list editable="bottom">
+                            <field name="transfer_code"/>
+                            <field name="transfer_employee_id"/>
+                            <field name="assign_date"/>
+                            <field name="assign_by"/>
+                            <field name="from_location_id"/>
+                            <field name="to_location_id"/>
+                            <field name="return_date"/>
+                            <field name="stock_qty"/>
+                            <field name="status"/>
+                        </list>
+                    </field>
+                        </page>
+
+                        <!-- Maintenance Page -->
+                        <page string="Maintenance / Repair"
+                              groups="sdlc_asset_management.maintenance_user_group,base.group_system">
+                            <field name="maintenance_ids">
+                                <list editable="bottom">
+                                    <field name="maintenance_vendor_id"/>
+                                    <field name="assign_date"/>
+                                    <field name="return_date"/>
+                                    <field name="assign_by"/>
+                                    <field name="invoice_id"/>
+                                    <field name="file_name" column_invisible="1"/>
+                                    <field name="document" filename="file_name"
+                                           widget="binary"/>
+                                    <field name="maintenance_amount"/>
+                                    <field name="maintenance_status"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Depreciation Page -->
+                        <page string="Depreciation" groups="sdlc_asset_management.depreciation_user_group,base.group_system">
+                            <field name="depreciation_ids">
+                                <list editable="bottom">
+                                    <field name="depreciation_amount"/>
+                                    <field name="created_by"/>
+                                    <field name="entry_date"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+            </notebook>
+        </sheet>
+    </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Asset Management -->
+    <record id="view_asset_tree" model="ir.ui.view">
+        <field name="name">asset.management.tree</field>
+        <field name="model">asset.management</field>
+        <field name="arch" type="xml">
+            <list>
+                <header>
+                    <button string="Print Labels" name="action_open_label_layout"
+                            type="object"
+                            icon="fa-print"
+                            class="oe_highlight"
+                            groups="sdlc_asset_management.assets_user_group,sdlc_asset_management.assets_admin_group,base.group_system"/>
+                </header>
+                <!-- Fields to display in the tree view -->
+                <field name="name"/>
+                <field name="serial_number" optional="hide"/>
+                <field name="asset_type_id" optional="show"/>
+                <field name="condition" optional="show"
+                       decoration-success="condition == 'new' or condition == 'good'"
+                       decoration-warning="condition == 'fair'"
+                       decoration-danger="condition == 'poor' or condition == 'damaged'"/>
+                <field name="tag_ids" widget="many2many_tags" optional="show"/>
+                <field name="department_id" optional="hide"/>
+                <field name="model_type"/>
+                <field name="initial_stock" optional="show"/>
+                <field name="current_stock" optional="show"/>
+                <field name="active_transfers" optional="show"/>
+                <field name="assigned_user"/>
+                <field name="current_location" optional="hide"/>
+                <field name="amount" optional="show" string="Purchase Price"/>
+                <field name="current_amount" optional="show" string="Book Value"/>
+                <field name="invoice_date"/>
+                <field name="total_depreciation_amount"/>
+                <field name="total_maintenance_amount"/>
+                <field name="expired_warranty_date"/>
+                <field name="remaining_warranty"/>
+                <field name="next_maintenance_date" optional="hide"/>
+                <field name="depreciation_count" optional="hide"/>
+                <field name="maintenance_count" optional="hide"/>
+                <field name="transfer_count" optional="hide"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'assign'"
+                       decoration-info="status == 'return' or status == 'in_warehouse'"
+                       decoration-warning="status == 'on_hold'"
+                       decoration-danger="status == 'repair' or status == 'destroyed'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View for Asset Management -->
+    <record id="view_asset_search" model="ir.ui.view">
+        <field name="name">asset.management.search</field>
+        <field name="model">asset.management</field>
+        <field name="arch" type="xml">
+            <search string="Assets">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="tag_ids"/>
+
+                <filter string="Assigned" name="assigned" domain="[('status', '=', 'assign')]"/>
+                <filter string="Returned" name="returned" domain="[('status', '=', 'return')]"/>
+                <filter string="On Hold" name="on_hold" domain="[('status', '=', 'on_hold')]"/>
+                <filter string="In Warehouse" name="in_warehouse" domain="[('status', '=', 'in_warehouse')]"/>
+                <filter string="In Repair" name="repair" domain="[('status', '=', 'repair')]"/>
+                <filter string="Destroyed" name="destroyed" domain="[('status', '=', 'destroyed')]"/>
+
+                <filter string="Single Assets" name="single_assets" domain="[('model_type', '=', 'single')]"/>
+                <filter string="Multiple Assets" name="multiple_assets" domain="[('model_type', '=', 'multiple')]"/>
+                <filter string="Out of Stock" name="out_of_stock"
+                        domain="[('model_type', '=', 'multiple'), ('current_stock', '&lt;=', 0)]"/>
+                <filter string="In Stock" name="in_stock"
+                        domain="[('model_type', '=', 'multiple'), ('current_stock', '&gt;', 0)]"/>
+
+                <filter string="Has Warranty" name="has_warranty"
+                        domain="[('expired_warranty_date', '!=', False)]"/>
+                <filter string="Depreciation Enabled" name="depreciation_on"
+                        domain="[('depreciation_apply', '=', True)]"/>
+                <filter string="Condition: New" name="condition_new" domain="[('condition', '=', 'new')]"/>
+                <filter string="Condition: Damaged" name="condition_damaged" domain="[('condition', '=', 'damaged')]"/>
+
+                <group>
+                    <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
+                    <filter string="Asset Type" name="group_by_asset_type" context="{'group_by': 'asset_type_id'}"/>
+                    <filter string="Condition" name="group_by_condition" context="{'group_by': 'condition'}"/>
+                    <filter string="Vendor" name="group_by_vendor" context="{'group_by': 'vendor_id'}"/>
+                    <filter string="Tags" name="group_by_tags" context="{'group_by': 'tag_ids'}"/>
+                    <filter string="Model Type" name="group_by_model_type" context="{'group_by': 'model_type'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- Kanban View for Asset Management -->
+    <record id="view_asset_kanban" model="ir.ui.view">
+        <field name="name">asset.management.kanban</field>
+        <field name="model">asset.management</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" class="o_kanban_dashboard" multi_selection="1" create="1">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="status"/>
+                <field name="asset_type_id"/>
+                <field name="barcode"/>
+                <field name="amount"/>
+                <field name="current_amount"/>
+                <field name="invoice_date"/>
+                <field name="expired_warranty_date"/>
+                <field name="depreciation_count"/>
+                <field name="maintenance_count"/>
+                <field name="transfer_count"/>
+                <field name="assigned_user"/>
+                <field name="warranty_status"/>
+                <field name="remaining_warranty"/>
+                <field name="total_depreciation_amount"/>
+                <field name="total_maintenance_amount"/>
+                <field name="tag_ids"/>
+                <field name="model_type"/>
+                <field name="initial_stock"/>
+                <field name="current_stock"/>
+                <field name="active_transfers"/>
+                <field name="product_id"/>
+                <field name="vendor_id"/>
+                <progressbar field="status" colors='{"assign":"success","return":"info","on_hold":"warning","in_warehouse":"primary","repair":"danger","destroyed":"muted"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click o_kanban_card oe_kanban_content" role="article">
+                            <!-- Card Header with Asset Name and Status -->
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div class="o_primary flex-grow-1">
+                                            <strong class="text-truncate d-block" style="font-size: 1.1em; color: #000;">
+                                                <field name="name"/>
+                                            </strong>
+                                        </div>
+                                        <div class="ms-2">
+                                            <span t-attf-class="badge rounded-pill text-white lh-1 px-2 py-1 
+                                                #{record.status.raw_value == 'assign' ? 'bg-success' : 
+                                                  record.status.raw_value == 'return' ? 'bg-info' : 
+                                                  record.status.raw_value == 'on_hold' ? 'bg-warning' : 
+                                                  record.status.raw_value == 'in_warehouse' ? 'bg-primary' :
+                                                  record.status.raw_value == 'repair' ? 'bg-danger' :
+                                                  record.status.raw_value == 'destroyed' ? 'bg-secondary' : 'bg-secondary'}">
+                                                <field name="status"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card Body -->
+                            <div class="o_kanban_card_content">
+                                <!-- Asset Type Badge -->
+                                <div class="mb-2" t-if="record.asset_type_id.raw_value">
+                                    <span class="badge rounded-pill" 
+                                          t-attf-class="badge rounded-pill #{record.asset_type_id.color and record.asset_type_id.color.raw_value ? 'o_tag_color_' + record.asset_type_id.color.raw_value : 'bg-secondary'} text-white">
+                                        <i class="fa fa-tag me-1" title="Asset type"></i>
+                                        <field name="asset_type_id"/>
+                                    </span>
+                                </div>
+                                
+                                <!-- Tags -->
+                                <div class="mb-2" t-if="record.tag_ids.raw_value">
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+                                
+                                <!-- Assigned User -->
+                                <div class="mb-2" t-if="record.assigned_user.raw_value">
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="fa fa-user me-2"></i>
+                                        <span class="text-truncate" style="color: #000;">
+                                            <field name="assigned_user"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stock Information for Multiple Assets -->
+                                <div class="mb-2" t-if="record.model_type.raw_value == 'multiple'">
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <span class="badge bg-info">
+                                            <i class="fa fa-cubes me-1"></i>
+                                            Stock: <field name="current_stock"/>/<field name="initial_stock"/>
+                                        </span>
+                                        <span class="badge bg-warning text-dark" t-if="record.active_transfers.raw_value">
+                                            <i class="fa fa-exchange me-1"></i>
+                                            Active: <field name="active_transfers"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Financial Information -->
+                                <div class="mb-2">
+                                    <div class="d-flex flex-column gap-1">
+                                        <div class="d-flex justify-content-between align-items-center" t-if="record.amount.raw_value">
+                                            <span class="text-muted small">
+                                                <i class="fa fa-dollar-sign me-1"></i>Purchase Price:
+                                            </span>
+                                            <strong><field name="amount" widget="monetary"/></strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center" t-if="record.current_amount.raw_value">
+                                            <span class="text-muted small">
+                                                <i class="fa fa-chart-line me-1"></i>Book Value:
+                                            </span>
+                                            <strong class="text-primary"><field name="current_amount" widget="monetary"/></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Dates -->
+                                <div class="mb-2">
+                                    <div class="d-flex flex-column gap-1 small">
+                                        <div t-if="record.invoice_date.raw_value" class="text-muted">
+                                            <i class="fa fa-calendar me-1"></i>
+                                            Purchase: <field name="invoice_date"/>
+                                        </div>
+                                        <div t-if="record.expired_warranty_date.raw_value" 
+                                             t-attf-class="text-#{record.warranty_status.raw_value == 'expired' ? 'danger' : 'muted'}">
+                                            <i class="fa fa-shield-alt me-1" title="Warranty end date"></i>
+                                            Warranty: <field name="expired_warranty_date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card Footer with Statistics -->
+                            <div class="o_kanban_record_bottom">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-2 border-top">
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <span class="badge bg-light text-dark border" title="Depreciation Entries">
+                                            <i class="fa fa-chart-line me-1"></i>
+                                            <field name="depreciation_count"/>
+                                        </span>
+                                        <span class="badge bg-light text-dark border" title="Maintenance Records">
+                                            <i class="fa fa-wrench me-1"></i>
+                                            <field name="maintenance_count"/>
+                                        </span>
+                                        <span class="badge bg-light text-dark border" title="Transfer History">
+                                            <i class="fa fa-exchange me-1"></i>
+                                            <field name="transfer_count"/>
+                                        </span>
+                                    </div>
+                                    <div t-if="record.remaining_warranty.raw_value">
+                                        <span t-attf-class="badge 
+                                            #{record.warranty_status.raw_value == 'expired' ? 'bg-danger' : 
+                                              record.warranty_status.raw_value == 'expiring_soon' ? 'bg-warning text-dark' : 
+                                              'bg-success'}">
+                                            <i class="fa fa-shield-alt me-1" title="Remaining warranty"></i>
+                                            <field name="remaining_warranty"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action for Assets (defined early so the dashboard view can reference it) -->
+    <record id="action_assets" model="ir.actions.act_window">
+        <field name="name">Assets</field>
+        <field name="res_model">asset.management</field>
+        <field name="view_mode">kanban,list,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first asset record
+            </p>
+        </field>
+    </record>
+
+    <!-- Dashboard seed record -->
+    <record id="asset_dashboard_record" model="asset.dashboard"/>
+
+    <!-- Dashboard Kanban -->
+    <record id="view_asset_dashboard" model="ir.ui.view">
+        <field name="name">asset.dashboard.kanban</field>
+        <field name="model">asset.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban create="0" edit="0" delete="0" quick_create="0" class="o_kanban_dashboard asset_dashboard_full" style="width: 100%; max-width: 100%;">
+                <field name="total_asset_value"/>
+                <field name="total_purchase_cost"/>
+                <field name="depreciation_total"/>
+                <field name="depreciation_this_month"/>
+                <field name="avg_asset_value"/>
+                <field name="total_maintenance_cost"/>
+                <field name="net_book_value"/>
+                <field name="total_assets"/>
+                <field name="assigned_count"/>
+                <field name="in_warehouse_count"/>
+                <field name="on_hold_count"/>
+                <field name="repair_count"/>
+                <field name="return_count"/>
+                <field name="disposed_count"/>
+                <field name="assigned_pct"/>
+                <field name="warehouse_pct"/>
+                <field name="on_hold_pct"/>
+                <field name="repair_pct"/>
+                <field name="return_pct"/>
+                <field name="disposed_pct"/>
+                <field name="maintenance_open"/>
+                <field name="maintenance_done"/>
+                <field name="maintenance_pending"/>
+                <field name="transfers_count"/>
+                <field name="transfers_this_month"/>
+                <field name="alert_count"/>
+                <field name="vendor_count"/>
+                <field name="non_moving_count"/>
+                <field name="warranty_expiring_count"/>
+                <field name="utilization_rate"/>
+                <field name="locations_text"/>
+                <field name="recent_transfers_text"/>
+                <field name="top_categories_text"/>
+                <field name="warranty_alerts_text"/>
+                <templates>
+                    <t t-name="card">
+                        <style>
+                            .asset_dashboard_full .o_kanban_renderer.o_kanban_ungrouped .o_kanban_record {
+                                width: auto !important;
+                                min-width: 100% !important;
+                            }
+                            .asset_dashboard_full .o_kanban_record {
+                                border: none !important;
+                                box-shadow: none !important;
+                            }
+                            .asset_dashboard_full .min-w-0.text-truncate {
+                                color: #1a1a2e !important;
+                            }
+                            /* Dashboard base */
+                            .asset-dash {
+                                font-family: inherit;
+                                color: #1a1a2e;
+                                background: #f0f2f5;
+                                padding: 0;
+                            }
+                            /* Hero banner */
+                            .asset-dash-hero {
+                                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+                                color: #fff;
+                                padding: 28px 32px;
+                                border-radius: 16px;
+                                margin-bottom: 24px;
+                                position: relative;
+                                overflow: hidden;
+                            }
+                            .asset-dash-hero::before {
+                                content: '';
+                                position: absolute;
+                                top: -50%;
+                                right: -20%;
+                                width: 400px;
+                                height: 400px;
+                                background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+                                border-radius: 50%;
+                            }
+                            .asset-dash-hero .hero-title {
+                                font-size: 26px;
+                                font-weight: 700;
+                                letter-spacing: -0.5px;
+                            }
+                            .asset-dash-hero .hero-sub {
+                                font-size: 13px;
+                                opacity: 0.7;
+                                text-transform: uppercase;
+                                letter-spacing: 1.5px;
+                                margin-bottom: 4px;
+                            }
+                            .hero-stat {
+                                text-align: center;
+                                padding: 0 20px;
+                            }
+                            .hero-stat-value {
+                                font-size: 28px;
+                                font-weight: 700;
+                                color: #fff;
+                            }
+                            .hero-stat-label {
+                                font-size: 11px;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                                opacity: 0.6;
+                                margin-top: 2px;
+                            }
+                            .hero-divider {
+                                width: 1px;
+                                background: rgba(255,255,255,0.15);
+                                align-self: stretch;
+                            }
+                            /* Section cards */
+                            .dash-section {
+                                background: #fff;
+                                border-radius: 12px;
+                                padding: 20px 24px;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+                                border: 1px solid #e8eaed;
+                                height: 100%;
+                            }
+                            .dash-section-title {
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: #5f6368;
+                                text-transform: uppercase;
+                                letter-spacing: 0.8px;
+                                margin-bottom: 16px;
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                            }
+                            .dash-section-title i {
+                                font-size: 16px;
+                            }
+                            /* KPI mini cards */
+                            .kpi-card {
+                                padding: 16px;
+                                border-radius: 10px;
+                                background: #f8f9fa;
+                                border: 1px solid #e8eaed;
+                                transition: transform 0.15s, box-shadow 0.15s;
+                            }
+                            .kpi-card:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                            }
+                            .kpi-icon {
+                                width: 40px;
+                                height: 40px;
+                                border-radius: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 18px;
+                                color: #fff;
+                                flex-shrink: 0;
+                            }
+                            .kpi-value {
+                                font-size: 22px;
+                                font-weight: 700;
+                                color: #1a1a2e;
+                                line-height: 1.2;
+                            }
+                            .kpi-label {
+                                font-size: 12px;
+                                color: #5f6368;
+                                font-weight: 500;
+                            }
+                            /* Status progress bars */
+                            .status-row {
+                                display: flex;
+                                align-items: center;
+                                gap: 12px;
+                                margin-bottom: 12px;
+                            }
+                            .status-row:last-child {
+                                margin-bottom: 0;
+                            }
+                            .status-label {
+                                min-width: 100px;
+                                font-size: 13px;
+                                font-weight: 500;
+                                color: #3c4043;
+                            }
+                            .status-bar-track {
+                                flex: 1;
+                                height: 8px;
+                                background: #e8eaed;
+                                border-radius: 4px;
+                                overflow: hidden;
+                            }
+                            .status-bar-fill {
+                                height: 100%;
+                                border-radius: 4px;
+                                transition: width 0.5s ease;
+                                min-width: 2px;
+                            }
+                            .status-count {
+                                min-width: 36px;
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: #1a1a2e;
+                                text-align: right;
+                            }
+                            .status-pct {
+                                min-width: 40px;
+                                font-size: 12px;
+                                color: #5f6368;
+                                text-align: right;
+                            }
+                            /* Utilization gauge */
+                            .gauge-container {
+                                width: 120px;
+                                height: 120px;
+                                margin: 0 auto;
+                                position: relative;
+                            }
+                            .gauge-bg {
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 50%;
+                                background: conic-gradient(#e8eaed 0deg, #e8eaed 360deg);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                            .gauge-inner {
+                                width: 84px;
+                                height: 84px;
+                                border-radius: 50%;
+                                background: #fff;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                            .gauge-value {
+                                font-size: 28px;
+                                font-weight: 700;
+                                color: #1a1a2e;
+                                line-height: 1;
+                            }
+                            .gauge-label {
+                                font-size: 10px;
+                                text-transform: uppercase;
+                                color: #5f6368;
+                                letter-spacing: 0.5px;
+                            }
+                            /* Alerts */
+                            .alert-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                padding: 10px 12px;
+                                border-radius: 8px;
+                                background: #fff8e1;
+                                border-left: 3px solid #f9a825;
+                                margin-bottom: 8px;
+                                font-size: 13px;
+                            }
+                            .alert-item.alert-danger-item {
+                                background: #fce4ec;
+                                border-left-color: #e53935;
+                            }
+                            .alert-item.alert-info-item {
+                                background: #e3f2fd;
+                                border-left-color: #1e88e5;
+                            }
+                            /* Transfer table */
+                            .transfer-table {
+                                width: 100%;
+                                font-size: 13px;
+                            }
+                            .transfer-table th {
+                                font-size: 11px;
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+                                color: #5f6368;
+                                font-weight: 600;
+                                padding: 6px 8px;
+                                border-bottom: 2px solid #e8eaed;
+                            }
+                            .transfer-table td {
+                                padding: 8px;
+                                border-bottom: 1px solid #f1f3f4;
+                                color: #3c4043;
+                            }
+                            .transfer-table tr:last-child td {
+                                border-bottom: none;
+                            }
+                            .status-badge {
+                                display: inline-block;
+                                padding: 2px 8px;
+                                border-radius: 12px;
+                                font-size: 11px;
+                                font-weight: 600;
+                                text-transform: capitalize;
+                            }
+                            .status-badge.assigned { background: #e8f5e9; color: #2e7d32; }
+                            .status-badge.returned { background: #e3f2fd; color: #1565c0; }
+                            .status-badge.under_maintenance { background: #fff3e0; color: #e65100; }
+                            /* Category bars */
+                            .cat-row {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                margin-bottom: 10px;
+                            }
+                            .cat-name {
+                                min-width: 110px;
+                                font-size: 13px;
+                                font-weight: 500;
+                                color: #3c4043;
+                            }
+                            .cat-bar-track {
+                                flex: 1;
+                                height: 20px;
+                                background: #f1f3f4;
+                                border-radius: 6px;
+                                overflow: hidden;
+                                position: relative;
+                            }
+                            .cat-bar-fill {
+                                height: 100%;
+                                border-radius: 6px;
+                                display: flex;
+                                align-items: center;
+                                padding-left: 8px;
+                                font-size: 11px;
+                                font-weight: 600;
+                                color: #fff;
+                                transition: width 0.5s ease;
+                            }
+                            .cat-count {
+                                min-width: 30px;
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: #1a1a2e;
+                                text-align: right;
+                            }
+                            /* Locations */
+                            .loc-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                padding: 8px 12px;
+                                border-radius: 8px;
+                                background: #f8f9fa;
+                                margin-bottom: 6px;
+                                font-size: 13px;
+                                color: #3c4043;
+                                text-decoration: none;
+                                transition: background 0.15s;
+                            }
+                            .loc-item:hover {
+                                background: #e8eaed;
+                                text-decoration: none;
+                                color: #1a1a2e;
+                            }
+                            .loc-count {
+                                margin-left: auto;
+                                background: #1a1a2e;
+                                color: #fff;
+                                padding: 2px 8px;
+                                border-radius: 10px;
+                                font-size: 11px;
+                                font-weight: 600;
+                            }
+                        </style>
+
+                        <div class="o_kanban_card o_kanban_dashboard w-100 asset-dash" style="flex: 1 1 100%; max-width: 100%; box-shadow: none; border: none; padding: 0;">
+
+                            <!-- ============ HERO BANNER ============ -->
+                            <div class="asset-dash-hero">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                                    <div>
+                                        <div class="hero-sub">Asset Intelligence</div>
+                                        <div class="hero-title">Dashboard Overview</div>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                                        <span class="badge px-3 py-2" style="background: rgba(255,255,255,0.12); color: #fff; font-size: 12px;">
+                                            <i class="fa fa-circle text-success me-1" style="font-size: 8px;" title="Live"></i>
+                                            Live Data
+                                        </span>
+                                        <span class="badge px-3 py-2" style="background: rgba(255,255,255,0.12); color: #fff; font-size: 12px;">
+                                            <i class="fa fa-cubes me-1" title="Total assets"></i>
+                                            <field name="total_assets"/> Assets
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap align-items-center justify-content-start gap-2" style="margin-top: 12px;">
+                                    <div class="hero-stat">
+                                        <div class="hero-stat-value"><field name="total_asset_value" widget="monetary"/></div>
+                                        <div class="hero-stat-label">Current Value</div>
+                                    </div>
+                                    <div class="hero-divider"></div>
+                                    <div class="hero-stat">
+                                        <div class="hero-stat-value"><field name="total_purchase_cost" widget="monetary"/></div>
+                                        <div class="hero-stat-label">Purchase Cost</div>
+                                    </div>
+                                    <div class="hero-divider"></div>
+                                    <div class="hero-stat">
+                                        <div class="hero-stat-value"><field name="net_book_value" widget="monetary"/></div>
+                                        <div class="hero-stat-label">Net Book Value</div>
+                                    </div>
+                                    <div class="hero-divider"></div>
+                                    <div class="hero-stat">
+                                        <div class="hero-stat-value"><field name="depreciation_total" widget="monetary"/></div>
+                                        <div class="hero-stat-label">Total Depreciation</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ============ KPI ROW ============ -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-xl-2 col-md-4 col-sm-6">
+                                    <div class="kpi-card">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="kpi-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                                                <i class="fa fa-dollar-sign" title="Avg value"></i>
+                                            </div>
+                                            <div>
+                                                <div class="kpi-value"><field name="avg_asset_value" widget="monetary"/></div>
+                                                <div class="kpi-label">Avg Value</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-sm-6">
+                                    <div class="kpi-card">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="kpi-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                                                <i class="fa fa-calendar" title="Monthly depreciation"></i>
+                                            </div>
+                                            <div>
+                                                <div class="kpi-value"><field name="depreciation_this_month" widget="monetary"/></div>
+                                                <div class="kpi-label">Depr. This Month</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-sm-6">
+                                    <div class="kpi-card">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="kpi-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                                                <i class="fa fa-wrench" title="Maintenance cost"></i>
+                                            </div>
+                                            <div>
+                                                <div class="kpi-value"><field name="total_maintenance_cost" widget="monetary"/></div>
+                                                <div class="kpi-label">Maintenance Cost</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-sm-6">
+                                    <div class="kpi-card">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="kpi-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                                                <i class="fa fa-exchange-alt" title="Transfers"></i>
+                                            </div>
+                                            <div>
+                                                <div class="kpi-value"><field name="transfers_count"/></div>
+                                                <div class="kpi-label">Total Transfers</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-sm-6">
+                                    <div class="kpi-card">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="kpi-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+                                                <i class="fa fa-truck" title="Vendors"></i>
+                                            </div>
+                                            <div>
+                                                <div class="kpi-value"><field name="vendor_count"/></div>
+                                                <div class="kpi-label">Vendors</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-4 col-sm-6">
+                                    <div class="kpi-card">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="kpi-icon" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);">
+                                                <i class="fa fa-arrow-right" title="Transfers this month"></i>
+                                            </div>
+                                            <div>
+                                                <div class="kpi-value"><field name="transfers_this_month"/></div>
+                                                <div class="kpi-label">Transfers (Month)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ============ MAIN CONTENT GRID ============ -->
+                            <div class="row g-3 mb-3">
+
+                                <!-- STATUS DISTRIBUTION -->
+                                <div class="col-xl-5 col-lg-6">
+                                    <div class="dash-section">
+                                        <div class="dash-section-title">
+                                            <i class="fa fa-chart-bar" style="color: #667eea;" title="Asset status"></i>
+                                            Asset Status Distribution
+                                        </div>
+                                        <div class="status-row">
+                                            <span class="status-label"><i class="fa fa-circle me-1" style="color: #43a047; font-size: 8px;" title="Assigned"></i> Assigned</span>
+                                            <div class="status-bar-track">
+                                                <div class="status-bar-fill" t-attf-style="width: {{ record.assigned_pct.raw_value || 0 }}%; background: #43a047;"></div>
+                                            </div>
+                                            <span class="status-count"><field name="assigned_count"/></span>
+                                            <span class="status-pct"><field name="assigned_pct"/>%</span>
+                                        </div>
+                                        <div class="status-row">
+                                            <span class="status-label"><i class="fa fa-circle me-1" style="color: #1e88e5; font-size: 8px;" title="Warehouse"></i> Warehouse</span>
+                                            <div class="status-bar-track">
+                                                <div class="status-bar-fill" t-attf-style="width: {{ record.warehouse_pct.raw_value || 0 }}%; background: #1e88e5;"></div>
+                                            </div>
+                                            <span class="status-count"><field name="in_warehouse_count"/></span>
+                                            <span class="status-pct"><field name="warehouse_pct"/>%</span>
+                                        </div>
+                                        <div class="status-row">
+                                            <span class="status-label"><i class="fa fa-circle me-1" style="color: #fb8c00; font-size: 8px;" title="On Hold"></i> On Hold</span>
+                                            <div class="status-bar-track">
+                                                <div class="status-bar-fill" t-attf-style="width: {{ record.on_hold_pct.raw_value || 0 }}%; background: #fb8c00;"></div>
+                                            </div>
+                                            <span class="status-count"><field name="on_hold_count"/></span>
+                                            <span class="status-pct"><field name="on_hold_pct"/>%</span>
+                                        </div>
+                                        <div class="status-row">
+                                            <span class="status-label"><i class="fa fa-circle me-1" style="color: #8e24aa; font-size: 8px;" title="Repair"></i> In Repair</span>
+                                            <div class="status-bar-track">
+                                                <div class="status-bar-fill" t-attf-style="width: {{ record.repair_pct.raw_value || 0 }}%; background: #8e24aa;"></div>
+                                            </div>
+                                            <span class="status-count"><field name="repair_count"/></span>
+                                            <span class="status-pct"><field name="repair_pct"/>%</span>
+                                        </div>
+                                        <div class="status-row">
+                                            <span class="status-label"><i class="fa fa-circle me-1" style="color: #546e7a; font-size: 8px;" title="Returned"></i> Returned</span>
+                                            <div class="status-bar-track">
+                                                <div class="status-bar-fill" t-attf-style="width: {{ record.return_pct.raw_value || 0 }}%; background: #546e7a;"></div>
+                                            </div>
+                                            <span class="status-count"><field name="return_count"/></span>
+                                            <span class="status-pct"><field name="return_pct"/>%</span>
+                                        </div>
+                                        <div class="status-row">
+                                            <span class="status-label"><i class="fa fa-circle me-1" style="color: #e53935; font-size: 8px;" title="Disposed"></i> Disposed</span>
+                                            <div class="status-bar-track">
+                                                <div class="status-bar-fill" t-attf-style="width: {{ record.disposed_pct.raw_value || 0 }}%; background: #e53935;"></div>
+                                            </div>
+                                            <span class="status-count"><field name="disposed_count"/></span>
+                                            <span class="status-pct"><field name="disposed_pct"/>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- UTILIZATION + MAINTENANCE + ALERTS -->
+                                <div class="col-xl-3 col-lg-6">
+                                    <div class="dash-section mb-3">
+                                        <div class="dash-section-title">
+                                            <i class="fa fa-tachometer-alt" style="color: #43e97b;" title="Utilization"></i>
+                                            Utilization Rate
+                                        </div>
+                                        <div class="gauge-container">
+                                            <div class="gauge-bg" t-attf-style="background: conic-gradient(#43a047 0deg, #43a047 {{ (record.utilization_rate.raw_value || 0) * 3.6 }}deg, #e8eaed {{ (record.utilization_rate.raw_value || 0) * 3.6 }}deg, #e8eaed 360deg);">
+                                                <div class="gauge-inner">
+                                                    <div class="gauge-value"><field name="utilization_rate"/>%</div>
+                                                    <div class="gauge-label">In Use</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dash-section">
+                                        <div class="dash-section-title">
+                                            <i class="fa fa-tools" style="color: #fb8c00;" title="Maintenance"></i>
+                                            Maintenance
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-muted" style="font-size: 13px;">Pending</span>
+                                            <span class="fw-bold" style="color: #fb8c00;"><field name="maintenance_pending"/></span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-muted" style="font-size: 13px;">In Progress</span>
+                                            <span class="fw-bold" style="color: #1e88e5;"><field name="maintenance_open"/></span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted" style="font-size: 13px;">Completed</span>
+                                            <span class="fw-bold" style="color: #43a047;"><field name="maintenance_done"/></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ALERTS PANEL -->
+                                <div class="col-xl-4 col-lg-12">
+                                    <div class="dash-section">
+                                        <div class="dash-section-title">
+                                            <i class="fa fa-exclamation-triangle" style="color: #e53935;" title="Alerts"></i>
+                                            Alerts &amp; Warnings
+                                            <t t-if="record.alert_count.raw_value > 0">
+                                                <span class="badge rounded-pill ms-auto" style="background: #e53935; color: #fff; font-size: 11px;">
+                                                    <field name="alert_count"/>
+                                                </span>
+                                            </t>
+                                        </div>
+                                        <t t-if="record.warranty_expiring_count.raw_value > 0">
+                                            <div class="alert-item">
+                                                <i class="fa fa-shield-alt" style="color: #f9a825;" title="Warranty"></i>
+                                                <div>
+                                                    <strong><field name="warranty_expiring_count"/></strong> asset(s) with warranty expiring within 30 days
+                                                </div>
+                                            </div>
+                                        </t>
+                                        <t t-set="w_lines" t-value="record.warranty_alerts_text.raw_value ? record.warranty_alerts_text.raw_value.split('\n') : []"/>
+                                        <t t-foreach="w_lines" t-as="wline" t-key="wline_index">
+                                            <t t-if="wline">
+                                                <t t-set="wparts" t-value="wline.split('|')"/>
+                                                <div class="alert-item alert-danger-item">
+                                                    <i class="fa fa-clock" style="color: #e53935;" title="Expiring"></i>
+                                                    <div>
+                                                        <strong><t t-esc="wparts[0]"/></strong>
+                                                        <span class="text-muted ms-1" style="font-size: 12px;">
+                                                            <t t-if="wparts.length > 1"><t t-esc="wparts[1]"/></t>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <t t-if="record.non_moving_count.raw_value > 0">
+                                            <div class="alert-item alert-info-item">
+                                                <i class="fa fa-pause-circle" style="color: #1e88e5;" title="Non-moving"></i>
+                                                <div>
+                                                    <strong><field name="non_moving_count"/></strong> non-moving asset(s) in last 30 days
+                                                </div>
+                                            </div>
+                                        </t>
+                                        <t t-if="record.alert_count.raw_value == 0 and record.non_moving_count.raw_value == 0">
+                                            <div class="text-center py-3">
+                                                <i class="fa fa-check-circle fa-2x mb-2" style="color: #43a047;" title="All clear"></i>
+                                                <div class="text-muted" style="font-size: 13px;">All systems healthy</div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ============ BOTTOM ROW ============ -->
+                            <div class="row g-3">
+
+                                <!-- TOP CATEGORIES -->
+                                <div class="col-xl-4 col-lg-6">
+                                    <div class="dash-section">
+                                        <div class="dash-section-title">
+                                            <i class="fa fa-tags" style="color: #764ba2;" title="Categories"></i>
+                                            Top Asset Categories
+                                        </div>
+                                        <t t-set="cat_lines" t-value="record.top_categories_text.raw_value ? record.top_categories_text.raw_value.split('\n') : []"/>
+                                        <t t-set="cat_colors" t-value="['#667eea', '#764ba2', '#f093fb', '#43e97b', '#4facfe']"/>
+                                        <t t-foreach="cat_lines" t-as="cline" t-key="cline_index">
+                                            <t t-if="cline">
+                                                <t t-set="cparts" t-value="cline.split('|')"/>
+                                                <t t-set="cat_max" t-value="cat_lines.length ? (cat_lines[0].split('|').length > 1 ? (cat_lines[0].split('|')[1] * 1) : 1) : 1"/>
+                                                <t t-set="cat_val" t-value="cparts.length > 1 ? (cparts[1] * 1) : 0"/>
+                                                <t t-set="cat_w" t-value="cat_max > 0 ? (cat_val * 100 / cat_max) : 0"/>
+                                                <div class="cat-row">
+                                                    <span class="cat-name"><t t-esc="cparts[0]"/></span>
+                                                    <div class="cat-bar-track">
+                                                        <div class="cat-bar-fill" t-attf-style="width: {{ cat_w }}%; background: {{ cat_colors[cline_index % 5] }};"><t t-if="cat_w > 15"><t t-esc="cat_val"/></t></div>
+                                                    </div>
+                                                    <span class="cat-count"><t t-esc="cat_val"/></span>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <div class="text-muted text-center py-2" style="font-size: 13px;" t-if="!cat_lines.length">No categories found</div>
+                                    </div>
+                                </div>
+
+                                <!-- RECENT TRANSFERS -->
+                                <div class="col-xl-4 col-lg-6">
+                                    <div class="dash-section">
+                                        <div class="dash-section-title">
+                                            <i class="fa fa-exchange-alt" style="color: #4facfe;" title="Recent transfers"></i>
+                                            Recent Transfers
+                                        </div>
+                                        <t t-set="tr_lines" t-value="record.recent_transfers_text.raw_value ? record.recent_transfers_text.raw_value.split('\n') : []"/>
+                                        <t t-if="tr_lines.length > 0">
+                                            <table class="transfer-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Asset</th>
+                                                        <th>Location</th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="tr_lines" t-as="tline" t-key="tline_index">
+                                                        <t t-if="tline">
+                                                            <t t-set="tparts" t-value="tline.split('|')"/>
+                                                            <tr>
+                                                                <td><strong><t t-esc="tparts[0] || ''"/></strong></td>
+                                                                <td><t t-esc="tparts[1] || ''"/></td>
+                                                                <td><t t-esc="tparts[3] || ''"/></td>
+                                                                <td>
+                                                                    <span t-attf-class="status-badge {{ tparts[4] || '' }}">
+                                                                        <t t-esc="tparts[4] || ''"/>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </t>
+                                        <div class="text-muted text-center py-2" style="font-size: 13px;" t-if="!tr_lines.length">No transfers recorded</div>
+                                    </div>
+                                </div>
+
+                                <!-- LOCATIONS -->
+                                <div class="col-xl-4 col-lg-12">
+                                    <div class="dash-section">
+                                        <div class="dash-section-title">
+                                            <i class="fa fa-map-marker-alt" style="color: #e53935;" title="Locations"></i>
+                                            Asset Locations
+                                        </div>
+                                        <t t-set="loc_lines" t-value="record.locations_text.raw_value ? record.locations_text.raw_value.replace('\\r\\n', '\\n').split('\\n') : []"/>
+                                        <t t-if="loc_lines.length > 0">
+                                            <t t-foreach="loc_lines" t-as="lloc" t-key="lloc_index">
+                                                <t t-if="lloc">
+                                                    <t t-set="loc_parts" t-value="lloc.split('->')"/>
+                                                    <t t-set="loc_to_part" t-value="((loc_parts.length > 1 ? loc_parts[1] : loc_parts[0]).split(':')[0] || '').trim()"/>
+                                                    <t t-set="loc_count_part" t-value="lloc.split(':').length > 1 ? lloc.split(':')[lloc.split(':').length - 1].trim() : ''"/>
+                                                    <a type="action"
+                                                       name="%(sdlc_asset_management.action_assets)d"
+                                                       t-att-domain="[('transfer_ids.status', '=', 'assigned'), ('transfer_ids.to_location', 'ilike', loc_to_part)]"
+                                                       class="loc-item">
+                                                        <i class="fa fa-arrow-right" style="color: #667eea; font-size: 10px;" title="Transfer direction"></i>
+                                                        <span><t t-esc="(loc_parts[0] || '').trim()"/> <i class="fa fa-long-arrow-alt-right mx-1" style="color: #bbb;" title="To"></i> <t t-esc="loc_to_part"/></span>
+                                                        <span class="loc-count"><t t-esc="loc_count_part"/></span>
+                                                    </a>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <div class="text-muted text-center py-2" style="font-size: 13px;" t-if="!loc_lines.length">No locations recorded</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ========== TRANSFER VIEWS ========== -->
+
+    <!-- Tree View for Asset Transfer Entries -->
+    <record id="view_asset_transfer_tree" model="ir.ui.view">
+        <field name="name">asset.transfer.tree</field>
+        <field name="model">asset.transfer.entry</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="transfer_code"/>
+                <field name="asset_id"/>
+                <field name="transfer_employee_id"/>
+                <field name="assign_date"/>
+                <field name="assign_by"/>
+                <field name="from_location_id"/>
+                <field name="to_location_id"/>
+                <field name="return_date"/>
+                <field name="stock_qty"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'assigned'"
+                       decoration-info="status == 'returned'"
+                       decoration-warning="status == 'under_maintenance'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for Asset Transfer Entries with chatter -->
+    <record id="view_asset_transfer_form" model="ir.ui.view">
+        <field name="name">asset.transfer.form</field>
+        <field name="model">asset.transfer.entry</field>
+        <field name="arch" type="xml">
+            <form string="Asset Transfer">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="transfer_code" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Transfer Details">
+                            <field name="asset_id"/>
+                            <field name="transfer_employee_id"/>
+                            <field name="stock_qty"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="assign_date"/>
+                            <field name="return_date"/>
+                            <field name="assign_by"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="From">
+                            <field name="from_location_id"/>
+                        </group>
+                        <group string="To">
+                            <field name="to_location_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View for Transfers -->
+    <record id="view_asset_transfer_search" model="ir.ui.view">
+        <field name="name">asset.transfer.entry.search</field>
+        <field name="model">asset.transfer.entry</field>
+        <field name="arch" type="xml">
+            <search string="Transfers">
+                <field name="transfer_code"/>
+                <field name="asset_id"/>
+                <field name="transfer_employee_id"/>
+                <filter string="Assigned" name="assigned" domain="[('status', '=', 'assigned')]"/>
+                <filter string="Returned" name="returned" domain="[('status', '=', 'returned')]"/>
+                <filter string="Under Maintenance" name="under_maintenance" domain="[('status', '=', 'under_maintenance')]"/>
+                <group>
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="Asset" name="group_asset" context="{'group_by': 'asset_id'}"/>
+                    <filter string="Employee" name="group_employee" context="{'group_by': 'transfer_employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Calendar View for Transfers -->
+    <record id="view_asset_transfer_calendar" model="ir.ui.view">
+        <field name="name">asset.transfer.entry.calendar</field>
+        <field name="model">asset.transfer.entry</field>
+        <field name="arch" type="xml">
+            <calendar string="Transfers" date_start="assign_date" date_stop="return_date" color="status" mode="month">
+                <field name="asset_id"/>
+                <field name="transfer_employee_id"/>
+                <field name="status"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Pivot View for Transfers -->
+    <record id="view_asset_transfer_pivot" model="ir.ui.view">
+        <field name="name">asset.transfer.entry.pivot</field>
+        <field name="model">asset.transfer.entry</field>
+        <field name="arch" type="xml">
+            <pivot string="Transfer Analysis">
+                <field name="assign_date" type="row" interval="month"/>
+                <field name="status" type="col"/>
+                <field name="stock_qty" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ========== MAINTENANCE VIEWS ========== -->
+
+    <!-- Tree View for Asset Maintenance Entries -->
+    <record id="view_asset_maintenance_tree" model="ir.ui.view">
+        <field name="name">asset.maintenance.tree</field>
+        <field name="model">asset.maintenance.entry</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="asset_id"/>
+                <field name="maintenance_type" optional="show"/>
+                <field name="priority" widget="priority"/>
+                <field name="maintenance_vendor_id"/>
+                <field name="maintenance_amount"/>
+                <field name="assign_date"/>
+                <field name="return_date"/>
+                <field name="duration_days" optional="show"/>
+                <field name="assign_by"/>
+                <field name="maintenance_status" widget="badge"
+                       decoration-success="maintenance_status == 'completed'"
+                       decoration-info="maintenance_status == 'in_progress'"
+                       decoration-warning="maintenance_status == 'pending'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for Asset Maintenance Entries -->
+    <record id="view_asset_maintenance_form" model="ir.ui.view">
+        <field name="name">asset.maintenance.form</field>
+        <field name="model">asset.maintenance.entry</field>
+        <field name="arch" type="xml">
+            <form string="Maintenance Entry">
+                <header>
+                    <field name="maintenance_status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Maintenance Details">
+                            <field name="asset_id"/>
+                            <field name="maintenance_type"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="maintenance_vendor_id"/>
+                            <field name="assign_by"/>
+                        </group>
+                        <group string="Schedule &amp; Cost">
+                            <field name="assign_date"/>
+                            <field name="return_date"/>
+                            <field name="duration_days"/>
+                            <field name="maintenance_amount"/>
+                            <field name="invoice_id"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" placeholder="Describe the maintenance work..."/>
+                    </group>
+                    <group string="Attachments">
+                        <field name="file_name" invisible="1"/>
+                        <field name="document" filename="file_name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View for Maintenance -->
+    <record id="view_asset_maintenance_search" model="ir.ui.view">
+        <field name="name">asset.maintenance.entry.search</field>
+        <field name="model">asset.maintenance.entry</field>
+        <field name="arch" type="xml">
+            <search string="Maintenance">
+                <field name="asset_id"/>
+                <field name="maintenance_vendor_id"/>
+                <filter string="Pending" name="pending" domain="[('maintenance_status', '=', 'pending')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('maintenance_status', '=', 'in_progress')]"/>
+                <filter string="Completed" name="completed" domain="[('maintenance_status', '=', 'completed')]"/>
+                <filter string="Corrective" name="corrective" domain="[('maintenance_type', '=', 'corrective')]"/>
+                <filter string="Preventive" name="preventive" domain="[('maintenance_type', '=', 'preventive')]"/>
+                <filter string="High Priority" name="high_priority" domain="[('priority', 'in', ['2', '3'])]"/>
+                <group>
+                    <filter string="Status" name="group_status" context="{'group_by': 'maintenance_status'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'maintenance_type'}"/>
+                    <filter string="Vendor" name="group_vendor" context="{'group_by': 'maintenance_vendor_id'}"/>
+                    <filter string="Asset" name="group_asset" context="{'group_by': 'asset_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Calendar View for Maintenance -->
+    <record id="view_asset_maintenance_calendar" model="ir.ui.view">
+        <field name="name">asset.maintenance.entry.calendar</field>
+        <field name="model">asset.maintenance.entry</field>
+        <field name="arch" type="xml">
+            <calendar string="Maintenance Schedule" date_start="assign_date" date_stop="return_date"
+                      color="maintenance_status" mode="month">
+                <field name="asset_id"/>
+                <field name="maintenance_vendor_id"/>
+                <field name="maintenance_status"/>
+                <field name="priority"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Pivot View for Maintenance -->
+    <record id="view_asset_maintenance_pivot" model="ir.ui.view">
+        <field name="name">asset.maintenance.entry.pivot</field>
+        <field name="model">asset.maintenance.entry</field>
+        <field name="arch" type="xml">
+            <pivot string="Maintenance Analysis">
+                <field name="assign_date" type="row" interval="month"/>
+                <field name="maintenance_type" type="col"/>
+                <field name="maintenance_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ========== DEPRECIATION VIEWS ========== -->
+
+    <!-- Tree View for Asset Depreciation Entries -->
+    <record id="view_asset_depreciation_tree" model="ir.ui.view">
+        <field name="name">asset.depreciation.tree</field>
+        <field name="model">asset.depreciation.entry</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="asset_id"/>
+                <field name="asset_type_name" optional="show"/>
+                <field name="created_by"/>
+                <field name="depreciation_amount" sum="Total Depreciation"/>
+                <field name="entry_date"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for Asset Depreciation Entries -->
+    <record id="view_asset_depreciation_form" model="ir.ui.view">
+        <field name="name">asset.depreciation.form</field>
+        <field name="model">asset.depreciation.entry</field>
+        <field name="arch" type="xml">
+            <form string="Depreciation Entry">
+                <sheet>
+                    <group>
+                        <group string="Depreciation Details">
+                            <field name="asset_id"/>
+                            <field name="asset_type_name"/>
+                            <field name="depreciation_amount"/>
+                            <field name="entry_date"/>
+                        </group>
+                        <group string="Additional Info">
+                            <field name="created_by"/>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View for Depreciation -->
+    <record id="view_asset_depreciation_search" model="ir.ui.view">
+        <field name="name">asset.depreciation.entry.search</field>
+        <field name="model">asset.depreciation.entry</field>
+        <field name="arch" type="xml">
+            <search string="Depreciation Entries">
+                <field name="asset_id"/>
+                <field name="created_by"/>
+                <group>
+                    <filter string="Asset" name="group_asset" context="{'group_by': 'asset_id'}"/>
+                    <filter string="Entry Date" name="group_date" context="{'group_by': 'entry_date:month'}"/>
+                    <filter string="Recorded By" name="group_user" context="{'group_by': 'created_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Pivot View for Depreciation -->
+    <record id="view_asset_depreciation_pivot" model="ir.ui.view">
+        <field name="name">asset.depreciation.entry.pivot</field>
+        <field name="model">asset.depreciation.entry</field>
+        <field name="arch" type="xml">
+            <pivot string="Depreciation Analysis">
+                <field name="entry_date" type="row" interval="month"/>
+                <field name="asset_type_name" type="col"/>
+                <field name="depreciation_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Tree View for Asset Tags -->
+    <record id="view_asset_tag_tree" model="ir.ui.view">
+        <field name="name">asset.tag.tree</field>
+        <field name="model">asset.tag</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Asset Location Views -->
+    <record id="view_asset_location_form" model="ir.ui.view">
+        <field name="name">asset.location.form</field>
+        <field name="model">asset.location</field>
+        <field name="arch" type="xml">
+            <form string="Location">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id" options="{'no_open': False}"/>
+                        <field name="stock_location_id"/>
+                        <field name="code"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_asset_location_tree" model="ir.ui.view">
+        <field name="name">asset.location.tree</field>
+        <field name="model">asset.location</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="complete_name"/>
+                <field name="parent_id"/>
+                <field name="stock_location_id"/>
+                <field name="code"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Expose Assets in Inventory menu for cross-visibility -->
+    <record id="action_assets_inventory" model="ir.actions.act_window">
+        <field name="name">Assets</field>
+        <field name="res_model">asset.management</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_inventory_assets"
+              name="Assets"
+              parent="stock.menu_stock_inventory_control"
+              action="action_assets_inventory"
+              sequence="200"/>
+
+    <!-- Form View for Asset Type -->
+    <record id="view_asset_type_form" model="ir.ui.view">
+        <field name="name">asset.type.form</field>
+        <field name="model">asset.type</field>
+        <field name="arch" type="xml">
+            <form string="Asset Type">
+                <sheet>
+                    <group>
+                        <!-- Fields for defining asset type characteristics -->
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                        <field name="depreciation_frequency"/>
+                        <field name="depreciation_method"/>
+                        <field name="depreciation_rate"/>
+                        <field name="depreciation_start_delay"/>
+                        <field name="depreciation_basis"/>
+                        <field name="maximum_depreciation_entries"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Asset Types -->
+    <record id="view_asset_type_tree" model="ir.ui.view">
+        <field name="name">asset.type.tree</field>
+        <field name="model">asset.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <!-- Fields displayed in the tree view for asset types -->
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+                <field name="depreciation_frequency"/>
+                <field name="depreciation_method"/>
+                <field name="depreciation_rate"/>
+                <field name="depreciation_start_delay"/>
+                <field name="depreciation_basis"/>
+                <field name="maximum_depreciation_entries"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Server Action for Print Labels -->
+    <record id="action_print_labels" model="ir.actions.server">
+        <field name="name">Print Labels</field>
+        <field name="model_id" ref="model_asset_management"/>
+        <field name="binding_model_id" ref="model_asset_management"/>
+        <field name="binding_view_types">kanban,tree</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_open_label_layout()
+        </field>
+    </record>
+
+    <!-- Server Action for Print Labels -->
+    <record id="action_print_labels" model="ir.actions.server">
+        <field name="name">Print Labels</field>
+        <field name="model_id" ref="model_asset_management"/>
+        <field name="binding_model_id" ref="model_asset_management"/>
+        <field name="binding_view_types">kanban,tree</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_open_label_layout()
+        </field>
+    </record>
+
+    <!-- Action for Dashboard -->
+    <record id="action_asset_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">asset.dashboard</field>
+        <field name="view_mode">kanban</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Dashboard metrics will appear here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for Asset Tags -->
+    <record id="action_asset_tags" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">asset.tag</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first tag
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for Asset Maintenance Entries -->
+    <record id="action_assets_maintenance_entry" model="ir.actions.act_window">
+        <field name="name">Maintenance / Repair</field>
+        <field name="res_model">asset.maintenance.entry</field>
+        <field name="view_mode">list,form,calendar,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first maintenance record
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for Asset Transfer Entries -->
+    <record id="action_assets_transfer_entry" model="ir.actions.act_window">
+        <field name="name">Transfer</field>
+        <field name="res_model">asset.transfer.entry</field>
+        <field name="view_mode">list,form,calendar,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first transfer record
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for Asset Depreciation Entries -->
+    <record id="action_assets_depreciation_entry" model="ir.actions.act_window">
+        <field name="name">Depreciation</field>
+        <field name="res_model">asset.depreciation.entry</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first depreciation record
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for Asset Types (Settings) -->
+    <record id="action_assets_settings" model="ir.actions.act_window">
+        <field name="name">Types</field>
+        <field name="res_model">asset.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Record
+            </p>
+        </field>
+    </record>
+
+    <!-- Root menu item for Asset Management -->
+    <menuitem name="Asset Management"
+              id="menu_asset_root"
+              sequence="10"
+              web_icon="sdlc_asset_management,static/description/icon.png"
+              groups="sdlc_asset_management.assets_user_group,sdlc_asset_management.assets_admin_group,base.group_system"/>
+
+    <!-- Assets Menu: Links to the main asset list -->
+    <menuitem id="menu_asset"
+              name="Assets"
+              parent="menu_asset_root"
+              action="action_assets"
+              groups="assets_user_group,assets_admin_group,base.group_system"
+              sequence="10"/>
+
+    <!-- Transfer Menu: For managing asset transfers -->
+    <menuitem id="menu_asset_transfer"
+              name="Transfer"
+              parent="menu_asset_root"
+              action="action_assets_transfer_entry"
+              groups="transfer_user_group,transfer_admin_group,base.group_system"
+              sequence="30"/>
+    <menuitem id="menu_asset_dashboard"
+              name="Dashboard"
+              parent="menu_asset_root"
+              action="action_asset_dashboard"
+              groups="assets_user_group,assets_admin_group,transfer_user_group,base.group_system"
+              sequence="5"/>
+
+    <!-- Maintenance Menu: For managing asset maintenance and repairs -->
+    <menuitem id="menu_asset_maintenance"
+              name="Maintenance / Repair"
+              parent="menu_asset_root"
+              action="action_assets_maintenance_entry"
+              groups="maintenance_user_group,maintenance_admin_group,base.group_system"
+              sequence="40"/>
+
+    <!-- Depreciation Menu: For managing asset depreciation -->
+    <menuitem id="menu_asset_depreciation"
+              name="Depreciation"
+              parent="menu_asset_root"
+              action="action_assets_depreciation_entry"
+              groups="depreciation_user_group,depreciation_admin_group,base.group_system"
+              sequence="50"/>
+
+    <!-- Configuration Menu: Parent menu for configuration options -->
+    <menuitem id="asset_configuration"
+              name="Configuration"
+              parent="menu_asset_root"
+              groups="assets_user_group,assets_admin_group,base.group_system"
+              sequence="70"/>
+
+    <!-- Asset Types Menu: For managing different types of assets -->
+    <menuitem id="asset_type_menu"
+              name="Types"
+              parent="asset_configuration"
+              action="action_assets_settings"
+              groups="assets_user_group,assets_admin_group,base.group_system"
+              sequence="10"/>
+
+    <!-- Asset Locations Menu -->
+    <record id="action_asset_locations" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">asset.location</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first location
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="asset_location_menu"
+              name="Locations"
+              parent="asset_configuration"
+              action="action_asset_locations"
+              groups="assets_user_group,assets_admin_group,base.group_system"
+              sequence="30"/>
+
+    <!-- Asset Tags Menu: For managing asset tags -->
+    <menuitem id="asset_tag_menu"
+              name="Tags"
+              parent="asset_configuration"
+              action="action_asset_tags"
+              groups="assets_user_group,assets_admin_group,base.group_system"
+              sequence="20"/>
+</odoo>

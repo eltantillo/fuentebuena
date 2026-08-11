@@ -1,0 +1,985 @@
+<!--
+SEO Title:
+Asset Management for Odoo 19 | Fixed Assets, Depreciation, Maintenance, Barcode & Dashboard by SDLC Corp
+
+Meta Description:
+Complete Odoo 19 Asset Management module: know who holds every asset and where it is, track the fixed asset register, automate depreciation, schedule maintenance, print barcode labels, manage vendors and warranties, with a real-time dashboard. Built by SDLC Corp. Free lifetime support.
+
+Keywords:
+odoo 19 asset management, fixed asset, asset tracking, asset custody, asset depreciation, asset maintenance, asset repair, asset transfer, asset barcode, asset dashboard, equipment management, it asset management, asset register, asset lifecycle, vendor management, warranty tracking, odoo asset module, asset allocation, asset reporting, sdlc corp.
+
+Icons: FontAwesome (bundled with Odoo).
+Constraints: Odoo HTML sanitizer - inline styles + flat hex colors only.
+-->
+<div>
+<!-- ============================== NAVBAR ============================== -->
+<div style="width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); background-color:#123670; border-bottom:3px solid #ffd23f; font-family:'Inter'">
+  <table role="presentation" style="width:100%; max-width:1500px; margin:0 auto; border-collapse:collapse; table-layout:auto">
+    <tr>
+      <td style="padding:12px 20px; vertical-align:middle; white-space:nowrap">
+        <img src="icon.png" alt="Asset Management for Odoo 19" style="width:32px; height:32px; border-radius:8px; vertical-align:middle; margin-right:10px">
+        <span style="color:#ffffff; font-weight:800; font-size:17px; letter-spacing:-0.3px; vertical-align:middle">Asset Management</span>
+      </td>
+      <td style="padding:12px 20px; vertical-align:middle; text-align:right">
+        <a href="#sdlc-overview" style="color:#dbe4ff; text-decoration:none; font-weight:600; font-size:14px; padding:0 16px; display:inline-block">Overview</a>
+        <a href="#sdlc-features" style="color:#dbe4ff; text-decoration:none; font-weight:600; font-size:14px; padding:0 16px; display:inline-block">Features</a>
+        <a href="#sdlc-screenshots" style="color:#dbe4ff; text-decoration:none; font-weight:600; font-size:14px; padding:0 16px; display:inline-block">Screenshots</a>
+        <a href="#sdlc-reports" style="color:#dbe4ff; text-decoration:none; font-weight:600; font-size:14px; padding:0 16px; display:inline-block">Reports</a>
+        <a href="#sdlc-setup" style="color:#dbe4ff; text-decoration:none; font-weight:600; font-size:14px; padding:0 16px; display:inline-block">Setup</a>
+        <a href="#sdlc-faq" style="color:#dbe4ff; text-decoration:none; font-weight:600; font-size:14px; padding:0 20px 0 16px; display:inline-block">FAQ</a>
+        <a href="http://159.65.145.19:8082/" style="background-color:#ffd23f; color:#123670; text-decoration:none; font-weight:700; font-size:14px; padding:9px 20px; border-radius:10px; display:inline-block">Live Demo</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- ============================== HERO ============================== -->
+<section class="position-relative" style="background-color:#e9f1fb; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <h1 style="font-size:50px; line-height:0.95; font-weight:1000; color:#123670; margin-bottom:35px; letter-spacing:-1px; text-transform:capitalize; text-align:center">
+      Asset Management System</h1>
+
+    <!-- TRUST TILES -->
+    <div class="col-lg-12">
+      <div class="row g-2 mb-5">
+        <div class="col-sm-2">
+          <div class="d-flex flex-column h-100 justify-content-center position-relative rounded-3 text-center" style="background-color:#1a4a97; border:1px solid #d0d5dd; padding:25px 10px">
+            <div style="font-size:40px; font-weight:600; color:#ffd23f; line-height:1; margin-bottom:8px">2015</div>
+            <div style="font-size:18px; line-height:1.2; color:#fff; font-weight:600">Building Odoo Apps Since</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="d-flex flex-column h-100 justify-content-center position-relative rounded-3 text-center" style="background-color:#1a4a97; border:1px solid #d0d5dd; padding:25px 10px">
+            <div style="color:#ffd23f; font-size:24px; line-height:1.2; margin-bottom:6px"><i class="fa fa-handshake-o" aria-hidden="true"></i></div>
+            <div style="font-size:20px; line-height:1.2; color:#fff; font-weight:600">Official Odoo Partner</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="d-flex flex-column h-100 justify-content-center position-relative rounded-3 text-center" style="background-color:#1a4a97; border:1px solid #d0d5dd; padding:25px 10px">
+            <div style="font-size:34px; font-weight:600; color:#ffd23f; line-height:1; margin-bottom:8px">25+</div>
+            <div style="font-size:18px; line-height:1.2; color:#fff; font-weight:600">Odoo Apps Published</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="d-flex flex-column h-100 justify-content-center position-relative rounded-3 text-center" style="background-color:#1a4a97; border:1px solid #d0d5dd; padding:25px 10px">
+            <div style="color:#ffd23f; font-size:24px; line-height:1.2; margin-bottom:6px"><i class="fa fa-cubes" aria-hidden="true"></i></div>
+            <div style="font-size:18px; line-height:1.2; color:#fff; font-weight:600">Community &amp; Enterprise</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="d-flex flex-column h-100 justify-content-center position-relative rounded-3 text-center" style="background-color:#1a4a97; border:1px solid #d0d5dd; padding:25px 10px">
+            <div style="color:#ffd23f; font-size:24px; line-height:1.2; margin-bottom:6px"><i class="fa fa-life-ring" aria-hidden="true"></i></div>
+            <div style="font-size:18px; line-height:1.2; color:#fff; font-weight:600">Free Lifetime Support</div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="d-flex flex-column h-100 justify-content-center position-relative rounded-3 text-center" style="background-color:#1a4a97; border:1px solid #d0d5dd; padding:25px 10px">
+            <div style="font-size:34px; font-weight:600; color:#ffd23f; line-height:1; margin-bottom:8px">0</div>
+            <div style="font-size:18px; line-height:1.2; color:#fff; font-weight:600">External APIs or Keys</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO BODY -->
+    <div class="row g-5 align-items-top">
+      <div class="col-lg-6 mt-sm-6 align-self-end">
+        <p style="font-size:24px; line-height:1.35; font-weight:600; color:#1a4a97; max-width:720px">
+          Know who holds every asset, where it is, and what it is worth, without leaving Odoo</p>
+        <p style="font-size:17px; line-height:1.85; color:#475569; margin-bottom:22px; max-width:820px">Odoo
+          tells you what an asset is worth. It does not tell you who is holding it. This module adds the
+          missing layer: custody and transfer history, barcode labels, warranty and maintenance, vendors,
+          depreciation and a real-time KPI dashboard, on one asset record.</p>
+
+        <div class="row g-2 mb-4">
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100 align-items-center" style="border:1px solid #cbd5e1; background-color:#fff; color:#334155; font-size:16px; line-height:1.5; display:flex">
+              <span class="align-items-center justify-content-center" style="display:flex; min-width:45px; height:35px; border-radius:10px; background-color:#fff3cc; color:#1a4a97; font-weight:800; margin-right:8px; line-height:1"><i class="fa fa-check" aria-hidden="true" style="font-size:20px"></i></span>
+              Built &amp; maintained by SDLC Corp, an Official Odoo Partner
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100 align-items-center" style="border:1px solid #cbd5e1; background-color:#fff; color:#334155; font-size:16px; line-height:1.5; display:flex">
+              <span class="align-items-center justify-content-center" style="display:flex; min-width:45px; height:35px; border-radius:10px; background-color:#fff3cc; color:#1a4a97; font-weight:800; margin-right:8px; line-height:1"><i class="fa fa-check" aria-hidden="true" style="font-size:20px"></i></span>
+              Runs on Odoo 19 Community &amp; Enterprise
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100 align-items-center" style="border:1px solid #cbd5e1; background-color:#fff; color:#334155; font-size:16px; line-height:1.5; display:flex">
+              <span class="align-items-center justify-content-center" style="display:flex; min-width:45px; height:35px; border-radius:10px; background-color:#fff3cc; color:#1a4a97; font-weight:800; margin-right:8px; line-height:1"><i class="fa fa-check" aria-hidden="true" style="font-size:20px"></i></span>
+              No external APIs, keys or paid subscriptions
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100 align-items-center" style="border:1px solid #cbd5e1; background-color:#fff; color:#334155; font-size:16px; line-height:1.5; display:flex">
+              <span class="align-items-center justify-content-center" style="display:flex; min-width:45px; height:35px; border-radius:10px; background-color:#fff3cc; color:#1a4a97; font-weight:800; margin-right:8px; line-height:1"><i class="fa fa-check" aria-hidden="true" style="font-size:20px"></i></span>
+              <span>Upgrade-safe, using only standard base, product, hr, account, stock &amp; mail</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3 px-4 py-3 w-100" style="background-color:#1a4a97; color:#fff">
+          <div class="d-flex flex-wrap gap-2">
+            <div style="font-size:24px; font-weight:800; line-height:1.2; text-transform:capitalize">Free lifetime support included with purchase</div>
+            <div style="font-size:16px; line-height:1.2; width:100%">Bug fixes, version updates and dedicated help by email, phone &amp; WhatsApp <span style="font-weight:1000">(no extra cost)</span></div>
+            <a class="d-inline-block btn" style="background-color:#ffd23f; color:#123670; border-radius:14px; padding:10px 24px; font-weight:700; margin-top:15px; margin-bottom:10px" href="http://159.65.145.19:8082/">Try Live Demo<i class="fa fa-long-arrow-right ms-2"></i></a>
+            <a href="mailto:sales@sdlccorp.com" class="btn" style="background-color:#ffffff; color:#1a4a97; border-radius:14px; padding:10px 24px; font-weight:600; margin-top:15px; margin-bottom:10px">Contact Support<i class="fa fa-long-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO PRODUCT CARD -->
+      <div class="col-lg-6 mt-sm-6 align-self-end">
+        <div class="rounded-3 p-2" style="background-color:#123670; border-radius:34px">
+          <div class="rounded-2 p-3" style="background-color:#ffffff; border:1px solid #d1d9e7; border-radius:34px">
+            <div class="row g-2">
+              <div class="col-6 my-4 px-3">
+                <div class="rounded-3 p-3" style="border:1px solid #d7dee9; background-color:#f5f8fd">
+                  <div style="font-size:16px; font-weight:600; color:#1a4a97" class="mb-1"><div class="me-2 mb-1"><i class="fa fa-cubes fs-4"></i></div>Asset Register</div>
+                  <div style="font-size:13px; color:#64748b; line-height:1.5">Serial, barcode, type, tags, location</div>
+                </div>
+              </div>
+              <div class="col-6 my-4 px-3">
+                <div class="rounded-3 p-3" style="border:1px solid #d7dee9; background-color:#f5f8fd">
+                  <div style="font-size:16px; font-weight:600; color:#1a4a97" class="mb-1"><div class="me-2 mb-1"><i class="fa fa-exchange fs-4"></i></div>Custody</div>
+                  <div style="font-size:13px; color:#64748b; line-height:1.5">Who holds it, where, since when</div>
+                </div>
+              </div>
+              <div class="col-6 my-3 px-3">
+                <div class="rounded-3 p-3" style="border:1px solid #d7dee9; background-color:#f5f8fd">
+                  <div style="font-size:16px; font-weight:600; color:#1a4a97" class="mb-1"><div class="me-2 mb-1"><i class="fa fa-wrench fs-4"></i></div>Maintenance</div>
+                  <div style="font-size:13px; color:#64748b; line-height:1.5">Repairs, vendors, costs, history</div>
+                </div>
+              </div>
+              <div class="col-6 my-3 px-3">
+                <div class="rounded-3 p-3" style="border:1px solid #d7dee9; background-color:#f5f8fd">
+                  <div style="font-size:16px; font-weight:600; color:#1a4a97" class="mb-1"><div class="me-2 mb-1"><i class="fa fa-barcode fs-4"></i></div>Barcode Labels</div>
+                  <div style="font-size:13px; color:#64748b; line-height:1.5">6 print formats, PDF sheets</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-3 p-3 mt-4 mx-3 mb-3 py-4" style="background-color:#ffd23f; color:#123670">
+              <div style="font-size:12px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase" class="mb-1">Positioning</div>
+              <div style="font-size:24px; font-weight:800; line-height:1.2" class="mb-2">The Physical Layer Odoo Is Missing.</div>
+              <div style="font-size:15px; line-height:1.5">
+                <span>Standard Odoo tracks asset value. This tracks the asset itself: custody, location, upkeep and warranty.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OVERVIEW + DASHBOARD ============================== -->
+<section id="sdlc-overview" class="position-relative" style="scroll-margin-top:80px; background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Overview</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">Four Pillars. One Asset Record.</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">IT, facilities, finance and HR each get the view they need, while custody, the register, maintenance and depreciation stay linked to the same asset inside Odoo 19 Community or Enterprise.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff; border-top:4px solid #1a4a97">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-exchange"></i></div>
+          <h3 style="font-size:20px; font-weight:700; color:#1a4a97; margin-bottom:8px">Custody</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.6; margin:0">Who holds the asset, where it sits, when it moved and when it is due back, with a tracked chatter log.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff; border-top:4px solid #1a4a97">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-cubes"></i></div>
+          <h3 style="font-size:20px; font-weight:700; color:#1a4a97; margin-bottom:8px">Register</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.6; margin:0">Every asset with serial number, barcode, type, tags, condition, department and responsible person.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff; border-top:4px solid #1a4a97">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-line-chart"></i></div>
+          <h3 style="font-size:20px; font-weight:700; color:#1a4a97; margin-bottom:8px">Value</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.6; margin:0">Purchase price, accumulated depreciation, current book value and net book value, kept current automatically.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff; border-top:4px solid #1a4a97">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-wrench"></i></div>
+          <h3 style="font-size:20px; font-weight:700; color:#1a4a97; margin-bottom:8px">Upkeep</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.6; margin:0">Corrective, preventive and predictive jobs with vendor, priority, cost, duration and full service history.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <img src="photo8.png" alt="Real-time asset dashboard with KPI charts for Odoo 19" class="img img-fluid rounded-3" style="border:1px solid #dce4ee; max-width:100%; height:auto">
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WHO IT'S FOR ============================== -->
+<section class="position-relative" style="background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Who It&rsquo;s For</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">If Your Assets Walk Around, This Is For You</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">Built for teams whose assets leave the building, change hands and come back, where a spreadsheet stops working somewhere past the first hundred items.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-laptop"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">IT Teams</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Laptops, phones and monitors issued to staff. Know what every employee holds before their last day, not after.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-building-o"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Facilities &amp; Admin</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Furniture, AC units and office equipment across floors, branches and sites, with warranty and service history attached.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-cogs"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Plant &amp; Equipment</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Tools, machinery and instruments moving between locations and crews, with corrective and preventive maintenance logged.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="font-size:26px; color:#2f6fd0; margin-bottom:10px"><i class="fa fa-graduation-cap"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Schools &amp; Clinics</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Shared devices and instruments issued per department, tracked by quantity with stock-aware assignment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OUTCOMES ============================== -->
+<section class="position-relative" style="background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">What Changes</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">From &ldquo;Where Is It?&rdquo; to &ldquo;Here It Is.&rdquo;</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#94a3b8; margin-bottom:6px">Before</div>
+          <p style="font-size:15px; color:#475569; line-height:1.6; margin:0 0 14px">An employee leaves and nobody is sure which laptop they had.</p>
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#2f6fd0; margin-bottom:6px">After</div>
+          <p style="font-size:15px; color:#1a4a97; line-height:1.6; margin:0; font-weight:600">Open the employee&rsquo;s transfers. Every asset assigned to them, with dates and locations.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#94a3b8; margin-bottom:6px">Before</div>
+          <p style="font-size:15px; color:#475569; line-height:1.6; margin:0 0 14px">Audit season means walking the floor with a clipboard and a spreadsheet.</p>
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#2f6fd0; margin-bottom:6px">After</div>
+          <p style="font-size:15px; color:#1a4a97; line-height:1.6; margin:0; font-weight:600">Every asset carries a printed barcode label, and the register already knows its location.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#94a3b8; margin-bottom:6px">Before</div>
+          <p style="font-size:15px; color:#475569; line-height:1.6; margin:0 0 14px">A warranty lapses quietly and you pay for a repair you were owed.</p>
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#2f6fd0; margin-bottom:6px">After</div>
+          <p style="font-size:15px; color:#1a4a97; line-height:1.6; margin:0; font-weight:600">The dashboard lists everything expiring in the next 30 days, colour-coded by urgency.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ASSET LIFECYCLE ============================== -->
+<section class="position-relative" style="background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">The Asset Lifecycle</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">One Connected Flow, Purchase to Disposal</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">Every stage is handled inside Odoo and stays linked to the same asset record, so nothing is lost between finance, the warehouse and the employee who actually holds the asset.</p>
+    </div>
+    <div class="row g-2">
+      <div class="col-6 col-md">
+        <div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:44px; height:44px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; font-size:18px; line-height:44px; margin:0 auto 10px"><i class="fa fa-shopping-cart"></i></div>
+          <div style="font-size:15px; font-weight:700; color:#1a4a97">1. Purchase</div>
+          <div style="font-size:12px; color:#64748b; margin-top:4px">Vendor, invoice date, price</div>
+        </div>
+      </div>
+      <div class="col-6 col-md">
+        <div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:44px; height:44px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; font-size:18px; line-height:44px; margin:0 auto 10px"><i class="fa fa-plus-square-o"></i></div>
+          <div style="font-size:15px; font-weight:700; color:#1a4a97">2. Register</div>
+          <div style="font-size:12px; color:#64748b; margin-top:4px">Auto reference, serial, type</div>
+        </div>
+      </div>
+      <div class="col-6 col-md">
+        <div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:44px; height:44px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; font-size:18px; line-height:44px; margin:0 auto 10px"><i class="fa fa-barcode"></i></div>
+          <div style="font-size:15px; font-weight:700; color:#1a4a97">3. Label</div>
+          <div style="font-size:12px; color:#64748b; margin-top:4px">Print barcode label sheets</div>
+        </div>
+      </div>
+      <div class="col-6 col-md">
+        <div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:44px; height:44px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; font-size:18px; line-height:44px; margin:0 auto 10px"><i class="fa fa-exchange"></i></div>
+          <div style="font-size:15px; font-weight:700; color:#1a4a97">4. Assign</div>
+          <div style="font-size:12px; color:#64748b; margin-top:4px">Employee &amp; location transfer</div>
+        </div>
+      </div>
+      <div class="col-6 col-md">
+        <div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:44px; height:44px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; font-size:18px; line-height:44px; margin:0 auto 10px"><i class="fa fa-wrench"></i></div>
+          <div style="font-size:15px; font-weight:700; color:#1a4a97">5. Maintain</div>
+          <div style="font-size:12px; color:#64748b; margin-top:4px">Repairs, service, costs</div>
+        </div>
+      </div>
+      <div class="col-6 col-md">
+        <div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:44px; height:44px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; font-size:18px; line-height:44px; margin:0 auto 10px"><i class="fa fa-line-chart"></i></div>
+          <div style="font-size:15px; font-weight:700; color:#1a4a97">6. Depreciate</div>
+          <div style="font-size:12px; color:#64748b; margin-top:4px">Scheduled value entries</div>
+        </div>
+      </div>
+      <div class="col-6 col-md">
+        <div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #ffd23f; background-color:#eef5ff">
+          <div style="width:44px; height:44px; border-radius:12px; background-color:#ffd23f; color:#123670; font-size:18px; line-height:44px; margin:0 auto 10px"><i class="fa fa-archive"></i></div>
+          <div style="font-size:15px; font-weight:700; color:#1a4a97">7. Retire</div>
+          <div style="font-size:12px; color:#64748b; margin-top:4px">Return, hold or dispose</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FEATURES ============================== -->
+<section id="sdlc-features" class="position-relative" style="scroll-margin-top:80px; background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Features</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">Everything You Need to Control Your Assets</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">One connected Odoo 19 module covering the register, depreciation, maintenance, transfers, labels, vendors, warranty, reports and a dashboard.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="display:inline-block; width:48px; height:48px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; text-align:center; line-height:48px; font-size:22px; margin-bottom:14px"><i class="fa fa-cubes"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Fixed Asset Register</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Auto-numbered assets with serial number, barcode, asset type, tags, condition, department, responsible person, documents and a six-state status: Assign, Return, On Hold, In Warehouse, Repair or Destroyed.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="display:inline-block; width:48px; height:48px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; text-align:center; line-height:48px; font-size:22px; margin-bottom:14px"><i class="fa fa-line-chart"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Automated Depreciation</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Define depreciation per asset type: daily, monthly or yearly frequency, fixed amount or percentage, applied to purchase price or book value, with a start delay and a cap on total entries.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="display:inline-block; width:48px; height:48px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; text-align:center; line-height:48px; font-size:22px; margin-bottom:14px"><i class="fa fa-wrench"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Maintenance &amp; Repair</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Log corrective, preventive or predictive jobs with vendor, priority, start and completion dates, cost, documents and computed duration. The next maintenance date is predicted from past service intervals.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="display:inline-block; width:48px; height:48px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; text-align:center; line-height:48px; font-size:22px; margin-bottom:14px"><i class="fa fa-exchange"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Employee Transfers</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Assign assets to employees between hierarchical locations with auto-numbered transfer codes, assign and return dates, quantity and a full chatter log of every change.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="display:inline-block; width:48px; height:48px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; text-align:center; line-height:48px; font-size:22px; margin-bottom:14px"><i class="fa fa-barcode"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Barcode Label Printing</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Print PDF label sheets in six formats, including Dymo and 2x7, 4x7 and 4x12 grids, with optional price, custom rows and columns, chosen quantity and your own label header colour.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="display:inline-block; width:48px; height:48px; border-radius:12px; background-color:#1a4a97; color:#ffd23f; text-align:center; line-height:48px; font-size:22px; margin-bottom:14px"><i class="fa fa-address-book-o"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Vendors &amp; Warranty</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Track vendors with contact, tax ID, service area, repair and maintenance offerings and a 1 to 5 rating, plus warranty expiry with colour-coded remaining time and 30-day expiry alerts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BUILT FOR LIVE OPERATIONS ============================== -->
+<section class="position-relative" style="background-color:#1a4a97; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#ffd23f; margin-bottom:8px">Built for Live Operations</div>
+      <h2 style="font-size:36px; font-weight:800; color:#ffffff; letter-spacing:-1px">Engineered for Real Registers, Not Demos</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="background-color:#23508f; border:1px solid #345f9e">
+          <div style="color:#ffd23f; font-size:26px; margin-bottom:12px"><i class="fa fa-lock"></i></div>
+          <h3 style="font-size:20px; font-weight:700; color:#fff; margin-bottom:8px">No Duplicate Assets</h3>
+          <p style="font-size:14px; color:#c7cad9; line-height:1.65; margin:0">Barcodes and serial numbers are enforced unique at the database level, and purchase, maintenance and depreciation amounts are constrained to be non-negative, so a bad scan or a typo is rejected instead of silently corrupting the register.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="background-color:#23508f; border:1px solid #345f9e">
+          <div style="color:#ffd23f; font-size:26px; margin-bottom:12px"><i class="fa fa-cubes"></i></div>
+          <h3 style="font-size:20px; font-weight:700; color:#fff; margin-bottom:8px">Stock-Aware Assignment</h3>
+          <p style="font-size:14px; color:#c7cad9; line-height:1.65; margin:0">Assets can be tracked as a single unique item or as a pooled quantity. For pooled assets, current stock is initial stock minus active transfers, and an assignment beyond available stock is blocked with a validation error.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="background-color:#23508f; border:1px solid #345f9e">
+          <div style="color:#ffd23f; font-size:26px; margin-bottom:12px"><i class="fa fa-calendar"></i></div>
+          <h3 style="font-size:20px; font-weight:700; color:#fff; margin-bottom:8px">Predicted Maintenance</h3>
+          <p style="font-size:14px; color:#c7cad9; line-height:1.65; margin:0">Once an asset has two completed jobs, the module averages the real intervals between them to forecast the next maintenance date, so upkeep planning is based on the asset's own history rather than a guess.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== LABEL FORMATS ============================== -->
+<section class="position-relative" style="background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Label Printing</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">Six Label Layouts, One Print Wizard</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">Select any assets from the list, choose a layout and quantity, and print a ready-to-stick PDF label sheet.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-md-2"><div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd"><div style="color:#2f6fd0; font-size:22px; margin-bottom:8px"><i class="fa fa-tag"></i></div><div style="font-size:14px; font-weight:700; color:#1a4a97">Dymo</div></div></div>
+      <div class="col-6 col-md-2"><div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd"><div style="color:#2f6fd0; font-size:22px; margin-bottom:8px"><i class="fa fa-th-large"></i></div><div style="font-size:14px; font-weight:700; color:#1a4a97">2 x 7 with price</div></div></div>
+      <div class="col-6 col-md-2"><div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd"><div style="color:#2f6fd0; font-size:22px; margin-bottom:8px"><i class="fa fa-th"></i></div><div style="font-size:14px; font-weight:700; color:#1a4a97">4 x 7 with price</div></div></div>
+      <div class="col-6 col-md-2"><div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd"><div style="color:#2f6fd0; font-size:22px; margin-bottom:8px"><i class="fa fa-th"></i></div><div style="font-size:14px; font-weight:700; color:#1a4a97">4 x 12</div></div></div>
+      <div class="col-6 col-md-2"><div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd"><div style="color:#2f6fd0; font-size:22px; margin-bottom:8px"><i class="fa fa-th"></i></div><div style="font-size:14px; font-weight:700; color:#1a4a97">4 x 12 with price</div></div></div>
+      <div class="col-6 col-md-2"><div class="rounded-3 p-3 h-100 text-center" style="border:1px solid #dce4ee; background-color:#f5f8fd"><div style="color:#2f6fd0; font-size:22px; margin-bottom:8px"><i class="fa fa-sliders"></i></div><div style="font-size:14px; font-weight:700; color:#1a4a97">Custom Columns</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SCREENSHOTS ============================== -->
+<section id="sdlc-screenshots" class="position-relative" style="scroll-margin-top:80px; background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Screenshots</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">See It in Action</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo1.png" alt="Odoo 19 fixed asset register tracking" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Fixed Asset Register</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo2.png" alt="Automated asset depreciation in Odoo 19" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Automated Depreciation Entries</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo3.png" alt="Asset maintenance and repair logs Odoo 19" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Maintenance &amp; Repair Logs</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo4.png" alt="Employee asset transfer and allocation in Odoo" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Employee Transfer &amp; Allocation</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo5.png" alt="Asset barcode label printing in Odoo" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Barcode Label Printing</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo6.png" alt="Asset vendor and purchase source management" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Vendor &amp; Purchase Source</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo7.png" alt="Asset warranty and AMC expiry tracking in Odoo" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Warranty Expiry Tracking</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo9.png" alt="Asset management analytics view in Odoo 19" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Analytics &amp; Reporting Views</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo10.png" alt="Asset types and depreciation configuration Odoo 19" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Asset Types &amp; Rules</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo11.png" alt="Asset locations and tags configuration in Odoo 19" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Locations &amp; Tags</div></div></div>
+      <div class="col-md-6"><div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff"><img src="photo12.png" alt="Asset kanban and smart search views in Odoo 19" class="img img-fluid rounded-2" style="width:100%"><div style="font-size:14px; font-weight:700; color:#1a4a97; padding:10px 6px 4px">Kanban &amp; Smart Search</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== MID-PAGE CTA ============================== -->
+<section class="position-relative" style="background-color:#ffd23f; padding:48px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="row g-3 align-items-center">
+      <div class="col-lg-8">
+        <h2 style="font-size:30px; font-weight:800; color:#123670; letter-spacing:-0.5px; margin-bottom:6px">See it running before you buy.</h2>
+        <p style="font-size:16px; line-height:1.6; color:#123670; margin:0; opacity:0.85">Open the live demo, print a barcode label, assign an asset to an employee. No install, no signup.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="http://159.65.145.19:8082/" class="btn" style="background-color:#123670; color:#ffd23f; border-radius:14px; padding:14px 30px; font-weight:700">Try Live Demo<i class="fa fa-long-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== COMPARISON ============================== -->
+<section class="position-relative" style="background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Why This App</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">More Than an Asset List</h2>
+    </div>
+    <div style="overflow-x:auto">
+      <table style="width:100%; border-collapse:collapse; font-size:15px; min-width:640px">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:14px 16px; background-color:#f5f8fd; border-bottom:2px solid #e5e7eb; color:#1a4a97">Capability</th>
+            <th style="text-align:left; padding:14px 16px; background-color:#fff3cc; border-bottom:2px solid #cfe0f7; color:#1a4a97">Asset Management by SDLC Corp</th>
+            <th style="text-align:left; padding:14px 16px; background-color:#f5f8fd; border-bottom:2px solid #e5e7eb; color:#475569">Typical asset add-ons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Asset lifecycle</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#334155"><i class="fa fa-check" style="color:#2f6fd0; margin-right:6px"></i>Assign, return, on hold, in warehouse, repair, destroyed</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#64748b">Active / archived only</td>
+          </tr>
+          <tr style="background-color:#fafbfc">
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Depreciation</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#334155"><i class="fa fa-check" style="color:#2f6fd0; margin-right:6px"></i>Per-type rules, auto entries, book value, entry cap</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#64748b">Manual or none</td>
+          </tr>
+          <tr>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Maintenance</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#334155"><i class="fa fa-check" style="color:#2f6fd0; margin-right:6px"></i>Corrective, preventive, predictive with cost &amp; forecast</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#64748b"><i class="fa fa-times" style="color:#cbd5e1; margin-right:6px"></i>Not included</td>
+          </tr>
+          <tr style="background-color:#fafbfc">
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Custody &amp; transfers</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#334155"><i class="fa fa-check" style="color:#2f6fd0; margin-right:6px"></i>Employee, location, quantity, dates, chatter log</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#64748b">Rarely</td>
+          </tr>
+          <tr>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Data integrity</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#334155"><i class="fa fa-check" style="color:#2f6fd0; margin-right:6px"></i>Unique barcode &amp; serial, stock and date validation</td>
+            <td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#64748b">Varies</td>
+          </tr>
+          <tr style="background-color:#fafbfc">
+            <td style="padding:13px 16px; font-weight:700; color:#1a4a97">Dashboard &amp; reports</td>
+            <td style="padding:13px 16px; color:#334155"><i class="fa fa-check" style="color:#2f6fd0; margin-right:6px"></i>KPI dashboard + 6 analytics views &amp; label reports</td>
+            <td style="padding:13px 16px; color:#64748b">Basic lists</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; color:#64748b; margin:16px 0 0">Comparison reflects common behaviour of lightweight asset add-ons and is for general guidance. Features of other apps may vary.</p>
+  </div>
+</section>
+
+<!-- ============================== REPORTS &amp; DASHBOARD ============================== -->
+<section id="sdlc-reports" class="position-relative" style="scroll-margin-top:80px; background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Reports &amp; Analytics</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">6 Analytics Views + 24 Live Dashboard KPIs</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">Everything finance and operations need to report on the asset base, out of the box, using standard Odoo graph, pivot, calendar and kanban views.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <h3 style="font-size:18px; font-weight:700; color:#1a4a97; margin-bottom:14px"><i class="fa fa-bar-chart" style="color:#2f6fd0; margin-right:8px"></i>Analytics Views (Graph &amp; Pivot)</h3>
+          <div>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Asset Value Analysis</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Depreciation Analysis</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Maintenance Cost Analysis</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Transfer Analysis</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Asset by Status</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Asset by Type</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Asset by Vendor</span>
+          </div>
+          <h3 style="font-size:18px; font-weight:700; color:#1a4a97; margin:20px 0 14px"><i class="fa fa-print" style="color:#2f6fd0; margin-right:8px"></i>Print-Ready PDF Reports</h3>
+          <div>
+            <span style="display:inline-block; background-color:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#334155">Asset Barcode Labels (6 layouts)</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <h3 style="font-size:18px; font-weight:700; color:#1a4a97; margin-bottom:14px"><i class="fa fa-tachometer" style="color:#2f6fd0; margin-right:8px"></i>Live Dashboard KPIs</h3>
+          <div>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Total Asset Value</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Purchase Cost</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Net Book Value</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Depreciation This Month</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Average Asset Value</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Total Maintenance Cost</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Status Split &amp; Progress Bars</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Utilization Rate</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Maintenance Open / Pending / Done</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Transfers This Month</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Warranty Expiring (30 days)</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Non-Moving Assets</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Top Categories</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Recent Transfers</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Location Movement Map</span>
+            <span style="display:inline-block; background-color:#eef5ff; border:1px solid #cfe0f7; border-radius:999px; padding:7px 12px; margin:0 6px 8px 0; font-size:13px; color:#1a4a97">Vendors &amp; Alerts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DEPRECIATION DEEP-DIVE ============================== -->
+<section class="position-relative" style="background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Depreciation</div>
+        <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px; margin-bottom:16px">Set the Rule Once, Per Asset Type</h2>
+        <p style="font-size:17px; line-height:1.8; color:#475569; margin-bottom:20px">Depreciation is configured on the asset type, not on every asset. Enable depreciation on an asset and the module generates the entries for you, updating accumulated depreciation and current book value as it goes.</p>
+        <div class="row g-2">
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+              <div style="font-size:14px; font-weight:700; color:#1a4a97; margin-bottom:4px">Frequency</div>
+              <div style="font-size:14px; color:#64748b; line-height:1.5">Daily, monthly or yearly</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+              <div style="font-size:14px; font-weight:700; color:#1a4a97; margin-bottom:4px">Value Type</div>
+              <div style="font-size:14px; color:#64748b; line-height:1.5">Fixed amount or percentage</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+              <div style="font-size:14px; font-weight:700; color:#1a4a97; margin-bottom:4px">Basis</div>
+              <div style="font-size:14px; color:#64748b; line-height:1.5">Purchase price or book price</div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="rounded-3 p-3 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+              <div style="font-size:14px; font-weight:700; color:#1a4a97; margin-bottom:4px">Limits</div>
+              <div style="font-size:14px; color:#64748b; line-height:1.5">Start delay + maximum entries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="rounded-3 p-2" style="border:1px solid #dce4ee; background-color:#fff">
+          <img src="photo2.png" alt="Asset depreciation entries and book value in Odoo 19" class="img img-fluid rounded-2" style="width:100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ROLE MATRIX ============================== -->
+<section class="position-relative" style="background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Security &amp; Access</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">Six Privileges, Everyone Sees the Right Data</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">Each area has its own User and Administrator level. Users work with the records they created; Administrators see everything in that area.</p>
+    </div>
+    <div style="overflow-x:auto">
+      <table style="width:100%; border-collapse:collapse; font-size:15px; min-width:640px">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:14px 16px; background-color:#1a4a97; color:#fff; border-radius:10px 0 0 0">Privilege</th>
+            <th style="text-align:left; padding:14px 16px; background-color:#1a4a97; color:#fff">User</th>
+            <th style="text-align:left; padding:14px 16px; background-color:#1a4a97; color:#fff; border-radius:0 10px 0 0">Administrator</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Assets Management</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Own assets, types, vendors and label printing</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">All assets across the company</td></tr>
+          <tr style="background-color:#fafbfc"><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Transfer Management</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Transfers they created</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Every transfer entry</td></tr>
+          <tr><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Maintenance Management</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Maintenance jobs they created</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Every maintenance job</td></tr>
+          <tr style="background-color:#fafbfc"><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Depreciation Management</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Depreciation entries they created</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Every depreciation entry</td></tr>
+          <tr><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; font-weight:700; color:#1a4a97">Vendor Management</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Vendors they created</td><td style="padding:13px 16px; border-bottom:1px solid #eef2f7; color:#475569">Full vendor directory</td></tr>
+          <tr style="background-color:#fafbfc"><td style="padding:13px 16px; font-weight:700; color:#1a4a97">Reporting Management</td><td style="padding:13px 16px; color:#64748b"><i class="fa fa-times" style="color:#cbd5e1; margin-right:6px"></i>Administrator only</td><td style="padding:13px 16px; color:#475569">Reporting menu, analytics and dashboard</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SETUP & DEPENDENCIES ============================== -->
+<section id="sdlc-setup" class="position-relative" style="scroll-margin-top:80px; background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Getting Started</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">Installed and Tracking in Four Steps</h2>
+    </div>
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:36px; height:36px; border-radius:10px; background-color:#1a4a97; color:#ffd23f; font-size:15px; font-weight:800; line-height:36px; text-align:center; margin-bottom:12px">1</div>
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:6px">Install the module</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Upload to your addons path, update the apps list and install. No API keys, no external services.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:36px; height:36px; border-radius:10px; background-color:#1a4a97; color:#ffd23f; font-size:15px; font-weight:800; line-height:36px; text-align:center; margin-bottom:12px">2</div>
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:6px">Define asset types</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Set the depreciation rule once per type: frequency, rate, basis and entry cap. Add locations and tags.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:36px; height:36px; border-radius:10px; background-color:#1a4a97; color:#ffd23f; font-size:15px; font-weight:800; line-height:36px; text-align:center; margin-bottom:12px">3</div>
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:6px">Load your assets</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Create them by hand or bring an existing register in through Odoo&rsquo;s standard spreadsheet import.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <div style="width:36px; height:36px; border-radius:10px; background-color:#1a4a97; color:#ffd23f; font-size:15px; font-weight:800; line-height:36px; text-align:center; margin-bottom:12px">4</div>
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:6px">Print &amp; assign</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Print barcode labels, assign assets to employees, and the dashboard starts filling in immediately.</p>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-3 p-4" style="border:1px solid #cfe0f7; background-color:#eef5ff">
+      <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px"><i class="fa fa-info-circle" style="color:#2f6fd0; margin-right:8px"></i>What gets installed alongside it</h3>
+      <p style="font-size:15px; color:#475569; line-height:1.7; margin:0">This module builds on standard Odoo rather than reinventing it, so installing it will also install <strong style="color:#1a4a97">Employees (hr)</strong>, <strong style="color:#1a4a97">Invoicing (account)</strong>, <strong style="color:#1a4a97">Inventory (stock)</strong>, <strong style="color:#1a4a97">Products</strong> and <strong style="color:#1a4a97">Discuss (mail)</strong> if they are not already on your database. That is what lets assets link to real employees, real stock locations and a real chatter trail, and it is why upgrades stay safe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SCOPE / LIMITATIONS ============================== -->
+<section class="position-relative" style="background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Honest Scope</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">What This Module Does Not Do</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">We would rather you know before you buy than find out after. If any of these are dealbreakers, talk to us first, they are the most common things we are asked to add.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="font-size:22px; color:#94a3b8; margin-bottom:10px"><i class="fa fa-times-circle-o"></i></div>
+          <h3 style="font-size:18px; font-weight:700; color:#1a4a97; margin-bottom:8px">No journal entries</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Depreciation is calculated and tracked inside the module for book value and reporting. It does not post to the general ledger. You can link an asset to its purchase invoice, but the depreciation itself stays out of your accounts.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="font-size:22px; color:#94a3b8; margin-bottom:10px"><i class="fa fa-times-circle-o"></i></div>
+          <h3 style="font-size:18px; font-weight:700; color:#1a4a97; margin-bottom:8px">Single company</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">The asset register is not company-scoped. If you run several companies in one database and need each to see only its own assets, this needs customization. Multi-location and multi-department are fully supported.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="font-size:22px; color:#94a3b8; margin-bottom:10px"><i class="fa fa-times-circle-o"></i></div>
+          <h3 style="font-size:18px; font-weight:700; color:#1a4a97; margin-bottom:8px">1D barcodes, not QR</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Label sheets print a standard 1D barcode from the asset&rsquo;s barcode field, readable by any ordinary scanner. QR codes are not generated. There is no built-in mobile scanning app.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section id="sdlc-faq" class="position-relative" style="scroll-margin-top:80px; background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">FAQ</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">Questions, Answered</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">Does it work on Odoo 19 Community?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Yes. The module runs on both Odoo 19 Community and Enterprise, and depends only on the standard base, product, hr, account, stock and mail modules.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">Do I need any external API or key?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">No. There are no external services, API keys or paid subscriptions. Everything runs inside your own Odoo database.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">How is depreciation calculated?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Each asset type defines a frequency, a fixed or percentage rate, a basis of purchase price or book price, a start delay and an optional cap on entries. Assets with depreciation enabled then get entries generated against that rule.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">Can I track quantities, not just unique items?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Yes. Set the model type to Multiple Assets and the record tracks initial stock, active transfers and current stock, blocking any assignment that exceeds what is available.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">How do asset locations relate to Inventory?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Asset locations are hierarchical and each one is linked to a real stock location, created automatically under your warehouse if you do not pick one, so asset placement lines up with Inventory.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">Does depreciation post to my accounts?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">No. Depreciation is generated and tracked inside the module, giving you accumulated depreciation, current book value and depreciation reporting. It does not create journal entries in the general ledger. If you need posted depreciation, tell us before you buy.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">Does depreciation run automatically?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Yes. A scheduled action runs daily and generates entries for every asset that has depreciation enabled and is due, based on its asset type&rsquo;s rule. You can also run it on demand.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">Can I import my existing asset register?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Yes. Assets are a standard Odoo model, so Odoo&rsquo;s built-in spreadsheet import works. Bring in your CSV or XLSX, map the columns and load. Barcodes and serial numbers must be unique, so import will flag duplicates rather than accept them silently.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">Will installing this add other apps?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Yes, and deliberately. It depends on Employees, Invoicing, Inventory, Products and Discuss, so those install alongside it if you do not already have them. That is what lets assets link to real employees, real stock locations and a real chatter trail.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#f5f8fd">
+          <h3 style="font-size:17px; font-weight:700; color:#1a4a97; margin-bottom:8px">What support do I get?</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Free lifetime support is included with purchase: bug fixes, version updates and dedicated help by email, phone and WhatsApp at no extra cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OUR SERVICES ============================== -->
+<section class="position-relative" style="background-color:#f5f8fd; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">Our Services</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">End-to-End Odoo Services</h2>
+      <p style="font-size:17px; line-height:1.8; color:#475569; max-width:900px; margin:10px auto 0">For businesses of all sizes, from a single customization to a full ERP rollout.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="color:#2f6fd0; font-size:26px; margin-bottom:10px"><i class="fa fa-cog"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Odoo Customization</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Tailor modules and workflows to your exact business requirements.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="color:#2f6fd0; font-size:26px; margin-bottom:10px"><i class="fa fa-rocket"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Odoo Implementation</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">End-to-end setup, configuration, data migration and go-live support.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="color:#2f6fd0; font-size:26px; margin-bottom:10px"><i class="fa fa-wrench"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Support &amp; Maintenance</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Ongoing technical support, bug fixes and performance tuning.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="color:#2f6fd0; font-size:26px; margin-bottom:10px"><i class="fa fa-plug"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Odoo Integration</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Connect Odoo with third-party platforms, APIs and external systems.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="color:#2f6fd0; font-size:26px; margin-bottom:10px"><i class="fa fa-users"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Hire Odoo Developer</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Dedicated developers for short-term or long-term project engagements.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100" style="border:1px solid #dce4ee; background-color:#ffffff">
+          <div style="color:#2f6fd0; font-size:26px; margin-bottom:10px"><i class="fa fa-exchange"></i></div>
+          <h3 style="font-size:19px; font-weight:700; color:#1a4a97; margin-bottom:8px">Odoo Migration</h3>
+          <p style="font-size:14px; color:#475569; line-height:1.65; margin:0">Seamless migration from older Odoo versions or other ERPs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EXPLORE OTHER APPS ============================== -->
+<section class="position-relative" style="background-color:#ffffff; border-bottom:1px solid #e2e8f0; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#2f6fd0; margin-bottom:8px">More From SDLC Corp</div>
+      <h2 style="font-size:36px; font-weight:700; color:#1a4a97; letter-spacing:-1px">Explore Our Other Applications</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <a href="https://apps.odoo.com/apps/modules/browse?search=SDLC+AI+Assistant" target="_blank" class="d-block rounded-3 h-100" style="border:1px solid #dce4ee; background-color:#fff; text-decoration:none; overflow:hidden">
+          <div style="padding:28px 20px; text-align:center; background-color:#f5f8fd"><img src="sdlc_ai_assistant_banner.jpg" alt="AI Assistant for Odoo" style="max-width:100%; max-height:110px; height:auto"></div>
+          <div style="padding:14px 18px; border-top:1px solid #dce4ee; font-size:15px; font-weight:700; color:#1a4a97">AI Assistant</div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="https://apps.odoo.com/apps/modules/browse?search=SDLC+Construction" target="_blank" class="d-block rounded-3 h-100" style="border:1px solid #dce4ee; background-color:#fff; text-decoration:none; overflow:hidden">
+          <div style="padding:28px 20px; text-align:center; background-color:#f5f8fd"><img src="sdlc_construction_management_banner.png" alt="Construction Management for Odoo" style="max-width:100%; max-height:110px; height:auto"></div>
+          <div style="padding:14px 18px; border-top:1px solid #dce4ee; font-size:15px; font-weight:700; color:#1a4a97">Construction Management</div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="https://apps.odoo.com/apps/modules/browse?search=SDLC+Employee+Dashboard" target="_blank" class="d-block rounded-3 h-100" style="border:1px solid #dce4ee; background-color:#fff; text-decoration:none; overflow:hidden">
+          <div style="padding:28px 20px; text-align:center; background-color:#f5f8fd"><img src="sdlc_emp_dashboard_banner.png" alt="Employee Dashboard for Odoo" style="max-width:100%; max-height:110px; height:auto"></div>
+          <div style="padding:14px 18px; border-top:1px solid #dce4ee; font-size:15px; font-weight:700; color:#1a4a97">Employee Dashboard</div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="https://apps.odoo.com/apps/modules/browse?search=SDLC+Financial+Reports" target="_blank" class="d-block rounded-3 h-100" style="border:1px solid #dce4ee; background-color:#fff; text-decoration:none; overflow:hidden">
+          <div style="padding:28px 20px; text-align:center; background-color:#f5f8fd"><img src="sdlc_financial_reports_banner.jpg" alt="Financial Reports for Odoo" style="max-width:100%; max-height:110px; height:auto"></div>
+          <div style="padding:14px 18px; border-top:1px solid #dce4ee; font-size:15px; font-weight:700; color:#1a4a97">Financial Reports</div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="https://apps.odoo.com/apps/modules/browse?search=SDLC+IP+Restriction" target="_blank" class="d-block rounded-3 h-100" style="border:1px solid #dce4ee; background-color:#fff; text-decoration:none; overflow:hidden">
+          <div style="padding:28px 20px; text-align:center; background-color:#f5f8fd"><img src="sdlc_ip_restriction_banner.png" alt="IP Restriction for Odoo" style="max-width:100%; max-height:110px; height:auto"></div>
+          <div style="padding:14px 18px; border-top:1px solid #dce4ee; font-size:15px; font-weight:700; color:#1a4a97">IP Restriction</div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="https://apps.odoo.com/apps/modules/browse?search=SDLC+Maintenance+QR" target="_blank" class="d-block rounded-3 h-100" style="border:1px solid #dce4ee; background-color:#fff; text-decoration:none; overflow:hidden">
+          <div style="padding:28px 20px; text-align:center; background-color:#f5f8fd"><img src="sdlc_maintenance_qr_code_banner.jpg" alt="Maintenance QR Code for Odoo" style="max-width:100%; max-height:110px; height:auto"></div>
+          <div style="padding:14px 18px; border-top:1px solid #dce4ee; font-size:15px; font-weight:700; color:#1a4a97">Maintenance QR Code</div>
+        </a>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="https://apps.odoo.com/apps/modules/browse?author=SDLC+Corp" target="_blank" class="btn" style="background-color:#1a4a97; color:#ffd23f; border-radius:14px; padding:12px 28px; font-weight:700">Browse the Full Library<i class="fa fa-long-arrow-right ms-2"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section class="position-relative" style="background-color:#123670; padding:64px 40px; width:98vw; margin:0 auto; margin-left:calc(-46vw + 45.5%); font-family:'Inter'">
+  <div class="container-fluid px-0" style="width:100%; max-width:1500px; margin:0 auto">
+    <div class="text-center mb-4">
+      <div style="font-size:14px; font-weight:1000; letter-spacing:1.4px; text-transform:uppercase; color:#ffd23f; margin-bottom:8px">Support</div>
+      <h2 style="font-size:36px; font-weight:800; color:#ffffff; letter-spacing:-1px">Need Help? We&rsquo;re Here.</h2>
+      <p style="font-size:17px; line-height:1.8; color:#c7cad9; max-width:900px; margin:10px auto 0">Get support, request customizations or share feedback. We answer fast by email, phone or WhatsApp.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100 text-center" style="background-color:#23508f; border:1px solid #345f9e">
+          <div style="color:#ffd23f; font-size:26px; margin-bottom:10px"><i class="fa fa-phone"></i></div>
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; color:#fff; margin-bottom:6px">Phone</div>
+          <a href="tel:+14155940097" style="color:#c7cad9; font-size:16px; text-decoration:none">+1 415-594-0097</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100 text-center" style="background-color:#23508f; border:1px solid #345f9e">
+          <div style="color:#ffd23f; font-size:26px; margin-bottom:10px"><i class="fa fa-whatsapp"></i></div>
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; color:#fff; margin-bottom:6px">WhatsApp</div>
+          <a href="https://wa.me/918920944210" target="_blank" style="color:#c7cad9; font-size:16px; text-decoration:none">+91 89209 44210</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="rounded-3 p-4 h-100 text-center" style="background-color:#23508f; border:1px solid #345f9e">
+          <div style="color:#ffd23f; font-size:26px; margin-bottom:10px"><i class="fa fa-envelope"></i></div>
+          <div style="font-size:13px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; color:#fff; margin-bottom:6px">Email</div>
+          <a href="mailto:sales@sdlccorp.com" style="color:#c7cad9; font-size:16px; text-decoration:none">sales@sdlccorp.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="http://159.65.145.19:8082/" class="btn me-2" style="background-color:#ffd23f; color:#123670; border-radius:14px; padding:12px 28px; font-weight:700">Try Live Demo<i class="fa fa-long-arrow-right ms-2"></i></a>
+      <a href="https://sdlccorp.com/contact-us/" target="_blank" class="btn" style="background-color:#ffffff; color:#1a4a97; border-radius:14px; padding:12px 28px; font-weight:600">Contact Us<i class="fa fa-long-arrow-right ms-2"></i></a>
+    </div>
+    <div class="row g-2 mt-5 pt-4" style="border-top:1px solid #345f9e">
+      <div class="col-md-4" style="font-size:12px; letter-spacing:1.4px; text-transform:uppercase; color:#8fa6c9">Built by SDLC Corp</div>
+      <div class="col-md-4 text-center" style="font-size:12px; letter-spacing:1.4px; text-transform:uppercase"><a href="https://sdlccorp.com" target="_blank" style="color:#8fa6c9; text-decoration:none">sdlccorp.com</a></div>
+      <div class="col-md-4 text-md-end" style="font-size:12px; letter-spacing:1.4px; text-transform:uppercase; color:#8fa6c9">Version 19.0.1.0.0</div>
+    </div>
+  </div>
+</section>
+</div>

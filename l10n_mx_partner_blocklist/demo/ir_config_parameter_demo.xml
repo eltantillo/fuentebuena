@@ -1,0 +1,8 @@
+<odoo>
+
+    <record id="l10n_mx_partner_blocklist_url" model="ir.config_parameter">
+        <field name="key">l10n_mx_partner_blocklist_url</field>
+        <field name="value">http://omawww.sat.gob.mx/cifras_sat/Documents/Definitivos.csv</field>
+    </record>
+
+</odoo>
