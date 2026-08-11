@@ -14,3 +14,4 @@ from . import fleet_customer_sesionario
 from . import fleet_customer_modelo
 from . import fleet_customer_state
 from . import fleet_customer_version
+from . import fleet_customer_ubicacion

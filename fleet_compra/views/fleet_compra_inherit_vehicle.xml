@@ -34,6 +34,7 @@
                         <field name="producto_id"/>
                         <field name="plaza_id"/>
                         <field name="state_id"/>
+                        <field name="sub_etapa_id" string="Sub Estado"/>
                         <field name="ultimo_cambio_etapa"/>
                         <field name="acquisition_date"/>
                         <field name="fecha_recepcion"/>

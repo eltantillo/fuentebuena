@@ -29,6 +29,7 @@
         'views/fleet_customer_categoria_agrupacion_view.xml',
         'views/fleet_customer_motivo_baja_view.xml',
         'views/fleet_customer_inherit_model_view.xml',
+        'views/fleet_customer_ubicacion_view.xml',
         'wizards/fleet_customer_baja.xml',
         'wizards/fleet_opcion_compra.xml',
         'views/fleet_customer_menu.xml',

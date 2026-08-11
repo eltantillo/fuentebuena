@@ -28,3 +28,4 @@ access_fleet_customer_version_sys,access_fleet_customer_version_sys,model_fleet_
 access_fleet_sys,access_fleet_sys,model_fleet_vehicle,base.group_system,1,1,1,1
 
 access_fleet_opcion_compra_all,access_fleet_opcion_compra_all,model_fleet_opcion_compra,,1,1,1,1
+access_fleet_ubicacion_all,access_fleet_ubicacion_all,model_fleet_customer_ubicacion,,1,1,1,1

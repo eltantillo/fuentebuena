@@ -54,4 +54,6 @@ class GCLiberarRetencion(models.TransientModel):
             })
             gestion.registrar_evento("Vehículo recuperado por el gestor")
             gestion.registrar_evento("Envió de notificación a Operaciones")
+
+            self.env['gestion.caido'].send_mail(gestion.id, gestion.gestor_id.work_email, 'gestion_caido.gc_notificacion_rec_mail_template')
             gestion.registrar_evento("Esperando confirmación automática o manual")

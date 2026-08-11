@@ -14,6 +14,7 @@
     ],
     'data': [
         'data/gc_notificacion_mail_template.xml',
+        'data/gc_notificacion_rec_mail_template.xml',
         'data/gc_confirmar_recepcion_cron.xml',
         'security/security_groups.xml',
         'security/ir.model.access.csv',

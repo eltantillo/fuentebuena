@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="retencion20">
+        <retenciones:Retenciones
+            xsi:schemaLocation="http://www.sat.gob.mx/esquemas/retencionpago/2 http://www.sat.gob.mx/esquemas/retencionpago/2/retencionpagov2.xsd http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos/dividendos.xsd http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros/pagosaextranjeros.xsd http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10 http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd"
+            xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/2"
+            xmlns:dividendos="http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos"
+            xmlns:pagosaextranjeros="http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros"
+            xmlns:plataformasTecnologicas="http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            Version="2.0"
+            t-att-FechaExp="factura['FechaExp']"
+            t-att-FolioInt="factura['FolioInt']"
+            t-att-LugarExpRetenc="factura['LugarExpRetenc']"
+            Sello="TO BE INJECTED"
+            t-att-CveRetenc="factura['CveRetenc']"
+            t-att-NoCertificado="factura['no_certificado']"
+            t-att-Certificado="factura['certificado']"
+            t-att-DescRetenc="factura['DescRetenc']">
+            <t t-if="CfdisRelacionados">
+               <t t-foreach="CfdisRelacionados" t-as="cfdi_relationado">
+                  <retenciones:CfdiRelacionados t-att-TipoRelacion="cfdi_relationado['TipoRelacion']">
+                       <retenciones:CfdiRelacionado t-att-UUID="cfdi_relationado['UUID']"/>
+                  </retenciones:CfdiRelacionados>
+               </t>
+            </t>
+            <retenciones:Emisor
+                t-att-RfcE="emisor['RfcE']"
+                t-att-NomDenRazSocE="emisor['NomDenRazSocE']"
+                t-att-RegimenFiscalE="emisor['RegimenFiscalE']"/>
+            <!-- Falta retenciones extranjero -->
+            <retenciones:Receptor
+                t-att-NacionalidadR="receptor['NacionalidadR']">
+                <retenciones:Nacional
+                    t-att-RfcR="receptor['RfcR']"
+                    t-att-NomDenRazSocR="receptor['NomDenRazSocR']"
+                    t-att-CurpR="receptor['CurpR']"
+                    t-att-DomicilioFiscalR="receptor['DomicilioFiscalR']"/>
+            </retenciones:Receptor>
+            <retenciones:Periodo
+                t-att-MesIni="periodo['MesIni']"
+                t-att-MesFin="periodo['MesFin']"
+                t-att-Ejercicio="periodo['Ejercicio']"/>
+            <retenciones:Totales
+                t-att-MontoTotOperacion="totales['MontoTotOperacion']"
+                t-att-MontoTotGrav="totales['MontoTotGrav']"
+                t-att-MontoTotExent="totales['MontoTotExent']"
+                t-att-MontoTotRet="totales['MontoTotRet']">
+                <!--t-att-MontoTotExent="receptor['nombre'], 254)"
+                t-att-MontoTotRet="resceptor['residencia_fiscal']" -->
+                <t t-foreach="ImpRetenidos" t-as="line_values">
+                    <retenciones:ImpRetenidos
+                        t-att-BaseRet="line_values['BaseRet']"
+                        t-att-ImpuestoRet="line_values['ImpuestoRet']"
+                        t-att-MontoRet="line_values['MontoRet']"
+                        t-att-TipoPagoRet="line_values['TipoPagoRet']"
+                    />
+                </t>
+            </retenciones:Totales>
+            <retenciones:Complemento>
+               <t t-if="DividOUtil">
+                  <dividendos:Dividendos Version="1.0">
+                     <dividendos:DividOUtil
+                         t-att-CveTipDivOUtil="DividOUtil['CveTipDivOUtil']"
+                         t-att-MontISRAcredRetMexico="DividOUtil['MontISRAcredRetMexico']"
+                         t-att-MontISRAcredRetExtranjero="DividOUtil['MontISRAcredRetExtranjero']"
+                         t-att-MontRetExtDivExt="DividOUtil['MontRetExtDivExt']"
+                         t-att-TipoSocDistrDiv="DividOUtil['TipoSocDistrDiv']"
+                         t-att-MontISRAcredNal="DividOUtil['MontISRAcredNal']"
+                         t-att-MontDivAcumNal="DividOUtil['MontDivAcumNal']"
+                         t-att-MontDivAcumExt="DividOUtil['MontDivAcumExt']"/>
+                     <dividendos:Remanente
+                         t-att-ProporcionRem="Remanente['ProporcionRem']"/>
+                  </dividendos:Dividendos>
+               </t>
+               <t t-if="Pagosaextranjeros">
+                  <pagosaextranjeros:Pagosaextranjeros 
+                         Version="1.0"
+                         t-att-EsBenefEfectDelCobro="Pagosaextranjeros['EsBenefEfectDelCobro']">
+                     <t t-if="Pagosaextranjeros['EsBenefEfectDelCobro'] == 'NO'">
+                        <pagosaextranjeros:NoBeneficiario
+                            t-att-PaisDeResidParaEfecFisc="Pagosaextranjeros['PaisDeResidParaEfecFisc']"
+                            t-att-ConceptoPago="Pagosaextranjeros['ConceptoPago']"
+                            t-att-DescripcionConcepto="Pagosaextranjeros['DescripcionConcepto']"/>
+                     </t>
+                     <t t-if="Pagosaextranjeros['EsBenefEfectDelCobro'] != 'NO'">
+                        <pagosaextranjeros:Beneficiario
+                            t-att-RFC="Pagosaextranjeros['RFC']"
+                            t-att-CURP="Pagosaextranjeros['CURP']"
+                            t-att-NomDenRazSocB="Pagosaextranjeros['NomDenRazSocB']"
+                            t-att-ConceptoPago="Pagosaextranjeros['ConceptoPago']"
+                            t-att-DescripcionConcepto="Pagosaextranjeros['DescripcionConcepto']"/>
+                     </t>
+                  </pagosaextranjeros:Pagosaextranjeros>
+               </t> 
+               <t t-if="plataformasTecnologicas">
+                  <plataformasTecnologicas:ServiciosPlataformasTecnologicas 
+                         Version="1.0"
+                         t-att-Periodicidad="plataformasTecnologicas['Periodicidad']"
+                         t-att-NumServ="plataformasTecnologicas['NumServ']"
+                         t-att-MonTotServSIVA="plataformasTecnologicas['MonTotServSIVA']"
+                         t-att-TotalIVATrasladado="plataformasTecnologicas['TotalIVATrasladado']"
+                         t-att-TotalIVARetenido="plataformasTecnologicas['TotalIVARetenido']"
+                         t-att-TotalISRRetenido="plataformasTecnologicas['TotalISRRetenido']"
+                         t-att-DifIVAEntregadoPrestServ="plataformasTecnologicas['DifIVAEntregadoPrestServ']"
+                         t-att-MonTotalporUsoPlataforma="plataformasTecnologicas['MonTotalporUsoPlataforma']">
+                    <plataformasTecnologicas:Servicios>
+                        <t t-foreach="servicios" t-as="line_values">
+                            <plataformasTecnologicas:DetallesDelServicio
+                                t-att-FormaPagoServ="line_values['FormaPagoServ']"
+                                t-att-TipoDeServ="line_values['TipoDeServ']"
+                                t-att-SubTipServ="line_values['SubTipServ']"
+                                t-att-FechaServ="line_values['FechaServ']"
+                                t-att-RFCTerceroAutorizado="line_values['RFCTerceroAutorizado']"
+                                t-att-PrecioServSinIVA="line_values['PrecioServSinIVA']">
+                                <t t-if="line_values['Base'] > 0">
+                                    <plataformasTecnologicas:ImpuestosTrasladadosdelServicio
+                                        t-att-Base="line_values['Base']"
+                                        t-att-Impuesto="line_values['Impuesto']"
+                                        t-att-TipoFactor="line_values['TipoFactor']"
+                                        t-att-TasaCuota="line_values['TasaCuota']"
+                                        t-att-Importe="line_values['Importe']"                                    
+                                    />
+                                </t>
+                                <t t-if="line_values['ComisionDelServicio'] > 0">
+                                    <plataformasTecnologicas:ComisionDelServicio
+                                        t-att-Importe="line_values['ComisionDelServicio']"/>
+                                </t>
+                            </plataformasTecnologicas:DetallesDelServicio>
+                        </t>
+                    </plataformasTecnologicas:Servicios>
+                  </plataformasTecnologicas:ServiciosPlataformasTecnologicas>
+               </t>
+            </retenciones:Complemento>
+        </retenciones:Retenciones>
+    </template>
+</odoo>

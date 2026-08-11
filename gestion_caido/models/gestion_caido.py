@@ -392,6 +392,16 @@ class GestionCaido(models.Model):
         ]).ids
         self.vehiculos_permitidos_ids = vehiculos
 
+    def send_mail(self, res_id, email, name_template):
+        template = self.env.ref(name_template)
+        template.send_mail(
+            res_id,
+            force_send=True,
+            email_values={
+                'email_to': email
+            }
+        )
+
     @api.model_create_multi
     def create(self, vals_list):
         records = super().create(vals_list)
@@ -409,6 +419,7 @@ class GestionCaido(models.Model):
                     'fecha_inicio': fields.Datetime.now(),
                     'evento': "Inicia proceso gestión"
                 })
+                self.send_mail(gestion.id, gestion.gestor_id.work_email, 'gestion_caido.gc_notificacion_mail_template')
             else:
                 raise ValidationError("El token del gestor no es valido")
         return records

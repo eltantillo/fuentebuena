@@ -112,8 +112,10 @@
                             <field name="numero_economico" readonly="1"/>
                             <field name="mostrar_sub_etapa" invisible="1"/>
                             <field name="sub_etapas_ids" invisible="1"/>
-                            <field name="sub_etapa_id" invisible="mostrar_sub_etapa == False" domain="[('id','in', sub_etapas_ids)]"/>
-                            <field name="company_id"/>
+                            <field name="sub_etapa_id" invisible="mostrar_sub_etapa == False" domain="[('id','in', sub_etapas_ids)]" required="sub_etapas_ids != False"/>
+                            <field name="ubicaciones_ids" invisible="1"/>
+                            <field name="ubicacion_id" domain="[('id','in', ubicaciones_ids)]" required="ubicaciones_ids != False" invisible="ubicaciones_ids == False"/>
+                            <field name="circulante" required="1"/>
                         </group>
                         <group>
                             <field name="ultimo_cambio_etapa" readonly="1"/>
@@ -212,7 +214,6 @@
         <record id="fleet_customer_inherit_view_list" model="ir.ui.view">
             <field name="name">fleet.customer.inherit.view.list</field>
             <field name="model">fleet.vehicle</field>
-            <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//list" position="replace">
                     <list>
@@ -231,6 +232,7 @@
                         <field name="producto_id"/>
                         <field name="plaza_id"/>
                         <field name="state_id"/>
+                        <field name="sub_etapa_id"/>
                         <field name="ultimo_cambio_etapa"/>
                         <field name="acquisition_date"/>
                         <field name="fecha_recepcion"/>

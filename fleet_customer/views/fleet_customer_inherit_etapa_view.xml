@@ -7,21 +7,32 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group string="Información de etapa">
-                            <field name="name"/>
-                            <field name="categoria"/>
-                            <field name="categoria_agrupacion"/>
-                            <field name="indicador"/>
-                            <field name="sub_etapa_ids"/>
-                            <field name="sequence"/>
-                            <field name="es_estapa_alta"/>
-                            <field name="es_etapa_rentado"/>
-                            <field name="es_etapa_reacondicionamiento"/>
-                            <field name="es_etapa_recibido"/>
-                            <field name="es_estapa_disponible"/>
-                            <field name="es_etapa_baja"/>
-                            <field name="es_etapa_adaptacion"/>
+                        <group>
+                            <group string="Información de etapa">
+                                <field name="name"/>
+                                <field name="categoria"/>
+                                <field name="categoria_agrupacion"/>
+                                <field name="indicador"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group string="Identificadores">
+                                <field name="es_estapa_alta"/>
+                                <field name="es_etapa_rentado"/>
+                                <field name="es_etapa_reacondicionamiento"/>
+                                <field name="es_etapa_recibido"/>
+                                <field name="es_estapa_disponible"/>
+                                <field name="es_etapa_baja"/>
+                                <field name="es_etapa_adaptacion"/>
+                            </group>
                         </group>
+                        <notebook>
+                            <page string="Sub Etapas">
+                                <field name="sub_etapa_ids"/>
+                            </page>
+                            <page string="Ubicaciones">
+                                <field name="ubicacion_ids"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

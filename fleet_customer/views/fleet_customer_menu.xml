@@ -89,6 +89,12 @@
                   sequence="30"
                   action="fleet_customer_version_action"/>
 
+        <menuitem id="menu_fleet_vehiculo_ubicacion"
+                  name="Ubicación"
+                  parent="fleet.fleet_vehicles_configuration"
+                  sequence="40"
+                  action="fleet_customer_ubicacion_action"/>
+
         <menuitem action="fleet.fleet_vehicle_log_services_action"
                   parent="fleet.fleet_vehicles"
                   id="fleet.fleet_vehicle_log_services_menu"

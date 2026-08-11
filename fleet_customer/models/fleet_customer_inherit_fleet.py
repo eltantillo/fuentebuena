@@ -211,6 +211,25 @@ class FleetCustomerInheritFleet(models.Model):
         string='State',
         default=lambda self: self.env['fleet.vehicle.state'].search([('name', '=', 'En registro')], limit=1).id,
     )
+    ubicacion_id = fields.Many2one(
+        comodel_name= 'fleet.customer.ubicacion',
+        string='Ubicacion',
+        domain=[('name', '=', 'Ubicacion')],
+
+    )
+    ubicaciones_ids = fields.Many2many(
+        comodel_name='fleet.customer.ubicacion',
+        related='state_id.ubicacion_ids',
+        string='Ubicaciones',
+    )
+    circulante = fields.Selection(
+        string='Circulante',
+        selection=[
+            ('circulante', 'Circulante'),
+            ('no_circulante', 'No circulante'),
+        ]
+    )
+
 
     def _get_year_selection(self):
         current_year = datetime.now().year

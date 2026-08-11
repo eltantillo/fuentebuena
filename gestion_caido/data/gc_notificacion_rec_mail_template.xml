@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="gc_notificacion_rec_mail_template"  model="mail.template">
+            <field name="name">Vehículo recuperado</field>
+            <field name="model_id" ref="model_gestion_caido"/>
+            <field name="subject">Se ha recuperado un vehículo - {{object.id}} / {{object.model_id.name}-vin_sn}</field>
+            <field name="body_html">
+                <![CDATA[
+                <div style="font-family:'Segoe UI',Roboto,Arial,sans-serif;background:#f5f7fa;padding:40px 20px;">
+                    <div style="max-width:600px;margin:auto;background:#fff;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;">
+
+                        <div style="padding:24px;border-bottom:1px solid #E5E7EB;">
+                            <img src="https://www.pilotea.mx/assets/landing/branding-imagotipo-horizontal-full-color-lg-4daf4d22a4a6126e02a1a044434584002e58ad2d9c51dec50de8cc2914a83a86.svg"
+                                 style="height:40px;">
+                        </div>
+
+                        <div style="padding:40px;text-align:center;">
+                            <div style="font-size:52px;">✅</div>
+
+                            <h2 style="margin:20px 0 10px;color:#1F2937;">
+                                Vehículo recuperado
+                            </h2>
+
+                            <p style="color:#4B5563;font-size:15px;line-height:1.6;margin:0;">
+                                Se notifica que el vehículo
+                                <strong><t t-out="object.vehiculo_id.display_name"/></strong>
+                                ha sido recuperado exitosamente y su estado ha sido actualizado, se espera la confirmación por
+                                parte de operaciones.
+                            </p>
+                            <div style="margin:30px 0;text-align:center;">
+                                <a t-att-href="'%s/web#id=%s&amp;model=fleet.vehicle&amp;view_type=form' % (object.get_base_url(), object.vehiculo_id.id)"
+                                   style="background:#00C875;
+                                          color:#ffffff;
+                                          text-decoration:none;
+                                          padding:12px 28px;
+                                          border-radius:8px;
+                                          font-size:14px;
+                                          font-weight:600;
+                                          display:inline-block;">
+                                    Confirmar recepción
+                                </a>
+                            </div>
+
+                            <p style="color:#6B7280;font-size:13px;">
+                                Este es un mensaje generado automáticamente por el sistema.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

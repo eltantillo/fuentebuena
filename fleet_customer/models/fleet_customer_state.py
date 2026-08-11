@@ -34,6 +34,10 @@ class FleetCustomerState(models.Model):
         comodel_name='fleet.customer.sub.etapa',
         string='Sub etapa'
     )
+    ubicacion_ids = fields.Many2many(
+        comodel_name='fleet.customer.ubicacion',
+        string='Ubicaciones'
+    )
     categoria = fields.Many2one(
         comodel_name='fleet.customer.categoria.etapa',
         string='Categoria'

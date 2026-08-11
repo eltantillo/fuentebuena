@@ -34,7 +34,7 @@ class FormularioPrestamoSinBuroController(http.Controller):
                 'correo': post.get('correo'),
                 'telefono': post.get('telefono'),
                 'estado_id': post.get('estado'),
-                'puesto_ocupado_id': int(post.get('puesto_id')),
+                'puesto_ocupado_id': int(post['puesto_id']) if post.get('convenio_id') else False,
                 'es_trabajador_ayuntamiento': post.get('respuesta'),
                 'convenio_id': int(post['convenio_id']) if post.get('convenio_id') else False,
                 'acepto_uso_datos': True if terminos else False,
