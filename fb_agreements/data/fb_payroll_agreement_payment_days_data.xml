@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+    <odoo>
+
+        <record id="fb_agreements.weekly_payment_days" model="fb.payroll.agreement.payment.days">
+            <field name="name">Semanal</field>
+        </record>
+
+        <record id="fb_agreements.catorcenal_1a_payment_days" model="fb.payroll.agreement.payment.days">
+            <field name="name">Catorcenal 1a</field>
+        </record>
+
+        <record id="fb_agreements.catorcenal_2a_payment_days" model="fb.payroll.agreement.payment.days">
+            <field name="name">Catorcenal 2a</field>
+        </record>
+
+        <record id="fb_agreements.quincenal_1a_payment_days" model="fb.payroll.agreement.payment.days">
+            <field name="name">Quincenal 1a</field>
+        </record>
+
+        <record id="fb_agreements.Quincenal_2a_payment_days" model="fb.payroll.agreement.payment.days">
+            <field name="name">Quincenal 2a</field>
+        </record>
+
+        <record id="fb_agreements.monthly_payment_days" model="fb.payroll.agreement.payment.days">
+            <field name="name">Mensual</field>
+        </record>
+
+        <record id="fb_agreements.other_payment_days" model="fb.payroll.agreement.payment.days">
+            <field name="name">¿Existe calendario predeterminado?</field>
+        </record>
+
+    </odoo>
+</data>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_fb_agreement_root" name="Convenios" web_icon="fb_agreements,static/description/icon.png" sequence="10"/>
+
+    <menuitem id="menu_fb_agreement_main" name="Convenios" parent="fb_agreements.menu_fb_agreement_root" sequence="10"/>
+    <menuitem id="menu_fb_agreement_public" name="Convenios públicos" parent="fb_agreements.menu_fb_agreement_main" action="fb_agreements.action_fb_agreement_public" sequence="10"/>
+    <menuitem id="menu_fb_agreement_private" name="Convenios privados" parent="fb_agreements.menu_fb_agreement_main" action="fb_agreements.action_fb_agreement_private" sequence="10"/>
+
+    <menuitem id="menu_fb_agreement_config" name="Configuración" parent="fb_agreements.menu_fb_agreement_root" sequence="90"/>
+    <menuitem id="menu_fb_employee_type" name="Tipos de Empleado" parent="fb_agreements.menu_fb_agreement_config"
+              action="fb_agreements.action_fb_employee_type" sequence="10"/>
+     <menuitem id="menu_fb_agreement_stage" name="Etapas del convenio" parent="fb_agreements.menu_fb_agreement_config"
+              action="fb_agreements.action_fb_agreement_stage" sequence="20"/>
+
+</odoo>

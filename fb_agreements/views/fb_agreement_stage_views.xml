@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fb_agreement_stage_tree" model="ir.ui.view">
+        <field name="name">fb.agreement.stage.list</field>
+        <field name="model">fb.agreement.stage</field>
+        <field name="arch" type="xml">
+            <list string="Etapas de Convenio" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="fold"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_fb_agreement_stage" model="ir.actions.act_window">
+        <field name="name">Etapas de Convenio</field>
+        <field name="res_model">fb.agreement.stage</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

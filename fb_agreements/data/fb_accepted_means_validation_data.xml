@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+    <odoo>
+
+        <record id="fb_agreements.telephone" model="fb.accepted.means.validation">
+            <field name="name">Telefono</field>
+        </record>
+
+        <record id="fb_agreements.database" model="fb.accepted.means.validation">
+            <field name="name">Base de datos</field>
+        </record>
+
+        <record id="fb_agreements.email" model="fb.accepted.means.validation">
+            <field name="name">Correo</field>
+        </record>
+
+        <record id="fb_agreements.proof_income" model="fb.accepted.means.validation">
+            <field name="name">Constancia de ingresos</field>
+        </record>
+
+        <record id="fb_agreements.pay_stub" model="fb.accepted.means.validation">
+            <field name="name">Talon de pago</field>
+        </record>
+
+        <record id="fb_agreements.other" model="fb.accepted.means.validation">
+            <field name="name">Otro</field>
+        </record>
+
+    </odoo>
+</data>

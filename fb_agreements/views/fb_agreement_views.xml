@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista Kanban con agrupación explícita por stage_id -->
+    <record id="view_fb_agreement_kanban" model="ir.ui.view">
+        <field name="name">fb.agreement.kanban</field>
+        <field name="model">fb.agreement</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_kanban_small_column">
+                <field name="stage_id"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click g_kanban_card">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <field name="partner_id"/>
+                                </div>
+                                <div class="text_muted">
+                                    <field name="user_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_fb_agreement_form" model="ir.ui.view">
+        <field name="name">fb.agreement.form</field>
+        <field name="model">fb.agreement</field>
+        <field name="arch" type="xml">
+            <form string="Convenio">
+                <header>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Denominación del Convenio"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información Principal">
+                            <field name="crm_lead_id"/>
+                            <field name="partner_id"/>
+                            <field name="contact_id"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group string="Asignación y Compañía">
+                            <field name="user_id"/>
+                            <field name="company_id"/>
+                            <field name="branch_id"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Reglas Operativas">
+                            <group>
+                                <group string="Revisión">
+                                    <field name="fb_date_scheduled"/>
+                                    <field name="fb_review_mode"/>
+                                    <field name="fb_date_survey"/>
+                                </group>
+                                <group string="Condiciones de los creditos">
+                                    <field name="fb_product_ids" widget="many2many_checkboxes"/>
+                                    <field name="fb_payment_period" widget="radio"/>
+                                    <field name="fb_amount_min_credit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="fb_borrowing_capacity" widget="percentage"/>
+                                    <field name="fb_additional_borrowing_capacity" widget="percentage"/>
+                                    <field name="fb_product_credit_rate"/>
+                                    <field name="fb_special_due_date"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Informacion general">
+                                    <field name="fb_contract_start_date" string="Vigencia del contrato" widget="daterange"
+                                           options="{'end_date_field': 'fb_contract_end_date', 'show_time': False}"
+                                           placeholder="Seleccione el rango de fecha"/>
+                                    <field name="fb_admin_start_date" string="Vigencia del administracion" widget="daterange"
+                                           options="{'end_date_field': 'fb_admin_end_date', 'show_time': False}"
+                                           placeholder="Seleccione el rango de fecha"/>
+                                    <field name="fb_credit_limit_start_date" string="Fecha limite de credito" widget="daterange"
+                                           options="{'end_date_field': 'fb_credit_limit_end_date', 'show_time': False}"
+                                           placeholder="Seleccione el rango de fecha"/>
+                                </group>
+                                <group string="Sindicato">
+                                    <field name="fb_registered_partner_id"/>
+                                    <field name="fb_legal_representative"/>
+                                    <field name="fb_union"/>
+                                    <field name="fb_union_representative"/>
+                                    <field name="fb_contractual_powers"/>
+                                </group>
+
+                                <group string="Estipulacion">
+                                    <field name="fb_requires_stipulation"/>
+                                    <field name="fb_stipulation_send_mode"/>
+                                </group>
+
+                                <group string="Validación">
+                                    <field name="fb_contact_credit_validation_id"/>
+                                    <field name="fb_accepted_means_validation_ids" widget="many2many_checkboxes"/>
+                                    <field name="fb_authorized_signatures_letters_admission_ids">
+                                        <list editable="bottom">
+                                            <field name="partner_id"/>
+                                            <field name="position"/>
+                                        </list>
+                                    </field>
+                                    <field name="fb_validation_observations"/>
+                                </group>
+
+                                <group string="Lista descuento">
+                                    <field name="fb_discount_list_contact_id"/>
+                                    <field name="fb_payroll_closing_days_ids" widget="many2many_checkboxes"/>
+                                    <field name="fb_default_calendar"/>
+                                    <field name="fb_list_days_available_withholding"/>
+                                    <field name="fb_discount_list_submission_format"/>
+                                    <field name="fb_withholding_information_form"/>
+                                </group>
+
+                                <group string="Pagos">
+                                    <field name="payment_contact_id"/>
+                                    <field name="fb_payroll_agreement_payment_days_ids" widget="many2many_checkboxes"/>
+                                    <field name="available_days_payment_date"/>
+                                    <field name="agency_payment_bank_account_ids">
+                                        <list editable="bottom">
+                                            <field name="bank"/>
+                                            <field name="bank_account"/>
+                                            <field name="key_account"/>
+                                            <field name="bank_reference"/>
+                                            <field name="method_payment_id"/>
+                                            <field name="observations_contract"/>
+                                        </list>
+                                    </field>
+                                    <field name="fb_payment_observations_contract"/>
+
+                                </group>
+
+                            </group>
+                            <group string="Contacto principal">
+                                <field name="fb_agreement_partner_ids">
+                                    <list editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="fb_phone"/>
+                                        <field name="fb_email"/>
+                                        <field name="fb_availability_care"/>
+                                    </list>
+                                </field>
+                            </group>
+                            <group string="Firmas">
+                                <field name="fb_signature_acknowledged_dependency_ids">
+                                    <list editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="fb_phone"/>
+                                        <field name="fb_position"/>
+                                        <field name="fb_firm"/>
+                                        <field name="fb_date"/>
+                                    </list>
+                                </field>
+                                <field name="fb_firms_aprecia_financiera_ids">
+                                    <list editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="fb_phone"/>
+                                        <field name="fb_position"/>
+                                        <field name="fb_firm"/>
+                                        <field name="fb_date"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Ficha Técnica">
+                            <group string="Identificacion">
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="contact_id"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                            </group>
+                            <group string="Características Empresa">
+                                <field name="fb_business_type"/>
+                                <field name="fb_main_activity"/>
+                                <field name="fb_labor_indicators"/>
+                            </group>
+                            <group string="Indicadores laborales">
+                                <field name="fb_employee_count"/>
+                                <field name="fb_payment_period"/>
+                                <field name="fb_competition"/>
+                            </group>
+                            <group string="Caracteristicas de la propuesta y Condiciones del Crédito">
+                                <field name="fb_interest_rate"/>
+                                <field name="fb_commission_rate"/>
+                                <field name="fb_insurance_rate"/>
+                                <field name="fb_payment_method"/>
+                                <field name="fb_amount_line_ids">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="fb_employee_type_id"/>
+                                        <field name="fb_qty_employee" sum="Suma de Cantidad de empleados"/>
+                                        <field name="fb_min_amount"/>
+                                        <field name="fb_max_amount"/>
+                                        <field name="currency_id"/>
+                                    </list>
+                                </field>
+                                <field name="fb_additional_benefits"/>
+                                <field name="fb_added_value"/>
+                                <field name="fb_contract_scope"/>
+                                <field name="fb_payment_method"/>
+                                <field name="fb_expected_result"/>
+                                <field name="responsible_cell_id"/>
+                                <field name="fb_agreement_user_technical_specifications_ids">
+                                    <list editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="fb_email"/>
+                                        <field name="fb_position"/>
+                                    </list>
+                                </field>
+                            </group>
+
+                        </page>
+                        <page string="Configuración de Créditos">
+                            <group string="Filtros">
+                                <field name="fb_filter_line_ids">
+                                    <list editable="bottom">
+                                        <field name="fb_route_convenio"/>
+                                        <field name="fb_group_dependency"/>
+                                        <field name="fb_region_area"/>
+                                        <field name="fb_activity_type"/>
+                                        <field name="fb_population_municipality"/>
+                                    </list>
+                                </field>
+                            </group>
+                            <group string="Percepciones y Deducciones">
+                                <field name="fb_deduction_line_ids">
+                                    <list editable="bottom">
+                                        <field name="fb_line_type"/>
+                                        <field name="fb_code"/>
+                                        <field name="fb_concept"/>
+                                        <field name="fb_notes"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de Búsqueda (Search View) necesaria para el filtro por defecto -->
+    <record id="view_fb_agreement_search" model="ir.ui.view">
+        <field name="name">fb.agreement.search</field>
+        <field name="model">fb.agreement</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Convenios">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="stage_id"/>
+                <filter string="Etapa" name="group_by_stage" context="{'group_by': 'stage_id'}"/>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fb_agreement_public" model="ir.actions.act_window">
+        <field name="name">Convenios Públicos</field>
+        <field name="res_model">fb.agreement</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('type_agreement', '=', 'public')]</field>
+        <field name="context">{'default_type_agreement': 'public', 'search_default_group_by_stage': 1}</field>
+    </record>
+
+    <record id="action_fb_agreement_private" model="ir.actions.act_window">
+        <field name="name">Convenios Privados</field>
+        <field name="res_model">fb.agreement</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('type_agreement', '=', 'private')]</field>
+        <field name="context">{'default_type_agreement': 'private', 'search_default_group_by_stage': 1}</field>
+    </record>
+
+</odoo>

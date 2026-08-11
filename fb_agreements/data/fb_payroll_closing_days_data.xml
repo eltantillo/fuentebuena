@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+    <odoo>
+
+        <record id="fb_agreements.weekly" model="fb.payroll.closing.days">
+            <field name="name">Semanal</field>
+        </record>
+
+        <record id="fb_agreements.catorcenal_1a" model="fb.payroll.closing.days">
+            <field name="name">Catorcenal 1a</field>
+        </record>
+
+        <record id="fb_agreements.catorcenal_2a" model="fb.payroll.closing.days">
+            <field name="name">Catorcenal 2a</field>
+        </record>
+
+        <record id="fb_agreements.quincenal_1a" model="fb.payroll.closing.days">
+            <field name="name">Quincenal 1a</field>
+        </record>
+
+        <record id="fb_agreements.Quincenal_2a" model="fb.payroll.closing.days">
+            <field name="name">Quincenal 2a</field>
+        </record>
+
+        <record id="fb_agreements.monthly" model="fb.payroll.closing.days">
+            <field name="name">Mensual</field>
+        </record>
+
+    </odoo>
+</data>

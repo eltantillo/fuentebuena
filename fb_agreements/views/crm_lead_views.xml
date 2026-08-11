@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="crm_lead_view_form_inherit_agreements" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='opportunity_partner']/field[@name='partner_id']" position="before">
+                <field name="fb_aprecia" invisible="1"/>
+                <field name="team_id" invisible="fb_aprecia"/>
+                <field name="team_id" string="Sector" invisible="not fb_aprecia"/>
+                <field name="fb_institution_type_id"/>
+                <field name="fb_agreement_status" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//group[@name='Misc']/field[@name='team_id']" position="replace"/>
+
+            <xpath expr="//notebook" position="inside">
+                <!-- Pestaña Indicadores -->
+                <page string="Indicadores" name="page_indicators">
+                    <group>
+                        <group string="BASE DE TRABAJADORES">
+                            <field name="fb_workers_trust"/>
+                            <field name="fb_workers_base"/>
+                            <field name="fb_workers_eventual"/>
+                            <field name="fb_workers_fees"/>
+                            <field name="fb_workers_total" class="oe_subtotal_footer_separator"/>
+                        </group>
+                        <group string="FORTALEZA FINANCIERA">
+                            <field name="fb_population_count"/>
+                            <!-- Visibilidad condicional: Solo si tipo de institución es Municipio -->
+                            <field name="fb_own_income"/>
+                            <field name="fb_branch_28_contributions"/>
+                            <field name="fb_branch_33_contributions"/>
+                            <field name="company_currency"/>
+                        </group>
+                    </group>
+                </page>
+
+                <!-- Pestaña Convenios -->
+                <page string="Convenios" name="page_agreements">
+                    <field name="fb_agreement_ids">
+                        <list editable="bottom">
+                            <field name="name" string="Descripción"/>
+                            <field name="partner_id" string="Contacto"/>
+                            <field name="user_id" string="Responsable"/>
+                            <field name="company_id" string="Empresa"/>
+                            <field name="fb_contract_start_date" string="Fecha inicio de vigencia"/>
+                            <field name="fb_contract_end_date" string="Vigencia del contrato"/>
+                            <field name="stage_id" string="Etapa / Estado"/>
+                        </list>
+                    </field>
+                </page>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

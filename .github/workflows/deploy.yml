@@ -1,0 +1,245 @@
+name: Deploy Odoo — Diphda
+
+on:
+  push:
+    branches:
+      - main
+      - stage
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+
+  # Job A — Crea el Issue de aprobacion
+  solicitar-aprobacion:
+    name: Solicitar aprobacion
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main' # <-- aprobacion
+    permissions:
+      issues: write
+      contents: read
+    outputs:
+      issue-number: ${{ steps.crear-issue.outputs.issue-number }}
+    steps:
+      - name: Crear Issue
+        id: crear-issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ambiente = context.ref.includes('main') ? 'Produccion' : 'Staging';
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Deploy a ${ambiente} pendiente de aprobacion (${context.sha.substring(0,8)})`,
+              body: `**Rama:** \`${context.ref}\`
+            **Commit:** \`${context.sha}\`
+            **Solicitado por:** @${context.actor}
+            **Pipeline:** [Ver en Actions](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
+
+            Aprobadores autorizados: @galacticap y @antoniorojo
+
+            Para aprobar comenta: \`approved\`
+            Para rechazar comenta: \`rejected\`
+
+            > Se cancelara automaticamente en 24 horas sin respuesta.`,
+              labels: ['deploy', 'pending-approval']
+            });
+            core.setOutput('issue-number', issue.data.number);
+
+  # Job B — Espera hasta 24h a que un aprobador comente en el Issue
+  esperar-aprobacion:
+    name: Esperando aprobacion
+    runs-on: ubuntu-latest
+    needs: solicitar-aprobacion
+    if: github.ref_name == 'main' # <-- aprobacion
+    permissions:
+      issues: write
+      contents: read
+    outputs:
+      aprobado: ${{ steps.verificar.outputs.aprobado }}
+    steps:
+      - name: Verificar comentarios
+        id: verificar
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = ${{ needs.solicitar-aprobacion.outputs.issue-number }};
+            const approvers = ['galacticap', 'antoniorojo'];
+            const maxWait = 86400;
+            const interval = 30;
+            let elapsed = 0;
+
+            while (elapsed < maxWait) {
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+              });
+
+              for (const comment of comments.data) {
+                const autor = comment.user.login.toLowerCase();
+                const texto = comment.body.trim().toLowerCase();
+                if (!approvers.map(a => a.toLowerCase()).includes(autor)) continue;
+
+                if (texto === 'approved') {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner, repo: context.repo.repo,
+                    issue_number: issueNumber,
+                    body: `Aprobado por @${autor}. Iniciando deploy...`
+                  });
+                  await github.rest.issues.update({
+                    owner: context.repo.owner, repo: context.repo.repo,
+                    issue_number: issueNumber, state: 'closed'
+                  });
+                  core.setOutput('aprobado', 'true');
+                  return;
+                }
+
+                if (texto === 'rejected') {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner, repo: context.repo.repo,
+                    issue_number: issueNumber,
+                    body: `Rechazado por @${autor}. Pipeline cancelado.`
+                  });
+                  await github.rest.issues.update({
+                    owner: context.repo.owner, repo: context.repo.repo,
+                    issue_number: issueNumber, state: 'closed'
+                  });
+                  core.setOutput('aprobado', 'false');
+                  core.setFailed(`Deploy rechazado por @${autor}`);
+                  return;
+                }
+              }
+
+              if (elapsed % 300 === 0 && elapsed > 0) {
+                const h = Math.floor(elapsed / 3600);
+                const m = Math.floor((elapsed % 3600) / 60);
+                console.log(`Esperando aprobacion... ${h}h ${m}m transcurridos`);
+              }
+
+              await new Promise(r => setTimeout(r, interval * 1000));
+              elapsed += interval;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: `Deploy cancelado — sin respuesta en 24 horas.`
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: issueNumber, state: 'closed'
+            });
+            core.setFailed('Tiempo de aprobacion agotado (24 horas)');
+
+  # Job C — Deploy (corre solo si el Job B termino con exito)
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [solicitar-aprobacion, esperar-aprobacion]
+    if: |
+      always() && (
+        (github.ref_name == 'stage' && needs.solicitar-aprobacion.result == 'skipped') ||
+        (github.ref_name == 'main' && needs.esperar-aprobacion.result == 'success')
+      )
+    env:
+      SERVER_IP:    ${{ github.ref_name == 'main' && secrets.GCP_PROD_IP       || secrets.GCP_STAGING_IP }}
+      SERVER_USER:  ${{ github.ref_name == 'main' && secrets.GCP_PROD_USER     || secrets.GCP_STAGING_USER }}
+      SERVER_KEY:   ${{ github.ref_name == 'main' && secrets.GCP_PROD_SSH_KEY  || secrets.GCP_STAGING_SSH_KEY }}
+      DB_NAME:      ${{ github.ref_name == 'main' && secrets.ODOO_DB_NAME_PROD || secrets.ODOO_DB_NAME_STAGING }}
+      ODOO_PATH:    /odoo/custom/Diphda
+      ODOO_SERVICE: odoo-server
+      ODOO_BIN:     /odoo/odoo-server/odoo-bin
+      ODOO_CONF:    /etc/odoo-server.conf
+
+    steps:
+      - name: Checkout codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ env.SERVER_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Git pull
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'ENDSSH'
+            set -e
+            echo "Ambiente: ${{ github.ref_name == 'main' && 'PRODUCCION' || 'STAGING' }}"
+            echo "Commit:   ${{ github.sha }}"
+            echo "Por:      ${{ github.actor }}"
+            cd ${{ env.ODOO_PATH }}
+            PREV=$(git rev-parse HEAD)
+            git pull --ff-only origin ${{ github.ref_name }}
+            NEW=$(git rev-parse HEAD)
+            echo "Actualizado: ${PREV:0:8} -> ${NEW:0:8}"
+            git diff --name-only $PREV $NEW || true
+          ENDSSH
+
+      - name: Reiniciar Odoo
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} \
+            "sudo service ${{ env.ODOO_SERVICE }} restart"
+
+      - name: Esperar que Odoo levante
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'ENDSSH'
+            for i in $(seq 1 12); do
+              sleep 5
+              STATUS=$(sudo service odoo-server status | grep -c "active (running)" || true)
+              if [ "$STATUS" -ge 1 ]; then
+                echo "Odoo activo despues de $((i * 5)) segundos"
+                exit 0
+              fi
+              echo "Intento $i/12..."
+            done
+            echo "ERROR: Odoo no levanto en 60 segundos"
+            sudo service odoo-server status
+            exit 1
+          ENDSSH
+
+      - name: Actualizar modulos Odoo
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'ENDSSH'
+            set -e
+            cd ${{ env.ODOO_PATH }}
+            MODS=$(git diff --name-only HEAD~1 HEAD \
+              | grep -E '^[^/]+/' \
+              | cut -d'/' -f1 \
+              | grep -v '^\.' \
+              | sort -u \
+              | tr '\n' ',' \
+              | sed 's/,$//')
+            if [ -z "$MODS" ]; then
+              echo "Sin modulos con cambios"
+            else
+              echo "Modulos a actualizar: $MODS"
+              sudo -u odoo python3 ${{ env.ODOO_BIN }} \
+                -c ${{ env.ODOO_CONF }} \
+                -d ${{ env.DB_NAME }} \
+                --update=$MODS \
+                --stop-after-init \
+                --no-http
+              echo "Modulos actualizados correctamente"
+            fi
+          ENDSSH
+
+      - name: Health check
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} \
+            "sudo service ${{ env.ODOO_SERVICE }} status | grep -q 'active (running)'"
+          echo "Deploy completado en ${{ github.ref_name == 'main' && 'PRODUCCION' || 'STAGING' }}"
