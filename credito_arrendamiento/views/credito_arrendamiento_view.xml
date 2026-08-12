@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="credito_arrendamiento_view_list" model="ir.ui.view">
+            <field name="name">credito.arrendamiento.list</field>
+            <field name="model">credito.arrendamiento</field>
+            <field name="arch" type="xml">
+                <list string="Créditos de arrendamiento">
+                    <field name="external_ref"/>
+                    <field name="partner_id"/>
+                    <field name="frecuencia"/>
+                    <field name="estado"/>
+                    <field name="saldo_exigible"/>
+                    <field name="dias_mora"/>
+                    <field name="currency_id" column_invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="credito_arrendamiento_view_form" model="ir.ui.view">
+            <field name="name">credito.arrendamiento.form</field>
+            <field name="model">credito.arrendamiento</field>
+            <field name="arch" type="xml">
+                <form string="Crédito de arrendamiento">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="external_ref"/>
+                            <h1>
+                                <field name="external_ref" placeholder="ID del crédito"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Cliente">
+                                <field name="partner_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group string="Características">
+                                <field name="fecha_disposicion"/>
+                                <field name="frecuencia"/>
+                                <field name="tasa_interes_anual_sin_iva"/>
+                                <field name="tasa_interes_anual_con_iva"/>
+                                <field name="cat"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Estado actual">
+                                <field name="estado"/>
+                                <field name="saldo_principal_no_exigible"/>
+                                <field name="saldo_exigible"/>
+                                <field name="dias_mora"/>
+                                <field name="pagos_anticipados_acumulados"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="tabla_amortizacion" string="Tabla de amortización">
+                                <field name="linea_ids">
+                                    <list editable="bottom">
+                                        <field name="periodo"/>
+                                        <field name="fecha_vencimiento"/>
+                                        <field name="estado"
+                                               decoration-success="estado == 'pagada'"
+                                               decoration-danger="estado == 'vencida'"
+                                               decoration-warning="estado in ('pendiente', 'parcial')"/>
+                                        <field name="pago_recurrente" widget="boolean_toggle"/>
+                                        <field name="pago_periodico"/>
+                                        <field name="monto_comision_reactivacion"/>
+                                        <field name="monto_pagos_aplicados"/>
+                                        <field name="monto_pendiente"/>
+                                        <field name="external_ref" column_invisible="1"/>
+                                        <field name="currency_id" column_invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page name="plan_pago" string="Plan de pago" invisible="plan_pago_count == 0">
+                                <field name="plan_pago_ids">
+                                    <list>
+                                        <field name="external_ref"/>
+                                        <field name="estatus"/>
+                                        <field name="fecha_inicio"/>
+                                        <field name="fecha_fin"/>
+                                        <field name="saldo_total"/>
+                                        <field name="saldo_pagado"/>
+                                        <field name="saldo_restante"/>
+                                        <field name="avance" widget="percentage"/>
+                                        <field name="saldo_vencido"/>
+                                        <field name="ahorro_total"/>
+                                        <field name="monto_liquidar"/>
+                                        <field name="currency_id" column_invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="credito_arrendamiento_action" model="ir.actions.act_window">
+            <field name="name">Créditos de arrendamiento</field>
+            <field name="res_model">credito.arrendamiento</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>

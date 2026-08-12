@@ -211,6 +211,7 @@ class FleetCustomerInheritFleet(models.Model):
         string='State',
         default=lambda self: self.env['fleet.vehicle.state'].search([('name', '=', 'En registro')], limit=1).id,
     )
+
     ubicacion_id = fields.Many2one(
         comodel_name= 'fleet.customer.ubicacion',
         string='Ubicacion',

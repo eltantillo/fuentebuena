@@ -27,6 +27,7 @@
         'views/gc_invoice_posesion.xml',
         'views/gc_razon_cancel_view.xml',
         'views/gestion_caido_gestor_view.xml',
+        'views/gestion_caido_notificacion_view.xml',
         'views/gestion_caido_menu.xml'
     ],
     'assets': {

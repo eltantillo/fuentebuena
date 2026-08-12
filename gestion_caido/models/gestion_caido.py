@@ -324,7 +324,7 @@ class GestionCaido(models.Model):
             ultimo_ev.fecha_finalizacion = fields.Datetime.now()
 
 
-    def send_mail(self, res_id, name_template, email="jlimonmunguia@gmail.com"):
+    def send_mail(self, res_id, name_template, email):
         odoo_bot = self.env['res.users'].sudo().browse(1)
         template = self.env.ref(name_template)
         template.with_user(odoo_bot).send_mail(
@@ -335,6 +335,12 @@ class GestionCaido(models.Model):
             }
         )
         _logger.info("Correo encolado / enviado exitosamente.")
+
+    def send_mail_users(self, plaza_id,name_template, gestion):
+        regis = self.env['gestion.caido.notificacion'].search([('plaza_id','in', [plaza_id.id])])
+        emails = [u.correo for u in regis]
+        self.send_mail(gestion.id,name_template, emails)
+
 
     def obtener_ultima_ubi(self):
         ultima_ubicacon = self.vehiculo_id.ubicacion
@@ -419,7 +425,7 @@ class GestionCaido(models.Model):
                     'fecha_inicio': fields.Datetime.now(),
                     'evento': "Inicia proceso gestión"
                 })
-                self.send_mail(gestion.id, gestion.gestor_id.work_email, 'gestion_caido.gc_notificacion_mail_template')
+                self.send_mail_users(gestion.plaza_id,'gestion_caido.gc_notificacion_mail_template',gestion)
             else:
                 raise ValidationError("El token del gestor no es valido")
         return records

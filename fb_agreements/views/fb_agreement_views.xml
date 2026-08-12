@@ -224,6 +224,30 @@
                             </group>
 
                         </page>
+                        <page string="Preconvenio">
+                            <group>
+                                <group string="Participantes">
+                                    <field name="fb_applicant_id"/>
+                                    <field name="fb_comptroller_validator_id"/>
+                                    <field name="fb_executive_directorate_authorizer_id"/>
+                                    <field name="fb_legal_approver_id"/>
+                                    <field name="fb_commercial_directorate_approver_id"/>
+                                    <field name="fb_participant_observer_id"/>
+                                </group>
+                                <group string="Variables">
+                                    <field name="fb_format_type"/>
+                                    <field name="fb_counterpart_id"/>
+                                    <field name="fb_counterparty_name"/>
+                                    <field name="fb_personality"/>
+                                    <field name="fb_personality_document"/>
+                                    <field name="fb_personality_ine"/>
+                                    <field name="fb_omission_accreditation"/>
+                                    <field name="fb_justification"/>
+                                    <field name="fb_documentation_technical_data_sheet"/>
+                                    <field name="observations"/>
+                                </group>
+                            </group>
+                        </page>
                         <page string="Configuración de Créditos">
                             <group string="Filtros">
                                 <field name="fb_filter_line_ids">

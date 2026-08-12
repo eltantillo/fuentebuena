@@ -34,5 +34,11 @@
                   parent="gestion_caido_config"
                   action="gestion_caido_gestor_action"
                   sequence="30"/>
+
+        <menuitem id="gc_config_notificacion"
+                  name="Notificación"
+                  parent="gestion_caido_config"
+                  action="gestion_caido_notificacion_action"
+                  sequence="40"/>
     </data>
 </odoo>

@@ -81,7 +81,7 @@ class GestionCaidoInheritFleet(models.Model):
                         'Se requiere subir la evidencia de Gestión'
                     )
             if 'state_id' in vals and vals['state_id']  == etapa_disponible:
-                gestion_ultima = self.env['gestion.caido'].search([('vehiculo_id', '=', record.id)], limit=1, order='id desc')
+                gestion_ultima = self.env['gestion.caido'].sudo().search([('vehiculo_id', '=', record.id)], limit=1, order='id desc')
                 if gestion_ultima:
                     ultimo_evento = gestion_ultima.track_ids[-1]
                     if ultimo_evento.evento == 'Mantenimiento Finalizado':

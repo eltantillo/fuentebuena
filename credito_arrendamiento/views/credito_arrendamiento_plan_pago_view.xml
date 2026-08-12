@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="credito_arrendamiento_plan_pago_view_form" model="ir.ui.view">
+            <field name="name">credito.arrendamiento.plan.pago.form</field>
+            <field name="model">credito.arrendamiento.plan.pago</field>
+            <field name="arch" type="xml">
+                <form string="Ficha de plan de pago">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="external_ref"/>
+                            <h1>
+                                <field name="external_ref" placeholder="ID del plan de pago"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Crédito">
+                                <field name="credito_id"/>
+                                <field name="partner_id"/>
+                                <field name="estatus"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group string="Calendario del plan">
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_fin"/>
+                                <field name="numero_periodos"/>
+                                <field name="intereses_posteriores_plan"/>
+                            </group>
+                        </group>
+                        <group string="Estatus del préstamo">
+                            <group>
+                                <field name="saldo_vencido_sin_gastos_cobranza"/>
+                                <field name="saldo_gastos_cobranza"/>
+                                <field name="saldo_no_devengado"/>
+                                <field name="saldo_restante"/>
+                            </group>
+                            <group>
+                                <field name="condonaciones"/>
+                                <field name="descuento"/>
+                                <field name="ajuste_redondeo"/>
+                                <field name="total_pagar"/>
+                            </group>
+                        </group>
+                        <group string="Resumen">
+                            <group>
+                                <field name="saldo_total"/>
+                                <field name="saldo_pagado"/>
+                                <field name="avance" widget="percentage"/>
+                            </group>
+                            <group>
+                                <field name="saldo_vencido"/>
+                                <field name="ahorro_total"/>
+                                <field name="monto_liquidar"/>
+                                <field name="pago_periodico_monto"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="periodos" string="Promesas y gastos de cobranza">
+                                <field name="linea_ids">
+                                    <list editable="bottom">
+                                        <field name="periodo"/>
+                                        <field name="fecha_vencimiento"/>
+                                        <field name="estado"
+                                               decoration-success="estado == 'pagada'"
+                                               decoration-danger="estado == 'vencida'"
+                                               decoration-warning="estado in ('pendiente', 'parcial')"/>
+                                        <field name="monto_prometido"/>
+                                        <field name="monto_pagado_promesa" string="Pagado (promesa)"/>
+                                        <field name="monto_pendiente_promesa" string="Pendiente (promesa)"/>
+                                        <field name="monto_generado_cobranza" string="Generado (cobranza)"/>
+                                        <field name="monto_pagado_cobranza" string="Pagado (cobranza)"/>
+                                        <field name="monto_pendiente_cobranza" string="Pendiente (cobranza)"/>
+                                        <field name="currency_id" column_invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="credito_arrendamiento_plan_pago_view_list" model="ir.ui.view">
+            <field name="name">credito.arrendamiento.plan.pago.list</field>
+            <field name="model">credito.arrendamiento.plan.pago</field>
+            <field name="arch" type="xml">
+                <list string="Planes de pago">
+                    <field name="external_ref"/>
+                    <field name="partner_id"/>
+                    <field name="credito_id"/>
+                    <field name="estatus"/>
+                    <field name="saldo_total"/>
+                    <field name="saldo_restante"/>
+                    <field name="avance" widget="percentage"/>
+                    <field name="currency_id" column_invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="credito_arrendamiento_plan_pago_action" model="ir.actions.act_window">
+            <field name="name">Planes de pago</field>
+            <field name="res_model">credito.arrendamiento.plan.pago</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>

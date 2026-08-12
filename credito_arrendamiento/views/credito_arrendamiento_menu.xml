@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_credito_arrendamiento_root"
+                  name="Créditos y Arrendamiento"
+                  sequence="60"
+                  groups="base.group_user"/>
+
+        <menuitem id="menu_credito_arrendamiento"
+                  name="Créditos"
+                  parent="menu_credito_arrendamiento_root"
+                  action="credito_arrendamiento_action"
+                  sequence="10"/>
+
+        <menuitem id="menu_credito_arrendamiento_plan_pago"
+                  name="Planes de pago"
+                  parent="menu_credito_arrendamiento_root"
+                  action="credito_arrendamiento_plan_pago_action"
+                  sequence="20"/>
+
+    </data>
+</odoo>

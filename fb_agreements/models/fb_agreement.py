@@ -155,6 +155,35 @@ class FbAgreement(models.Model):
                                                                    string='Firmas',
                                                                    help='Firmas de ficha tenica')
 
+    # Preconvenio
+    # Participantes
+    fb_applicant_id = fields.Many2one('res.users', string='Solicitante', help='Solicitante')
+    fb_comptroller_validator_id = fields.Many2one('res.users', string='Validador Contraloría', help='Validador Contraloría')
+    fb_executive_directorate_authorizer_id = fields.Many2one('res.users', string='Autorizador Dirección Ejecutiva Aprecia', help='Autorizador Dirección Ejecutiva Aprecia')
+    fb_legal_approver_id = fields.Many2one('res.users', string='Autorizador Jurídico', help='Autorizador Jurídico Cobranza')
+    fb_commercial_directorate_approver_id = fields.Many2one('res.users', string='Autorizador Dirección Comercial', help='Autorizador Dirección Comercial')
+    fb_participant_observer_id = fields.Many2one('res.users', string='Participant / Observer', help='Participant / Observer')
+
+    # Variables
+    fb_format_type = fields.Selection([('layout_aprecia', 'Layout Aprecia'),
+                                    ('layout_department', 'Layout dependencia')], string='Tipo de Formato', help='Tipo de Formato')
+    fb_counterpart_id = fields.Many2one('res.partner', string='Contraparte', help='Contraparte')
+    fb_counterparty_name = fields.Char(string='Denominación de la Contraparte', help='Denominación de la Contraparte')
+    fb_personality = fields.Char(string='Personalidad (Acreditación 1)', help='Personalidad (Acreditación 1)')
+    fb_personality_document = fields.Binary(string='Documento que Acredita Facultades (Acreditación 1)', help='Documento que Acredita Facultades (Acreditación 1)')
+    fb_personality_ine = fields.Binary(string='Identificación (Acreditación 1)', help='Identificación (Acreditación 1)')
+    fb_omission_accreditation = fields.Selection([
+        ('yes', 'Si'),
+        ('not', 'No')], string='¿Existe Omisión en la Acreditación o Documentación?',
+        help='¿Existe Omisión en la Acreditación o Documentación?')
+    fb_justification = fields.Char(string='Justificación', help='Justificación (en caso afirmativo)')
+    fb_documentation_technical_data_sheet = fields.Selection([
+        ('yes', 'Si'),
+        ('not', 'No')], string='¿Se adjuntó documentación en la ficha técnica?',
+        help='¿Se adjuntó documentación en la ficha técnica?')
+    observations = fields.Text(string='Observaciones', help='Observaciones y/o Comentarios Generales para la Elaboración del Proyecto')
+
+
     @api.model
     def _read_group_stage_ids(self, stages, domain):
         return self.env['fb.agreement.stage'].search([])
