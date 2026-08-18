@@ -6,7 +6,7 @@
             <field name="res_model">fleet.vehicle</field>
             <field name="view_mode">list,form</field>
             <field name="domain">[('producto_id.prefijo','=', "P"),'|','|','|','|', ('state_id.es_estapa_disponible', '=', True ),('state_id.es_etapa_reacondicionamiento', '=', True),
-                ('state_id.es_estapa_alta', '=', True),('state_id.es_etapa_recibido', '=', True),('state_id.es_etapa_adaptacion', '=', True)]</field>
+                ('sub_etapa_id', 'in', [6,8]),('state_id.es_etapa_recibido', '=', True),('state_id.es_etapa_adaptacion', '=', True)]</field>
         </record>
 
 

@@ -5,10 +5,11 @@ class GestionCaidoNotificacion(models.Model):
 
     _name = 'gestion.caido.notificacion'
 
-    plaza_ids = fields.Many2many(
+    plaza_id = fields.Many2one(
         comodel_name='fleet.customer.plaza',
         string='Plaza',
     )
-    correo = fields.Char(
-        string='Correo'
+    empleado_ids = fields.Many2many(
+        comodel_name='hr.employee',
+        string='Empleados',
     )

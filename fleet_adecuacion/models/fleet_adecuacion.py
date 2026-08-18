@@ -149,6 +149,26 @@ class fleet_adecuacion(models.Model):
     validacion_gnv = fields.Boolean(
         string="Validación GNV"
     )
+    existe_expediente_arch = fields.Boolean(
+        string="Existe expediente adecuacion",
+        compute="_compute_existe_expediente_arch",
+        store=True
+    )
+
+    @api.depends('expediente_arch')
+    def _compute_existe_expediente_arch(self):
+        if not self.ids:
+            for record in self:
+                record.existe_expediente_arch = False
+            return
+        self.env.cr.execute("""
+            SELECT res_id 
+            FROM ir_attachment 
+            WHERE res_model = %s AND res_field = 'expediente_arch' AND res_id IN %s
+        """, (self._name, tuple(self.ids)))
+        ids_con_archivo = {row[0] for row in self.env.cr.fetchall()}
+        for record in self:
+            record.existe_expediente_arch = record.id in ids_con_archivo
 
     @api.constrains('importe', 'iva', 'total')
     def _constrains_mayor_cero(self):

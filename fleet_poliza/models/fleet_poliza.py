@@ -116,7 +116,26 @@ class FleetPoliza(models.Model):
         attachment=True,
     )
     active = fields.Boolean('Active', default=True, tracking=True)
+    existe_attach_poliza = fields.Boolean(
+        string='Existe documento póliza',
+        compute='_compute_existe_attach_poliza',
+        store=True,
+    )
 
+    @api.depends('attach_poliza')
+    def _compute_existe_attach_poliza(self):
+        if not self.ids:
+            for record in self:
+                record.existe_attach_poliza = False
+            return
+        self.env.cr.execute("""
+            SELECT res_id 
+            FROM ir_attachment 
+            WHERE res_model = %s AND res_field = 'attach_poliza' AND res_id IN %s
+        """, (self._name, tuple(self.ids)))
+        ids_con_archivo = {row[0] for row in self.env.cr.fetchall()}
+        for record in self:
+            record.existe_attach_poliza = record.id in ids_con_archivo
 
     @api.constrains('prima_neta','gasto_expedicion','iva', 'importe_total')
     def _constarint_montos(self):

@@ -6,9 +6,11 @@
     'depends': [
         'fleet_customer',
         'base',
-        'web'
+        'web',
+        'hr'
     ],
     'data': [
+        'data/tramite_vencimiento_cron.xml',
         'security/ir.model.access.csv',
         'views/fleet_tramite_motivo_pago_view.xml',
         'views/fleet_tramite_tipo_view.xml',

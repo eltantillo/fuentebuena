@@ -7,9 +7,9 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
-                            <field name="plaza_ids"/>
-                            <field name="correo"/>
+                        <group string="Configuración de notificación">
+                            <field name="plaza_id" required="1"/>
+                            <field name="empleado_ids" required="1" widget="many2many_tags"/>
                         </group>
                     </sheet>
                 </form>
@@ -22,8 +22,8 @@
             <field name="arch" type="xml">
                 <list>
                     <field name="id"/>
-                    <field name="plaza_ids"/>
-                    <field name="correo"/>
+                    <field name="plaza_id"/>
+                    <field name="empleado_ids" widget="many2many_tags"/>
                 </list>
             </field>
         </record>

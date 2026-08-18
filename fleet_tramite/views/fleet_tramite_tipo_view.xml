@@ -10,7 +10,14 @@
                         <group>
                             <field name="active" invisible="1"/>
                             <field name="name"/>
+                            <field name="notificar_renovacion"/>
+                            <field name="dias_notificacion"/>
                         </group>
+                        <notebook>
+                            <page string="Usuarios a notificar">
+                                <field name="usuarios_notificar_ids"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -23,6 +30,8 @@
                 <list>
                     <field name="id"/>
                     <field name="name"/>
+                    <field name="notificar_renovacion"/>
+                    <field name="dias_notificacion"/>
                 </list>
             </field>
         </record>

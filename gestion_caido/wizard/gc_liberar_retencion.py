@@ -27,7 +27,6 @@ class GCLiberarRetencion(models.TransientModel):
                 record.mostrar_cancelacion = True
                 record.motivo_cancelacion_id = False
 
-
     def confirmar(self):
         gestion = self.env['gestion.caido'].browse(self.env.context.get('default_gestion_id'))
         etapa_recuperado = self.env['gestion.caido.estado'].search([('name','=', 'Recuperado')], limit=1)
@@ -54,6 +53,5 @@ class GCLiberarRetencion(models.TransientModel):
             })
             gestion.registrar_evento("Vehículo recuperado por el gestor")
             gestion.registrar_evento("Envió de notificación a Operaciones")
-
-            self.env['gestion.caido'].send_mail(gestion.id, gestion.gestor_id.work_email, 'gestion_caido.gc_notificacion_rec_mail_template')
+            gestion.send_mail_users(gestion.plaza_id,'gestion_caido.gc_notificacion_rec_mail_template',gestion)
             gestion.registrar_evento("Esperando confirmación automática o manual")

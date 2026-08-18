@@ -3,6 +3,7 @@ from odoo.exceptions import ValidationError
 
 import logging
 
+
 _logger = logging.getLogger(__name__)
 
 
@@ -109,6 +110,7 @@ class FleetTramite(models.Model):
     "Adjuntos"
     expediente = fields.Binary(
         string='Expediente',
+        attachment=True,
     )
     expediente_factura = fields.Binary(
         string='Factura',
@@ -123,6 +125,26 @@ class FleetTramite(models.Model):
     validacion_emplacamiento = fields.Boolean(
         string="Validación emplacamiento"
     )
+    existe_expediente = fields.Boolean(
+        string="Existe expediente tramite",
+        compute="_compute_existe_expediente",
+        store=True
+    )
+
+    @api.depends('expediente')
+    def _compute_existe_expediente(self):
+        if not self.ids:
+            for record in self:
+                record.existe_expediente = False
+            return
+        self.env.cr.execute("""
+            SELECT res_id 
+            FROM ir_attachment 
+            WHERE res_model = %s AND res_field = 'expediente' AND res_id IN %s
+        """, (self._name, tuple(self.ids)))
+        ids_con_archivo = {row[0] for row in self.env.cr.fetchall()}
+        for record in self:
+            record.existe_expediente = record.id in ids_con_archivo
 
     @api.constrains('importe','total')
     def _constrains_mayor_cero(self):
