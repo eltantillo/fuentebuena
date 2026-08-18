@@ -4,3 +4,6 @@ xmltodict
 zeep
 reportlab
 pytz
+python-dateutil
+cryptography
+pyOpenSSL
