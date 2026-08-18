@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="expediente_config_tipo_view_form" model="ir.ui.view">
+            <field name="name">expediente.config.tipo.view.form</field>
+            <field name="model">expediente.config.tipo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Configuración">
+                            <field name="flotilla_id"/>
+                            <field name="producto_ids"  required="True" domain="[('flotilla_id', '=', flotilla_id)]" widget="many2many_tags"/>
+                            <field name="plaza_ids" widget="many2many_tags"/>
+                            <field name="tipo_expediente_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="expediente_config_tipo_view_list" model="ir.ui.view">
+            <field name="name">expediente.config.tipo.view.list</field>
+            <field name="model">expediente.config.tipo</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="flotilla_id"/>
+                    <field name="producto_ids"/>
+                    <field name="plaza_ids"/>
+                    <field name="tipo_expediente_ids"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="expediente_config_tipo_action" model="ir.actions.act_window">
+            <field name="name">Configuracion de expediente</field>
+            <field name="res_model">expediente.config.tipo</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="expediente_config_tipo_view_list"/>
+        </record>
+    </data>
+</odoo>

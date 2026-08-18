@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_expediente_root"
+          name="Expediente"
+          sequence="1"
+          web_icon="expediente,static/src/description/icon.png" />
+
+        <menuitem id="menu_expediente"
+                  name="Expedientes"
+                  parent="menu_expediente_root"
+                  action="expediente_action"
+                  sequence="1"/>
+
+        <menuitem id="menu_expediente_configuration"
+                  name="Configuración"
+                  parent="menu_expediente_root"
+                  sequence="2"/>
+
+        <menuitem id="menu_expediente_config_tipo"
+                  name="Tipo de expediente"
+                  parent="menu_expediente_configuration"
+                  sequence="1"
+                  action="expediente_tipo_action"/>
+
+        <menuitem id="menu_expediente_config_expediente"
+                  name="Expediente"
+                  parent="menu_expediente_configuration"
+                  sequence="2"
+                  action="expediente_config_tipo_action"/>
+    </data>
+</odoo>

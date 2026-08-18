@@ -94,6 +94,26 @@ class FleetContrato(models.Model):
     name = fields.Char(
         string="Name"
     )
+    existe_attach_contrato = fields.Boolean(
+        string='Existe archivo de contrato',
+        compute='_compute_existe_contrato',
+        store=True
+    )
+
+    @api.depends('attach_contrato')
+    def _compute_existe_contrato(self):
+        if not self.ids:
+            for record in self:
+                record.existe_attach_contrato = False
+            return
+        self.env.cr.execute("""
+            SELECT res_id 
+            FROM ir_attachment 
+            WHERE res_model = %s AND res_field = 'attach_contrato' AND res_id IN %s
+        """, (self._name, tuple(self.ids)))
+        ids_con_archivo = {row[0] for row in self.env.cr.fetchall()}
+        for record in self:
+            record.existe_attach_contrato = record.id in ids_con_archivo
 
     @api.model
     def create(self, vals):

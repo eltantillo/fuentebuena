@@ -211,7 +211,6 @@ class FleetCustomerInheritFleet(models.Model):
         string='State',
         default=lambda self: self.env['fleet.vehicle.state'].search([('name', '=', 'En registro')], limit=1).id,
     )
-
     ubicacion_id = fields.Many2one(
         comodel_name= 'fleet.customer.ubicacion',
         string='Ubicacion',
@@ -230,7 +229,46 @@ class FleetCustomerInheritFleet(models.Model):
             ('no_circulante', 'No circulante'),
         ]
     )
+    existe_factura = fields.Boolean(
+        string='Existe Factura',
+        compute='_compute_existe_factura',
+        store=True,
+    )
+    existe_opcion_compra = fields.Boolean(
+        string='Existe Opcion Compra',
+        compute='_compute_existe_opcion_compra',
+        store=True,
+    )
 
+    @api.depends('factura_vehiculo')
+    def _compute_existe_factura(self):
+        if not self.ids:
+            for record in self:
+                record.existe_factura = False
+            return
+        self.env.cr.execute("""
+            SELECT res_id 
+            FROM ir_attachment 
+            WHERE res_model = %s AND res_field = 'factura_vehiculo' AND res_id IN %s
+        """, (self._name, tuple(self.ids)))
+        ids_con_archivo = {row[0] for row in self.env.cr.fetchall()}
+        for record in self:
+            record.existe_factura = record.id in ids_con_archivo
+
+    @api.depends('opcion_compra')
+    def _compute_existe_opcion_compra(self):
+        if not self.ids:
+            for record in self:
+                record.existe_opcion_compra = False
+            return
+        self.env.cr.execute("""
+            SELECT res_id 
+            FROM ir_attachment 
+            WHERE res_model = %s AND res_field = 'opcion_compra' AND res_id IN %s
+        """, (self._name, tuple(self.ids)))
+        ids_con_archivo = {row[0] for row in self.env.cr.fetchall()}
+        for record in self:
+            record.existe_opcion_compra = record.id in ids_con_archivo
 
     def _get_year_selection(self):
         current_year = datetime.now().year

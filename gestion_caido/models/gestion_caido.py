@@ -337,9 +337,11 @@ class GestionCaido(models.Model):
         _logger.info("Correo encolado / enviado exitosamente.")
 
     def send_mail_users(self, plaza_id,name_template, gestion):
-        regis = self.env['gestion.caido.notificacion'].search([('plaza_id','in', [plaza_id.id])])
-        emails = [u.correo for u in regis]
-        self.send_mail(gestion.id,name_template, emails)
+        regis = self.env['gestion.caido.notificacion'].search([('plaza_id','=', plaza_id.id)], limit=1)
+        empleados_notificar = regis.empleado_ids
+        emails = [e.work_email for e in empleados_notificar]
+        emails_to = ','.join(emails)
+        self.send_mail(gestion.id,name_template, emails_to)
 
 
     def obtener_ultima_ubi(self):
@@ -397,16 +399,6 @@ class GestionCaido(models.Model):
             ('flotilla_id', '=', flotilla_id)
         ]).ids
         self.vehiculos_permitidos_ids = vehiculos
-
-    def send_mail(self, res_id, email, name_template):
-        template = self.env.ref(name_template)
-        template.send_mail(
-            res_id,
-            force_send=True,
-            email_values={
-                'email_to': email
-            }
-        )
 
     @api.model_create_multi
     def create(self, vals_list):

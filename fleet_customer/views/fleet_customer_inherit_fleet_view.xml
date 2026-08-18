@@ -114,8 +114,8 @@
                             <field name="sub_etapas_ids" invisible="1"/>
                             <field name="sub_etapa_id" invisible="mostrar_sub_etapa == False" domain="[('id','in', sub_etapas_ids)]" required="sub_etapas_ids != False"/>
                             <field name="ubicaciones_ids" invisible="1"/>
-                            <field name="ubicacion_id" domain="[('id','in', ubicaciones_ids)]" required="ubicaciones_ids != False" invisible="ubicaciones_ids == False"/>
-                            <field name="circulante" required="1"/>
+                            <field name="ubicacion_id" domain="[('id','in', ubicaciones_ids)]" invisible="ubicaciones_ids == False"/>
+                            <field name="circulante" invisible="1"/>
                         </group>
                         <group>
                             <field name="ultimo_cambio_etapa" readonly="1"/>

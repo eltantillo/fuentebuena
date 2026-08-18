@@ -139,25 +139,35 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     needs: [solicitar-aprobacion, esperar-aprobacion]
+
     if: |
       always() && (
         (github.ref_name == 'stage' && needs.solicitar-aprobacion.result == 'skipped') ||
         (github.ref_name == 'main' && needs.esperar-aprobacion.result == 'success')
       )
+
     env:
-      SERVER_IP:    ${{ github.ref_name == 'main' && secrets.GCP_PROD_IP       || secrets.GCP_STAGING_IP }}
-      SERVER_USER:  ${{ github.ref_name == 'main' && secrets.GCP_PROD_USER     || secrets.GCP_STAGING_USER }}
-      SERVER_KEY:   ${{ github.ref_name == 'main' && secrets.GCP_PROD_SSH_KEY  || secrets.GCP_STAGING_SSH_KEY }}
-      DB_NAME:      ${{ github.ref_name == 'main' && secrets.ODOO_DB_NAME_PROD || secrets.ODOO_DB_NAME_STAGING }}
-      ODOO_PATH:    /odoo/custom/Diphda
+      SERVER_IP: ${{ github.ref_name == 'main' && secrets.GCP_PROD_IP || secrets.GCP_STAGING_IP }}
+      SERVER_USER: ${{ github.ref_name == 'main' && secrets.GCP_PROD_USER || secrets.GCP_STAGING_USER }}
+      SERVER_KEY: ${{ github.ref_name == 'main' && secrets.GCP_PROD_SSH_KEY || secrets.GCP_STAGING_SSH_KEY }}
+      DB_NAME: ${{ github.ref_name == 'main' && secrets.ODOO_DB_NAME_PROD || secrets.ODOO_DB_NAME_STAGING }}
+
+      ODOO_PATH: /odoo/custom/odoo_custom_modules_v19
       ODOO_SERVICE: odoo-server
-      ODOO_BIN:     /odoo/odoo-server/odoo-bin
-      ODOO_CONF:    /etc/odoo-server.conf
+      ODOO_BIN: /odoo/odoo-server/odoo-bin
+      ODOO_CONF: /etc/odoo-server.conf
 
     steps:
+
+      # ---------------------------------------------------------
+      # 1. Checkout
+      # ---------------------------------------------------------
       - name: Checkout codigo
         uses: actions/checkout@v4
 
+      # ---------------------------------------------------------
+      # 2. Configurar SSH
+      # ---------------------------------------------------------
       - name: Configurar SSH
         run: |
           mkdir -p ~/.ssh
@@ -165,23 +175,46 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
 
+      # ---------------------------------------------------------
+      # 3. Git pull
+      # ---------------------------------------------------------
       - name: Git pull
         run: |
           ssh -i ~/.ssh/deploy_key \
             -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'ENDSSH'
-            set -e
-            echo "Ambiente: ${{ github.ref_name == 'main' && 'PRODUCCION' || 'STAGING' }}"
-            echo "Commit:   ${{ github.sha }}"
-            echo "Por:      ${{ github.actor }}"
-            cd ${{ env.ODOO_PATH }}
-            PREV=$(git rev-parse HEAD)
-            git pull --ff-only origin ${{ github.ref_name }}
-            NEW=$(git rev-parse HEAD)
-            echo "Actualizado: ${PREV:0:8} -> ${NEW:0:8}"
-            git diff --name-only $PREV $NEW || true
+          set -e
+
+          echo "=========================================="
+          echo "Ambiente: ${{ github.ref_name == 'main' && 'PRODUCCION' || 'STAGING' }}"
+          echo "Commit esperado: ${{ github.sha }}"
+          echo "Por: ${{ github.actor }}"
+          echo "=========================================="
+
+          cd ${{ env.ODOO_PATH }}
+
+          PREV=$(git rev-parse HEAD)
+
+          echo "Commit anterior: ${PREV:0:8}"
+
+          git pull --ff-only origin ${{ github.ref_name }}
+
+          NEW=$(git rev-parse HEAD)
+
+          echo "Commit nuevo:    ${NEW:0:8}"
+          echo "Actualizado:     ${PREV:0:8} -> ${NEW:0:8}"
+
+          echo ""
+          echo "Archivos modificados:"
+          git diff --name-only "$PREV" "$NEW" || true
+
+          echo "$PREV" > /tmp/odoo_deploy_prev
+          echo "$NEW" > /tmp/odoo_deploy_new
           ENDSSH
 
+      # ---------------------------------------------------------
+      # 4. Reiniciar Odoo
+      # ---------------------------------------------------------
       - name: Reiniciar Odoo
         run: |
           ssh -i ~/.ssh/deploy_key \
@@ -189,57 +222,102 @@ jobs:
             ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} \
             "sudo service ${{ env.ODOO_SERVICE }} restart"
 
+      # ---------------------------------------------------------
+      # 5. Esperar que Odoo levante
+      # ---------------------------------------------------------
       - name: Esperar que Odoo levante
         run: |
           ssh -i ~/.ssh/deploy_key \
             -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'ENDSSH'
-            for i in $(seq 1 12); do
-              sleep 5
-              STATUS=$(sudo service odoo-server status | grep -c "active (running)" || true)
-              if [ "$STATUS" -ge 1 ]; then
-                echo "Odoo activo despues de $((i * 5)) segundos"
-                exit 0
-              fi
-              echo "Intento $i/12..."
-            done
-            echo "ERROR: Odoo no levanto en 60 segundos"
-            sudo service odoo-server status
-            exit 1
+          for i in $(seq 1 12); do
+
+            sleep 5
+
+            STATUS=$(sudo service ${{ env.ODOO_SERVICE }} status \
+              | grep -c "active (running)" || true)
+
+            if [ "$STATUS" -ge 1 ]; then
+              echo "Odoo activo despues de $((i * 5)) segundos"
+              exit 0
+            fi
+
+            echo "Intento $i/12..."
+
+          done
+
+          echo "ERROR: Odoo no levanto en 60 segundos"
+
+          sudo service ${{ env.ODOO_SERVICE }} status
+
+          exit 1
           ENDSSH
 
+      # ---------------------------------------------------------
+      # 6. Actualizar módulos Odoo
+      # ---------------------------------------------------------
       - name: Actualizar modulos Odoo
         run: |
           ssh -i ~/.ssh/deploy_key \
             -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'ENDSSH'
-            set -e
-            cd ${{ env.ODOO_PATH }}
-            MODS=$(git diff --name-only HEAD~1 HEAD \
-              | grep -E '^[^/]+/' \
-              | cut -d'/' -f1 \
-              | grep -v '^\.' \
-              | sort -u \
-              | tr '\n' ',' \
-              | sed 's/,$//')
-            if [ -z "$MODS" ]; then
-              echo "Sin modulos con cambios"
-            else
-              echo "Modulos a actualizar: $MODS"
-              sudo -u odoo python3 ${{ env.ODOO_BIN }} \
-                -c ${{ env.ODOO_CONF }} \
-                -d ${{ env.DB_NAME }} \
-                --update=$MODS \
-                --stop-after-init \
-                --no-http
-              echo "Modulos actualizados correctamente"
-            fi
+          set -e
+
+          cd ${{ env.ODOO_PATH }}
+
+          PREV=$(cat /tmp/odoo_deploy_prev)
+          NEW=$(cat /tmp/odoo_deploy_new)
+
+          echo "=========================================="
+          echo "Detectando modulos modificados"
+          echo "Desde: ${PREV:0:8}"
+          echo "Hasta: ${NEW:0:8}"
+          echo "=========================================="
+
+          MODS=$(git diff --name-only "$PREV" "$NEW" \
+            | grep -E '^[^/]+/' \
+            | cut -d'/' -f1 \
+            | grep -v '^\.' \
+            | sort -u \
+            | tr '\n' ',' \
+            | sed 's/,$//')
+
+          echo ""
+
+          if [ -z "$MODS" ]; then
+
+            echo "Sin modulos Odoo con cambios"
+
+          else
+
+            echo "Modulos a actualizar: $MODS"
+
+            sudo -u odoo python3 ${{ env.ODOO_BIN }} \
+              -c ${{ env.ODOO_CONF }} \
+              -d ${{ env.DB_NAME }} \
+              --update="$MODS" \
+              --stop-after-init \
+              --no-http
+
+            echo ""
+            echo "Modulos actualizados correctamente"
+
+          fi
+
+          rm -f /tmp/odoo_deploy_prev
+          rm -f /tmp/odoo_deploy_new
           ENDSSH
 
+      # ---------------------------------------------------------
+      # 7. Health check
+      # ---------------------------------------------------------
       - name: Health check
         run: |
           ssh -i ~/.ssh/deploy_key \
             -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} \
             "sudo service ${{ env.ODOO_SERVICE }} status | grep -q 'active (running)'"
+
+          echo "=========================================="
           echo "Deploy completado en ${{ github.ref_name == 'main' && 'PRODUCCION' || 'STAGING' }}"
+          echo "=========================================="
