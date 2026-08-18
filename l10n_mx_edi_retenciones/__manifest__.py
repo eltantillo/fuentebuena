@@ -15,6 +15,9 @@
     'depends': [
         'account', 'l10n_mx_edi',
     ],
+    'external_dependencies': {
+        'python': ['requests', 'lxml', 'xmltodict', 'zeep', 'reportlab', 'pytz'],
+    },
     'data': [
         'security/ir.model.access.csv',
         'wizard/reason_cancelation_sat_view.xml',
