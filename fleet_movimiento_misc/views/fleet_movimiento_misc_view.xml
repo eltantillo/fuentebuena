@@ -19,7 +19,7 @@
                                 <field name="tipo_movimiento_id" required="1"/>
                                 <field name="folio"/>
                                 <field name="motivo_id" required="1"/>
-                                <field name="conductor" required="1"/>
+                                <field name="conductor_id" required="1"/>
                                 <field name="estado_id" required="1"/>
                                 <field name="estado_code" invisible="1"/>
                                 <field name="municipio_id" domain="[('code', '=', estado_code)]" invisible="estado_code == False" required="1"/>

@@ -12,6 +12,7 @@ class CreditoArrendamiento(models.Model):
     _rec_name = 'external_ref'
 
     partner_id = fields.Many2one('res.partner', string='Cliente', required=True, tracking=True)
+    vehiculo_id = fields.Many2one('fleet.vehicle', string='Automóvil', tracking=True)
     external_ref = fields.Char(string='ID del crédito', index=True, tracking=True)
 
     fecha_disposicion = fields.Date(string='Fecha de disposición')

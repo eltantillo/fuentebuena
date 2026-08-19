@@ -17,7 +17,7 @@
         Se conecta a res.partner mediante un botón inteligente. Pensado para
         poblarse desde un sistema externo a través de la API estándar de Odoo.
         """,
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'fleet'],
     'data': [
         'security/ir.model.access.csv',
         'views/credito_arrendamiento_view.xml',

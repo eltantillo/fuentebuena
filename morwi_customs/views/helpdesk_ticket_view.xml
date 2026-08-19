@@ -93,7 +93,7 @@
                         <field name="advisor_id" invisible="not show_advisor_id"/>
                         <field name="info_evidence" invisible="not show_info_evidence"/>
                         <field name="specific_request" invisible="not show_specific_request"/>
-                        <field name="capture_evidence" invisible="not show_capture_evidence"/>
+                        <field name="capture_evidence" widget="image" invisible="not show_capture_evidence"/>
                     </group>
                     <group string="Payment">
                         <field name="payment_voucher_id" invisible="not show_payment_voucher_id"/>
@@ -148,7 +148,7 @@
                         <field name="customer_intent" invisible="not show_customer_intent"/>
                     </group>
                     <group string="Case Closure">
-                        <field name="fleet_vehicle_id" invisible="not show_fleet_vehicle_id"/>
+                        <field name="fleet_vehicle_id" invisible="not show_fleet_vehicle_id" domain="[('driver_id', '=', partner_id)]"/>
                         <field name="case_status_confirmed" invisible="not show_case_status_confirmed"/>
                         <field name="payment_management_result" invisible="not show_payment_management_result"/>
                         <field name="final_response_sent" invisible="not show_final_response_sent"/>

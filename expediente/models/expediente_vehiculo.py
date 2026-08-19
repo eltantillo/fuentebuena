@@ -81,13 +81,11 @@ class ExpedienteVehiculo(models.Model):
             else: return None
 
     def validar_adecuacion(self, adecuacion, adecuacion_req):
-        if adecuacion_req.name == 'GNV' and self.es_gnv:
-            if not adecuacion.existe_expediente_arch:
-                return {
-                    'faltante': f'Adecuación: {adecuacion_req.name}',
-                    'motivo': 'No existe pdf en el registro'
-                }
-            else: return None
+        if not adecuacion.existe_expediente_arch:
+            return {
+                'faltante': f'Adecuación: {adecuacion_req.name}',
+                'motivo': 'No existe pdf en el registro'
+            }
         else: return None
 
     def validar_poliza(self ,poliza):
@@ -102,7 +100,7 @@ class ExpedienteVehiculo(models.Model):
                     'faltante': 'Póliza',
                     'motivo': 'No contiene fecha de vencimiento'
                 }
-            if poliza.fecha_vencimiento >= fields.Date.today():
+            if poliza.fecha_vencimiento < fields.Date.today():
                 return {
                     'faltante': 'Póliza',
                     'motivo': 'Póliza vencida'
@@ -131,6 +129,8 @@ class ExpedienteVehiculo(models.Model):
             poliza = self.poliza_ids.filtered(lambda p: p.tipo_poliza_id.name == 'Póliza').sorted(key=lambda x: x.id, reverse=True)[:1]
             if poliza:
                 poliza_v = self.validar_poliza(poliza)
+                _logger.info("+++++++++++++++++++++++++Validando póliza+++++++++++++++")
+                _logger.info(poliza_v)
                 faltantes.append(poliza_v) if poliza_v else completos.append(f'poliza')
             else:
                 faltantes.append(self.return_inexistencia('Póliza'))
@@ -158,8 +158,8 @@ class ExpedienteVehiculo(models.Model):
                     tramite_v = self.validar_tramite(tramite, tramite_req)
                     faltantes.append(tramite_v) if tramite_v else completos.append(f'tramite: {tramite_req.name}')
                 else:
-                    if not (tramite_req.name == 'Dictamen anual GNV' and self.es_gnv):
-                        faltantes.append(self.return_inexistencia( f'Trámite: {tramite_req.name}'))
+                    if tramite_req.name != 'Dictamen anual GNV' or self.es_gnv:
+                        faltantes.append(self.return_inexistencia(f'Trámite: {tramite_req.name}'))
         if expediente_tipo.tipo_adecuacion_ids:
             for adecuacion_req in expediente_tipo.tipo_adecuacion_ids:
                 adecuacion = self.adecuacion_ids.filtered(lambda x: x.adecuacion_id.id == adecuacion_req.id).sorted(key=lambda x: x.id, reverse=True)[:1]
@@ -167,7 +167,8 @@ class ExpedienteVehiculo(models.Model):
                     adecuacion_v = self.validar_adecuacion(adecuacion, adecuacion_req)
                     faltantes.append(adecuacion_v) if adecuacion_v else completos.append(f'adecuacion: {adecuacion_req.name}')
                 else:
-                    faltantes.append(self.return_inexistencia( f'Adecuación: {adecuacion_req.name}'))
+                    if adecuacion_req.name != 'GNV' or self.es_gnv:
+                        faltantes.append(self.return_inexistencia( f'Adecuación: {adecuacion_req.name}'))
         return {
             'completo': len(faltantes) == 0,
             'faltantes': faltantes,
@@ -213,7 +214,7 @@ class ExpedienteVehiculo(models.Model):
             if archivo == 'opcion_compra':
                 opcion_compra_data = vehiculo.get_opcion_compra(type='with_data')
             if archivo == 'poliza':
-                poliza = vehiculo.get_poliza()
+                poliza = vehiculo.poliza_ids.filtered(lambda p: p.tipo_poliza_id.name == 'Póliza').sorted(key=lambda x: x.id, reverse=True)[:1]
                 if poliza:
                     poliza_doc = vehiculo._helper_build_doc_dict(
                         poliza,
@@ -223,14 +224,14 @@ class ExpedienteVehiculo(models.Model):
                     )
                     polizas_list.append(poliza_doc)
             if archivo == 'endoso':
-                endoso = vehiculo.get_endoso()
-                endoso_doc = vehiculo._helper_build_doc_dict(
-                    endoso,
-                    'attach_poliza',
-                    endoso.tipo_poliza_id.name or 'endoso',
-                    type='with_data'
-                )
+                endoso = vehiculo.poliza_ids.filtered(lambda p: p.tipo_poliza_id.name == 'Endoso').sorted(key=lambda x: x.id, reverse=True)[:1]
                 if endoso:
+                    endoso_doc = vehiculo._helper_build_doc_dict(
+                        endoso,
+                        'attach_poliza',
+                        endoso.tipo_poliza_id.name or 'endoso',
+                        type='with_data'
+                    )
                     polizas_list.append(endoso_doc)
             if archivo == 'contrato':
                 contrato_data = vehiculo.get_contrato(type='with_data')

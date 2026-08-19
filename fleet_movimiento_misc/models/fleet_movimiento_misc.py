@@ -59,7 +59,8 @@ class FleetMovimientoMisc(models.Model):
     descripcion = fields.Text(
         string='Descipción',
     )
-    conductor = fields.Char(
+    conductor_id = fields.Many2one(
+        comodel_name='res.partner',
         string='Conductor',
     )
     fecha_vencimiento = fields.Date(
