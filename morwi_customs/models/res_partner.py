@@ -27,6 +27,9 @@ class ResPartner(models.Model):
     fleet_movimiento_misc_ids = fields.One2many(comodel_name='fleet.movimiento.misc', inverse_name='cliente_id', string='Misc Movements')
     fleet_movimiento_misc_count = fields.Integer(string='Misc Movement Count', compute='_compute_fleet_movimiento_misc_count')
 
+    fleet_movimiento_misc_conductor_ids = fields.One2many(comodel_name='fleet.movimiento.misc', inverse_name='conductor_id', string='Misc Movements as Driver')
+    fleet_movimiento_misc_conductor_count = fields.Integer(string='Misc Movement as Driver Count', compute='_compute_fleet_movimiento_misc_conductor_count')
+
     fleet_poliza_ids = fields.One2many(comodel_name='fleet.poliza', inverse_name='cliente_id', string='Policies')
     fleet_poliza_count = fields.Integer(string='Policy Count', compute='_compute_fleet_poliza_count')
 
@@ -52,6 +55,11 @@ class ResPartner(models.Model):
     def _compute_fleet_movimiento_misc_count(self):
         for partner in self:
             partner.fleet_movimiento_misc_count = len(partner.fleet_movimiento_misc_ids)
+
+    @api.depends('fleet_movimiento_misc_conductor_ids')
+    def _compute_fleet_movimiento_misc_conductor_count(self):
+        for partner in self:
+            partner.fleet_movimiento_misc_conductor_count = len(partner.fleet_movimiento_misc_conductor_ids)
 
     @api.depends('fleet_poliza_ids')
     def _compute_fleet_poliza_count(self):
@@ -87,6 +95,9 @@ class ResPartner(models.Model):
 
     def action_view_fleet_movimiento_miscs(self):
         return self._action_view_fleet_records('fleet.movimiento.misc', 'cliente_id', _('Misc Movements'), editable_default=True)
+
+    def action_view_fleet_movimiento_miscs_conductor(self):
+        return self._action_view_fleet_records('fleet.movimiento.misc', 'conductor_id', _('Misc Movements as Driver'), editable_default=True)
 
     def action_view_fleet_polizas(self):
         return self._action_view_fleet_records('fleet.poliza', 'cliente_id', _('Policies'))
