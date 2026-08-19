@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Access Management Dashboard - Mockup</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #f5f7fb 0%, #eef1f8 100%);
+    color: #1f2937;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(120deg, #714B67 0%, #875A7B 45%, #017E84 100%);
+    color: white; padding: 26px 30px; border-radius: 18px;
+    box-shadow: 0 14px 40px rgba(113,75,103,0.4); margin-bottom: 24px;
+    position: relative; overflow: hidden;
+  }
+  .header::after {
+    content: ""; position: absolute; top: -50%; right: -10%;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header::before {
+    content: ""; position: absolute; bottom: -60%; left: 20%;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(1,126,132,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+  .header h1 .icon { font-size: 28px; }
+  .header .actions { display: flex; gap: 10px; }
+  .btn {
+    padding: 9px 16px; border-radius: 10px; border: none; cursor: pointer;
+    font-weight: 600; font-size: 13px; transition: all .2s;
+  }
+  .btn-light { background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(10px); }
+  .btn-light:hover { background: rgba(255,255,255,0.3); }
+  .btn-primary { background: white; color: #714B67; font-weight: 700; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 16px;
+  }
+  .kpi-grid.row2 { grid-template-columns: repeat(4, 1fr); }
+  .kpi-card {
+    background: white; border-radius: 14px; padding: 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06); position: relative; overflow: hidden;
+    transition: transform .2s, box-shadow .2s; cursor: pointer;
+  }
+  .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+  .kpi-card::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  }
+  .kpi-card.total::before { background: linear-gradient(180deg,#714B67,#875A7B); }
+  .kpi-card.active::before { background: linear-gradient(180deg,#017E84,#00A09D); }
+  .kpi-card.inactive::before { background: linear-gradient(180deg,#6b7280,#9ca3af); }
+  .kpi-card.warning::before { background: linear-gradient(180deg,#F0AD4E,#FFC107); }
+  .kpi-card.danger::before { background: linear-gradient(180deg,#D9534F,#EF4444); }
+  .kpi-card.info::before { background: linear-gradient(180deg,#5BC0DE,#06b6d4); }
+  .kpi-card.purple::before { background: linear-gradient(180deg,#875A7B,#A57FA8); }
+  .kpi-card.pink::before { background: linear-gradient(180deg,#C7407F,#ec4899); }
+  .kpi-card.dark::before { background: linear-gradient(180deg,#1f2937,#374151); }
+
+  .kpi-icon {
+    width: 42px; height: 42px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; font-size: 20px; margin-bottom: 10px;
+  }
+  .kpi-card.total .kpi-icon { background: #F3EBF1; color: #714B67; }
+  .kpi-card.active .kpi-icon { background: #E0F5F4; color: #017E84; }
+  .kpi-card.inactive .kpi-icon { background: #f3f4f6; color: #6b7280; }
+  .kpi-card.warning .kpi-icon { background: #FFF4E0; color: #F0AD4E; }
+  .kpi-card.danger .kpi-icon { background: #FDECEC; color: #D9534F; }
+  .kpi-card.info .kpi-icon { background: #E1F5FB; color: #5BC0DE; }
+  .kpi-card.purple .kpi-icon { background: #F0E6EC; color: #875A7B; }
+  .kpi-card.pink .kpi-icon { background: #FBE5EF; color: #C7407F; }
+  .kpi-card.dark .kpi-icon { background: #e5e7eb; color: #1f2937; }
+
+  .kpi-label { font-size: 12px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi-value { font-size: 30px; font-weight: 700; margin-top: 4px; color: #111827; }
+  .kpi-trend { font-size: 12px; margin-top: 6px; font-weight: 600; }
+  .kpi-trend.up { color: #10b981; }
+  .kpi-trend.down { color: #ef4444; }
+
+  .charts-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;
+  }
+  .chart-card {
+    background: white; border-radius: 14px; padding: 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .chart-card h3 {
+    font-size: 15px; font-weight: 700; margin-bottom: 14px; color: #111827;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .chart-wrap { position: relative; height: 280px; }
+
+  .quick-actions {
+    background: white; border-radius: 14px; padding: 18px 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .quick-actions h3 { font-size: 14px; font-weight: 700; color: #6b7280; margin-right: 8px; }
+  .qa-btn {
+    padding: 10px 16px; border-radius: 10px; border: 1.5px solid #e5e7eb;
+    background: white; cursor: pointer; font-weight: 600; font-size: 13px;
+    color: #374151; display: flex; align-items: center; gap: 6px; transition: all .2s;
+  }
+  .qa-btn:hover { border-color: #714B67; color: #714B67; background: #FAF5F8; transform: translateY(-2px); }
+
+  .bottom-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+  .panel {
+    background: white; border-radius: 14px; padding: 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .panel h3 {
+    font-size: 15px; font-weight: 700; margin-bottom: 14px; color: #111827;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; border-bottom: 1px solid #e5e7eb; }
+  .tab {
+    padding: 8px 14px; cursor: pointer; font-weight: 600; font-size: 13px; color: #6b7280;
+    border-bottom: 2px solid transparent; transition: all .2s;
+  }
+  .tab.active { color: #714B67; border-bottom-color: #714B67; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: 10px 12px; font-size: 11px; color: #6b7280;
+       text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb; }
+  td { padding: 12px; font-size: 13px; border-bottom: 1px solid #f3f4f6; }
+  tr:hover td { background: #f9fafb; }
+  .badge {
+    padding: 3px 9px; border-radius: 12px; font-size: 11px; font-weight: 600;
+  }
+  .badge.user { background: #F3EBF1; color: #714B67; }
+  .badge.group { background: #FBE5EF; color: #C7407F; }
+  .badge.ok { background: #E0F5F4; color: #017E84; }
+  .badge.warn { background: #FFF4E0; color: #B8730C; }
+  .badge.danger { background: #FDECEC; color: #B83A36; }
+
+  .user-row { display: flex; align-items: center; justify-content: space-between;
+              padding: 10px 0; border-bottom: 1px solid #f3f4f6; }
+  .user-row:last-child { border: none; }
+  .user-info { display: flex; align-items: center; gap: 10px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 13px;
+  }
+  .a1 { background: linear-gradient(135deg, #714B67, #875A7B); }
+  .a2 { background: linear-gradient(135deg, #C7407F, #ec4899); }
+  .a3 { background: linear-gradient(135deg, #017E84, #00A09D); }
+  .a4 { background: linear-gradient(135deg, #F0AD4E, #D9534F); }
+  .a5 { background: linear-gradient(135deg, #5BC0DE, #714B67); }
+  .user-name { font-weight: 600; font-size: 13px; color: #111827; }
+  .user-sub { font-size: 11px; color: #6b7280; }
+  .rules-count { font-weight: 700; color: #714B67; font-size: 14px;
+                 background: #F3EBF1; padding: 4px 10px; border-radius: 12px; }
+
+  .footer-note { text-align: center; color: #9ca3af; font-size: 11px; margin-top: 24px; }
+
+  /* Theme toggle — sits inside header actions */
+  .theme-toggle {
+    width: 38px; height: 38px; border-radius: 10px; border: none;
+    background: rgba(255,255,255,0.2); color: white; cursor: pointer;
+    font-size: 16px; display: inline-flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px); transition: all .2s;
+  }
+  .theme-toggle:hover { background: rgba(255,255,255,0.3); transform: rotate(20deg); }
+  .header .actions { position: relative; z-index: 2; }
+
+  /* === DARK MODE === */
+  body.dark {
+    background: linear-gradient(135deg, #1a1625 0%, #0f1419 100%);
+    color: #e5e7eb;
+  }
+  body.dark .kpi-card,
+  body.dark .chart-card,
+  body.dark .panel,
+  body.dark .quick-actions { background: #232030; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  body.dark .kpi-value { color: #f9fafb; }
+  body.dark .kpi-label,
+  body.dark .quick-actions h3 { color: #9ca3af; }
+  body.dark .chart-card h3,
+  body.dark .panel h3 { color: #f3f4f6; }
+  body.dark th { color: #9ca3af; border-bottom-color: #3a3548; }
+  body.dark td { border-bottom-color: #2d2a3a; }
+  body.dark tr:hover td { background: #2a2638; }
+  body.dark .tabs { border-bottom-color: #3a3548; }
+  body.dark .tab { color: #9ca3af; }
+  body.dark .tab.active { color: #B89AAC; border-bottom-color: #B89AAC; }
+  body.dark .qa-btn {
+    background: #2a2638; border-color: #3a3548; color: #e5e7eb;
+  }
+  body.dark .qa-btn:hover { background: #322d44; border-color: #B89AAC; color: #B89AAC; }
+  body.dark .user-row { border-bottom-color: #2d2a3a; }
+  body.dark .user-name { color: #f3f4f6; }
+  body.dark .user-sub { color: #9ca3af; }
+  body.dark .rules-count { background: #3a2d3a; color: #D7B5C8; }
+  body.dark .theme-toggle { background: #232030; color: #fbbf24; }
+
+  /* Brighter badges/icons for dark mode */
+  body.dark .badge.user { background: #3a2d3a; color: #D7B5C8; }
+  body.dark .badge.group { background: #3d2030; color: #F5A8C8; }
+  body.dark .badge.ok { background: #0f3a3d; color: #5BD4D4; }
+  body.dark .badge.warn { background: #3d2f10; color: #FFC97A; }
+  body.dark .badge.danger { background: #3a1a1a; color: #F18B88; }
+  body.dark .kpi-card.total .kpi-icon { background: #3a2d3a; color: #D7B5C8; }
+  body.dark .kpi-card.active .kpi-icon { background: #0f3a3d; color: #5BD4D4; }
+  body.dark .kpi-card.inactive .kpi-icon { background: #2d2a3a; color: #9ca3af; }
+  body.dark .kpi-card.warning .kpi-icon { background: #3d2f10; color: #FFC97A; }
+  body.dark .kpi-card.danger .kpi-icon { background: #3a1a1a; color: #F18B88; }
+  body.dark .kpi-card.info .kpi-icon { background: #0e3340; color: #87DCEF; }
+  body.dark .kpi-card.purple .kpi-icon { background: #3a2d3a; color: #C9A6BC; }
+  body.dark .kpi-card.pink .kpi-icon { background: #3d2030; color: #F5A8C8; }
+  body.dark .kpi-card.dark .kpi-icon { background: #2d2a3a; color: #e5e7eb; }
+
+  /* scrollbar */
+  #featList::-webkit-scrollbar { width: 6px; }
+  #featList::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+  body.dark #featList::-webkit-scrollbar-thumb { background: #3a3548; }
+  body.dark #featList > div > div:last-child { background: rgba(255,255,255,0.08) !important; }
+  body.dark #conflictList > div { background: rgba(255,255,255,0.04) !important; }
+  body.dark #conflictList > div:hover { background: rgba(113,75,103,0.25) !important; }
+  body.dark select { background: #2a2638 !important; color: #e5e7eb !important; border-color: #3a3548 !important; }
+  body.dark #heatmap th { color: #9ca3af; }
+  body.dark #heatmap td { color: #e5e7eb; }
+  body.dark #conflictList::-webkit-scrollbar { width: 6px; }
+  body.dark #conflictList::-webkit-scrollbar-thumb { background: #3a3548; border-radius: 3px; }
+  body.dark #heatDrawer { background: #232030; color: #e5e7eb; }
+  body.dark #heatDrawer th { color: #9ca3af !important; background: #232030 !important; }
+  body.dark #heatDrawer td { color: #e5e7eb; background: #232030 !important; }
+  body.dark #heatDrawer td:first-child { background: #2a2638 !important; }
+  body.dark #heatDrawer td:last-child { background: #322d44 !important; color: #D7B5C8 !important; }
+  body.dark #heatSearch { background: #2a2638; color: #e5e7eb; }
+  body.dark #heatDrawer > div:nth-child(2) { background: #1a1625 !important; border-bottom-color: #3a3548 !important; }
+  /* Inline heatmap sticky columns in dark mode */
+  body.dark #heatmap th[style*="left:0"],
+  body.dark #heatmap td[style*="left:0"] { background: #232030 !important; color: #e5e7eb !important; }
+  body.dark #heatmap th[style*="right:0"],
+  body.dark #heatmap td[style*="right:0"] { background: #322d44 !important; color: #D7B5C8 !important; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1><span class="icon">🛡️</span> Access Management Dashboard</h1>
+  <div class="actions">
+    <button class="btn btn-light">📅 Last 30 Days ▾</button>
+    <button class="btn btn-light">🏢 All Companies ▾</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
+    <button class="btn btn-primary">+ New Rule</button>
+  </div>
+</div>
+
+<!-- KPI Row 1 -->
+<div class="kpi-grid">
+  <div class="kpi-card total">
+    <div class="kpi-icon">📋</div>
+    <div class="kpi-label">Total Rules</div>
+    <div class="kpi-value">48</div>
+    <div class="kpi-trend up">▲ 12% vs last month</div>
+  </div>
+  <div class="kpi-card active">
+    <div class="kpi-icon">✅</div>
+    <div class="kpi-label">Active Rules</div>
+    <div class="kpi-value">35</div>
+    <div class="kpi-trend up">▲ 8 new</div>
+  </div>
+  <div class="kpi-card inactive">
+    <div class="kpi-icon">⏸️</div>
+    <div class="kpi-label">Inactive</div>
+    <div class="kpi-value">13</div>
+    <div class="kpi-trend">No change</div>
+  </div>
+  <div class="kpi-card warning">
+    <div class="kpi-icon">⚠️</div>
+    <div class="kpi-label">Expiring ≤ 7 days</div>
+    <div class="kpi-value">6</div>
+    <div class="kpi-trend down">Needs review</div>
+  </div>
+  <div class="kpi-card danger">
+    <div class="kpi-icon">⛔</div>
+    <div class="kpi-label">Expired Today</div>
+    <div class="kpi-value">2</div>
+    <div class="kpi-trend down">Action required</div>
+  </div>
+</div>
+
+<!-- KPI Row 2 -->
+<div class="kpi-grid row2">
+  <div class="kpi-card info">
+    <div class="kpi-icon">👤</div>
+    <div class="kpi-label">User-type Rules</div>
+    <div class="kpi-value">29</div>
+  </div>
+  <div class="kpi-card purple">
+    <div class="kpi-icon">👥</div>
+    <div class="kpi-label">Group-type Rules</div>
+    <div class="kpi-value">19</div>
+  </div>
+  <div class="kpi-card pink">
+    <div class="kpi-icon">⏰</div>
+    <div class="kpi-label">Time-Based</div>
+    <div class="kpi-value">11</div>
+  </div>
+  <div class="kpi-card dark">
+    <div class="kpi-icon">🚫</div>
+    <div class="kpi-label">Login Disabled</div>
+    <div class="kpi-value">4</div>
+  </div>
+</div>
+
+<!-- Charts row 1 -->
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>🍩 Rules by Restriction Type</h3>
+    <div class="chart-wrap"><canvas id="donut"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <h3>📈 Rules Created (Last 6 Months)</h3>
+    <div class="chart-wrap"><canvas id="line"></canvas></div>
+  </div>
+</div>
+
+<!-- Charts row 2 -->
+<div class="charts-grid">
+  <div class="chart-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <h3 style="margin:0;">📊 Restricted Models <span id="modelCount" style="font-size:12px;color:#9ca3af;font-weight:500;">(Top 10)</span></h3>
+      <div style="display:flex;gap:8px;">
+        <select id="modelSort" style="padding:5px 8px;border-radius:6px;border:1px solid #e5e7eb;font-size:11px;background:white;cursor:pointer;">
+          <option value="count_desc">↓ Most restricted</option>
+          <option value="count_asc">↑ Least restricted</option>
+          <option value="name_asc">A → Z</option>
+          <option value="name_desc">Z → A</option>
+        </select>
+        <button id="toggleModels" class="qa-btn" style="padding:5px 10px;font-size:11px;">See all ▾</button>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#9ca3af;margin-bottom:10px;padding:8px 10px;background:rgba(1,126,132,0.06);border-left:3px solid #017E84;border-radius:4px;">
+      💡 <b>How to read:</b> Number of access rules restricting fields/views on each model
+    </div>
+    <div class="chart-wrap" id="barWrap" style="height:240px;overflow:hidden;transition:height .3s;"><canvas id="bar"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <h3 style="margin:0;">🔍 Access Insights <span style="font-size:12px;color:#9ca3af;font-weight:500;">— audit summary</span></h3>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:46px;height:46px;border-radius:50%;background:conic-gradient(#017E84 0deg 306deg, #e5e7eb 306deg 360deg);display:flex;align-items:center;justify-content:center;">
+          <div style="width:36px;height:36px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#017E84;">85%</div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#017E84;">Good</div>
+          <div style="font-size:10px;color:#9ca3af;">Config Score</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#9ca3af;margin-bottom:12px;padding:8px 10px;background:rgba(1,126,132,0.06);border-left:3px solid #017E84;border-radius:4px;">
+      💡 Overall health of your access configuration & coverage stats
+    </div>
+    <div style="height:230px;overflow-y:auto;padding-right:6px;transition:height .3s;" id="healthList"></div>
+  </div>
+</div>
+
+<!-- Model Access Heatmap -->
+<div class="chart-card" style="margin-bottom:16px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+    <h3 style="margin:0;">🗺 Model Access Heatmap <span id="heatCount" style="font-size:12px;color:#9ca3af;font-weight:500;">— top 8 models · 7 actions</span></h3>
+    <div style="display:flex;gap:8px;align-items:center;font-size:11px;color:#6b7280;flex-wrap:wrap;">
+      <button id="toggleHeatRows" style="padding:6px 12px;font-size:11px;font-weight:600;border-radius:8px;border:1.5px solid #714B67;cursor:pointer;background:white;color:#714B67;">➕ More models</button>
+      <button id="toggleHeatCols" style="padding:6px 12px;font-size:11px;font-weight:600;border-radius:8px;border:1.5px solid #714B67;cursor:pointer;background:white;color:#714B67;">➕ More columns</button>
+      <button id="openHeatDrawer" style="padding:8px 16px;font-size:12px;font-weight:600;border-radius:8px;border:none;cursor:pointer;background:linear-gradient(135deg,#714B67,#875A7B);color:white;box-shadow:0 2px 8px rgba(113,75,103,0.3);">🔍 View Full Heatmap</button>
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#E0F5F4;border:1px solid #017E84;"></span> None</span>
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#FFF4E0;"></span> Low</span>
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#F0AD4E;"></span> Med</span>
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#D9534F;"></span> High</span>
+    </div>
+  </div>
+  <div style="overflow-x:auto;" id="heatScroll">
+    <table id="heatmap" style="border-collapse:separate;border-spacing:4px;">
+      <thead id="heatmapHead"></thead>
+      <tbody id="heatmapBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- User Access Inspector -->
+<div class="chart-card" style="margin-bottom:16px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px;">
+    <h3 style="margin:0;">🔍 User Access Inspector <span style="font-size:12px;color:#9ca3af;font-weight:500;">— see what affects a specific user</span></h3>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span style="font-size:12px;color:#6b7280;">User:</span>
+      <select id="userPicker" style="padding:7px 12px;border-radius:8px;border:1.5px solid #e5e7eb;font-size:13px;background:white;cursor:pointer;min-width:200px;">
+        <option value="jd">👤 John Doe — Sales Executive</option>
+        <option value="mc">👤 Marie Curie — Accountant</option>
+        <option value="as">👤 Alex Smith — Warehouse Lead</option>
+        <option value="rp">👤 Rita Patel — HR Manager</option>
+        <option value="tk">👤 Tom Kim — Intern</option>
+      </select>
+    </div>
+  </div>
+  <div class="tabs" style="margin-bottom:14px;">
+    <div class="tab active" data-tab="rules">📋 Active Rules <span style="background:#714B67;color:white;padding:1px 7px;border-radius:10px;font-size:10px;margin-left:4px;" id="cntRules">8</span></div>
+    <div class="tab" data-tab="menus">🚫 Hidden Menus <span style="background:#9ca3af;color:white;padding:1px 7px;border-radius:10px;font-size:10px;margin-left:4px;" id="cntMenus">12</span></div>
+    <div class="tab" data-tab="fields">🔒 Field Restrictions <span style="background:#9ca3af;color:white;padding:1px 7px;border-radius:10px;font-size:10px;margin-left:4px;" id="cntFields">24</span></div>
+    <div class="tab" data-tab="effective">⚙ Effective Restrictions <span style="background:#9ca3af;color:white;padding:1px 7px;border-radius:10px;font-size:10px;margin-left:4px;" id="cntEffective">15</span></div>
+  </div>
+  <div id="inspectorContent" style="min-height:240px;"></div>
+</div>
+
+<!-- Quick actions -->
+<div class="quick-actions">
+  <h3>QUICK ACTIONS</h3>
+  <button class="qa-btn">📝 Create Rule</button>
+  <button class="qa-btn">🔍 Inspect User Access</button>
+  <button class="qa-btn">🧹 Cleanup Expired</button>
+  <button class="qa-btn">📤 Export Report</button>
+  <button class="qa-btn">🔄 Refresh Cache</button>
+</div>
+
+<!-- Bottom grid -->
+<div class="bottom-grid">
+  <div class="panel">
+    <div class="tabs">
+      <div class="tab active">📋 Recent Activity</div>
+      <div class="tab">⚠️ Expiring Soon</div>
+      <div class="tab">⛔ Expired</div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Rule Name</th><th>Type</th><th>Applied To</th><th>Expiry</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Sales Team Restrict</b></td><td><span class="badge user">User</span></td><td>5 users</td><td>2026-05-15</td><td><span class="badge warn">⚠ 3 days</span></td></tr>
+        <tr><td><b>Finance Readonly</b></td><td><span class="badge group">Group</span></td><td>Accountant</td><td>2026-05-20</td><td><span class="badge ok">✓ Active</span></td></tr>
+        <tr><td><b>Temp Intern Block</b></td><td><span class="badge user">User</span></td><td>2 users</td><td>2026-05-13</td><td><span class="badge danger">⛔ 1 day</span></td></tr>
+        <tr><td><b>Warehouse Off-Hours</b></td><td><span class="badge group">Group</span></td><td>Stock User</td><td>—</td><td><span class="badge ok">✓ Active</span></td></tr>
+        <tr><td><b>HR Confidential</b></td><td><span class="badge user">User</span></td><td>8 users</td><td>2026-06-30</td><td><span class="badge ok">✓ Active</span></td></tr>
+        <tr><td><b>Purchase Approval</b></td><td><span class="badge group">Group</span></td><td>Purchase Mgr</td><td>2026-05-18</td><td><span class="badge warn">⚠ 6 days</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h3>👥 Top Restricted Users</h3>
+    <div class="user-row">
+      <div class="user-info">
+        <div class="avatar a1">JD</div>
+        <div><div class="user-name">John Doe</div><div class="user-sub">Sales Executive</div></div>
+      </div>
+      <div class="rules-count">8 rules</div>
+    </div>
+    <div class="user-row">
+      <div class="user-info">
+        <div class="avatar a2">MC</div>
+        <div><div class="user-name">Marie Curie</div><div class="user-sub">Accountant</div></div>
+      </div>
+      <div class="rules-count">6 rules</div>
+    </div>
+    <div class="user-row">
+      <div class="user-info">
+        <div class="avatar a3">AS</div>
+        <div><div class="user-name">Alex Smith</div><div class="user-sub">Warehouse Lead</div></div>
+      </div>
+      <div class="rules-count">5 rules</div>
+    </div>
+    <div class="user-row">
+      <div class="user-info">
+        <div class="avatar a4">RP</div>
+        <div><div class="user-name">Rita Patel</div><div class="user-sub">HR Manager</div></div>
+      </div>
+      <div class="rules-count">4 rules</div>
+    </div>
+    <div class="user-row">
+      <div class="user-info">
+        <div class="avatar a5">TK</div>
+        <div><div class="user-name">Tom Kim</div><div class="user-sub">Intern</div></div>
+      </div>
+      <div class="rules-count">4 rules</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">Mockup preview — sh_access_management dashboard · Softhealer Technologies</div>
+
+<!-- Full Heatmap Drawer -->
+<div id="heatDrawerBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:998;backdrop-filter:blur(2px);"></div>
+<div id="heatDrawer" style="position:fixed;top:0;right:-80vw;width:80vw;height:100vh;background:white;z-index:999;box-shadow:-20px 0 50px rgba(0,0,0,0.2);transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;">
+  <div style="padding:20px 24px;background:linear-gradient(120deg,#714B67,#875A7B);color:white;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <h2 style="font-size:18px;font-weight:700;">🗺 Full Model Access Heatmap</h2>
+      <div style="font-size:12px;opacity:0.85;margin-top:2px;">All models × all restriction actions · scroll horizontally + vertically</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input id="heatSearch" type="text" placeholder="🔍 Filter models..." style="padding:8px 12px;border-radius:8px;border:none;font-size:13px;width:220px;outline:none;">
+      <button onclick="closeHeatDrawer()" style="width:36px;height:36px;border-radius:50%;border:none;background:rgba(255,255,255,0.2);color:white;font-size:18px;cursor:pointer;">✕</button>
+    </div>
+  </div>
+  <div style="padding:14px 24px;background:#FAF5F8;border-bottom:1px solid #e5e7eb;display:flex;gap:18px;align-items:center;font-size:11px;color:#6b7280;flex-wrap:wrap;">
+    <span><b>Legend:</b></span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;background:#E0F5F4;border:1px solid #017E84;"></span> 0 — none</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;background:#FFF4E0;"></span> 1–2 — low</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;background:#F0AD4E;"></span> 3–4 — medium</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;background:#D9534F;"></span> 5+ — high</span>
+    <span style="margin-left:auto;color:#714B67;font-weight:600;" id="drawerStats">20 models · 22 columns</span>
+  </div>
+  <div style="flex:1;overflow:auto;padding:20px;">
+    <table id="fullHeatmap" style="border-collapse:separate;border-spacing:3px;font-size:12px;">
+      <thead id="fullHeatHead"></thead>
+      <tbody id="fullHeatBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  const btn = document.querySelector('.theme-toggle');
+  btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  // Update chart text color
+  const isDark = document.body.classList.contains('dark');
+  Chart.defaults.color = isDark ? '#cbd5e1' : '#1f2937';
+  Chart.defaults.borderColor = isDark ? '#3a3548' : '#e5e7eb';
+  Chart.helpers.each(Chart.instances, (c) => {
+    if (c.options.scales) {
+      Object.values(c.options.scales).forEach(s => {
+        if (s.grid) s.grid.color = isDark ? '#2d2a3a' : '#f3f4f6';
+        if (s.ticks) s.ticks.color = isDark ? '#cbd5e1' : '#6b7280';
+      });
+    }
+    c.update();
+  });
+}
+
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+Chart.defaults.font.size = 12;
+
+new Chart(document.getElementById('donut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['User Rules', 'Group Rules'],
+    datasets: [{ data: [29, 19], backgroundColor: ['#714B67','#017E84'], borderWidth: 0, hoverOffset: 8 }]
+  },
+  options: { plugins:{legend:{position:'bottom'}}, cutout:'65%', maintainAspectRatio:false }
+});
+
+new Chart(document.getElementById('line'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May'],
+    datasets: [{
+      label: 'Rules Created',
+      data: [4, 7, 9, 12, 8, 14],
+      borderColor: '#714B67',
+      backgroundColor: 'rgba(113,75,103,0.15)',
+      fill: true, tension: 0.4, pointRadius: 5, pointBackgroundColor:'#714B67',
+      borderWidth: 3
+    }]
+  },
+  options: { plugins:{legend:{display:false}}, maintainAspectRatio:false,
+             scales:{y:{beginAtZero:true, grid:{color:'#f3f4f6'}}, x:{grid:{display:false}}} }
+});
+
+// Full model list (sample — real version will be dynamic from backend)
+const allModels = [
+  ['sale.order',24],['account.move',20],['res.partner',16],['stock.picking',12],
+  ['purchase.order',10],['hr.employee',9],['crm.lead',8],['product.template',7],
+  ['project.task',6],['mrp.production',5],['account.payment',4],['stock.move',4],
+  ['hr.expense',3],['sale.report',3],['res.users',2],['ir.attachment',2],
+  ['helpdesk.ticket',2],['fleet.vehicle',1],['calendar.event',1],['mail.message',1],
+];
+const palette = ['#714B67','#875A7B','#017E84','#00A09D','#5BC0DE','#F0AD4E','#D9534F','#C7407F','#A57FA8','#6b7280'];
+
+const barChart = new Chart(document.getElementById('bar'), {
+  type: 'bar',
+  data: {
+    labels: allModels.slice(0,10).map(r => r[0]),
+    datasets: [{
+      label: 'Restrictions',
+      data: allModels.slice(0,10).map(r => r[1]),
+      backgroundColor: allModels.slice(0,10).map((_,i) => palette[i % palette.length]),
+      borderRadius: 6
+    }]
+  },
+  options: { indexAxis:'y', plugins:{legend:{display:false}}, maintainAspectRatio:false,
+             scales:{x:{grid:{color:'#f3f4f6'}}, y:{grid:{display:false}}} }
+});
+
+let modelsExpanded = false;
+let modelSortMode = 'count_desc';
+
+function renderModels() {
+  const sorted = [...allModels].sort((a,b) => {
+    if (modelSortMode === 'count_desc') return b[1] - a[1];
+    if (modelSortMode === 'count_asc')  return a[1] - b[1];
+    if (modelSortMode === 'name_asc')   return a[0].localeCompare(b[0]);
+    if (modelSortMode === 'name_desc')  return b[0].localeCompare(a[0]);
+  });
+  const list = modelsExpanded ? sorted : sorted.slice(0,10);
+  barChart.data.labels = list.map(r => r[0]);
+  barChart.data.datasets[0].data = list.map(r => r[1]);
+  barChart.data.datasets[0].backgroundColor = list.map((_,i) => palette[i % palette.length]);
+  const newHeight = modelsExpanded ? (list.length * 24 + 40) : 240;
+  document.getElementById('barWrap').style.height = newHeight + 'px';
+  document.getElementById('toggleModels').textContent = modelsExpanded ? 'Show top 10 ▴' : 'See all ▾';
+  document.getElementById('modelCount').textContent = modelsExpanded ? `(All ${allModels.length})` : '(Top 10)';
+  barChart.update();
+  // Mirror height: Access Insights panel grows to match Restricted Models
+  document.getElementById('healthList').style.height = Math.max(230, newHeight - 10) + 'px';
+}
+document.getElementById('toggleModels').addEventListener('click', () => { modelsExpanded = !modelsExpanded; renderModels(); });
+document.getElementById('modelSort').addEventListener('change', (e) => { modelSortMode = e.target.value; renderModels(); });
+
+// ===== RECENT CONFLICTS =====
+// ===== ACCESS HEALTH & COVERAGE =====
+const healthItems = [
+  {icon:'✅', status:'good',  title:'Admin Protection',        value:'All admins excluded',    detail:'No administrator user/group is restricted'},
+  {icon:'✅', status:'good',  title:'Multi-Company Coverage',  value:'3 / 3 companies',         detail:'Every active company has at least one rule'},
+  {icon:'✅', status:'good',  title:'Cache Status',            value:'Fresh',                   detail:'Cache invalidated 4 min ago'},
+  {icon:'📊', status:'info',  title:'Models Covered',          value:'24 models',               detail:'Rules touch 24 distinct models'},
+  {icon:'👥', status:'info',  title:'Users Affected',          value:'47 users',                detail:'Across user-rules and group-rules'},
+  {icon:'🔒', status:'info',  title:'Field-Level Restrictions',value:'128 fields',              detail:'Across 18 models'},
+  {icon:'⏰', status:'info',  title:'Time-Based Active Now',   value:'5 rules',                 detail:'Currently within their time window'},
+  {icon:'📅', status:'warn',  title:'Expiring This Week',      value:'6 rules',                 detail:'Review needed — see Expiring Soon tab'},
+  {icon:'🧹', status:'warn',  title:'Expired Not Archived',    value:'2 rules',                 detail:'Run "Cleanup Expired" quick action'},
+  {icon:'🔄', status:'good',  title:'Recently Updated',        value:'8 rules this week',       detail:'Last update: 2 hours ago'},
+  {icon:'📜', status:'good',  title:'Audit Trail',             value:'Enabled',                 detail:'All field changes tracked via chatter'},
+  {icon:'🛡', status:'good',  title:'XML-RPC Restrictions',    value:'7 rules active',          detail:'API/script access controlled'},
+];
+const statusMap = {
+  good: {color:'#017E84', bg:'rgba(1,126,132,0.08)',  border:'#017E84'},
+  info: {color:'#714B67', bg:'rgba(113,75,103,0.06)', border:'#714B67'},
+  warn: {color:'#F0AD4E', bg:'rgba(240,173,78,0.08)', border:'#F0AD4E'},
+};
+const healthList = document.getElementById('healthList');
+healthItems.forEach(h => {
+  const s = statusMap[h.status];
+  const row = document.createElement('div');
+  row.style.cssText = 'padding:10px 12px;margin-bottom:8px;background:'+s.bg+';border-radius:8px;border-left:3px solid '+s.border+';cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center;gap:10px;';
+  row.onmouseenter = () => row.style.transform='translateX(2px)';
+  row.onmouseleave = () => row.style.transform='translateX(0)';
+  row.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;">
+      <div style="font-size:18px;flex-shrink:0;">${h.icon}</div>
+      <div style="min-width:0;">
+        <div style="font-weight:600;font-size:13px;color:#111827;">${h.title}</div>
+        <div style="font-size:11px;color:#9ca3af;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.detail}</div>
+      </div>
+    </div>
+    <div style="background:white;color:${s.color};padding:4px 10px;border-radius:8px;font-size:11px;font-weight:700;white-space:nowrap;border:1px solid ${s.border}33;">${h.value}</div>
+  `;
+  healthList.appendChild(row);
+});
+
+// ===== MODEL ACCESS HEATMAP =====
+const heatmapData = [
+  {model:'sale.order',       vals:[2, 5, 4, 6, 3, 4, 2]},
+  {model:'account.move',     vals:[1, 4, 5, 7, 2, 1, 0]},
+  {model:'res.partner',      vals:[0, 3, 2, 4, 2, 3, 2]},
+  {model:'stock.picking',    vals:[0, 2, 3, 3, 1, 2, 1]},
+  {model:'purchase.order',   vals:[1, 2, 2, 3, 0, 1, 1]},
+  {model:'hr.employee',      vals:[2, 1, 1, 2, 1, 1, 1]},
+  {model:'crm.lead',         vals:[0, 1, 1, 2, 2, 1, 1]},
+  {model:'product.template', vals:[0, 1, 1, 1, 2, 1, 1]},
+  {model:'project.task',     vals:[0, 1, 1, 1, 1, 1, 1]},
+  {model:'mrp.production',   vals:[0, 1, 1, 1, 0, 1, 1]},
+  {model:'account.payment',  vals:[0, 1, 0, 1, 1, 0, 1]},
+  {model:'stock.move',       vals:[0, 0, 1, 1, 0, 1, 1]},
+  {model:'hr.expense',       vals:[0, 0, 1, 1, 0, 1, 0]},
+  {model:'sale.report',      vals:[1, 0, 0, 1, 1, 0, 0]},
+  {model:'res.users',        vals:[0, 1, 0, 1, 0, 0, 0]},
+  {model:'ir.attachment',    vals:[0, 0, 1, 1, 0, 0, 0]},
+  {model:'helpdesk.ticket',  vals:[0, 0, 1, 0, 1, 0, 0]},
+  {model:'fleet.vehicle',    vals:[0, 0, 0, 1, 0, 0, 0]},
+  {model:'calendar.event',   vals:[0, 0, 1, 0, 0, 0, 0]},
+  {model:'mail.message',     vals:[0, 0, 0, 1, 0, 0, 0]},
+];
+const baseColumns = ['Read','Write','Create','Delete','Readonly','Field Hide','View Hide'];
+const extraColumns = ['Duplicate','Archive','Import','Export','Print','Action Btn','Filter','Group By','Search Panel','Send Message','Log Note','Activity','Followers','Attachment','Full Chatter','Spreadsheet','Add Property','Disable Dev Mode'];
+function heatColor(v) {
+  if (v === 0) return {bg:'#E0F5F4', color:'#017E84', border:'#017E84'};
+  if (v <= 2)  return {bg:'#FFF4E0', color:'#B8730C', border:'transparent'};
+  if (v <= 4)  return {bg:'#F0AD4E', color:'white',   border:'transparent'};
+  return {bg:'#D9534F', color:'white', border:'transparent'};
+}
+let heatExpanded = false;
+let heatColsExpanded = false;
+const heatmapBody = document.getElementById('heatmapBody');
+const heatmapHead = document.getElementById('heatmapHead');
+
+function seededVal(seed) {
+  let x = Math.sin(seed) * 10000;
+  return Math.floor((x - Math.floor(x)) * 8);
+}
+
+function renderHeatmap() {
+  const cols = heatColsExpanded ? [...baseColumns, ...extraColumns] : baseColumns;
+  const list = heatExpanded ? heatmapData : heatmapData.slice(0, 8);
+
+  heatmapHead.innerHTML = `<tr style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;">
+    <th style="text-align:left;padding:8px;font-weight:600;min-width:170px;position:sticky;left:0;background:white;z-index:2;">Model</th>
+    ${cols.map(c => `<th style="padding:8px 4px;font-weight:600;text-align:center;min-width:62px;white-space:nowrap;">${c}</th>`).join('')}
+    <th style="padding:8px 12px;font-weight:700;text-align:center;color:#714B67;background:#FAF5F8;position:sticky;right:0;z-index:2;">Total</th>
+  </tr>`;
+
+  heatmapBody.innerHTML = '';
+  list.forEach((r, ri) => {
+    // Build vals for visible columns: first 7 from data, extras pseudo-generated
+    const visibleVals = cols.map((_, ci) => ci < 7 ? r.vals[ci] : seededVal(ri * 31 + ci * 7));
+    const total = visibleVals.reduce((a,b) => a + b, 0);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="padding:6px 10px;font-weight:600;font-size:13px;font-family:monospace;position:sticky;left:0;background:white;z-index:1;">${r.model}</td>` +
+      visibleVals.map(v => {
+        const c = heatColor(v);
+        return `<td style="text-align:center;padding:0;">
+          <div title="${v} restriction${v!==1?'s':''}" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:32px;border-radius:6px;background:${c.bg};color:${c.color};font-weight:700;font-size:12px;border:1px solid ${c.border};">${v}</div>
+        </td>`;
+      }).join('') +
+      `<td style="text-align:center;padding:6px 12px;font-weight:700;color:#714B67;background:#FAF5F8;position:sticky;right:0;z-index:1;">${total}</td>`;
+    heatmapBody.appendChild(tr);
+  });
+  document.getElementById('toggleHeatRows').textContent = heatExpanded ? '➖ Less models' : '➕ More models';
+  document.getElementById('toggleHeatCols').textContent = heatColsExpanded ? '➖ Less columns' : '➕ More columns';
+  document.getElementById('heatCount').textContent =
+    (heatExpanded ? `all ${heatmapData.length} models` : 'top 8 models') + ' · ' +
+    (heatColsExpanded ? `all ${cols.length} actions` : `${cols.length} actions`);
+}
+renderHeatmap();
+document.getElementById('toggleHeatRows').addEventListener('click', () => {
+  heatExpanded = !heatExpanded;
+  renderHeatmap();
+});
+document.getElementById('toggleHeatCols').addEventListener('click', () => {
+  heatColsExpanded = !heatColsExpanded;
+  renderHeatmap();
+  if (heatColsExpanded) {
+    setTimeout(() => document.getElementById('heatScroll').scrollTo({left: 9999, behavior:'smooth'}), 100);
+  }
+});
+
+// ===== FULL HEATMAP DRAWER =====
+const allColumns = [
+  'Read','Write','Create','Delete','Duplicate','Archive','Unarchive',
+  'Import','Export','Print','Action Btn',
+  'Filter','Group By','Search Panel','Custom Filter','Favorite',
+  'Send Message','Log Note','Activity','Followers','Attachment',
+  'Full Chatter','Readonly','Field Hide','View Hide','Spreadsheet',
+  'Add Property','Disable Dev Mode'
+];
+
+function seededRand(seed) {
+  // deterministic pseudo-random for stable mock data
+  let x = Math.sin(seed) * 10000;
+  return Math.floor((x - Math.floor(x)) * 8);
+}
+
+function renderFullHeatmap(filter='') {
+  const head = document.getElementById('fullHeatHead');
+  const body = document.getElementById('fullHeatBody');
+  head.innerHTML = `<tr style="font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;">
+    <th style="text-align:left;padding:10px 12px;font-weight:700;background:white;position:sticky;left:0;z-index:2;min-width:180px;border-bottom:2px solid #714B67;">Model</th>
+    ${allColumns.map(c => `<th style="padding:10px 6px;font-weight:600;white-space:nowrap;text-align:center;border-bottom:2px solid #714B67;min-width:70px;"><div style="transform:rotate(-30deg);transform-origin:center;display:inline-block;">${c}</div></th>`).join('')}
+    <th style="padding:10px 12px;font-weight:700;text-align:center;background:#FAF5F8;border-bottom:2px solid #714B67;color:#714B67;">Total</th>
+  </tr>`;
+
+  body.innerHTML = '';
+  let shown = 0;
+  heatmapData.forEach((r, idx) => {
+    if (filter && !r.model.toLowerCase().includes(filter.toLowerCase())) return;
+    shown++;
+    const cells = allColumns.map((_, ci) => {
+      const v = seededRand(idx * 31 + ci * 7);
+      const c = heatColor(v);
+      return `<td style="text-align:center;padding:0;">
+        <div title="${v} restriction${v!==1?'s':''}" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:32px;border-radius:5px;background:${c.bg};color:${c.color};font-weight:700;font-size:11px;border:1px solid ${c.border};">${v}</div>
+      </td>`;
+    }).join('');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="padding:8px 12px;font-weight:600;font-family:monospace;font-size:12px;background:white;position:sticky;left:0;z-index:1;border-right:1px solid #f3f4f6;">${r.model}</td>${cells}<td style="text-align:center;padding:8px 12px;font-weight:700;color:#714B67;background:#FAF5F8;">${r.total}</td>`;
+    body.appendChild(tr);
+  });
+  document.getElementById('drawerStats').textContent = `${shown} of ${heatmapData.length} models · ${allColumns.length} actions`;
+}
+
+function openHeatDrawer() {
+  renderFullHeatmap();
+  document.getElementById('heatDrawerBackdrop').style.display = 'block';
+  document.getElementById('heatDrawer').style.right = '0';
+}
+function closeHeatDrawer() {
+  document.getElementById('heatDrawer').style.right = '-80vw';
+  setTimeout(() => { document.getElementById('heatDrawerBackdrop').style.display = 'none'; }, 350);
+}
+document.getElementById('openHeatDrawer').addEventListener('click', openHeatDrawer);
+document.getElementById('heatDrawerBackdrop').addEventListener('click', closeHeatDrawer);
+document.getElementById('heatSearch').addEventListener('input', e => renderFullHeatmap(e.target.value));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHeatDrawer(); });
+
+// ===== USER ACCESS INSPECTOR =====
+const userData = {
+  jd: {
+    rules: [
+      {name:'Sales Team Restrict', type:'User', status:'active', expiry:'2026-05-15'},
+      {name:'Sales Readonly', type:'Group (Sales)', status:'active', expiry:'—'},
+      {name:'Off-Hours Block', type:'Group (Sales)', status:'time', expiry:'09:00-18:00 IST'},
+    ],
+    menus: ['Settings','Developer Tools','Accounting Reports','HR > Payroll','Inventory > Configuration'],
+    fields: [
+      {model:'sale.order', field:'amount_total', kind:'Readonly'},
+      {model:'sale.order', field:'partner_credit', kind:'Invisible'},
+      {model:'res.partner', field:'comment', kind:'Required'},
+    ],
+    effective: ['Hide Delete','Hide Export','Readonly Mode','Hide Print','Disable Developer Mode','Hide Create (in M2O)']
+  },
+  mc: { rules:[{name:'Finance Readonly',type:'Group',status:'active',expiry:'2026-05-20'}], menus:['Sales','Inventory'], fields:[{model:'account.move',field:'amount',kind:'Readonly'}], effective:['Hide Delete','Readonly Mode'] },
+  as: { rules:[{name:'Warehouse Off-Hours',type:'Group',status:'time',expiry:'06:00-22:00'}], menus:['HR','Accounting'], fields:[], effective:['Hide Delete','Hide Export'] },
+  rp: { rules:[{name:'HR Confidential',type:'User',status:'active',expiry:'2026-06-30'}], menus:['Sales > Reports'], fields:[{model:'hr.employee',field:'salary',kind:'Invisible'}], effective:['Hide Export','Field Restrictions'] },
+  tk: { rules:[{name:'Temp Intern Block',type:'User',status:'expiring',expiry:'2026-05-13'}], menus:['Settings','Reports','HR','Inventory','Accounting','Sales > Quotations','Purchase'], fields:[], effective:['Hide Create','Hide Delete','Hide Export','Hide Print','Readonly','Disable Login','Restrict XML-RPC'] },
+};
+
+let currentUser = 'jd';
+let currentTab = 'rules';
+
+function renderInspector() {
+  const u = userData[currentUser];
+  document.getElementById('cntRules').textContent = u.rules.length;
+  document.getElementById('cntMenus').textContent = u.menus.length;
+  document.getElementById('cntFields').textContent = u.fields.length;
+  document.getElementById('cntEffective').textContent = u.effective.length;
+  const c = document.getElementById('inspectorContent');
+  if (currentTab === 'rules') {
+    c.innerHTML = u.rules.length ? `<table><thead><tr><th>Rule</th><th>Type</th><th>Status</th><th>Expiry / Window</th><th></th></tr></thead><tbody>` +
+      u.rules.map(r => {
+        const badge = r.status==='active'?'<span class="badge ok">✓ Active</span>': r.status==='time'?'<span class="badge warn">⏰ Time-based</span>':'<span class="badge danger">⚠ Expiring</span>';
+        return `<tr><td><b>${r.name}</b></td><td><span class="badge user">${r.type}</span></td><td>${badge}</td><td>${r.expiry}</td><td><a href="#" style="color:#714B67;text-decoration:none;font-weight:600;">Open →</a></td></tr>`;
+      }).join('') + `</tbody></table>` : '<div style="padding:30px;text-align:center;color:#9ca3af;">No active rules for this user 🎉</div>';
+  } else if (currentTab === 'menus') {
+    c.innerHTML = u.menus.length ? '<div style="display:flex;flex-wrap:wrap;gap:8px;padding:10px 0;">' +
+      u.menus.map(m => `<span style="padding:6px 12px;background:#FDECEC;color:#B83A36;border-radius:8px;font-size:12px;font-weight:600;">🚫 ${m}</span>`).join('') + '</div>' : '<div style="padding:30px;text-align:center;color:#9ca3af;">No menus hidden</div>';
+  } else if (currentTab === 'fields') {
+    c.innerHTML = u.fields.length ? `<table><thead><tr><th>Model</th><th>Field</th><th>Restriction</th></tr></thead><tbody>` +
+      u.fields.map(f => `<tr><td style="font-family:monospace;">${f.model}</td><td><b>${f.field}</b></td><td><span class="badge user">${f.kind}</span></td></tr>`).join('') + `</tbody></table>` : '<div style="padding:30px;text-align:center;color:#9ca3af;">No field-level restrictions</div>';
+  } else {
+    c.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:8px;padding:10px 0;">' +
+      u.effective.map(e => `<span style="padding:8px 14px;background:linear-gradient(135deg,#714B67,#875A7B);color:white;border-radius:8px;font-size:12px;font-weight:600;">⚙ ${e}</span>`).join('') + '</div>';
+  }
+}
+document.getElementById('userPicker').addEventListener('change', e => { currentUser = e.target.value; renderInspector(); });
+document.querySelectorAll('.tab[data-tab]').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab[data-tab]').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentTab = t.dataset.tab;
+    renderInspector();
+  });
+});
+// Initial render — wrapped in try to surface any error visibly
+try { renderInspector(); } catch(err) {
+  document.getElementById('inspectorContent').innerHTML = '<div style="padding:20px;color:#D9534F;">Inspector error: '+err.message+'</div>';
+  console.error(err);
+}
+
+</script>
+
+</body>
+</html>

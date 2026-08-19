@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Client action for the OWL dashboard -->
+    <record id="action_sh_access_dashboard" model="ir.actions.client">
+        <field name="name">Access Dashboard</field>
+        <field name="tag">sh_access_dashboard</field>
+    </record>
+
+    <!-- Wire the root app icon to open the dashboard directly -->
+    <record id="sh_aceess_manager_root" model="ir.ui.menu">
+        <field name="action" ref="action_sh_access_dashboard"/>
+    </record>
+
+    <!-- Dashboard menu (shown first under the root Access Management menu) -->
+    <menuitem id="menu_sh_access_dashboard"
+              name="Dashboard"
+              parent="sh_aceess_manager_root"
+              action="action_sh_access_dashboard"
+              sequence="1"
+              groups="sh_access_management.sh_access_management_manager"/>
+
+    <!-- Rules menu (existing action moved under a sub-menu for clarity) -->
+    <menuitem id="menu_sh_access_rules"
+              name="Rules"
+              parent="sh_aceess_manager_root"
+              action="sh_access_manager_action"
+              sequence="10"
+              groups="sh_access_management.sh_access_management_manager"/>
+
+</odoo>

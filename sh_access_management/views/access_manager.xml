@@ -1,0 +1,311 @@
+<odoo>
+    <!-- Child Form View: Model Access -->
+    <record id="sh_conditional_domain_popup_form_view" model="ir.ui.view">
+        <field name="name">sh.access.model.form</field>
+        <field name="model">sh.conditional.domain</field>
+        <field name="arch" type="xml">
+            <form string="Custom Filter Condition">
+                <field name="sh_model_name" invisible="1"/>
+                <div class="alert alert-info" role="alert" style="margin-bottom:10px;">
+                    Define the condition for applying conditional restrictions on <strong>
+                    <field name="sh_model_id" readonly="1" options="{'no_open': True}" class="oe_inline"/>
+                </strong>.
+            </div>
+            <div style="min-height: 200px;">
+                <field name="sh_conditional_domain" widget="domain" options="{'model': 'sh_model_name'}"/>
+            </div>
+            <footer>
+                <button string="Apply" special="save" class="btn-primary"/>
+                <button string="Discard" special="cancel" class="btn-secondary"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="sh_access_manager_form_view" model='ir.ui.view'>
+    <field name="name">sh.access.manager.form</field>
+    <field name="model">sh.access.manager</field>
+    <field name="arch" type="xml">
+        <form string="Access Manager">
+            <sheet>
+                <h1>
+                    <field name="name" default_focus="1" placeholder="Name" required="1"/>
+                </h1>
+                <group>
+                    <group>
+                        <field name="sh_restriction_type" widget="radio" options="{'horizontal': true}"/>
+                        <field name="responsible_user_ids" widget="many2many_tags" invisible="sh_restriction_type == 'group'" required="sh_restriction_type == 'user'"/>
+                        <field name="responsible_group_ids" widget="many2many_tags" invisible="sh_restriction_type == 'user'" required="sh_restriction_type == 'group'"/>
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" />
+                        <field name="active_rule"/>
+                        <field name="sh_expiry_date" />
+                        <field name="sh_restrict_by_time" />
+                        <field name="sh_timezone" invisible="sh_restrict_by_time == False" required="sh_restrict_by_time == True" />
+                        <field name="sh_time_from" widget="float_time" invisible="sh_restrict_by_time == False" required="sh_restrict_by_time == True" />
+                        <field name="sh_time_to" widget="float_time" invisible="sh_restrict_by_time == False" required="sh_restrict_by_time == True" />
+                    </group>
+                    <group string="Global Restrictions">
+                        <field name="sh_readonly" />
+                        <field name="sh_disable_developer_mode"/>
+                        <field name="sh_global_hide_full_chatter"/>
+                        <field name="sh_disable_user_login"/>
+                        <field name="sh_restrict_xmlrpc"/>
+                        <field name="sh_is_spreadsheet_installed" invisible="1"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="hide_menu" string="Hide Menu">
+                        <field name="sh_hide_menu_ids" no_open="1" options="{'no_create': True, 'no_open': True}">
+                            <!-- <list editable="bottom"> -->
+                            <list string="Taxes Mapping" editable="bottom">
+                                <field name="complete_name" string="Hide Menu" />
+                                <!-- <field name="sh_child_menu" string="Hide Menu" /> -->
+                            </list>
+                        </field>
+                    </page>
+                    <page name="model_access" string="Model Access">
+                        <field name="sh_access_model_line">
+                            <list editable="bottom">
+                                <field name="model_id" options="{'no_create': True}"/>
+                                <field name="action_id" options="{'no_create': True}" optional="show"/>
+                                <field name="report_ids" options="{'no_create': True}" widget="many2many_tags" optional="show"/>
+                                <field name="view_ids" widget="many2many_tags" options="{'no_create': True}" optional="show"/>
+                                <field name="hide_create" optional="show"/>
+                                <field name="hide_edit" optional="show"/>
+                                <field name="hide_duplicate" optional="show"/>
+                                <field name="hide_delete" optional="show"/>
+                                <field name="hide_archieve" optional="show"/>
+                                <field name="hide_export" optional="show"/>
+                                <field name="hide_import" optional="show"/>
+                                <field name="sh_hide_action" optional="show"/>
+                                <field name="sh_hide_print" optional="show"/>
+                                <field name="sh_hide_search_panel" optional="show"/>
+                                <field name="sh_hide_filter" optional="show"/>
+                                <field name="sh_hide_group_by" optional="show"/>
+                                <field name="sh_hide_favourite" optional="show"/>
+                                <field name="hide_spreadsheet" column_invisible="not parent.sh_is_spreadsheet_installed"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="field_access" string="Field Access">
+                        <field name="sh_field_access_line">
+                            <list editable="bottom">
+                                <field name="model_id" options="{'no_create': True}"/>
+                                <field name="field_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="readonly"/>
+                                <field name="required"/>
+                                <field name="invisible"/>
+                                <field name="sh_hide_create_edit"/>
+                                <field name="sh_hide_external_links"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="filter_access" string="Filter / Group By Access">
+                        <field name="sh_hide_filter_line">
+                            <list editable="bottom">
+                                <field name="model_id" options="{'no_create': True}"/>
+                                <field name="sh_store_filter_data_ids" widget="many2many_tags" />
+                                <field name="sh_store_groupby_data_ids" widget="many2many_tags" />
+                            </list>
+                        </field>
+                    </page>
+                    <page name="nv_btn_access" string='Navbar/Button Access'>
+                        <field name='sh_navbar_button_line'>
+                            <list editable="bottom">
+                                <!-- <field name="model_id" options="{'no_create': True}" domain="[('id','not in',parent.self_model_ids)]" /> -->
+                                <field name="model_id" options="{'no_create': True}"/>
+                                <field name="sh_store_kanban_link_ids" widget="many2many_tags" domain="[('model_id','=',model_id),('sh_node_option','=','kanban_link')]" options="{'no_create': True}" />
+                                <field name="model_name" invisible="1" column_invisible="True"/>
+                                <field name="sh_store_btn_data_ids" widget="many2many_tags" domain="[('model_id','=',model_id),('sh_node_option','=','button')]" options="{'no_create': True}" />
+                                <field name="sh_store_page_data_ids" widget="many2many_tags" domain="[('model_id','=',model_id),('sh_node_option','=','page')]" options="{'no_create': True}" />
+                                <!-- <field name="link_store_model_nodes_ids" widget="many2many_tags" domain="[('model_id','=',model_id),('sh_node_option','=','link')]" options="{'no_create': True}" /> -->
+                            </list>
+                        </field>
+                    </page>
+                    <page name="hide_chatter" string="Hide Chatter">
+                        <field name="sh_hide_chatter_line">
+                            <list editable="bottom">
+                                <field name="model_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="hide_full_chatter"/>
+                                <field name="hide_send_msg"/>
+                                <field name="hide_log_notes"/>
+                                <field name="hide_activity"/>
+                                <field name="hide_followers"/>
+                                <field name="hide_attachments"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="global_restriction_line" string="Global Restrictions">
+                        <group>
+                            <group string="General Buttons / Actions">
+                                <field name="sh_global_hide_add_property"/>
+                                <field name="sh_global_hide_import"/>
+                                <field name="sh_global_hide_export"/>
+                                <field name="sh_global_hide_print_button"/>
+                                <field name="sh_global_hide_action_button"/>
+                                <field name="sh_global_hide_spreadsheet" invisible="not sh_is_spreadsheet_installed"/>
+                            </group>
+                            <group string="Filter / Group By">
+                                <field name="sh_global_hide_filter"/>
+                                <field name="sh_global_hide_group"/>
+                                <field name="sh_global_hide_search_panel"/>
+                                <field name="sh_global_hide_custom_filter_option"/>
+                                <field name="sh_global_hide_custom_group_by_option"/>
+                                <field name="sh_global_hide_favorite_edit"/>
+                                <field name="sh_global_hide_favourite"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Chatter Options">
+                                <field name="sh_global_hide_send_message"/>
+                                <field name="sh_global_hide_log_note"/>
+                                <field name="sh_global_hide_activity"/>
+                                <field name="sh_global_hide_search_message_icon"/>
+                                <field name="sh_global_hide_attachment_icon"/>
+                                <field name="sh_global_hide_followers_icon"/>
+                            </group>
+                            <group string="Field Options">
+                                <field name="sh_global_hide_field_credit_edit"/>
+                            </group>
+                            <group string="Actions">
+                                <field name="sh_global_hide_create"/>
+                                <field name="sh_global_hide_delete"/>
+                                <field name="sh_global_hide_duplicate"/>
+                                <field name="sh_global_hide_archive"/>
+                                <field name="sh_global_hide_unarchive"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="record_domain_engine" string="Conditional Restriction">
+                        <field name="sh_conditional_access_ids">
+                            <list editable="bottom">
+                                <field name="sh_model_id" options="{'no_create': True}" required="1"/>
+                                <field name="sh_model_name" column_invisible="True" />
+                                <field name="sh_conditional_readonly" string="Read Only" optional="show"/>
+                                <field name="sh_conditional_create" optional="show" />
+                                <field name="sh_conditional_update" optional="show" />
+                                <field name="sh_conditional_delete" optional="show" />
+                                <field name="sh_conditional_action" optional="show"/>
+                                <field name="sh_conditional_print" optional="show"/>
+                                <field name="sh_conditional_filter" optional="hide"/>
+                                <field name="sh_conditional_group_by" optional="hide"/>
+                                <field name="sh_conditional_favourite" optional="hide"/>
+                                <field name="sh_conditional_search_panel" optional="hide"/>
+
+                                <field name="sh_conditional_domain" widget="domain" options="{'model': 'sh_model_name'}" string="Condition" readonly="1" optional="show"/>
+                                <button name="action_open_domain_form" string="Open" type="object" icon="fa-eye" title="Open Rule Configuration"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            <chatter/>
+        </form>
+    </field>
+</record>
+
+<record id='sh_access_manager_tree_view' model='ir.ui.view'>
+    <field name="name">sh.access.manager.list</field>
+    <field name="model">sh.access.manager</field>
+    <field name="arch" type="xml">
+        <list>
+            <field name="name"/>
+            <field name="sh_restriction_type"/>
+            <field name="responsible_user_ids" widget="many2many_tags" invisible="sh_restriction_type == 'group'"/>
+            <field name="responsible_group_ids" widget="many2many_tags" invisible="sh_restriction_type == 'user'"/>
+            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" />
+            <field name="active_rule"/>
+        </list>
+    </field>
+</record>
+
+<!-- ══ SEARCH VIEW ════════════════════════════════════════════════ -->
+<record id="sh_access_manager_search_view" model="ir.ui.view">
+    <field name="name">sh.access.manager.search</field>
+    <field name="model">sh.access.manager</field>
+    <field name="arch" type="xml">
+        <search string="Access Rules">
+
+            <!-- ── SEARCH FIELDS (must come first) ───────────── -->
+            <field name="name" string="Rule Name"/>
+            <field name="responsible_user_ids" string="User"/>
+            <field name="responsible_group_ids" string="Group"/>
+            <field name="company_id" string="Company"/>
+            <field name="created_by" string="Created By"/>
+
+            <!-- ── FILTERS ────────────────────────────────────── -->
+            <!-- Status -->
+            <filter name="filter_active_rule" string="Active Rules"
+                    domain="[('active_rule', '=', True)]"/>
+            <filter name="filter_inactive_rule" string="Inactive Rules"
+                    domain="[('active_rule', '=', False)]"/>
+            <separator/>
+
+            <!-- Restriction type -->
+            <filter name="filter_user_type" string="User Rules"
+                    domain="[('sh_restriction_type', '=', 'user')]"/>
+            <filter name="filter_group_type" string="Group Rules"
+                    domain="[('sh_restriction_type', '=', 'group')]"/>
+            <separator/>
+
+            <!-- Time-based -->
+            <filter name="filter_time_based" string="Time-Based"
+                    domain="[('sh_restrict_by_time', '=', True)]"/>
+            <separator/>
+
+            <!-- Expiry -->
+            <filter name="filter_expiring_7d" string="Expiring in 7 Days"
+                    domain="[('sh_expiry_date', '!=', False), ('sh_expiry_date', '&lt;=', (context_today() + relativedelta(days=7)).strftime('%Y-%m-%d')), ('sh_expiry_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+            <filter name="filter_expired" string="Expired"
+                    domain="[('sh_expiry_date', '!=', False), ('sh_expiry_date', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+            <filter name="filter_no_expiry" string="No Expiry"
+                    domain="[('sh_expiry_date', '=', False)]"/>
+            <separator/>
+
+            <!-- Restrictions applied -->
+            <filter name="filter_readonly" string="Readonly"
+                    domain="[('sh_readonly', '=', True)]"/>
+            <filter name="filter_disable_login" string="Login Disabled"
+                    domain="[('sh_disable_user_login', '=', True)]"/>
+            <filter name="filter_hide_create" string="Hide Create"
+                    domain="[('sh_global_hide_create', '=', True)]"/>
+            <filter name="filter_hide_delete" string="Hide Delete"
+                    domain="[('sh_global_hide_delete', '=', True)]"/>
+
+            <!-- ── GROUP BY ────────────────────────────────────── -->
+            <group>
+                <filter name="group_restriction_type" string="Restriction Type"
+                        context="{'group_by': 'sh_restriction_type'}"/>
+                <filter name="group_active_rule" string="Status"
+                        context="{'group_by': 'active_rule'}"/>
+                <filter name="group_company" string="Company"
+                        context="{'group_by': 'company_id'}"/>
+                <filter name="group_created_by" string="Created By"
+                        context="{'group_by': 'created_by'}"/>
+                <filter name="group_expiry_month" string="Expiry Date"
+                        context="{'group_by': 'sh_expiry_date:month'}"/>
+                <filter name="group_create_date" string="Created On"
+                        context="{'group_by': 'create_date:month'}"/>
+            </group>
+
+        </search>
+    </field>
+</record>
+
+<!-- ══ ACTION ════════════════════════════════════════════════════ -->
+<record id="sh_access_manager_action" model="ir.actions.act_window">
+    <field name="name">Access Management</field>
+    <field name="res_model">sh.access.manager</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="sh_access_manager_search_view"/>
+    <field name="context">{'search_default_filter_active_rule': 1}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Create your first Access Rule
+        </p>
+        <p>Define rules to restrict what users or groups can see and do.</p>
+    </field>
+</record>
+<menuitem name="Access Management" id="sh_aceess_manager_root" web_icon="sh_access_management,static/description/icon.png" groups="sh_access_management.sh_access_management_manager"/>
+</odoo>

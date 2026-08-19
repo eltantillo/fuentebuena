@@ -10,7 +10,7 @@
                         </h2>
                         <small class="header-subtitle text-white-50 d-block">Listado general de unidades registradas</small>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-4 col-md-3">
                         <div class="input-group expediente-search-group">
                             <span class="input-group-text border-0 expediente-search-icon">
                                 <i class="fa fa-search"/>
@@ -28,19 +28,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-3">
+                    <div class="col-12 col-sm-8 col-md-3">
                         <div class="d-flex flex-column flex-sm-row gap-2">
-                            <div class="expediente-select-wrapper w-100">
-                                <i class="fa fa-map-marker expediente-select-icon"/>
-                                <select class="form-select expediente-select" t-on-change="on_change_plaza">
-                                    <option value="">Todas las plazas</option>
-                                    <t t-foreach="state.plazas" t-as="plaza" t-key="plaza.id">
-                                        <option t-att-value="plaza.id">
-                                            <t t-esc="plaza.name"/>
-                                        </option>
-                                    </t>
-                                </select>
-                            </div>
                             <div class="expediente-select-wrapper w-100" t-on-change="onChangeExpediente">
                                 <i class="fa fa-file expediente-select-icon"/>
                                 <select class="form-select expediente-select">
@@ -52,10 +41,94 @@
                                     </t>
                                 </select>
                             </div>
+                            <div class="expediente-multiselect-wrapper flex-fill dropdown">
+                                <button class="btn expediente-multiselect-btn dropdown-toggle w-100 text-start d-flex align-items-center justify-content-between"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside"
+                                        aria-expanded="false">
+                                    <span class="text-truncate">
+                                        <i class="fa fa-truck expediente-select-icon me-2"/>
+                                        <t t-if="!state.selectedFlotillas || state.selectedFlotillas.length === 0">Todas las flotillas</t>
+                                        <t t-else="">
+                                            <t t-esc="state.selectedFlotillas.length"/> seleccionada(s)
+                                        </t>
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu expediente-dropdown-menu w-100 p-2 shadow-sm">
+                                    <t t-foreach="state.flotillas" t-as="flota" t-key="flota.id">
+                                        <li>
+                                            <label class="dropdown-item d-flex align-items-center gap-2 rounded px-2 py-1">
+                                                <input class="form-check-input mt-0"
+                                                       type="checkbox"
+                                                       t-att-value="flota.id"
+                                                       t-on-change="(ev) => this.onToggleFlotilla(ev, flota.id)"/>
+                                                <span class="text-truncate"><t t-esc="flota.name"/></span>
+                                            </label>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <div class="expediente-multiselect-wrapper flex-fill dropdown">
+                                <button class="btn expediente-multiselect-btn dropdown-toggle w-100 text-start d-flex align-items-center justify-content-between"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside"
+                                        aria-expanded="false">
+                                    <span class="text-truncate">
+                                        <i class="fa fa-map-marker expediente-select-icon"/>
+                                        <t t-if="!state.selectedPlazas || state.selectedPlazas.length === 0">Todas las plazas</t>
+                                        <t t-else="">
+                                            <t t-esc="state.selectedPlazas.length"/> seleccionada(s)
+                                        </t>
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu expediente-dropdown-menu w-100 p-2 shadow-sm">
+                                    <t t-foreach="state.plazas" t-as="plaza" t-key="plaza.id">
+                                        <li>
+                                            <label class="dropdown-item d-flex align-items-center gap-2 rounded px-2 py-1">
+                                                <input class="form-check-input mt-0"
+                                                       type="checkbox"
+                                                       t-att-value="plaza.id"
+                                                       t-on-change="(ev) => this.onTogglePlaza(ev, plaza.id)"/>
+                                                <span class="text-truncate"><t t-esc="plaza.name"/></span>
+                                            </label>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <div class="expediente-multiselect-wrapper flex-fill dropdown">
+                                <button class="btn expediente-multiselect-btn dropdown-toggle w-100 text-start d-flex align-items-center justify-content-between"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside"
+                                        aria-expanded="false">
+                                    <span class="text-truncate">
+                                        <i class="fa fa-truck expediente-select-icon me-2"/>
+                                        <t t-if="!state.selectedEtapas || state.selectedEtapas.length === 0">Todas las Etapas</t>
+                                        <t t-else="">
+                                            <t t-esc="state.selectedEtapas.length"/> seleccionada(s)
+                                        </t>
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu expediente-dropdown-menu w-100 p-2 shadow-sm">
+                                    <t t-foreach="state.etapas" t-as="etapa" t-key="etapa.id">
+                                        <li>
+                                            <label class="dropdown-item d-flex align-items-center gap-2 rounded px-2 py-1">
+                                                <input class="form-check-input mt-0"
+                                                       type="checkbox"
+                                                       t-att-value="etapa.id"
+                                                       t-on-change="(ev) => this.onToggleEtapa(ev, etapa.id)"/>
+                                                <span class="text-truncate"><t t-esc="etapa.name"/></span>
+                                            </label>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
                             <t t-if="state.mostrarEstExpe">
-                                <div class="expediente-select-wrapper w-100" t-on-change="onChangeEstadoExpe">
+                                <div class="expediente-select-wrapper w-100">
                                     <i class="fa fa-file expediente-select-icon"/>
-                                    <select class="form-select expediente-select">
+                                    <select class="form-select expediente-select"  t-on-change="onChangeEstadoExpe">
                                         <option value="">Estado de expediente</option>
                                         <option value="completo">Completo</option>
                                         <option value="incompleto">Incompleto</option>
@@ -174,9 +247,18 @@
                                 <i class="fa fa-exclamation-triangle me-2"/>
                                 <span class="fw-bold">Expediente incompleto — faltan <t t-esc="state.archivos.faltantes.length"/> documento(s)</span>
                             </div>
-                            <ul class="mb-0 ps-4">
-                                <t t-foreach="state.archivos.faltantes" t-as="falta" t-key="falta">
-                                    <li t-esc="falta"/>
+                            <ul class="mb-0 ps-4 d-flex flex-column gap-2">
+                                <t t-foreach="state.archivos.faltantes" t-as="falta" t-key="falta.faltante">
+                                    <li class="d-flex align-items-center gap-2">
+                                        <span class="fw-semibold text-dark">
+                                            <t t-esc="falta['faltante']"/>
+                                        </span>
+
+                                        <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis px-2 py-1">
+                                            <i class="fa fa-exclamation-circle me-1"/>
+                                            <t t-esc="falta['motivo']"/>
+                                        </span>
+                                    </li>
                                 </t>
                             </ul>
                         </div>

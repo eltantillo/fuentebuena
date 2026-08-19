@@ -1,0 +1,50 @@
+body.sh_readonly_user {
+    /* Discuss Composer Styles */
+    .o-mail-Composer-input,
+    .o-mail-Composer-inputStyle,
+    .o-mail-Composer-bg {
+        pointer-events: none !important;
+        background-color: #f8f9fa !important;
+        opacity: 0.8;
+    }
+
+    .o-mail-Composer-send,
+    .o-sendMessageActive,
+    .o-mail-Composer-actions {
+        display: none !important;
+    }
+
+    /* Optional: Hide attachment buttons too */
+    .o-mail-Chatter-fileUploader,
+    .o-mail-Composer-attachFiles {
+        display: none !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Conditional Domain Restriction — Edit/Write Block
+   Applied via JS when a record matches a sh.conditional.domain rule
+   with sh_conditional_update = True.
+   ═══════════════════════════════════════════════════════════ */
+.o_form_view.sh_conditional_no_edit {
+    /* Hide the Edit button and Save/Discard buttons */
+    .o_form_button_edit,
+    .o_form_button_save,
+    .o_form_button_discard,
+    .o_form_buttons_edit {
+        display: none !important;
+    }
+
+    /* Make all fields appear as readonly — prevent click-to-edit */
+    .o_field_widget:not(.o_field_boolean) {
+        pointer-events: none !important;
+    }
+
+    .o_form_editable .o_field_widget input,
+    .o_form_editable .o_field_widget textarea,
+    .o_form_editable .o_field_widget select {
+        pointer-events: none !important;
+        background-color: transparent !important;
+        border-color: transparent !important;
+    }
+}

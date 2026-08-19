@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<!-- Donut Chart -->
+<t t-name="sh_access_management.ShDonutChart">
+    <div class="sh_chart_wrap"><canvas t-ref="canvas"/></div>
+</t>
+
+<!-- Line Chart -->
+<t t-name="sh_access_management.ShLineChart">
+    <div class="sh_chart_wrap"><canvas t-ref="canvas"/></div>
+</t>
+
+<!-- Bar Chart -->
+<t t-name="sh_access_management.ShBarChart">
+    <div class="sh_barchart_scroll">
+        <div class="sh_chart_wrap" style="height:240px; min-height: 240px;"><canvas t-ref="canvas"/></div>
+    </div>
+</t>
+
+<!-- ===================================================== -->
+<!-- Inline Heatmap                                        -->
+<!-- ===================================================== -->
+<t t-name="sh_access_management.ShHeatmap">
+    <div class="sh_chart_card sh_heatmap_card">
+        <div class="sh_card_header">
+            <div>
+                <h3><i class="fa fa-th"/> Model Access Heatmap</h3>
+                <div class="sh_card_subtitle"><t t-esc="subtitle"/></div>
+            </div>
+            <div class="sh_card_actions">
+                <button t-if="hasMoreRows" class="sh_btn_outline" t-on-click="onToggleRows">
+                    <i t-att-class="state.rowsExpanded ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"/>
+                    <t t-if="state.rowsExpanded"> Less models</t>
+                    <t t-else=""> More models (<t t-esc="props.heatmap.length"/>)</t>
+                </button>
+                <button class="sh_btn_outline" t-on-click="onToggleCols">
+                    <i t-att-class="state.colsExpanded ? 'fa fa-compress' : 'fa fa-expand'"/>
+                    <t t-if="state.colsExpanded"> Less columns</t>
+                    <t t-else=""> More columns</t>
+                </button>
+                <button class="sh_btn_gradient" t-on-click="props.openDrawer">
+                    <i class="fa fa-external-link"/> View Full Heatmap
+                </button>
+            </div>
+        </div>
+        <div class="sh_heat_legend_row">
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_none"/> None</span>
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_low"/> 1–2 Low</span>
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_medium"/> 3–4 Med</span>
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_high"/> 5+ High</span>
+        </div>
+        <div class="sh_heatmap_scroll">
+            <table class="sh_heatmap_table">
+                <thead>
+                    <tr>
+                        <th class="sh_heat_sticky_left">MODEL</th>
+                        <th t-foreach="visibleColumns" t-as="col" t-key="col_index" class="sh_heat_col_header">
+                            <t t-esc="col"/>
+                        </th>
+                        <th class="sh_heat_sticky_right">TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-if="!props.heatmap.length">
+                        <td t-att-colspan="visibleColumns.length + 2" class="sh_empty">
+                            <i class="fa fa-info-circle"/> No model restrictions configured yet
+                        </td>
+                    </tr>
+                    <tr t-foreach="visibleRows" t-as="row" t-key="row.model">
+                        <td class="sh_heat_sticky_left sh_heat_model">
+                            <span t-att-title="row.name"><t t-esc="row.model"/></span>
+                        </td>
+                        <t t-foreach="visibleColumns" t-as="col" t-key="col_index">
+                            <td>
+                                <span class="sh_heat_cell" t-att-class="cellClass(valOrExtra(row, col_index, row_index))">
+                                    <t t-esc="valOrExtra(row, col_index, row_index)"/>
+                                </span>
+                            </td>
+                        </t>
+                        <td class="sh_heat_sticky_right sh_heat_total">
+                            <t t-esc="rowTotal(row, row_index)"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</t>
+
+<!-- ===================================================== -->
+<!-- Heatmap Drawer                                        -->
+<!-- ===================================================== -->
+<t t-name="sh_access_management.ShHeatmapDrawer">
+    <div class="sh_drawer_backdrop" t-on-click="onClose"/>
+    <div class="sh_drawer" t-on-click.stop="">
+        <div class="sh_drawer_header">
+            <div>
+                <h2><i class="fa fa-th"/> Full Model Access Heatmap</h2>
+                <div class="sh_drawer_sub">All models × all restriction columns — scroll to navigate</div>
+            </div>
+            <div class="sh_drawer_actions">
+                <div class="sh_drawer_search_wrap">
+                    <i class="fa fa-search sh_drawer_search_icon"/>
+                    <input type="text" placeholder="Search models..." t-model="state.search" class="sh_drawer_search"/>
+                    <button t-if="state.search" type="button" class="sh_drawer_search_clear"
+                            t-on-click="onClearSearch" title="Clear search">
+                        <i class="fa fa-times-circle"/>
+                    </button>
+                </div>
+                <span class="sh_drawer_stats">
+                    <b><t t-esc="filteredRows.length"/></b> models · <b><t t-esc="allColumns.length"/></b> cols
+                </span>
+                <button class="sh_drawer_close" t-on-click="onClose" title="Close (Esc)">
+                    <i class="fa fa-times"/>
+                </button>
+            </div>
+        </div>
+        <div class="sh_drawer_legend">
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_none"/> None</span>
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_low"/> Low (1–2)</span>
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_medium"/> Med (3–4)</span>
+            <span class="sh_legend_item"><span class="sh_heat_swatch sh_heat_high"/> High (5+)</span>
+        </div>
+        <div class="sh_drawer_body">
+            <table class="sh_heatmap_table sh_heatmap_full">
+                <thead>
+                    <tr>
+                        <th class="sh_heat_sticky_left">MODEL</th>
+                        <th t-foreach="allColumns" t-as="col" t-key="col_index"
+                            class="sh_heat_col_header sh_heat_col_rotate">
+                            <div><t t-esc="col"/></div>
+                        </th>
+                        <th class="sh_heat_sticky_right">TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="filteredRows" t-as="row" t-key="row.model">
+                        <td class="sh_heat_sticky_left sh_heat_model">
+                            <span t-att-title="row.name"><t t-esc="row.model"/></span>
+                        </td>
+                        <t t-foreach="allColumns" t-as="col" t-key="col_index">
+                            <td>
+                                <span class="sh_heat_cell" t-att-class="cellClass(valOrExtra(row, col_index))">
+                                    <t t-esc="valOrExtra(row, col_index)"/>
+                                </span>
+                            </td>
+                        </t>
+                        <td class="sh_heat_sticky_right sh_heat_total"><t t-esc="row.total"/></td>
+                    </tr>
+                    <tr t-if="!filteredRows.length">
+                        <td t-att-colspan="allColumns.length + 2" class="sh_empty">
+                            No models match "<t t-esc="state.search"/>"
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</t>
+
+<!-- ===================================================== -->
+<!-- User Access Inspector                                 -->
+<!-- ===================================================== -->
+<t t-name="sh_access_management.ShInspector">
+    <div class="sh_chart_card sh_inspector_card">
+        <div class="sh_card_header">
+            <h3>
+                <i class="fa fa-search"/> User Access Inspector
+                <span class="sh_card_subtitle"> — inspect what affects a specific user</span>
+            </h3>
+            <div class="sh_card_actions">
+                <div class="sh_user_picker_wrap">
+                    <i class="fa fa-user sh_picker_icon"/>
+                    <select class="sh_user_picker" t-on-change="onUserChange">
+                        <option value="">— Select user —</option>
+                        <option t-foreach="props.allUsers" t-as="u" t-key="u.id"
+                                t-att-value="u.id" t-att-selected="u.id === state.userId">
+                            <t t-esc="u.name"/> (<t t-esc="u.login"/>)
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div t-if="state.loading" class="sh_inspector_loading">
+            <i class="fa fa-spinner fa-spin fa-2x"/> Loading...
+        </div>
+
+        <t t-elif="state.data">
+            <div class="sh_inspector_summary">
+                <div class="sh_inspector_user_info">
+                    <div class="sh_avatar sh_avatar_1">
+                        <t t-esc="(state.data.user.name || 'U')[0].toUpperCase()"/>
+                    </div>
+                    <div>
+                        <div class="sh_user_name"><t t-esc="state.data.user.name"/></div>
+                        <div class="sh_user_sub"><i class="fa fa-at"/> <t t-esc="state.data.user.login"/></div>
+                    </div>
+                </div>
+                <div class="sh_inspector_counts">
+                    <span class="sh_count_pill sh_count_rules">
+                        <i class="fa fa-list-alt"/> <b><t t-esc="state.data.counts.rules"/></b> rules
+                    </span>
+                    <span class="sh_count_pill sh_count_menus">
+                        <i class="fa fa-ban"/> <b><t t-esc="state.data.counts.menus"/></b> menus
+                    </span>
+                    <span class="sh_count_pill sh_count_fields">
+                        <i class="fa fa-lock"/> <b><t t-esc="state.data.counts.fields"/></b> fields
+                    </span>
+                    <span class="sh_count_pill sh_count_eff">
+                        <i class="fa fa-cogs"/> <b><t t-esc="state.data.counts.effective"/></b> effective
+                    </span>
+                </div>
+            </div>
+
+            <div class="sh_tabs">
+                <div t-att-class="'sh_tab' + (state.activeTab === 'rules' ? ' sh_tab_active' : '')"
+                     t-on-click="_tabRules">
+                    <i class="fa fa-list-alt"/> Active Rules
+                    <span class="sh_tab_count"><t t-esc="state.data.counts.rules"/></span>
+                </div>
+                <div t-att-class="'sh_tab' + (state.activeTab === 'menus' ? ' sh_tab_active' : '')"
+                     t-on-click="_tabMenus">
+                    <i class="fa fa-ban"/> Hidden Menus
+                    <span class="sh_tab_count"><t t-esc="state.data.counts.menus"/></span>
+                </div>
+                <div t-att-class="'sh_tab' + (state.activeTab === 'fields' ? ' sh_tab_active' : '')"
+                     t-on-click="_tabFields">
+                    <i class="fa fa-lock"/> Fields
+                    <span class="sh_tab_count"><t t-esc="state.data.counts.fields"/></span>
+                </div>
+                <div t-att-class="'sh_tab' + (state.activeTab === 'effective' ? ' sh_tab_active' : '')"
+                     t-on-click="_tabEffective">
+                    <i class="fa fa-cogs"/> Effective
+                    <span class="sh_tab_count"><t t-esc="state.data.counts.effective"/></span>
+                </div>
+            </div>
+
+            <div class="sh_tab_content">
+                <!-- Rules tab -->
+                <t t-if="state.activeTab === 'rules'">
+                    <t t-if="state.data.rules.length">
+                        <div class="sh_table_scroll">
+                            <table class="sh_data_table">
+                                <thead>
+                                    <tr>
+                                        <th>Rule</th><th>Type</th>
+                                        <th>Status</th><th>Expiry</th><th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="state.data.rules" t-as="r" t-key="r.id">
+                                        <td><b><t t-esc="r.name"/></b></td>
+                                        <td><span class="sh_badge sh_badge_user"><t t-esc="r.type"/></span></td>
+                                        <td>
+                                            <span t-if="r.status === 'active'"    class="sh_badge sh_badge_ok"><i class="fa fa-check"/> Active</span>
+                                            <span t-elif="r.status === 'time'"    class="sh_badge sh_badge_time"><i class="fa fa-clock-o"/> Time</span>
+                                            <span t-elif="r.status === 'expiring'" class="sh_badge sh_badge_warn"><i class="fa fa-exclamation-triangle"/> Expiring</span>
+                                            <span t-else=""                        class="sh_badge sh_badge_muted"><t t-esc="r.status"/></span>
+                                        </td>
+                                        <td class="sh_text_muted"><t t-esc="r.expiry"/></td>
+                                        <td>
+                                            <a href="#" t-on-click.prevent="() => this.onOpenRule(r.id)" class="sh_link">
+                                                <i class="fa fa-external-link"/> Open
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                    <div t-else="" class="sh_empty">
+                        <i class="fa fa-check-circle fa-2x sh_empty_icon_ok"/>
+                        <p>No active rules — full access</p>
+                    </div>
+                </t>
+
+                <!-- Menus tab -->
+                <t t-if="state.activeTab === 'menus'">
+                    <t t-if="state.data.menus.length">
+                        <div class="sh_chip_list">
+                            <span t-foreach="state.data.menus" t-as="m" t-key="m.id" class="sh_chip sh_chip_danger">
+                                <i class="fa fa-ban"/> <t t-esc="m.name"/>
+                            </span>
+                        </div>
+                    </t>
+                    <div t-else="" class="sh_empty">
+                        <i class="fa fa-check-circle fa-2x sh_empty_icon_ok"/>
+                        <p>No menus hidden</p>
+                    </div>
+                </t>
+
+                <!-- Fields tab -->
+                <t t-if="state.activeTab === 'fields'">
+                    <t t-if="state.data.fields.length">
+                        <div class="sh_table_scroll">
+                            <table class="sh_data_table">
+                                <thead><tr><th>Model</th><th>Field</th><th>Type</th></tr></thead>
+                                <tbody>
+                                    <tr t-foreach="state.data.fields" t-as="f" t-key="f_index">
+                                        <td><code><t t-esc="f.model"/></code></td>
+                                        <td><b><t t-esc="f.field"/></b></td>
+                                        <td><span class="sh_badge sh_badge_user"><i class="fa fa-lock"/> <t t-esc="f.kind"/></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                    <div t-else="" class="sh_empty">
+                        <i class="fa fa-check-circle fa-2x sh_empty_icon_ok"/>
+                        <p>No field restrictions</p>
+                    </div>
+                </t>
+
+                <!-- Effective tab -->
+                <t t-if="state.activeTab === 'effective'">
+                    <t t-if="state.data.effective.length">
+                        <div class="sh_chip_list">
+                            <span t-foreach="state.data.effective" t-as="e" t-key="e_index" class="sh_chip sh_chip_primary">
+                                <i class="fa fa-cog"/> <t t-esc="e"/>
+                            </span>
+                        </div>
+                    </t>
+                    <div t-else="" class="sh_empty">
+                        <i class="fa fa-check-circle fa-2x sh_empty_icon_ok"/>
+                        <p>No effective restrictions</p>
+                    </div>
+                </t>
+            </div>
+        </t>
+
+        <div t-else="" class="sh_empty sh_inspector_placeholder">
+            <i class="fa fa-user-circle fa-3x sh_empty_icon_ok"/>
+            <p>Select a user to inspect their access configuration</p>
+        </div>
+    </div>
+</t>
+
+<!-- ===================================================== -->
+<!-- MAIN DASHBOARD                                        -->
+<!-- ===================================================== -->
+<t t-name="sh_access_management.ShDashboard">
+    <div class="sh_dashboard">
+
+        <!-- ══ HEADER ══════════════════════════════════════════ -->
+        <header class="sh_dash_header">
+            <div class="sh_dash_left">
+                <!-- Title + meta (no breadcrumb) -->
+                <div class="sh_dash_title">
+                    <div class="sh_dash_title_icon" t-on-click="onGoToRules" title="Go to Access Management Rules">
+                        <i class="fa fa-shield"/>
+                    </div>
+                    <div class="sh_dash_title_text">
+                        <h1>Access Management</h1>
+                        <div class="sh_dash_subtitle">
+                            <t t-if="state.data">
+                                <span class="sh_meta_chip">
+                                    <i class="fa fa-building-o"/> <t t-esc="companyName"/>
+                                </span>
+                                <span class="sh_meta_chip">
+                                    <i class="fa fa-clock-o"/> Updated <t t-esc="fetchedAt"/>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class="sh_meta_chip">
+                                    <i class="fa fa-spinner fa-spin"/> Loading...
+                                </span>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="sh_dash_actions">
+                <button t-att-class="'sh_btn_icon sh_btn_theme ' + (state.darkMode ? 'sh_btn_theme_dark' : 'sh_btn_theme_light')"
+                        t-on-click="onToggleDarkMode"
+                        t-att-title="state.darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+                    <i t-att-class="state.darkMode ? 'fa fa-sun-o' : 'fa fa-moon-o'"/>
+                </button>
+                <button class="sh_btn_light" t-on-click="onRefresh">
+                    <i class="fa fa-refresh"/> Refresh
+                </button>
+            </div>
+        </header>
+
+        <!-- ══ LOADING ═════════════════════════════════════════ -->
+        <div t-if="state.loading" class="sh_dash_loading">
+            <i class="fa fa-spinner fa-spin fa-3x"/>
+            <p>Loading dashboard data...</p>
+        </div>
+
+        <!-- ══ ERROR ═══════════════════════════════════════════ -->
+        <div t-elif="state.error" class="sh_dash_error">
+            <i class="fa fa-exclamation-triangle fa-3x"/>
+            <p><b>Error:</b> <t t-esc="state.error"/></p>
+            <button class="sh_btn_gradient" t-on-click="onRefresh">
+                <i class="fa fa-refresh"/> Retry
+            </button>
+        </div>
+
+        <!-- ══ CONTENT ═════════════════════════════════════════ -->
+        <t t-elif="state.data">
+
+            <!-- KPI Row 1 -->
+            <div class="sh_kpi_grid">
+                <div class="sh_kpi_card sh_kpi_total" t-on-click="onGoToRules"
+                     title="Total access rules in this company (active + inactive). Click to open the full rules list.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-list-alt"/></div>
+                        <div class="sh_kpi_label">Total Rules</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.total"/></div>
+                        <div t-att-class="'sh_kpi_trend ' + trendClass(state.data.kpis.total_trend_pct)"
+                             t-attf-title="Change in rule count over the last 30 days compared to the previous 30 days. ▲ growth, ▼ reduction. Calculated as ((current − prior) / prior) × 100. Growth above 100% is shown as a multiplier (e.g. 2.6× means rule creation more than doubled).">
+                            <t t-esc="trendArrow(state.data.kpis.total_trend_pct)"/>
+                            <t t-esc="trendLabel(state.data.kpis.total_trend_pct)"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="sh_kpi_card sh_kpi_active" t-on-click="onGoToActive"
+                     title="Rules currently enforcing restrictions. Excludes inactive or expired rules. Click to view.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-check-circle"/></div>
+                        <div class="sh_kpi_label">Active Rules</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.active"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="Active rules are {{ sharePct(state.data.kpis.active) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.active)"/>% of all rules</div>
+                        <div class="sh_kpi_sub"><i class="fa fa-mouse-pointer"/> click to view</div>
+                    </div>
+                </div>
+                <div class="sh_kpi_card sh_kpi_inactive" t-on-click="onGoToInactive"
+                     title="Rules that exist but are turned off (active_rule = False). They do not affect user access until re-enabled.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-pause-circle"/></div>
+                        <div class="sh_kpi_label">Inactive</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.inactive"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="Inactive rules are {{ sharePct(state.data.kpis.inactive) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.inactive)"/>% of all rules</div>
+                        <div class="sh_kpi_sub"><i class="fa fa-mouse-pointer"/> click to view</div>
+                    </div>
+                </div>
+                <div class="sh_kpi_card sh_kpi_warning"
+                     title="Rules whose Expiry Date falls within the next 7 days. Review to extend or let them lapse.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-exclamation-triangle"/></div>
+                        <div class="sh_kpi_label">Expiring ≤ 7 days</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.expiring_7d"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="Expiring rules are {{ sharePct(state.data.kpis.expiring_7d) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.expiring_7d)"/>% of all rules</div>
+                        <div class="sh_kpi_sub" t-if="state.data.kpis.expiring_7d > 0">
+                            <i class="fa fa-bell"/> Action needed
+                        </div>
+                        <div class="sh_kpi_sub" t-else=""><i class="fa fa-check"/> All good</div>
+                    </div>
+                </div>
+                <div class="sh_kpi_card sh_kpi_danger"
+                     title="Rules whose Expiry Date is today. Use Quick Actions → Cleanup Expired to deactivate them.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-calendar-times-o"/></div>
+                        <div class="sh_kpi_label">Expired Today</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.expired_today"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="Rules expiring today are {{ sharePct(state.data.kpis.expired_today) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.expired_today)"/>% of all rules</div>
+                        <div class="sh_kpi_sub" t-if="state.data.kpis.expired_today > 0">
+                            <i class="fa fa-eraser"/> Run cleanup
+                        </div>
+                        <div class="sh_kpi_sub" t-else=""><i class="fa fa-check"/> None today</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Row 2 -->
+            <div class="sh_kpi_grid sh_kpi_row2">
+                <div class="sh_kpi_card sh_kpi_info" t-on-click="onGoToUserRules"
+                     title="Rules that target specific individual users (Restriction Type = User). Click to filter.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-user"/></div>
+                        <div class="sh_kpi_label">User Rules</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.by_user"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="User rules are {{ sharePct(state.data.kpis.by_user) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.by_user)"/>% of all rules</div>
+                        <div class="sh_kpi_sub"><i class="fa fa-mouse-pointer"/> click to filter</div>
+                    </div>
+                </div>
+                <div class="sh_kpi_card sh_kpi_purple" t-on-click="onGoToGroupRules"
+                     title="Rules that target user groups (Restriction Type = Group). Apply to every member of the group.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-users"/></div>
+                        <div class="sh_kpi_label">Group Rules</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.by_group"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="Group rules are {{ sharePct(state.data.kpis.by_group) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.by_group)"/>% of all rules</div>
+                        <div class="sh_kpi_sub"><i class="fa fa-mouse-pointer"/> click to filter</div>
+                    </div>
+                </div>
+                <div class="sh_kpi_card sh_kpi_pink" t-on-click="onGoToTimeBased"
+                     title="Rules that only enforce during a configured time window (Restrict based on time?). Click to filter.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-clock-o"/></div>
+                        <div class="sh_kpi_label">Time-Based</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.time_based"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="Time-based rules are {{ sharePct(state.data.kpis.time_based) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.time_based)"/>% of all rules</div>
+                        <div class="sh_kpi_sub"><i class="fa fa-mouse-pointer"/> click to filter</div>
+                    </div>
+                </div>
+                <div class="sh_kpi_card sh_kpi_dark" t-on-click="onGoToLoginDisabled"
+                     title="Rules that block target users from logging into Odoo entirely. Use with care.">
+                    <div class="sh_kpi_left">
+                        <div class="sh_kpi_icon"><i class="fa fa-lock"/></div>
+                        <div class="sh_kpi_label">Login Disabled</div>
+                        <div class="sh_kpi_value"><t t-esc="state.data.kpis.login_disabled"/></div>
+                    </div>
+                    <div class="sh_kpi_right">
+                        <div class="sh_kpi_share_text" t-attf-title="Login-disabled rules are {{ sharePct(state.data.kpis.login_disabled) }}% of all {{ state.data.kpis.total }} rules."><t t-esc="sharePct(state.data.kpis.login_disabled)"/>% of all rules</div>
+                        <div class="sh_kpi_sub"><i class="fa fa-mouse-pointer"/> click to filter</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="sh_charts_grid">
+                <div class="sh_chart_card">
+                    <h3 title="Split of all active rules by their Restriction Type: User-targeted vs Group-targeted.">
+                        <i class="fa fa-pie-chart"/> Rules by Restriction Type
+                    </h3>
+                    <ShDonutChart data="state.data.charts.restriction_type" darkMode="state.darkMode"/>
+                </div>
+                <div class="sh_chart_card">
+                    <h3 title="Number of access rules created per month over the last 6 months. Spikes may indicate policy roll-outs.">
+                        <i class="fa fa-line-chart"/> Rules Created — Last 6 Months
+                    </h3>
+                    <ShLineChart data="state.data.charts.creation_trend" darkMode="state.darkMode"/>
+                </div>
+            </div>
+
+            <!-- Models + Insights -->
+            <div class="sh_dash_row" t-att-style="state.modelsExpanded ? 'height: 600px;' : 'height: 380px;'">
+                <div class="sh_chart_card">
+                    <div class="sh_card_header">
+                        <h3>
+                            <i class="fa fa-bar-chart"/> Restricted Models
+                            <span class="sh_card_subtitle" t-if="!state.modelsExpanded"> — Top 10</span>
+                            <span class="sh_card_subtitle" t-else=""> — All <t t-esc="state.data.top_models.length"/></span>
+                        </h3>
+                        <div class="sh_card_actions">
+                            <select class="sh_select_small" t-on-change="onModelSortChange">
+                                <option value="count_desc">↓ Most restricted</option>
+                                <option value="count_asc">↑ Least restricted</option>
+                                <option value="name_asc">A → Z</option>
+                                <option value="name_desc">Z → A</option>
+                            </select>
+                            <button class="sh_btn_outline" t-on-click="onToggleModels">
+                                <i t-att-class="state.modelsExpanded ? 'fa fa-angle-up' : 'fa fa-angle-down'"/>
+                                <t t-if="state.modelsExpanded"> Collapse</t>
+                                <t t-else=""> Show All</t>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sh_info_banner sh_info_secondary">
+                        <i class="fa fa-info-circle"/> Number of rules restricting fields or views per model
+                    </div>
+                    <div t-if="!state.data.top_models.length" class="sh_empty">
+                        <i class="fa fa-bar-chart fa-2x sh_empty_icon"/> No model restrictions yet
+                    </div>
+                    <ShBarChart t-else="" models="state.data.top_models"
+                                expanded="state.modelsExpanded" sortMode="state.modelSort"
+                                darkMode="state.darkMode"/>
+                </div>
+
+                <!-- Access Insights -->
+                <div class="sh_chart_card sh_insights_card">
+                    <div class="sh_card_header">
+                        <h3><i class="fa fa-heartbeat"/> Access Insights</h3>
+                        <div class="sh_score_chip">
+                            <div class="sh_score_donut" t-att-style="scoreCircleStyle()">
+                                <div class="sh_score_inner">
+                                    <t t-esc="state.data.insights.score"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="sh_score_rating"
+                                     t-attf-style="color: {{state.data.insights.rating_color}};">
+                                    <t t-esc="state.data.insights.rating"/>
+                                </div>
+                                <div class="sh_score_label">Config Score</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-att-class="state.modelsExpanded ? 'sh_insights_list sh_insights_expanded' : 'sh_insights_list'">
+                        <div t-foreach="state.data.insights.items" t-as="ins" t-key="ins_index"
+                             t-att-class="'sh_ins_row ' + insightStatusClass(ins.status)">
+                            <div class="sh_ins_left">
+                                <div class="sh_ins_icon"><i t-att-class="'fa ' + ins.icon"/></div>
+                                <div class="sh_ins_body">
+                                    <div class="sh_ins_title"><t t-esc="ins.title"/></div>
+                                    <div class="sh_ins_detail"><t t-esc="ins.detail"/></div>
+                                </div>
+                            </div>
+                            <div class="sh_ins_value"><t t-esc="ins.value"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heatmap -->
+            <ShHeatmap heatmap="state.data.heatmap" openDrawer.bind="onOpenHeatmapDrawer"/>
+
+            <!-- Inspector -->
+            <ShInspector allUsers="state.allUsers"/>
+
+            <!-- Quick Actions -->
+            <div class="sh_quick_actions">
+                <span class="sh_qa_title"><i class="fa fa-bolt"/> QUICK ACTIONS</span>
+                <button class="sh_qa_btn sh_qa_create" t-on-click="onNewRule">
+                    <i class="fa fa-plus-circle"/> Create Rule
+                </button>
+                <button class="sh_qa_btn sh_qa_rules" t-on-click="onGoToRules">
+                    <i class="fa fa-list-alt"/> All Rules
+                </button>
+                <button class="sh_qa_btn sh_qa_cleanup" t-on-click="onCleanupExpired">
+                    <i class="fa fa-eraser"/> Cleanup Expired
+                </button>
+                <button class="sh_qa_btn sh_qa_cache" t-on-click="onRefreshCache">
+                    <i class="fa fa-refresh"/> Refresh Cache
+                </button>
+                <button class="sh_qa_btn sh_qa_inactive" t-on-click="onGoToInactive">
+                    <i class="fa fa-pause-circle"/> Inactive Rules
+                </button>
+                <button class="sh_qa_btn sh_qa_user" t-on-click="onGoToUserRules">
+                    <i class="fa fa-user"/> User Rules
+                </button>
+                <button class="sh_qa_btn sh_qa_group" t-on-click="onGoToGroupRules">
+                    <i class="fa fa-users"/> Group Rules
+                </button>
+                <button class="sh_qa_btn sh_qa_time" t-on-click="onGoToTimeBased">
+                    <i class="fa fa-clock-o"/> Time-Based
+                </button>
+            </div>
+
+            <!-- Recent Activity + Top Users -->
+            <div class="sh_bottom_grid">
+                <div class="sh_chart_card">
+                    <div class="sh_card_header">
+                        <h3><i class="fa fa-history"/> Recent Activity</h3>
+                        <button class="sh_btn_outline" t-on-click="onGoToRecentActivity">
+                            <i class="fa fa-external-link"/> View All
+                        </button>
+                    </div>
+                    <t t-if="state.data.recent_activity.length">
+                        <div class="sh_table_scroll">
+                            <table class="sh_data_table">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fa fa-tag"/> Rule Name</th>
+                                        <th><i class="fa fa-filter"/> Type</th>
+                                        <th><i class="fa fa-user"/> Applied To</th>
+                                        <th><i class="fa fa-calendar"/> Expiry</th>
+                                        <th><i class="fa fa-circle"/> Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="state.data.recent_activity" t-as="a" t-key="a.id"
+                                        class="sh_row_click" t-on-click="onGoToRules">
+                                        <td><b><t t-esc="a.name"/></b></td>
+                                        <td>
+                                            <span t-att-class="'sh_badge ' + (a.type === 'user' ? 'sh_badge_user' : 'sh_badge_group')">
+                                                <i t-att-class="a.type === 'user' ? 'fa fa-user' : 'fa fa-users'"/>
+                                                <t t-esc="a.type"/>
+                                            </span>
+                                        </td>
+                                        <td class="sh_text_muted"><t t-esc="a.applied_to"/></td>
+                                        <td class="sh_text_muted"><t t-esc="a.expiry"/></td>
+                                        <td>
+                                            <span t-att-class="statusBadgeClass(a.status)">
+                                                <t t-esc="statusBadgeText(a.status)"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                    <div t-else="" class="sh_empty">
+                        <i class="fa fa-inbox fa-2x sh_empty_icon"/> No recent activity
+                    </div>
+                </div>
+
+                <div class="sh_chart_card">
+                    <div class="sh_card_header">
+                        <h3><i class="fa fa-trophy"/> Top Restricted Users</h3>
+                        <button class="sh_btn_outline" t-on-click="onGoToTopUsers">
+                            <i class="fa fa-external-link"/> View All
+                        </button>
+                    </div>
+                    <t t-if="state.data.top_users.length">
+                        <div class="sh_user_list">
+                            <div t-foreach="state.data.top_users" t-as="u" t-key="u.id" class="sh_user_row">
+                                <div class="sh_user_info">
+                                    <div t-att-class="'sh_avatar sh_avatar_' + (u_index % 5 + 1)">
+                                        <t t-esc="u.initials"/>
+                                    </div>
+                                    <div>
+                                        <div class="sh_user_name"><t t-esc="u.name"/></div>
+                                        <div class="sh_user_sub">
+                                            <i class="fa fa-at"/> <t t-esc="u.job || u.login"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sh_user_count">
+                                    <i class="fa fa-shield"/> <t t-esc="u.count"/> rules
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <div t-else="" class="sh_empty">
+                        <i class="fa fa-users fa-2x sh_empty_icon"/> No users with rules yet
+                    </div>
+                </div>
+            </div>
+
+        </t><!-- /content -->
+
+        <!-- Drawer -->
+        <ShHeatmapDrawer t-if="state.heatmapDrawerOpen"
+                         heatmap="state.data.heatmap"
+                         close.bind="closeHeatmapDrawer"/>
+    </div>
+</t>
+
+</templates>

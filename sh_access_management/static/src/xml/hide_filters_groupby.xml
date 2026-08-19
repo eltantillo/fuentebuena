@@ -1,0 +1,36 @@
+<templates xml:space="preserve">
+
+    <t t-name="web.SearchBarMenu" t-inherit="web.SearchBarMenu" t-inherit-mode="extension" owl="1">
+
+        <!-- Hide FILTER tab completely -->
+        <xpath expr="//div[hasclass('o_filter_menu')]" position="attributes">
+            <attribute name="t-if">!this.env.searchModel.sh_hide_filter_tab</attribute>
+        </xpath>
+
+        <!-- Hide GROUP BY tab completely -->
+        <xpath expr="//div[hasclass('o_group_by_menu')]" position="attributes">
+            <attribute name="t-if">!this.env.searchModel.sh_hide_group_by_tab</attribute>
+        </xpath>
+
+        <!-- Hide FAVORITE tab completely -->
+        <xpath expr="//div[hasclass('o_favorite_menu')]" position="attributes">
+            <attribute name="t-if">!this.env.searchModel.sh_hide_favourite_tab</attribute>
+        </xpath>
+
+        <!-- Hide "Custom Group By" section based on sh_hide_custom_group_by -->
+        <xpath expr="//t[@t-if='!hideCustomGroupBy and fields.length']" position="attributes">
+            <attribute name="t-if">!hideCustomGroupBy and fields.length and !this.env.searchModel.sh_hide_custom_group_by</attribute>
+        </xpath>
+
+        <!-- Hide the dropdown-divider before "Custom Filter" based on sh_hide_custom_filter -->
+        <xpath expr="//div[hasclass('o_filter_menu')]//t[@t-if='filterItems.length']" position="attributes">
+            <attribute name="t-if">filterItems.length and !this.env.searchModel.sh_hide_custom_filter</attribute>
+        </xpath>
+
+        <!-- Hide "Custom Filter..." DropdownItem based on sh_hide_custom_filter -->
+        <xpath expr="//DropdownItem[contains(@class, 'o_add_custom_filter')]" position="attributes">
+            <attribute name="t-if">!this.env.searchModel.sh_hide_custom_filter</attribute>
+        </xpath>
+    </t>
+
+</templates>

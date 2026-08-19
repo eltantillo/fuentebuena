@@ -15,6 +15,9 @@ class Expediente extends Component {
         this.goBack = this.goBack.bind(this);
 
         this.state = useState({
+            selectedFlotillas: [],
+            selectedEtapas: [],
+            selectedPlazas: [],
             estadoExpediente: null,
             searchTerm: "",
             tipoExpe: [],
@@ -32,6 +35,8 @@ class Expediente extends Component {
             isSearching: false,
             isLoading: true,
             plazas: [],
+            flotillas: [],
+            etapas: [],
             tipoExpedientes: [],
             archivos: [],
             currentView: "vehiculos",
@@ -44,9 +49,10 @@ class Expediente extends Component {
 
         useSetupAction();
         onWillStart(async () => {
-            let domain = [['flotilla_id','=', 1]]
-            await this.loadVehiculos(domain);
+            await this.loadVehiculos();
             await this.loadPlazas();
+            await this.loadFlotillas();
+            await this.loadEtapas();
             await this.loadExpedientes();
         });
     }
@@ -95,15 +101,27 @@ class Expediente extends Component {
         this.state.pdfUrl = null;
         this.state.isOpen = false;
     }
-
-    async loadVehiculos(domain) {
+    async loadVehiculos(domain = []) {
         try {
+            this.state.isLoading = true;
+            const finalDomain = [];
+            if (this.state.selectedFlotillas && this.state.selectedFlotillas.length > 0) {
+                finalDomain.push(['flotilla_id', 'in', this.state.selectedFlotillas]);
+            }
+            if (this.state.selectedPlazas && this.state.selectedPlazas.length > 0) { 
+                finalDomain.push(['plaza_id', 'in', this.state.selectedPlazas]);
+            }
+            if (this.state.selectedEtapas && this.state.selectedEtapas.length > 0) {
+                finalDomain.push(['state_id', 'in', this.state.selectedEtapas]);
+            }
+
+            console.log("Domain generado para Odoo:", finalDomain);
+
             const vehiculos = await this.orm.searchRead(
                 'fleet.vehicle',
-                domain,
-                ['id', 'vin_sn','plaza_id','license_plate']
+                finalDomain,
+                ['id', 'vin_sn', 'plaza_id', 'license_plate']
             );
-
             this.state.vehiculos = vehiculos.map(v => ({
                 ...v,
                 vinLower: String(v.vin_sn || "").toLowerCase(),
@@ -113,6 +131,7 @@ class Expediente extends Component {
 
             this.goToPage(1);
         } catch (error) {
+            console.error("Error al cargar vehículos:", error);
             this.notification.add("No se pudo cargar el listado de vehículos", {
                 type: "danger",
             });
@@ -120,7 +139,6 @@ class Expediente extends Component {
             this.state.isLoading = false;
         }
     }
-
     async obtener_archivos(vehiculo_id){
         return this.orm.call(
             'fleet.vehicle','get_expediente',[vehiculo_id],{}
@@ -162,10 +180,67 @@ class Expediente extends Component {
             );
 
         }catch (error) {
-            this.notification.add("No se pudo cargar el listado de vehículos", {
+            this.notification.add("No se pudo cargar el listado de plazas", {
                 type: "danger",
             });
         }
+    }
+
+    async loadFlotillas(){
+        try{
+            this.state.flotillas = await this.orm.searchRead(
+                'fleet.customer.flotilla',
+                [],
+                ['id','name']
+            )
+        }catch (error) {
+            this.notification.add("No se pudo cargar el listado de flotillas", {
+                type: "danger",
+            });
+        }
+    }
+
+    async loadEtapas(){
+        try{
+            this.state.etapas = await this.orm.searchRead(
+                'fleet.vehicle.state',
+                [],
+                ['id','name']
+            )
+
+        } catch (error) {
+            this.notification.add("No se pudo cargar el listado de etapas", {
+                type: "danger",
+            });
+        }
+    }
+
+    onToggleFlotilla(ev, id) {
+        if (ev.target.checked) {
+            this.state.selectedFlotillas.push(id);
+        } else {
+            this.state.selectedFlotillas = this.state.selectedFlotillas.filter(item => item !== id);
+        }
+        console.log("Flotillas: " + this.state.selectedFlotillas)
+        this.loadVehiculos()
+    }
+
+    onToggleEtapa(ev, id) {
+        if (ev.target.checked) {
+            this.state.selectedEtapas.push(id);
+        } else {
+            this.state.selectedEtapas = this.state.selectedEtapas.filter(item => item !== id);
+        }
+        this.loadVehiculos()
+    }
+
+    onTogglePlaza(ev, id) {
+        if (ev.target.checked) {
+            this.state.selectedPlazas.push(id);
+        } else {
+            this.state.selectedPlazas = this.state.selectedPlazas.filter(item => item != id)
+        }
+        this.loadVehiculos()
     }
 
     async loadExpedientes(){

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="sh_access_management.CalendarController" t-inherit="web.CalendarController" t-inherit-mode="extension">
+        <xpath expr="//t[@t-set-slot='layout-buttons']" position="replace">
+            <t t-set-slot="layout-buttons">
+                <t t-if="this.state.group_show_create">
+                    <t t-call="{{ props.buttonTemplate }}"/>
+                </t>
+            </t>
+        </xpath>
+    </t>
+
+</templates>
