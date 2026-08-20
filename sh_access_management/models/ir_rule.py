@@ -1,9 +1,31 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) Softhealer Technologies Pvt. Ltd.
 
-from odoo import api, models
+from odoo import api, models, tools
 from odoo.fields import Domain
+from odoo.tools import config
 from odoo.tools.safe_eval import safe_eval
+
+# Core/technical models required for login, session bootstrap, and asset/view
+# rendering. These must never be subject to the custom domain/CRUD restrictions
+# below: doing so risks breaking the webclient itself (assets, views, menus,
+# identity checks) for every user, including admins, since these models are
+# read on virtually every request.
+SH_TECHNICAL_MODELS = [
+    'mail.message', 'mail.notification', 'mail.tracking.value', 'mail.followers', 'mail.activity',
+    'mail.message.reaction', 'mail.link.preview', 'mail.message.link.preview',
+    'mail.presence', 'res.users.log', 'discuss.channel', 'discuss.channel.member',
+    'discuss.gif.favorite', 'mail.guest', 'bus.bus', 'discuss.channel.rtc.session',
+    'discuss.call.history', 'sh.access.manager', 'sh.access.model', 'sh.view.list',
+    'sh.field.access', 'sh.navbar.buttons.access', 'sh.hide.chatter', 'sh.filter.access',
+    'sh.store.model.data', 'sh.conditional.domain',
+    'res.users', 'res.groups', 'res.company', 'res.lang', 'res.currency',
+    'ir.attachment', 'ir.asset', 'ir.ui.view', 'ir.ui.menu', 'ir.model.data',
+    'ir.model', 'ir.model.fields', 'ir.model.fields.selection', 'ir.cron',
+    'ir.config_parameter', 'ir.translation', 'ir.rule', 'ir.model.access',
+    'ir.actions.actions', 'ir.actions.act_window', 'ir.actions.report',
+    'ir.actions.server', 'ir.sequence', 'ir.logging', 'ir.qweb', 'ir.http',
+]
 
 
 class IrRule(models.Model):
@@ -13,6 +35,11 @@ class IrRule(models.Model):
     _inherit = 'ir.rule'
 
     @api.model
+    @tools.conditional(
+        'xml' not in config['dev_mode'],
+        tools.ormcache('self.env.uid', 'self.env.su', 'model_name', 'mode',
+                       'tuple(self._compute_domain_context_values())'),
+    )
     def _compute_domain(self, model_name: str, mode: str = "read") -> Domain:
         """
         Improved Domain Engine:
@@ -48,16 +75,7 @@ class IrRule(models.Model):
 
         # Access Management Check
         if not (self.env.su or self.env.user.has_group('base.group_system') or self.env.user.has_group('sh_access_management.sh_access_management_manager')):
-            skip_models = [
-                'mail.message', 'mail.notification', 'mail.tracking.value', 'mail.followers', 'mail.activity',
-                'mail.message.reaction', 'mail.link.preview', 'mail.message.link.preview',
-                'mail.presence', 'res.users.log', 'discuss.channel', 'discuss.channel.member',
-                'discuss.gif.favorite', 'mail.guest', 'bus.bus', 'discuss.channel.rtc.session', 
-                'discuss.call.history', 'sh.access.manager', 'sh.access.model', 'sh.view.list', 
-                'sh.field.access', 'sh.navbar.buttons.access', 'sh.hide.chatter', 'sh.filter.access',
-                'sh.store.model.data', 'sh.conditional.domain'
-            ]
-            is_technical = model_name in skip_models
+            is_technical = model_name in SH_TECHNICAL_MODELS
             
             if not is_technical and mode in ['write', 'create', 'unlink']:
                 all_eligible = self.env['sh.access.manager'].sudo().search([

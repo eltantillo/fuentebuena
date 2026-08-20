@@ -4,6 +4,8 @@
 from odoo import _, api, models, tools
 from odoo.tools import SQL
 
+from .ir_rule import SH_TECHNICAL_MODELS
+
 
 class IrModelAccess(models.Model):
     _inherit = 'ir.model.access'
@@ -53,17 +55,8 @@ class IrModelAccess(models.Model):
         allowed = super()._get_allowed_models(mode)
         if restricted_count > 0 and mode in ['write', 'create', 'unlink']:
             # Technical models allowed even in global readonly mode
-            skip_models = [
-                'mail.message', 'mail.notification', 'mail.tracking.value', 'mail.followers', 'mail.activity',
-                'mail.message.reaction', 'mail.link.preview', 'mail.message.link.preview',
-                'mail.presence', 'res.users.log', 'discuss.channel', 'discuss.channel.member',
-                'discuss.gif.favorite', 'mail.guest', 'bus.bus', 'discuss.channel.rtc.session', 
-                'discuss.call.history', 'sh.access.manager', 'sh.access.model', 'sh.view.list', 
-                'sh.field.access', 'sh.navbar.buttons.access', 'sh.hide.chatter', 'sh.filter.access',
-                'sh.store.model.data'
-            ]
             # In Odoo 19, this returns a frozenset.
-            return frozenset(allowed & set(skip_models))
+            return frozenset(allowed & set(SH_TECHNICAL_MODELS))
 
         return allowed
 
@@ -77,15 +70,7 @@ class IrModelAccess(models.Model):
             return super()._make_access_error(model, mode)
 
         # Technical models exempt from global read-only
-        skip_models = [
-            'mail.message', 'mail.notification', 'mail.tracking.value', 'mail.followers', 'mail.activity',
-            'mail.message.reaction', 'mail.link.preview', 'mail.message.link.preview',
-            'mail.presence', 'res.users.log', 'discuss.channel', 'discuss.channel.member',
-            'discuss.gif.favorite', 'mail.guest', 'bus.bus', 'discuss.channel.rtc.session', 
-            'discuss.call.history', 'sh.access.manager', 'sh.access.model', 'sh.view.list', 
-            'sh.field.access', 'sh.navbar.buttons.access', 'sh.hide.chatter', 'sh.filter.access'
-        ]
-        if model in skip_models:
+        if model in SH_TECHNICAL_MODELS:
             return super()._make_access_error(model, mode)
 
         # Get rules for CURRENT USER that pass the time-window check

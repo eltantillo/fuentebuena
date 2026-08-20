@@ -10,6 +10,8 @@ from odoo.exceptions import AccessError
 from odoo.fields import Date
 from odoo.tools import html_escape
 
+from .ir_rule import SH_TECHNICAL_MODELS
+
 
 class Model(models.AbstractModel):
     """
@@ -402,17 +404,7 @@ class Model(models.AbstractModel):
             return
 
         # Technical models exempt from access management
-        # ... (same as before)
-        skip_models = [
-            'mail.message', 'mail.notification', 'mail.tracking.value', 'mail.followers', 'mail.activity',
-            'mail.message.reaction', 'mail.link.preview', 'mail.message.link.preview',
-            'mail.presence', 'res.users.log', 'discuss.channel', 'discuss.channel.member',
-            'discuss.gif.favorite', 'mail.guest', 'bus.bus', 'discuss.channel.rtc.session', 
-            'discuss.call.history', 'sh.access.manager', 'sh.access.model', 'sh.view.list', 
-            'sh.field.access', 'sh.navbar.buttons.access', 'sh.hide.chatter', 'sh.filter.access',
-            'sh.conditional.domain'
-        ]
-        if self._name in skip_models:
+        if self._name in SH_TECHNICAL_MODELS:
             return
 
         access_rules = self.env['sh.access.model'].check_crud_operation({
