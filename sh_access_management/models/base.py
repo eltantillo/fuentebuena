@@ -488,18 +488,12 @@ class Model(models.AbstractModel):
     @api.model_create_multi
     def create(self, vals_list):
         self._sh_check_crud_restriction('create', vals_list=vals_list)
-        res = super().create(vals_list)
-        self.env.registry.clear_cache()
-        return res
+        return super().create(vals_list)
 
     def write(self, vals):
         self._sh_check_crud_restriction('write')
-        res = super().write(vals)
-        self.env.registry.clear_cache()
-        return res
+        return super().write(vals)
 
     def unlink(self):
         self._sh_check_crud_restriction('unlink')
-        res = super().unlink()
-        self.env.registry.clear_cache()
-        return res
+        return super().unlink()
