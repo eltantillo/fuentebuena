@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-29 22:52+0000\n"
-"PO-Revision-Date: 2026-07-29 22:52+0000\n"
+"POT-Creation-Date: 2026-08-25 18:56+0000\n"
+"PO-Revision-Date: 2026-08-25 18:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,10 +16,25 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__res_partner_bank_acc_number
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__res_partner_bank_acc_number
-msgid "ACC no."
-msgstr "Cuenta de pago CLABE"
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Accident"
+msgstr "Accidente"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Additional Info"
+msgstr "Información adicional"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+msgid "Additional Ticket Fields"
+msgstr "Campos adicionales del ticket"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__advisor_id
+msgid "Advisor / Sales Rep Involved"
+msgstr "Asesor/vendedor involucrado"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__amount
@@ -32,33 +47,97 @@ msgid "App / Trip"
 msgstr "App/viaje"
 
 #. module: morwi_customs
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__geofence_authorization__approved
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__balance_amount
+msgid "Balance / Status Amount"
+msgstr "Saldo/monto del estatus"
+
+#. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__bank_id
 msgid "Bank"
 msgstr "Banco"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_log_contract_cie
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_log_contract_cie
-msgid "CIE"
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Benefit"
+msgstr "Beneficio"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__benefit_rejection_reason
+msgid "Benefit Rejection Reason"
+msgstr "Motivo de rechazo del beneficio"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__benefit_request_result
+msgid "Benefit Request Result"
+msgstr "Resultado de la solicitud de beneficio"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__benefit_validated
+msgid "Benefit Validated"
+msgstr "Beneficio validado"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Billing Correction"
+msgstr "Corrección de facturación"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__fiscal_usage
+msgid "CFDI Usage"
+msgstr "Uso de CFDI"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Case Closure"
+msgstr "Cierre de caso"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__case_status_confirmed
+msgid "Case Status Confirmed to Customer"
+msgstr "Estatus del caso confirmado al cliente"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+msgid ""
+"Check the fields that should be visible, in the \"Additional Info\" tab, on "
+"tickets assigned to this team."
 msgstr ""
+"Marca los campos que deben ser visibles, en la pestaña \"Información "
+"adicional\", en los tickets asignados a este equipo."
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_siniestro_fecha_entrega
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_siniestro_fecha_entrega
-msgid "Claim Delivery Date"
-msgstr "Fecha de entrega siniestro"
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Claim"
+msgstr "Siniestro"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_siniestro_fecha_compromiso_entrega
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_siniestro_fecha_compromiso_entrega
-msgid "Claim Promised Delivery Date"
-msgstr "Fecha de entrega siniestro"
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_siniestro_count
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_siniestro_count
+msgid "Claim Count"
+msgstr "Número de siniestros"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_siniestro_estado
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_siniestro_estado
-msgid "Claim state"
-msgstr "Estatus de reparación"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__claim_status
+msgid "Claim Status"
+msgstr "Estatus de siniestro"
+
+#. module: morwi_customs
+#. odoo-python
+#: code:addons/morwi_customs/models/res_partner.py:0
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_siniestro_ids
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_siniestro_ids
+#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
+msgid "Claims"
+msgstr "Siniestros"
 
 #. module: morwi_customs
 #: model:res.groups,name:morwi_customs.claims_team_contact_groups
@@ -74,6 +153,11 @@ msgid "Clientes"
 msgstr "Contacto"
 
 #. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__closure_evidence
+msgid "Closure Evidence Uploaded (Portal/Email)"
+msgstr "Evidencia de cierre cargada (Portal/Correo)"
+
+#. module: morwi_customs
 #: model:res.groups,name:morwi_customs.collections_team_contact_groups
 msgid ""
 "Collections Team: Grants permission to view customizations on the customer "
@@ -83,27 +167,31 @@ msgstr ""
 "formulario de cliente"
 
 #. module: morwi_customs
-#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
-msgid "Collections and Debts"
-msgstr "Cobranza y Adeudos"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__commercial_responsible_notified
+msgid "Commercial Responsible Notified"
+msgstr "Responsable comercial notificado"
 
 #. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__conditions_communicated
+msgid "Conditions Communicated to Customer"
+msgstr "Condiciones comunicadas al cliente"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
 #: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
-msgid "Sales and Collections"
-msgstr "Comercial y Cobranza"
-
-#. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_movimiento_misc_contrato
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_log_contract_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_movimiento_misc_contrato
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_log_contract_id
 msgid "Contract"
-msgstr "Plaza"
+msgstr "Contrato"
 
 #. module: morwi_customs
-#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
-msgid "Contract information"
-msgstr "Inf. de la plaza"
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_log_contract_count
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_log_contract_count
+msgid "Contract Count"
+msgstr "Número de contratos"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__contract_end_date
+msgid "Contract End Date"
+msgstr "Fecha de fin de contrato"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__fleet_customer_producto_id
@@ -111,9 +199,38 @@ msgid "Contract type"
 msgstr "Tipo de contrato"
 
 #. module: morwi_customs
+#. odoo-python
+#: code:addons/morwi_customs/models/res_partner.py:0
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_log_contract_ids
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_log_contract_ids
+#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
+msgid "Contracts"
+msgstr "Contratos"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__corrected_info_channel
+msgid "Corrected Info or Channeled to Responsible"
+msgstr "Información corregida o canalizada al responsable"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__correction_commitment_date
+msgid "Correction Commitment Date Communicated"
+msgstr "Fecha de compromiso de corrección comunicada"
+
+#. module: morwi_customs
+#: model:ir.model,website_form_label:morwi_customs.model_helpdesk_ticket
+msgid "Create a Ticket"
+msgstr "Crear un ticket"
+
+#. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__currency_id
 msgid "Currency"
 msgstr "Moneda"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__customer_availability
+msgid "Customer Availability"
+msgstr "Disponibilidad del cliente"
 
 #. module: morwi_customs
 #: model:res.groups,name:morwi_customs.customer_exp_team_contact_groups
@@ -123,6 +240,11 @@ msgid ""
 msgstr ""
 "Equipo de Experiencia del Cliente: Otorga permiso para ver personalizaciones"
 " en el formulario de cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__customer_informed_status
+msgid "Customer Informed of Status / Next Step"
+msgstr "Cliente informado del estatus/siguiente paso"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__customer_intent
@@ -140,35 +262,37 @@ msgid "Date / Time / Location"
 msgstr "Fecha/hora/lugar"
 
 #. module: morwi_customs
-#: model:ir.model.fields,help:morwi_customs.field_res_partner__fleet_vehicle_log_contract_start_date
-#: model:ir.model.fields,help:morwi_customs.field_res_users__fleet_vehicle_log_contract_start_date
-msgid "Date when the coverage of the contract begins"
-msgstr ""
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__debt_claim_extension_validation
+msgid "Debt / Claim / Extension Validation"
+msgstr "Validación de adeudo/reclamo/extensión"
 
 #. module: morwi_customs
-#: model:ir.model.fields,help:morwi_customs.field_res_partner__fleet_vehicle_log_contract_expiration_date
-#: model:ir.model.fields,help:morwi_customs.field_res_users__fleet_vehicle_log_contract_expiration_date
-msgid ""
-"Date when the coverage of the contract expirates (by default, one year after"
-" begin date)"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Delivery"
+msgstr "Entrega"
 
 #. module: morwi_customs
-#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
-msgid "Debts and Miscellaneous Debts"
-msgstr "Adeudos y Adeudos Miscelaneos"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__delivery_evidence_date
+msgid "Delivery Date / Communication Evidence"
+msgstr "Fecha de entrega/evidencia de comunicación"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_movimiento_misc_descripcion
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_movimiento_misc_descripcion
-msgid "Description"
-msgstr "Descripción"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__diagnosis_confirmed
+msgid "Diagnosis Confirmed"
+msgstr "Diagnóstico confirmado"
 
 #. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__display_name
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__display_name
 #: model:ir.model.fields,field_description:morwi_customs.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nombre en pantalla"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__trip_duration
+msgid "Duration"
+msgstr "Duración"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__event_narrative
@@ -176,24 +300,52 @@ msgid "Event Narrative"
 msgstr "Narrativa del evento"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_log_contract_expiration_date
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_log_contract_expiration_date
-msgid "Expiration Date Lease"
-msgstr "Fecha fin arrendamiento"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__capture_evidence
+msgid "Evidence / Screenshot (if applicable)"
+msgstr "Evidencia/captura de pantalla (si aplica)"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_2_expediente
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_expediente
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_2_expediente
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_expediente
-msgid "File"
-msgstr "Expediente"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__info_evidence
+msgid "Evidence of Information Provided"
+msgstr "Evidencia de información proporcionada"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_siniestro_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_siniestro_id
-msgid "Fleet Siniestro"
-msgstr "Siniestro"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__extension_folio
+msgid "Extension Folio (if applicable)"
+msgstr "Folio de extensión (si aplica)"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__final_response_sent
+msgid "Final Response Sent to Customer"
+msgstr "Respuesta final enviada al cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__fine_evidence
+msgid "Fine / Verification / Policy Evidence"
+msgstr "Evidencia de multa/verificación/póliza"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Fiscal Data"
+msgstr "Datos fiscales"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__fiscal_proof_document
+msgid "Fiscal Proof / Data Document"
+msgstr "Comprobante fiscal/documento de datos"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__fiscal_regime
+msgid "Fiscal Regime"
+msgstr "Régimen fiscal"
+
+#. module: morwi_customs
+#: model:ir.model.fields,help:morwi_customs.field_helpdesk_ticket__fiscal_regime
+msgid "Fiscal Regime is required for all partners (used in CFDI)"
+msgstr ""
+"El régimen fiscal es obligatorio para todos los contactos (se utiliza en el "
+"CFDI)"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_siniestro_estatus_id
@@ -202,21 +354,47 @@ msgid "Fleet Siniestro Estatus"
 msgstr "Status de siniestro"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_id
-msgid "Fleet Vehicle"
-msgstr "Vehículo"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__tracking_log
+msgid "Follow-up Log"
+msgstr "Bitácora de seguimiento"
 
 #. module: morwi_customs
-#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
-msgid "Fleet and Maintenance"
-msgstr "Flotilla y Mantenimiento"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__follow_up_responsible_id
+msgid "Follow-up Responsible"
+msgstr "Responsable de seguimiento"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_2_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_2_id
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
 msgid "GNV"
-msgstr "Dictamen de GNV"
+msgstr "GNV"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__gps_location
+msgid "GPS Location (if applicable)"
+msgstr "Ubicación GPS (si aplica)"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "General Follow-up"
+msgstr "Seguimiento general"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Geofence"
+msgstr "Geocerca"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__geofence_authorization
+msgid "Geofence Authorization"
+msgstr "Autorización de geocerca"
+
+#. module: morwi_customs
+#: model:ir.model,name:morwi_customs.model_helpdesk_team
+msgid "Helpdesk Team"
+msgstr "Equipo de soporte al cliente"
 
 #. module: morwi_customs
 #: model:ir.model,name:morwi_customs.model_helpdesk_ticket
@@ -224,15 +402,36 @@ msgid "Helpdesk Ticket"
 msgstr "Ticket de soporte al cliente"
 
 #. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__id
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__id
 #: model:ir.model.fields,field_description:morwi_customs.field_res_partner__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
 #: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
-msgid "Vehicle Inf."
-msgstr "Inf. del vehículo"
+msgid "Impound Lot"
+msgstr "Corralón"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__pound_exit_date
+msgid "Impound Lot Exit Date"
+msgstr "Fecha de salida del corralón"
+
+#. module: morwi_customs
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__benefit_request_result__in_process
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__claim_status__in_process
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__corrected_info_channel__in_process
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__customer_availability__in_process
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__payment_management_result__in_process
+msgid "In Process"
+msgstr "En proceso"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__insurance_authority_report
+msgid "Insurance / Authority Report Folio"
+msgstr "Folio de reporte de seguro/autoridad"
 
 #. module: morwi_customs
 #: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
@@ -245,25 +444,21 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__invoice_corrected
+msgid "Invoice / Complement Corrected"
+msgstr "Factura/complemento corregido"
+
+#. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__odometer
 #: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_kilometrage
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__odometer
 #: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_kilometrage
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__odometer
 msgid "Kilometrage"
 msgstr "Kilometraje"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__license_plate
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__license_plate
-msgid "License plate"
-msgstr "Placas"
-
-#. module: morwi_customs
-#: model:ir.model.fields,help:morwi_customs.field_res_partner__license_plate
-#: model:ir.model.fields,help:morwi_customs.field_res_users__license_plate
-msgid "License plate number of the vehicle (i = plate number for a car)"
-msgstr ""
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__legal_name
+msgid "Legal Name (Razón social)"
+msgstr "Razón social"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__location
@@ -271,38 +466,25 @@ msgid "Location"
 msgstr "Ubicación"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__log_services
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__log_services
-msgid "Maintenance Log"
-msgstr "Historial de mantenimientos"
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Maintenance"
+msgstr "Mantenimiento"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_movimiento_misc_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_movimiento_misc_importe
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_movimiento_misc_pendiente
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_movimiento_misc_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_movimiento_misc_importe
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_movimiento_misc_pendiente
-msgid "Miscellaneous transactions"
-msgstr "Movimientos Misceláneos"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__maintenance_appointment_datetime
+msgid "Maintenance Appointment Confirmed"
+msgstr "Cita de mantenimiento confirmada"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_movimiento_misc_tipo_movimiento
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_movimiento_misc_tipo_movimiento
-msgid "Move type"
-msgstr "Tipo de movimiento"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__gnv_next_ruling_date
+msgid "Next GNV Ruling Date"
+msgstr "Próxima fecha de dictamen de GNV"
 
 #. module: morwi_customs
 #: model:ir.model.fields,help:morwi_customs.field_helpdesk_ticket__odometer
-#: model:ir.model.fields,help:morwi_customs.field_res_partner__odometer
-#: model:ir.model.fields,help:morwi_customs.field_res_users__odometer
 msgid "Odometer measure of the vehicle at the moment of this log"
-msgstr ""
-
-#. module: morwi_customs
-#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
-msgid "Operations & Claims"
-msgstr "Operaciones y Siniestros"
+msgstr "Medición del odómetro del vehículo en el momento de este registro"
 
 #. module: morwi_customs
 #: model:res.groups,name:morwi_customs.operations_team_contact_groups
@@ -329,10 +511,29 @@ msgid "Origin / Destination"
 msgstr "Origen/destino"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__res_partner_bank_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__res_partner_bank_id
-msgid "Payment Account (CLABE)"
-msgstr "Cuenta de pago CLABE"
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Payment"
+msgstr "Pago"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__payment_management_result
+msgid "Payment Management Result"
+msgstr "Resultado de la gestión de pago"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__payment_voucher_id
+msgid "Payment Voucher"
+msgstr "Comprobante de pago"
+
+#. module: morwi_customs
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__benefit_request_result__pending
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__claim_status__pending
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__corrected_info_channel__pending
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__customer_availability__pending
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__payment_management_result__pending
+msgid "Pending"
+msgstr "Pendiente"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__phone_number
@@ -340,21 +541,60 @@ msgid "Phone"
 msgstr "Télefono"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_poliza_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_poliza_id
-msgid "Policy"
-msgstr "Póliza de Seguro"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__accident_photos
+msgid "Photos"
+msgstr "Fotos"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_poliza_num_poliza
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_poliza_num_poliza
-msgid "Policy No."
-msgstr "No. Póliza de Seguro"
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__photos_video_evidence
+msgid "Photos / Video (if applicable)"
+msgstr "Fotos/video (si aplica)"
 
 #. module: morwi_customs
+#. odoo-python
+#: code:addons/morwi_customs/models/res_partner.py:0
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_poliza_ids
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_poliza_ids
 #: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
-msgid "Procedures and Fines"
-msgstr "Trámites y Multas"
+msgid "Policies"
+msgstr "Pólizas"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_poliza_count
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_poliza_count
+msgid "Policy Count"
+msgstr "Número de pólizas"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Procedure"
+msgstr "Trámite"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_count
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_count
+msgid "Procedure Count"
+msgstr "Número de trámites"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__procedure_document
+msgid "Procedure Document / Folio"
+msgstr "Documento/folio de trámite"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__procedure_validated
+msgid "Procedure Validated"
+msgstr "Trámite validado"
+
+#. module: morwi_customs
+#. odoo-python
+#: code:addons/morwi_customs/models/res_partner.py:0
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_ids
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_ids
+#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
+msgid "Procedures"
+msgstr "Trámites"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_customer_producto_id
@@ -369,8 +609,6 @@ msgstr "Promoción"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__reason
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_movimiento_misc_motivo
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_movimiento_misc_motivo
 msgid "Reason"
 msgstr "Motivo"
 
@@ -380,20 +618,39 @@ msgid "Reference / CIE"
 msgstr "Referencia/CIE"
 
 #. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Referral / Promotion"
+msgstr "Referido/promoción"
+
+#. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__referral_code
 msgid "Referral Code / ID"
 msgstr "Código/folio de referido"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_fecha_vencimiento_renovacion
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_fecha_vencimiento_renovacion
-msgid "Renewal Due Date"
-msgstr "Fecha de próxima verificación"
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__geofence_authorization__rejected
+msgid "Rejected"
+msgstr "Rechazado"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__requested_period
 msgid "Requested Period"
 msgstr "Periodo solicitado"
+
+#. module: morwi_customs
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__benefit_request_result__resolved
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__claim_status__resolved
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__corrected_info_channel__resolved
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__customer_availability__resolved
+#: model:ir.model.fields.selection,name:morwi_customs.selection__helpdesk_ticket__payment_management_result__resolved
+msgid "Resolved"
+msgstr "Resuelto"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__response_instruction_document
+msgid "Response Instruction / Document Sent to Customer"
+msgstr "Instrucción de respuesta/documento enviado al cliente"
 
 #. module: morwi_customs
 #: model:res.groups,name:morwi_customs.sales_team_contact_groups
@@ -415,9 +672,423 @@ msgid "Salesman"
 msgstr "Vendedor"
 
 #. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Service / Issue"
+msgstr "Servicio/falla"
+
+#. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__issue_description
 msgid "Service / Issue Description"
 msgstr "Descripción de falla/servicio"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_advisor_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_advisor_id
+msgid "Show: Advisor / Sales Rep Involved"
+msgstr "Mostrar: Asesor/vendedor involucrado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_amount
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_amount
+msgid "Show: Amount"
+msgstr "Mostrar: Monto"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_app_trip
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_app_trip
+msgid "Show: App / Trip"
+msgstr "Mostrar: App/viaje"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_balance_amount
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_balance_amount
+msgid "Show: Balance / Status Amount"
+msgstr "Mostrar: Saldo/monto del estatus"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_bank_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_bank_id
+msgid "Show: Bank"
+msgstr "Mostrar: Banco"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_benefit_rejection_reason
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_benefit_rejection_reason
+msgid "Show: Benefit Rejection Reason"
+msgstr "Mostrar: Motivo de rechazo del beneficio"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_benefit_request_result
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_benefit_request_result
+msgid "Show: Benefit Request Result"
+msgstr "Mostrar: Resultado de la solicitud de beneficio"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_benefit_validated
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_benefit_validated
+msgid "Show: Benefit Validated"
+msgstr "Mostrar: Beneficio validado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fiscal_usage
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fiscal_usage
+msgid "Show: CFDI Usage"
+msgstr "Mostrar: Uso de CFDI"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_case_status_confirmed
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_case_status_confirmed
+msgid "Show: Case Status Confirmed to Customer"
+msgstr "Mostrar: Estatus del caso confirmado al cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_claim_status
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_claim_status
+msgid "Show: Claim Status"
+msgstr "Mostrar: Estatus de siniestro"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_closure_evidence
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_closure_evidence
+msgid "Show: Closure Evidence Uploaded (Portal/Email)"
+msgstr "Mostrar: Evidencia de cierre cargada (Portal/Correo)"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_commercial_responsible_notified
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_commercial_responsible_notified
+msgid "Show: Commercial Responsible Notified"
+msgstr "Mostrar: Responsable comercial notificado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_conditions_communicated
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_conditions_communicated
+msgid "Show: Conditions Communicated to Customer"
+msgstr "Mostrar: Condiciones comunicadas al cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_contract_end_date
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_contract_end_date
+msgid "Show: Contract End Date"
+msgstr "Mostrar: Fecha de fin de contrato"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fleet_customer_producto_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fleet_customer_producto_id
+msgid "Show: Contract type"
+msgstr "Mostrar: Tipo de contrato"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_corrected_info_channel
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_corrected_info_channel
+msgid "Show: Corrected Info or Channeled to Responsible"
+msgstr "Mostrar: Información corregida o canalizada al responsable"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_correction_commitment_date
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_correction_commitment_date
+msgid "Show: Correction Commitment Date Communicated"
+msgstr "Mostrar: Fecha de compromiso de corrección comunicada"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_customer_availability
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_customer_availability
+msgid "Show: Customer Availability"
+msgstr "Mostrar: Disponibilidad del cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_customer_informed_status
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_customer_informed_status
+msgid "Show: Customer Informed of Status / Next Step"
+msgstr "Mostrar: Cliente informado del estatus/siguiente paso"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_customer_intent
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_customer_intent
+msgid "Show: Customer Intent"
+msgstr "Mostrar: Intención del cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_date
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_date
+msgid "Show: Date"
+msgstr "Mostrar: Fecha"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_event_datetime
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_event_datetime
+msgid "Show: Date / Time / Location"
+msgstr "Mostrar: Fecha/hora/lugar"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_debt_claim_extension_validation
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_debt_claim_extension_validation
+msgid "Show: Debt / Claim / Extension Validation"
+msgstr "Mostrar: Validación de adeudo/reclamo/extensión"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_delivery_evidence_date
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_delivery_evidence_date
+msgid "Show: Delivery Date / Communication Evidence"
+msgstr "Mostrar: Fecha de entrega/evidencia de comunicación"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_diagnosis_confirmed
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_diagnosis_confirmed
+msgid "Show: Diagnosis Confirmed"
+msgstr "Mostrar: Diagnóstico confirmado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_trip_duration
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_trip_duration
+msgid "Show: Duration"
+msgstr "Mostrar: Duración"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_event_narrative
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_event_narrative
+msgid "Show: Event Narrative"
+msgstr "Mostrar: Narrativa del evento"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_capture_evidence
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_capture_evidence
+msgid "Show: Evidence / Screenshot (if applicable)"
+msgstr "Mostrar: Evidencia/captura de pantalla (si aplica)"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_info_evidence
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_info_evidence
+msgid "Show: Evidence of Information Provided"
+msgstr "Mostrar: Evidencia de información proporcionada"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_extension_folio
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_extension_folio
+msgid "Show: Extension Folio (if applicable)"
+msgstr "Mostrar: Folio de extensión (si aplica)"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_final_response_sent
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_final_response_sent
+msgid "Show: Final Response Sent to Customer"
+msgstr "Mostrar: Respuesta final enviada al cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fine_evidence
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fine_evidence
+msgid "Show: Fine / Verification / Policy Evidence"
+msgstr "Mostrar: Evidencia de multa/verificación/póliza"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fiscal_proof_document
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fiscal_proof_document
+msgid "Show: Fiscal Proof / Data Document"
+msgstr "Mostrar: Comprobante fiscal/documento de datos"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fiscal_regime
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fiscal_regime
+msgid "Show: Fiscal Regime"
+msgstr "Mostrar: Régimen fiscal"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_tracking_log
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_tracking_log
+msgid "Show: Follow-up Log"
+msgstr "Mostrar: Bitácora de seguimiento"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_follow_up_responsible_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_follow_up_responsible_id
+msgid "Show: Follow-up Responsible"
+msgstr "Mostrar: Responsable de seguimiento"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_gps_location
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_gps_location
+msgid "Show: GPS Location (if applicable)"
+msgstr "Mostrar: Ubicación GPS (si aplica)"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_geofence_authorization
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_geofence_authorization
+msgid "Show: Geofence Authorization"
+msgstr "Mostrar: Autorización de geocerca"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_pound_exit_date
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_pound_exit_date
+msgid "Show: Impound Lot Exit Date"
+msgstr "Mostrar: Fecha de salida del corralón"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_insurance_authority_report
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_insurance_authority_report
+msgid "Show: Insurance / Authority Report Folio"
+msgstr "Mostrar: Folio de reporte de seguro/autoridad"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_invoice_corrected
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_invoice_corrected
+msgid "Show: Invoice / Complement Corrected"
+msgstr "Mostrar: Factura/complemento corregido"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_legal_name
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_legal_name
+msgid "Show: Legal Name (Razón social)"
+msgstr "Mostrar: Razón social"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_location
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_location
+msgid "Show: Location"
+msgstr "Mostrar: Ubicación"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_maintenance_appointment_datetime
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_maintenance_appointment_datetime
+msgid "Show: Maintenance Appointment Confirmed"
+msgstr "Mostrar: Cita de mantenimiento confirmada"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_gnv_next_ruling_date
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_gnv_next_ruling_date
+msgid "Show: Next GNV Ruling Date"
+msgstr "Mostrar: Próxima fecha de dictamen de GNV"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_origin_destination
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_origin_destination
+msgid "Show: Origin / Destination"
+msgstr "Mostrar: Origen/destino"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_payment_management_result
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_payment_management_result
+msgid "Show: Payment Management Result"
+msgstr "Mostrar: Resultado de la gestión de pago"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_payment_voucher_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_payment_voucher_id
+msgid "Show: Payment Voucher"
+msgstr "Mostrar: Comprobante de pago"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_accident_photos
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_accident_photos
+msgid "Show: Photos"
+msgstr "Mostrar: Fotos"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_photos_video_evidence
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_photos_video_evidence
+msgid "Show: Photos / Video (if applicable)"
+msgstr "Mostrar: Fotos/video (si aplica)"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_procedure_document
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_procedure_document
+msgid "Show: Procedure Document / Folio"
+msgstr "Mostrar: Documento/folio de trámite"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_procedure_validated
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_procedure_validated
+msgid "Show: Procedure Validated"
+msgstr "Mostrar: Trámite validado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_promotion
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_promotion
+msgid "Show: Promotion"
+msgstr "Mostrar: Promoción"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_reason
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_reason
+msgid "Show: Reason"
+msgstr "Mostrar: Motivo"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_reference_cie
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_reference_cie
+msgid "Show: Reference / CIE"
+msgstr "Mostrar: Referencia/CIE"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_referral_code
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_referral_code
+msgid "Show: Referral Code / ID"
+msgstr "Mostrar: Código/folio de referido"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_requested_period
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_requested_period
+msgid "Show: Requested Period"
+msgstr "Mostrar: Periodo solicitado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_response_instruction_document
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_response_instruction_document
+msgid "Show: Response Instruction / Document Sent to Customer"
+msgstr "Mostrar: Instrucción de respuesta/documento enviado al cliente"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_issue_description
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_issue_description
+msgid "Show: Service / Issue Description"
+msgstr "Mostrar: Descripción de falla/servicio"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_specific_request
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_specific_request
+msgid "Show: Specific Request"
+msgstr "Mostrar: Solicitud específica"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fleet_customer_plaza_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fleet_customer_plaza_id
+msgid "Show: Square"
+msgstr "Mostrar: Plaza"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_tentative_delivery_date
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_tentative_delivery_date
+msgid "Show: Tentative Delivery Date"
+msgstr "Mostrar: Fecha tentativa de entrega"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_termination_next_step
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_termination_next_step
+msgid "Show: Termination Next Step Communicated"
+msgstr "Mostrar: Siguiente paso de terminación comunicado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_termination_requirements_confirmed
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_termination_requirements_confirmed
+msgid "Show: Termination Requirements Confirmed"
+msgstr "Mostrar: Requisitos de terminación confirmados"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_closed_stage_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_closed_stage_id
+msgid "Show: Ticket Closed Stage"
+msgstr "Mostrar: Etapa de cierre del ticket"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fleet_vehicle_id
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fleet_vehicle_id
+msgid "Show: Vehicle"
+msgstr "Mostrar: Vehículo"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_team__show_fiscal_zip
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__show_fiscal_zip
+msgid "Show: Zip Code"
+msgstr "Mostrar: Código postal"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__specific_request
@@ -432,27 +1103,50 @@ msgid "Square"
 msgstr "Plaza"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_log_contract_start_date
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_log_contract_start_date
-msgid "Start Date Lease"
-msgstr "Fecha inicio arrendamiento"
-
-#. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__rfc
 msgid "Tax ID"
-msgstr ""
+msgstr "RFC"
 
 #. module: morwi_customs
-#: model:ir.model.fields,help:morwi_customs.field_res_partner__vin_sn
-#: model:ir.model.fields,help:morwi_customs.field_res_users__vin_sn
-msgid "Unique number written on the vehicle motor (VIN/SN number)"
-msgstr ""
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__tentative_delivery_date
+msgid "Tentative Delivery Date"
+msgstr "Fecha tentativa de entrega"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__vin_sn
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__vin_sn
-msgid "VIN"
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Termination"
+msgstr "Terminación"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__termination_next_step
+msgid "Termination Next Step Communicated"
+msgstr "Siguiente paso de terminación comunicado"
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__termination_requirements_confirmed
+msgid "Termination Requirements Confirmed"
+msgstr "Requisitos de terminación confirmados"
+
+#. module: morwi_customs
+#: model:ir.model.fields,help:morwi_customs.field_helpdesk_ticket__fiscal_usage
+msgid ""
+"The code that corresponds to the use that will be made of the receipt by the"
+" recipient."
 msgstr ""
+"El código que corresponde al uso que se le dará al comprobante por parte del"
+" receptor."
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__closed_stage_id
+msgid "Ticket Closed Stage"
+msgstr "Etapa de cierre del ticket"
+
+#. module: morwi_customs
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_team_view_form_inherit_custom_fields
+#: model_terms:ir.ui.view,arch_db:morwi_customs.helpdesk_ticket_view_form_inherit_custom_fields
+msgid "Trip"
+msgstr "Viaje"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__fleet_vehicle_id
@@ -460,26 +1154,24 @@ msgid "Vehicle"
 msgstr "Vehículo"
 
 #. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_id
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_id
-msgid "Vehicle Registration Card"
-msgstr "Tarjeta de circulación"
-
-#. module: morwi_customs
-#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_tramite_importe
-#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_tramite_importe
-msgid "Vehicle Tax"
-msgstr "Pago Tenencia/Refrendo"
-
-#. module: morwi_customs
-#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
-msgid "Vehicle and Documents"
-msgstr "Vehículo y Documentos"
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_count
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_count
+msgid "Vehicle Count"
+msgstr "Número de vehículos"
 
 #. module: morwi_customs
 #: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
 msgid "Vehicle information"
 msgstr "Inf. del vehículo"
+
+#. module: morwi_customs
+#. odoo-python
+#: code:addons/morwi_customs/models/res_partner.py:0
+#: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_ids
+#: model:ir.model.fields,field_description:morwi_customs.field_res_users__fleet_vehicle_ids
+#: model_terms:ir.ui.view,arch_db:morwi_customs.res_partner_form_view_customs
+msgid "Vehicles"
+msgstr "Vehículos"
 
 #. module: morwi_customs
 #: model:ir.model.fields,field_description:morwi_customs.field_res_partner__fleet_vehicle_year
@@ -490,4 +1182,9 @@ msgstr "Año/Modelo"
 #. module: morwi_customs
 #: model:ir.model.fields,help:morwi_customs.field_helpdesk_ticket__rfc
 msgid "You can use '/' to indicate that the customer has no Tax ID."
-msgstr ""
+msgstr "Puedes usar '/' para indicar que el cliente no tiene RFC."
+
+#. module: morwi_customs
+#: model:ir.model.fields,field_description:morwi_customs.field_helpdesk_ticket__fiscal_zip
+msgid "Zip Code"
+msgstr "Código postal"
