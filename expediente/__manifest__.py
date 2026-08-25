@@ -13,6 +13,7 @@
     ],
     'data': [
         'data/expediente_alerta_cron.xml',
+        'security/security_group.xml',
         'security/ir.model.access.csv',
         'views/expediente_tipo_view.xml',
         'views/expediente_config_tipo_view.xml',

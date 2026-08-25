@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="module_category_expediente" model="ir.module.category">
+            <field name="name">Expediente</field>
+            <field name="description">Gestión de acceso a expedientes y exportaciones</field>
+        </record>
+
+        <record id="group_expediente_user" model="res.groups">
+            <field name="name">Usuario expediente</field>
+        </record>
+    </data>
+</odoo>

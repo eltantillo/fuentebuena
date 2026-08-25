@@ -33,7 +33,7 @@
         </record>
 
         <record id="expediente_config_tipo_action" model="ir.actions.act_window">
-            <field name="name">Configuracion de expediente</field>
+            <field name="name">Configuración de expediente</field>
             <field name="res_model">expediente.config.tipo</field>
             <field name="view_mode">list,form</field>
             <field name="view_id" ref="expediente_config_tipo_view_list"/>

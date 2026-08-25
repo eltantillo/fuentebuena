@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_expediente_tipo_sys,access_expediente_tipo_sys,model_expediente_tipo,base.group_system,1,1,1,1
 access_expediente_config_tipo_sys,access_expediente_config_tipo_sys,model_expediente_config_tipo,base.group_system,1,1,1,1
+
+access_expediente_user,access_expediente_user,model_expediente_tipo,group_expediente_user,1,1,1,0,

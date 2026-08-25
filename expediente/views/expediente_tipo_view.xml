@@ -13,6 +13,7 @@
                             </group>
                             <group>
                                 <field name="notificar_por_correo"/>
+                                <field name="expediente_principal"/>
                             </group>
                         </group>
                         <group string="Archivos de vehículo">
@@ -38,7 +39,7 @@
                             <page string="Adecuaciones">
                                 <field name="tipo_adecuacion_ids"/>
                             </page>
-                            <page string="Tramites">
+                            <page string="Trámites">
                                 <field name="tipo_tramite_ids"/>
                             </page>
                             <page string="Usuarios a notificar">

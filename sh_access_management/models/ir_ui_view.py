@@ -95,7 +95,7 @@ class IrUiView(models.Model):
         model_name = name_manager.model._name
         field_name = node.get('name')
 
-        if not (user.has_group('base.group_system') or user.has_group('sh_access_management.sh_access_management_manager')) and field_name:
+        if not user.has_group('base.group_system') or user.has_group('sh_access_management.sh_access_management_manager') and field_name:
             # Fetch field access rules
             restrictions = self.env['sh.access.manager'].get_model_field_rules(model_name)
             rule = restrictions.get(field_name)

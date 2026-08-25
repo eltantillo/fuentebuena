@@ -3,369 +3,275 @@ import { useService } from '@web/core/utils/hooks';
 import { useSetupAction } from '@web/search/action_hook';
 import { Component, useState, onWillStart, useRef } from "@odoo/owl";
 
-const FLOTILLA_ID = 1;
-const PAGE_SIZE = 250;
+const PAGE_SIZE = 25;
 
 class Expediente extends Component {
     setup() {
         this.orm = useService('orm');
         this.notification = useService('notification');
-        this.searchInputRef = useRef('searchInput');
-        this.cambiarVista = this.cambiarVista.bind(this);
-        this.goBack = this.goBack.bind(this);
+        this.mainRef = useRef('mainContainer');
 
         this.state = useState({
-            selectedFlotillas: [],
-            selectedEtapas: [],
-            selectedPlazas: [],
-            estadoExpediente: null,
-            searchTerm: "",
-            tipoExpe: [],
-            expeIncompletos: 0,
-            expeCompletos: 0,
+            currentPage: 1,
+            vehiculos: [],
+            filtrosActivos: [],
+            VehiculosExpediente: [],
+            expeIncompletos: [],
+            expeCompletos: [],
+            plazas: [],
+            tipoExpedientes: [],
+            documento_filter: [],
+            vehiculoSeleccionado: null,
+            idExpediente: null,
+            selectedPlaza: null,
+            selectedDocumento: null,
+            searchQuery: '',
+            isLoading: true,
+            archivosVehiculo: null,
+            isLoadingArchivos: false,
+            isDownloadingZip: false,
             isOpen: false,
             pdfUrl: null,
             title: "",
-            totalVehiculos: 0,
-            totalPages: 1,
-            currentPage: 1,
-            vehiculos: [],
-            vehiculo: [],
-            visibleList: [],
-            isSearching: false,
-            isLoading: true,
-            plazas: [],
-            flotillas: [],
-            etapas: [],
-            tipoExpedientes: [],
-            archivos: [],
-            currentView: "vehiculos",
-            idExpediente: 0,
-            mostrarEstExpe: false,
-            estadoFiltro: "",
-            validacionMap: {},
-            isDownloadingZip: false,
         });
 
         useSetupAction();
+
         onWillStart(async () => {
-            await this.loadVehiculos();
-            await this.loadPlazas();
-            await this.loadFlotillas();
-            await this.loadEtapas();
-            await this.loadExpedientes();
+            await Promise.all([
+                this.loadPlazas(),
+                this.loadDocumentos(),
+                this.loadExpedientesTypo(),
+                this.loadVehiculos()
+            ]);
+            await this.initExpedientePrincipal();
         });
     }
 
-    async descargarArchivo(fileObj){
-        const mime = fileObj.mimetype || 'application/pdf'
-        this._descargarBase64(fileObj.data, fileObj.name || 'documento.pdf', mime);
+    scrollToTop() {
+        if (this.mainRef.el) {
+            this.mainRef.el.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
-    _descargarBase64(base64Data, filename, mimetype) {
-        const dataUrl = `data:${mimetype};base64,${base64Data}`;
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    _mapStateToMotivo(estado) {
+        const map = {
+            'vigente': 'vigente',
+            'falta subir': 'falta subir',
+            'vencido': 'vencido',
+            'sin registro': 'sin registro'
+        };
+        return map[estado] || estado;
     }
 
-    openPreview = async (fileObj) => {
-        if (!fileObj || !fileObj.data) return;
+    _getTodosDocumentosVehiculo(vehiculo) {
+        if (!vehiculo) return [];
 
-        if (this.state.pdfUrl) {
-            URL.revokeObjectURL(this.state.pdfUrl);
-            this.state.pdfUrl = null;
-        }
+        const faltantes = (vehiculo.faltantes || []).map(f => {
+            const nombre = typeof f === 'object' ? (f.faltante || f.completo || '') : f;
+            const motivo = typeof f === 'object' ? (f.motivo || 'falta subir') : 'falta subir';
+            return { faltante: nombre, motivo: motivo };
+        });
 
-        const mime = fileObj.mimetype || "application/pdf";
-        const byteCharacters = atob(fileObj.data);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: mime });
+        const completos = (vehiculo.completos || []).map(c => {
+            const nombre = typeof c === 'object' ? (c.completo || c.faltante || '') : c;
+            return { faltante: nombre, motivo: 'vigente' };
+        });
 
-        this.state.pdfUrl = URL.createObjectURL(blob);
-        this.state.title = fileObj.name || "Vista previa";
-        this.state.isOpen = true;
-    };
-
-    async closeModal() {
-        if (this.state.pdfUrl) {
-            URL.revokeObjectURL(this.state.pdfUrl);
-        }
-        this.state.pdfUrl = null;
-        this.state.isOpen = false;
+        return [...faltantes, ...completos];
     }
-    async loadVehiculos(domain = []) {
+
+    getDocumentosFiltrados(vehiculo) {
+        let todosDocs = this._getTodosDocumentosVehiculo(vehiculo);
+        if (this.state.selectedDocumento) {
+            const docFilter = this.state.selectedDocumento.trim().toLowerCase();
+            todosDocs = todosDocs.filter(
+                doc => (doc.faltante || '').trim().toLowerCase() === docFilter
+            );
+        }
+
+        if (this.state.filtrosActivos.length > 0) {
+            const motivosActivos = this.state.filtrosActivos.map(f => this._mapStateToMotivo(f));
+            todosDocs = todosDocs.filter(doc => motivosActivos.includes(doc.motivo));
+        }
+
+        return todosDocs;
+    }
+
+    get filteredVehiculos() {
+        let list = this.state.VehiculosExpediente;
+
+        if (this.state.searchQuery.trim()) {
+            const query = this.state.searchQuery.trim().toLowerCase();
+            list = list.filter(v => {
+                const vin = (v.vehiculo || '').toLowerCase();
+                const placa = (v.license_plate || '').toLowerCase();
+                return vin.includes(query) || placa.includes(query);
+            });
+        }
+
+        if (this.state.selectedDocumento || this.state.filtrosActivos.length > 0) {
+            list = list.filter(v => this.getDocumentosFiltrados(v).length > 0);
+        }
+
+        return list;
+    }
+
+    get totalPages() {
+        return Math.ceil(this.filteredVehiculos.length / PAGE_SIZE) || 1;
+    }
+
+    get paginatedList() {
+        const inicio = (this.state.currentPage - 1) * PAGE_SIZE;
+        return this.filteredVehiculos.slice(inicio, inicio + PAGE_SIZE);
+    }
+
+    goToPage(page) {
+        if (page >= 1 && page <= this.totalPages) {
+            this.state.currentPage = page;
+            this.scrollToTop();
+        }
+    }
+
+    nextPage() { this.goToPage(this.state.currentPage + 1); }
+    prevPage() { this.goToPage(this.state.currentPage - 1); }
+
+    _onSearchInput(ev) {
+        this.state.searchQuery = ev.target.value;
+        this.state.currentPage = 1;
+    }
+
+    onChangeDocumento(ev) {
+        const val = ev.target.value;
+        this.state.selectedDocumento = val === "todos" ? null : val;
+        this.state.currentPage = 1;
+    }
+
+    toggleFiltro(estado) {
+        const idx = this.state.filtrosActivos.indexOf(estado);
+        if (idx === -1) {
+            this.state.filtrosActivos.push(estado);
+        } else {
+            this.state.filtrosActivos.splice(idx, 1);
+        }
+        this.state.currentPage = 1;
+    }
+
+    async loadVehiculos(domain = [['flotilla_id', '=', 1]]) {
         try {
             this.state.isLoading = true;
-            const finalDomain = [];
-            if (this.state.selectedFlotillas && this.state.selectedFlotillas.length > 0) {
-                finalDomain.push(['flotilla_id', 'in', this.state.selectedFlotillas]);
-            }
-            if (this.state.selectedPlazas && this.state.selectedPlazas.length > 0) { 
-                finalDomain.push(['plaza_id', 'in', this.state.selectedPlazas]);
-            }
-            if (this.state.selectedEtapas && this.state.selectedEtapas.length > 0) {
-                finalDomain.push(['state_id', 'in', this.state.selectedEtapas]);
-            }
-
-            console.log("Domain generado para Odoo:", finalDomain);
-
-            const vehiculos = await this.orm.searchRead(
+            this.state.vehiculos = await this.orm.searchRead(
                 'fleet.vehicle',
-                finalDomain,
+                domain,
                 ['id', 'vin_sn', 'plaza_id', 'license_plate']
             );
-            this.state.vehiculos = vehiculos.map(v => ({
-                ...v,
-                vinLower: String(v.vin_sn || "").toLowerCase(),
-            }));
-            this.state.totalVehiculos = vehiculos.length;
-            this.state.totalPages = Math.max(1, Math.ceil(vehiculos.length / PAGE_SIZE));
-
-            this.goToPage(1);
         } catch (error) {
             console.error("Error al cargar vehículos:", error);
-            this.notification.add("No se pudo cargar el listado de vehículos", {
-                type: "danger",
-            });
+            this.notification.add("No se pudo cargar el listado de vehículos", { type: "danger" });
         } finally {
             this.state.isLoading = false;
         }
     }
-    async obtener_archivos(vehiculo_id){
-        return this.orm.call(
-            'fleet.vehicle','get_expediente',[vehiculo_id],{}
-        )
-    }
 
-    async obtener_archivos_tipo(vehiculo_id){
-        return this.orm.call(
-            'fleet.vehicle','get_expediente_type',[this.state.idExpediente,vehiculo_id],{}
-        )
-    }
-
-    async cambiarVista(vehiculo){
-        console.log("=============================0")
-        console.log(vehiculo)
-        this.state.vehiculo = vehiculo
-        console.log(vehiculo['id'])
-        if (this.state.idExpediente){
-            this.state.archivos = await this.obtener_archivos_tipo(vehiculo['id'])
-        }
-        else {
-            this.state.archivos = await this.obtener_archivos(vehiculo['id'])
-        }
-        console.log(this.state.archivos)
-        this.state.currentView = "archivos"
-    }
-
-
-    goBack(){
-        this.state.currentView = "vehiculos"
-    }
-
-    async loadPlazas(){
-        try{
-            this.state.plazas  = await this.orm.searchRead(
-                'fleet.customer.plaza',
-                [],
-                ['id', 'name']
-            );
-
-        }catch (error) {
-            this.notification.add("No se pudo cargar el listado de plazas", {
-                type: "danger",
-            });
-        }
-    }
-
-    async loadFlotillas(){
-        try{
-            this.state.flotillas = await this.orm.searchRead(
-                'fleet.customer.flotilla',
-                [],
-                ['id','name']
-            )
-        }catch (error) {
-            this.notification.add("No se pudo cargar el listado de flotillas", {
-                type: "danger",
-            });
-        }
-    }
-
-    async loadEtapas(){
-        try{
-            this.state.etapas = await this.orm.searchRead(
-                'fleet.vehicle.state',
-                [],
-                ['id','name']
-            )
-
+    async loadPlazas() {
+        try {
+            this.state.plazas = await this.orm.searchRead('fleet.customer.plaza', [], ['id', 'name']);
         } catch (error) {
-            this.notification.add("No se pudo cargar el listado de etapas", {
-                type: "danger",
-            });
+            this.notification.add("No se pudo cargar el listado de plazas", { type: "danger" });
         }
     }
 
-    onToggleFlotilla(ev, id) {
-        if (ev.target.checked) {
-            this.state.selectedFlotillas.push(id);
-        } else {
-            this.state.selectedFlotillas = this.state.selectedFlotillas.filter(item => item !== id);
+    async loadDocumentos() {
+        try {
+            this.state.documento_filter = await this.orm.call('expediente.tipo', 'return_documents', [], {});
+        } catch (error) {
+            this.notification.add("No se pudo cargar el listado de Documentos", { type: "danger" });
         }
-        console.log("Flotillas: " + this.state.selectedFlotillas)
-        this.loadVehiculos()
     }
 
-    onToggleEtapa(ev, id) {
-        if (ev.target.checked) {
-            this.state.selectedEtapas.push(id);
-        } else {
-            this.state.selectedEtapas = this.state.selectedEtapas.filter(item => item !== id);
+    async loadExpedientesTypo() {
+        try {
+            this.state.tipoExpedientes = await this.orm.searchRead('expediente.tipo', [], ['id', 'name']);
+        } catch (error) {
+            this.notification.add("No se pudo cargar el listado de tipos de expediente", { type: "danger" });
         }
-        this.loadVehiculos()
     }
 
-    onTogglePlaza(ev, id) {
-        if (ev.target.checked) {
-            this.state.selectedPlazas.push(id);
-        } else {
-            this.state.selectedPlazas = this.state.selectedPlazas.filter(item => item != id)
-        }
-        this.loadVehiculos()
-    }
-
-    async loadExpedientes(){
-        try{
-            this.state.tipoExpedientes  = await this.orm.searchRead(
-                'expediente.tipo',
-                [],
-                ['id', 'name']
-            );
-
-        }catch (error) {
-            this.notification.add("No se pudo cargar el listado de vehículos", {
-                type: "danger",
-            });
+    async initExpedientePrincipal() {
+        try {
+            const regis = await this.orm.searchRead('expediente.tipo', [['expediente_principal', '=', true]], ['id', 'name']);
+            if (regis.length > 0) {
+                this.state.idExpediente = regis[0].id;
+                await this.recomputeValidacion();
+            }
+        } catch (error) {
+            console.error("Error al inicializar expediente principal:", error);
         }
     }
 
     async onChangeExpediente(ev) {
-        this.state.idExpediente = parseInt(ev.target.value) || 0;
-        this.state.estadoFiltro = "";
-        await this._recomputeValidacion();
-        this._refreshVisibleList();
+        const val = ev.target.value;
+        this.state.idExpediente = val === "todos" ? null : parseInt(val) || null;
+        await this.recomputeValidacion();
     }
 
-    async _recomputeValidacion() {
-        if (!this.state.idExpediente) {
-            this.state.mostrarEstExpe = false;
-            this.state.tipoExpe = [];
-            this.state.validacionMap = {};
+    async onChangePlaza(ev) {
+        const val = ev.target.value;
+        const plazaId = val === "todos" ? null : parseInt(val);
+        this.state.selectedPlaza = plazaId;
+
+        const domain = plazaId
+            ? [['flotilla_id', '=', 1], ['plaza_id', '=', plazaId]]
+            : [['flotilla_id', '=', 1]];
+
+        await this.loadVehiculos(domain);
+        await this.recomputeValidacion();
+    }
+
+    async recomputeValidacion() {
+        if (!this.state.idExpediente || this.state.vehiculos.length === 0) {
+            this.state.VehiculosExpediente = [];
             this.state.expeIncompletos = [];
             this.state.expeCompletos = [];
             return;
         }
-        const vehicleIds = this.state.vehiculos.map(vehiculo => vehiculo.id);
-        this.state.tipoExpe = await this.orm.call(
-            'fleet.vehicle','return_validacion_expe',[vehicleIds, this.state.idExpediente],{}
-        )
-        this.state.mostrarEstExpe = true
-        this.separarExpediente()
-    }
-
-    separarExpediente(){
-        let expedientes = this.state.tipoExpe
-        this.state.expeIncompletos = expedientes.filter(item => item.expediente === 'incompleto')
-        expedientes = this.state.tipoExpe
-        this.state.expeCompletos = expedientes.filter(item => item.expediente === 'completo')
-        console.log("========Incompletos==========")
-        console.log(this.state.expeIncompletos.length)
-        console.log(this.state.expeIncompletos)
-        console.log("========Completos==========")
-        console.log(this.state.expeCompletos.length)
-        console.log(this.state.expeCompletos)
-        const vinToId = {};
-        for (const v of this.state.vehiculos) {
-            vinToId[v.vin_sn] = v.id;
-        }
-        const validacionMap = {};
-        for (const item of this.state.tipoExpe) {
-            const vid = vinToId[item.vehiculo];
-            if (vid !== undefined) {
-                validacionMap[vid] = { estado: item.expediente, faltantes: item.faltantes };
-            }
-        }
-        this.state.validacionMap = validacionMap;
-    }
-
-    _refreshVisibleList() {
-        const hayFiltroActivo = this.state.isSearching || !!this.state.estadoFiltro;
-
-        if (!hayFiltroActivo) {
-            this.goToPage(this.state.currentPage);
-            return;
-        }
-
-        let lista = this.state.vehiculos;
-        if (this.state.isSearching && this.state.searchTerm) {
-            lista = lista.filter(v => v.vinLower.includes(this.state.searchTerm));
-        }
-        if (this.state.estadoFiltro) {
-            lista = lista.filter(v => {
-                const info = this.state.validacionMap[v.id];
-                return info && info.estado === this.state.estadoFiltro;
-            });
-        }
-        this.state.visibleList = lista;
-    }
-
-    onChangeEstadoExpe(ev) {
-        this.state.estadoFiltro = ev.target.value || "";
-        this._refreshVisibleList();
-    }
-
-    async onClickEstadoBadge(estado) {
-        console.log("Valor del estado de onClickEstadoBadge")
-        console.log(estado)
-        if (!this.state.mostrarEstExpe) {
-            this.notification.add("Primero selecciona un tipo de expediente.", { type: "warning" });
-            return;
-        }
-        this.state.estadoFiltro = estado;
-        this._refreshVisibleList();
-        await this.descargarExcelFaltantes(estado);
-    }
-
-    verTodos() {
-        this.state.estadoFiltro = "";
-        this._refreshVisibleList();
-    }
-
-    async descargarZip() {
-        if (!this.state.vehiculo || !this.state.vehiculo.id) return;
-        this.state.isDownloadingZip = true;
         try {
-            const zipDoc = await this.orm.call(
-                'fleet.vehicle', 'get_zip_expediente', [this.state.vehiculo.id, this.state.idExpediente], {}
+            console.time("🚀 recomputeValidacion TOTAL");
+            const vehicleIds = this.state.vehiculos.map(v => v.id);
+            console.time("📤 ORM CALL - Python/Odoo");
+            const validaciones = await this.orm.call(
+                'fleet.vehicle',
+                'return_validacion_expe',
+                [vehicleIds, this.state.idExpediente],
+                {}
             );
-            if (!zipDoc) {
-                this.notification.add("No hay documentos disponibles para descargar.", { type: "warning" });
-                return;
-            }
-            this._descargarBase64(zipDoc.data, zipDoc.name, zipDoc.mimetype);
+            console.timeEnd("📤 ORM CALL - Python/Odoo");
+            console.time("⚙️ Procesamiento JS");
+            this.state.VehiculosExpediente = validaciones;
+            console.log(this.state.VehiculosExpediente)
+            this.state.expeIncompletos = validaciones.filter(
+                item => item.expediente === false
+            );
+            console.log(this.state.expeIncompletos)
+            this.state.expeCompletos = validaciones.filter(
+                item => item.expediente === true
+            );
+            console.log(this.state.expeCompletos)
+            this.state.currentPage = 1;
+            console.timeEnd("⚙️ Procesamiento JS");
+            console.log("📊 Estadísticas:", {
+                vehiculos: vehicleIds.length,
+                validaciones: validaciones.length,
+                incompletos: this.state.expeIncompletos.length,
+                completos: this.state.expeCompletos.length,
+            });
+            console.timeEnd("🚀 recomputeValidacion TOTAL");
         } catch (error) {
-            this.notification.add("No se pudo generar el ZIP del expediente", { type: "danger" });
-        } finally {
-            this.state.isDownloadingZip = false;
+            console.error("Error al recomputar validaciones:", error);
+            this.notification.add(
+                "Error al validar expedientes",
+                { type: "danger" }
+            );
         }
     }
 
@@ -390,71 +296,110 @@ class Expediente extends Component {
         }
     }
 
-    async on_change_plaza(ev) {
-        let domain = []
-        const plaza_id = parseInt(ev.target.value);
-        if (plaza_id){
-            domain = [
-                ['flotilla_id', '=', 1],
-                ['plaza_id', '=', plaza_id]
-            ];
-        }
-        else {
-            domain = [['flotilla_id', '=', 1]]
-        }
-        await this.loadVehiculos(domain);
-        this.state.estadoFiltro = "";
-        await this._recomputeValidacion();
-        this._refreshVisibleList();
-    }
-
-    goToPage(page) {
-        const clamped = Math.min(Math.max(1, page), this.state.totalPages);
-        this.state.currentPage = clamped;
-
-        const start = (clamped - 1) * PAGE_SIZE;
-        this.state.visibleList = this.state.vehiculos.slice(start, start + PAGE_SIZE);
-    }
-
-    nextPage() {
-        this.goToPage(this.state.currentPage + 1);
-    }
-
-    prevPage() {
-        this.goToPage(this.state.currentPage - 1);
-    }
-
-    _onSearchKeydown(ev) {
-        if (ev.key === 'Enter') {
-            this.executeSearch(ev.target.value);
+    async abrirModal(vehiculo) {
+        this.state.vehiculoSeleccionado = vehiculo;
+        this.state.archivosVehiculo = null;
+        this.state.isLoadingArchivos = true;
+        console.log(this.state.vehiculoSeleccionado)
+        try {
+            if (this.state.idExpediente) {
+                this.state.archivosVehiculo = await this.orm.call(
+                    'fleet.vehicle', 'get_expediente_type',
+                    [this.state.idExpediente, vehiculo.id], {}
+                );
+                console.log(this.state.archivosVehiculo);
+            } else {
+                this.state.archivosVehiculo = await this.orm.call(
+                    'fleet.vehicle', 'get_expediente', [vehiculo.id], {}
+                );
+            }
+        } catch (error) {
+            console.error("Error al cargar documentos del vehículo:", error);
+            this.notification.add("No se pudieron cargar los documentos del vehículo", { type: "danger" });
+        } finally {
+            this.state.isLoadingArchivos = false;
         }
     }
 
-    _onSearchClick() {
-        this.executeSearch(this.searchInputRef.el.value);
+    cerrarModal() {
+        this.state.vehiculoSeleccionado = null;
+        this.state.archivosVehiculo = null;
+        this.closePreview();
     }
 
-    executeSearch(term) {
-        const cleanTerm = (term || "").trim().toLowerCase();
-        this.state.searchTerm = cleanTerm;
 
-        if (!cleanTerm) {
-            this.clearSearch();
+    async descargarArchivo(fileObj) {
+        if (!fileObj || !fileObj.data) {
+            this.notification.add("El archivo no está disponible.", { type: "warning" });
+            return;
+        }
+        const mime = fileObj.mimetype || 'application/pdf';
+        this._descargarBase64(fileObj.data, fileObj.doc_name || 'documento.pdf', mime);
+    }
+
+    _descargarBase64(base64Data, filename, mimetype) {
+        const dataUrl = `data:${mimetype};base64,${base64Data}`;
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    openPreview = async (fileObj) => {
+        if (!fileObj || !fileObj.data) {
+            this.notification.add("El archivo no está disponible.", { type: "warning" });
             return;
         }
 
-        this.state.isSearching = true;
-        this._refreshVisibleList();
+        if (this.state.pdfUrl) {
+            URL.revokeObjectURL(this.state.pdfUrl);
+            this.state.pdfUrl = null;
+        }
+
+        const mime = fileObj.mimetype || "application/pdf";
+        const byteCharacters = atob(fileObj.data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: mime });
+
+        this.state.pdfUrl = URL.createObjectURL(blob);
+        this.state.title = fileObj.name || "Vista previa";
+        this.state.isOpen = true;
+    };
+
+    closePreview() {
+        if (this.state.pdfUrl) {
+            URL.revokeObjectURL(this.state.pdfUrl);
+        }
+        this.state.pdfUrl = null;
+        this.state.isOpen = false;
     }
 
-    clearSearch() {
-        this.state.searchTerm = "";
-        this.state.isSearching = false;
-        if (this.searchInputRef.el) {
-            this.searchInputRef.el.value = "";
+
+    async descargarZip() {
+        if (!this.state.vehiculoSeleccionado || !this.state.vehiculoSeleccionado.id) return;
+        this.state.isDownloadingZip = true;
+        try {
+            const zipDoc = await this.orm.call(
+                'fleet.vehicle', 'get_zip_expediente',
+                [this.state.vehiculoSeleccionado.id, this.state.idExpediente], {}
+            );
+            if (!zipDoc) {
+                this.notification.add("No hay documentos disponibles para descargar.", { type: "warning" });
+                return;
+            }
+            this._descargarBase64(zipDoc.data, zipDoc.name, zipDoc.mimetype);
+        } catch (error) {
+            console.error("Error al generar ZIP:", error);
+            this.notification.add("No se pudo generar el ZIP del expediente", { type: "danger" });
+        } finally {
+            this.state.isDownloadingZip = false;
         }
-        this.state.currentPage = 1;
-        this._refreshVisibleList();
     }
 }
 

@@ -4,7 +4,8 @@
         <menuitem id="menu_expediente_root"
           name="Expediente"
           sequence="1"
-          web_icon="expediente,static/src/description/icon.png" />
+          web_icon="expediente,static/src/description/icon.png"
+          groups="base.group_system,group_expediente_user"/>
 
         <menuitem id="menu_expediente"
                   name="Expedientes"
