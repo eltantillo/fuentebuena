@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="res_partner_bank_form_view_credito_arrendamiento" model="ir.ui.view">
+            <field name="name">res.partner.bank.form.view.credito.arrendamiento</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <field name="acc_number" position="after">
+                    <field name="clabe_pago"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

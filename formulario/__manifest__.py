@@ -46,6 +46,7 @@
         'views/formulario_empresa_view.xml',
         'views/formulario_dashboard.xml',
         'views/formulario_broker_view.xml',
+        'views/formulario_solicita_medio_view.xml',
         'views/formulario_menus.xml',
     ],
     'assets':{

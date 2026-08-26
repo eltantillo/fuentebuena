@@ -17,6 +17,9 @@
                             <page string="Usuarios a notificar">
                                 <field name="usuarios_notificar_ids"/>
                             </page>
+                            <page string="Plazas">
+                                <field name="plaza_ids"/>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>

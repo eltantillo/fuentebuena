@@ -23,6 +23,7 @@
         'views/credito_arrendamiento_view.xml',
         'views/credito_arrendamiento_plan_pago_view.xml',
         'views/res_partner_view.xml',
+        'views/res_partner_bank_view.xml',
         'views/credito_arrendamiento_menu.xml',
     ],
     'installable': True,

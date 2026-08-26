@@ -5,6 +5,7 @@
             <t t-set="title">Solicita</t>
             <t t-set="page_name" t-value="'formulario_solicita'"/>
             <script src="/formulario/static/src/js/validacion.js" type="text/javascript" />
+            <script src="/formulario/static/src/js/select_medio.js" type="text/javascript" />
             <link rel="stylesheet" href="/formulario/static/src/css/style_form.css"/>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
             <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
@@ -34,7 +35,7 @@
                                             <label>RFC</label>
                                         </div>
                                         <div class="col-8">
-                                            <input type="text" name="rfc" placeholder="Apellido" class="form-control rounded-2" required="required"/>
+                                            <input type="text" name="rfc" placeholder="RFC" class="form-control rounded-2" required="required"/>
                                             <div class="invalid-feedback text-center" style="color:red;">
                                                 Rellena este campo, es obligatorio.
                                             </div>
@@ -80,6 +81,33 @@
                                             </select>
                                             <div class="invalid-feedback text-center" style="color:red;">
                                                 Por favor, seleccione una opción.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4 text-start">
+                                            <label>¿Cómo nos conociste?</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="medio" id="medio" class="form-select rounded-2" required="required">
+                                                <option value="">Seleccione una opción</option>
+                                                <t t-foreach="medios" t-as="medio">
+                                                    <option t-att-value="medio.id"><t t-esc="medio.name"/></option>
+                                                </t>
+                                            </select>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Por favor, seleccione una opción.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2 d-none" id="otro">
+                                        <div class="col-4 text-start">
+                                            <label>Otro</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="motivotext" id="motivotext" placeholder="Ingresa el medio por el que nos conociste." class="form-control rounded-2"/>
+                                            <div class="invalid-feedback text-center" style="color:red;">
+                                                Ingresa el medio por el que nos conociste.
                                             </div>
                                         </div>
                                     </div>

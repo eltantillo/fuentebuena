@@ -170,5 +170,11 @@
                   parent="formulario_configuracion_menu"
                   action="formulario_empresa_config_action"
                   sequence="50" />
+
+        <menuitem id="formulario_solicita_medio"
+                  name="Solicita - Medio"
+                  parent="formulario_catalogo_menu"
+                  sequence="80"
+                  action="formulario_solicita_medio_action"/>
     </data>
 </odoo>

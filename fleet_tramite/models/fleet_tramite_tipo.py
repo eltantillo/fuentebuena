@@ -27,6 +27,10 @@ class FleetTramiteTipo(models.Model):
         string='Usuarios notificar',
         comodel_name='hr.employee'
     )
+    plaza_ids = fields.Many2many(
+        string='Plazas a las que aplica',
+        comodel_name='fleet.customer.plaza'
+    )
     active = fields.Boolean('Active', default=True, tracking=True)
 
     def _verificar_notificar_cron(self):

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="formulario_solicita_medio_view_form" model="ir.ui.view">
+            <field name="name">formulario.solicita.medio.view.form</field>
+            <field name="model">formulario.solicita.medio</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="formulario_solicita_medio_view_list" model="ir.ui.view">
+            <field name="name">formulario.solicita.medio.view.list</field>
+            <field name="model">formulario.solicita.medio</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="formulario_solicita_medio_action" model="ir.actions.act_window">
+            <field name="name">Formulario Solicita - Medio</field>
+            <field name="res_model">formulario.solicita.medio</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="formulario_solicita_medio_view_list"/>
+        </record>
+    </data>
+</odoo>

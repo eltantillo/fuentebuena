@@ -92,7 +92,7 @@ class ExpedienteTipo(models.Model):
                 requireds.append(record.name)
         if tipo.tipo_adecuacion_ids:
             for record in tipo.tipo_adecuacion_ids:
-                requireds.append(f'Adecuación {record.name}')
+                requireds.append(f'Adecuación: {record.name}')
         return  requireds
 
 

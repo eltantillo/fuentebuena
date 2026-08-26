@@ -3,6 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import models, fields, api, _
+from odoo.tools.misc import formatLang
 
 
 class CreditoArrendamiento(models.Model):
@@ -44,6 +45,13 @@ class CreditoArrendamiento(models.Model):
     plan_pago_ids = fields.One2many('credito.arrendamiento.plan.pago', 'credito_id', string='Planes de pago')
     plan_pago_count = fields.Integer(string='Planes de pago', compute='_compute_plan_pago_count')
 
+    proximo_cargo_fecha = fields.Date(
+        string='Próximo cargo (fecha)', compute='_compute_proximo_cargo', store=True)
+    proximo_cargo_monto = fields.Monetary(
+        string='Próximo cargo (monto)', compute='_compute_proximo_cargo', store=True)
+    renta_periodica_label = fields.Char(
+        string='Renta (según frecuencia)', compute='_compute_renta_periodica_label')
+
     _sql_constraints = [
         ('external_ref_uniq', 'unique(external_ref)', 'Ya existe un crédito con ese ID externo.'),
     ]
@@ -52,3 +60,20 @@ class CreditoArrendamiento(models.Model):
     def _compute_plan_pago_count(self):
         for credito in self:
             credito.plan_pago_count = len(credito.plan_pago_ids)
+
+    @api.depends('linea_ids.estado', 'linea_ids.periodo', 'linea_ids.fecha_vencimiento', 'linea_ids.pago_periodico')
+    def _compute_proximo_cargo(self):
+        for credito in self:
+            proxima_linea = credito.linea_ids.filtered(lambda l: l.estado == 'pendiente').sorted('periodo')[:1]
+            credito.proximo_cargo_fecha = proxima_linea.fecha_vencimiento if proxima_linea else False
+            credito.proximo_cargo_monto = proxima_linea.pago_periodico if proxima_linea else 0.0
+
+    @api.depends('proximo_cargo_monto', 'frecuencia')
+    def _compute_renta_periodica_label(self):
+        frecuencia_labels = dict(self._fields['frecuencia'].selection)
+        for credito in self:
+            if credito.proximo_cargo_monto and credito.frecuencia:
+                monto_str = formatLang(self.env, credito.proximo_cargo_monto, currency_obj=credito.currency_id)
+                credito.renta_periodica_label = '%s / %s' % (monto_str, frecuencia_labels.get(credito.frecuencia, ''))
+            else:
+                credito.renta_periodica_label = False

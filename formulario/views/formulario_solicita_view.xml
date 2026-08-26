@@ -14,6 +14,8 @@
                             <field name="telefono"/>
                             <field name="correo"/>
                             <field name="estado_id"/>
+                            <field name="solicita_medio_id"/>
+                            <field name="solicita_medio_otro"/>
                         </group>
                     </sheet>
                 </form>
@@ -31,6 +33,7 @@
                     <field name="telefono"/>
                     <field name="correo"/>
                     <field name="estado_id"/>
+                    <field name="solicita_medio_id"/>
                 </list>
             </field>
         </record>

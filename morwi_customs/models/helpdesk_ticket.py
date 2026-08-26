@@ -2,11 +2,33 @@
 # Copyright 2026 Morwi Encoders Consulting SA de CV
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models, fields
+from odoo import models, fields, api
+
+TIPO_TICKET_SELECTION = [
+    ('siniestro', 'Siniestro'),
+    ('seguimiento_general', 'Seguimiento general'),
+    ('pago', 'Pago'),
+    ('servicio_falla', 'Servicio/Falla'),
+    ('datos_fiscales', 'Datos fiscales'),
+    ('referido_promocion', 'Referido/Promoción'),
+    ('cierre_caso', 'Cierre de caso'),
+    ('correccion_facturacion', 'Corrección de facturación'),
+]
+
 
 class HelpdeskTicket(models.Model):
 
     _inherit = 'helpdesk.ticket'
+
+    tipo_ticket = fields.Selection(selection=TIPO_TICKET_SELECTION, string='Tipo de ticket')
+    motivo_id = fields.Many2one(
+        comodel_name='helpdesk.ticket.motivo', string='Motivo',
+        domain="[('tipo_ticket', '=', tipo_ticket)]")
+    nivel_escalamiento = fields.Selection(selection=[
+        ('nivel_1', 'Nivel 1 - Responsable operativo'),
+        ('nivel_2', 'Nivel 2 - Gerente nacional'),
+        ('nivel_3', 'Nivel 3 - Dirección'),
+    ], string='Nivel de escalamiento')
 
     sales_representative_id = fields.Many2one(comodel_name='res.users', string='Sales representative')
     fleet_customer_plaza_id = fields.Many2one(comodel_name='fleet.customer.plaza', string='Square')
@@ -181,4 +203,14 @@ class HelpdeskTicket(models.Model):
     show_customer_informed_status = fields.Boolean(related='team_id.show_customer_informed_status')
     show_geofence_authorization = fields.Boolean(related='team_id.show_geofence_authorization')
     show_conditions_communicated = fields.Boolean(related='team_id.show_conditions_communicated')
+
+    @api.onchange('tipo_ticket')
+    def _onchange_tipo_ticket(self):
+        if self.motivo_id and self.motivo_id.tipo_ticket != self.tipo_ticket:
+            self.motivo_id = False
+
+    @api.onchange('fleet_vehicle_id')
+    def _onchange_fleet_vehicle_id(self):
+        if self.fleet_vehicle_id and not self.partner_id and self.fleet_vehicle_id.driver_id:
+            self.partner_id = self.fleet_vehicle_id.driver_id
 

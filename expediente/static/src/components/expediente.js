@@ -18,6 +18,8 @@ class Expediente extends Component {
             VehiculosExpediente: [],
             expeIncompletos: [],
             expeCompletos: [],
+            expeIncompletosInt: 0,
+            expeCompletosInt: 0,
             plazas: [],
             tipoExpedientes: [],
             documento_filter: [],
@@ -142,9 +144,44 @@ class Expediente extends Component {
     }
 
     onChangeDocumento(ev) {
+        console.log("Dentro de proceso change documento")
+        console.log(this.state.VehiculosExpediente);
         const val = ev.target.value;
+        console.log("Valor de val: " + val)
         this.state.selectedDocumento = val === "todos" ? null : val;
         this.state.currentPage = 1;
+        if (val !== 'todos'){
+            const data = this.contarEstadoPorArchivo(this.state.VehiculosExpediente,val)
+            this.state.expeCompletosInt = data['completos']
+            this.state.expeIncompletosInt = data['incompletos']
+        }else {
+            this.state.expeCompletosInt = this.state.expeCompletos.length
+            this.state.expeIncompletosInt = this.state.expeIncompletos.length
+        }
+    }
+
+    contarEstadoPorArchivo(listaCoches, nombreArchivo) {
+        let completos = 0;
+        let incompletos = 0;
+
+        for (let i = 0; i < listaCoches.length; i++) {
+            const coche = listaCoches[i];
+            if (coche.completos && coche.completos.some(c => c.completo === nombreArchivo)) {
+                completos++;
+            }
+            else if (coche.faltantes && coche.faltantes.some(f => f.faltante === nombreArchivo)) {
+                incompletos++;
+            }
+        }
+
+        let data = {
+            archivo: nombreArchivo,
+            completos: completos,
+            incompletos: incompletos,
+            totalEvaluados: completos + incompletos
+        };
+        console.log(data)
+        return data
     }
 
     toggleFiltro(estado) {
@@ -265,6 +302,8 @@ class Expediente extends Component {
                 incompletos: this.state.expeIncompletos.length,
                 completos: this.state.expeCompletos.length,
             });
+            this.state.expeCompletosInt = this.state.expeCompletos.length
+            this.state.expeIncompletosInt = this.state.expeIncompletos.length
             console.timeEnd("🚀 recomputeValidacion TOTAL");
         } catch (error) {
             console.error("Error al recomputar validaciones:", error);

@@ -20,3 +20,4 @@ from . import formulario_dependencia
 from . import formulario_empresa_config
 from . import formulario_empresa
 from . import formulario_broker
+from . import formulario_solicita_medio

@@ -17,8 +17,10 @@
     'depends': ['base', 'helpdesk', 'account', 'l10n_mx_edi', 'fleet', 'fleet_customer'],
     'data': [
         'security/security_view.xml',
+        'security/ir.model.access.csv',
         'views/res_partner_view.xml',
         'views/helpdesk_team_view.xml',
+        'views/helpdesk_ticket_motivo_view.xml',
         'views/helpdesk_ticket_view.xml',
     ]
 }

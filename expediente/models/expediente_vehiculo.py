@@ -2,7 +2,7 @@ import base64
 import io
 import logging
 import zipfile
-from math import inf
+
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
@@ -53,7 +53,7 @@ class ExpedienteVehiculo(models.Model):
 
     def validar_adecuacion(self, adecuacion, adecuacion_req):
         if not adecuacion or not adecuacion.existe_expediente_arch:
-            return {'faltante': f'Adecuación {adecuacion_req}', 'motivo': 'falta subir'}
+            return {'faltante': f'Adecuación: {adecuacion_req}', 'motivo': 'falta subir'}
         return None
 
     def validar_poliza(self, poliza):
@@ -102,12 +102,13 @@ class ExpedienteVehiculo(models.Model):
 
         tramites_vehiculo = tramites_map.get(self.id, {}) if tramites_map is not None else {}
         for tramite_req in expediente_tipo.tipo_tramite_ids:
-            tramite = tramites_vehiculo.get(tramite_req.id)
-            if tramite:
-                res = self.validar_tramite(tramite, tramite_req.name)
-                faltantes.append(res) if res else completos.append({'completo': tramite_req.name, 'motivo': 'vigente'})
-            elif tramite_req.name != 'Dictamen anual GNV' or self.es_gnv:
-                faltantes.append(self.return_inexistencia(tramite_req.name))
+            if self.plaza_id.id in tramite_req.plaza_ids.ids:
+                tramite = tramites_vehiculo.get(tramite_req.id)
+                if tramite:
+                    res = self.validar_tramite(tramite, tramite_req.name)
+                    faltantes.append(res) if res else completos.append({'completo': tramite_req.name, 'motivo': 'vigente'})
+                elif tramite_req.name != 'Dictamen anual GNV' or self.es_gnv:
+                    faltantes.append(self.return_inexistencia(tramite_req.name))
         adecuaciones_vehiculo = adecuaciones_map.get(self.id, {}) if adecuaciones_map is not None else {}
         for adecuacion_req in expediente_tipo.tipo_adecuacion_ids:
             adecuacion = adecuaciones_vehiculo.get(adecuacion_req.id)

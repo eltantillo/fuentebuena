@@ -18,11 +18,11 @@
                     </button>
                     <button type="button" class="expediente-stat expediente-stat--incompleto"  t-on-click="() => this.descargarExcelFaltantes('incompleto')">
                         <span>Incompletos</span>
-                        <strong t-esc="this.state.expeIncompletos.length"/>
+                        <strong t-esc="this.state.expeIncompletosInt"/>
                     </button>
                     <button type="button" class="expediente-stat expediente-stat--completo" t-on-click="() => this.descargarExcelFaltantes('completo')">
                         <span>Completos</span>
-                        <strong t-esc="this.state.expeCompletos.length"/>
+                        <strong t-esc="this.state.expeCompletosInt"/>
                     </button>
                 </div>
             </div>

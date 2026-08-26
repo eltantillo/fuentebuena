@@ -1,3 +1,5 @@
+import string
+
 from odoo import fields,api,models
 from .formulario_renegociar import ESTADOS
 
@@ -33,6 +35,13 @@ class FormularioSolicita(models.Model):
     rec_name = fields.Char(
         string='Nombre',
         compute='_compute_rec_name',
+    )
+    solicita_medio_id = fields.Many2one(
+        comodel_name='formulario.solicita.medio',
+        string='¿Cómo nos conociste?',
+    )
+    solicita_medio_otro = fields.Char(
+        string="Otro medio",
     )
 
     def _compute_rec_name(self):

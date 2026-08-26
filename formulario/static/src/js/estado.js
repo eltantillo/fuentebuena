@@ -19,9 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 estadoTexto = 'Veracruz de Ignacio de la Llave'
             }
             console.log(estadoTexto)
-
             selectMunicipio.innerHTML = '<option value="">Seleccione una opción</option>';
-
             if (!selectEstado.value) {
                 return;
             }
