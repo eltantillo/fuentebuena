@@ -130,6 +130,29 @@ class FleetTramite(models.Model):
         compute="_compute_existe_expediente",
         store=True
     )
+    estado_vigencia = fields.Selection(
+        selection=[
+            ('vigente', 'Vigente'),
+            ('vencido', 'Vencido'),
+            ('falta_subir', 'Falta subir'),
+        ],
+        string='Estado',
+        compute='_compute_estado_vigencia',
+        store=True,
+    )
+
+    @api.depends('existe_expediente', 'fecha_vencimiento_renovacion', 'tipo_tramite_id.notificar_renovacion')
+    def _compute_estado_vigencia(self):
+        today = fields.Date.today()
+        for record in self:
+            if not record.existe_expediente:
+                record.estado_vigencia = 'falta_subir'
+            elif record.tipo_tramite_id.notificar_renovacion and (
+                not record.fecha_vencimiento_renovacion or record.fecha_vencimiento_renovacion < today
+            ):
+                record.estado_vigencia = 'vencido'
+            else:
+                record.estado_vigencia = 'vigente'
 
     @api.depends('expediente')
     def _compute_existe_expediente(self):

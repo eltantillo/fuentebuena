@@ -14,7 +14,7 @@
     'summary': """
         This module adds related fields to the customer form.
         """,
-    'depends': ['base', 'helpdesk', 'account', 'l10n_mx_edi', 'fleet', 'fleet_customer'],
+    'depends': ['base', 'helpdesk', 'account', 'l10n_mx_edi', 'fleet', 'fleet_customer', 'fleet_poliza', 'fleet_tramite', 'fleet_contrato'],
     'data': [
         'security/security_view.xml',
         'security/ir.model.access.csv',

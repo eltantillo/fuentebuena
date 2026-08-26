@@ -99,6 +99,27 @@ class FleetContrato(models.Model):
         compute='_compute_existe_contrato',
         store=True
     )
+    estado_vigencia = fields.Selection(
+        selection=[
+            ('vigente', 'Vigente'),
+            ('vencido', 'Vencido'),
+            ('falta_subir', 'Falta subir'),
+        ],
+        string='Estado',
+        compute='_compute_estado_vigencia',
+        store=True,
+    )
+
+    @api.depends('existe_attach_contrato', 'state', 'expiration_date')
+    def _compute_estado_vigencia(self):
+        today = fields.Date.today()
+        for record in self:
+            if not record.existe_attach_contrato:
+                record.estado_vigencia = 'falta_subir'
+            elif record.state != 'open' or (record.expiration_date and record.expiration_date < today):
+                record.estado_vigencia = 'vencido'
+            else:
+                record.estado_vigencia = 'vigente'
 
     @api.depends('attach_contrato')
     def _compute_existe_contrato(self):

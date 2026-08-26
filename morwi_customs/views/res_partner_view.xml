@@ -35,6 +35,58 @@
                 </xpath>
                 <!-- NUEVAS PESTAÑAS -->
                 <xpath expr="//sheet/notebook/page[@name='sales_purchases']" position="after">
+                    <page name="expediente_unidad" string="Póliza y documentos de la unidad" invisible="not fleet_vehicle_ids">
+                        <separator string="Vehículos"/>
+                        <field name="fleet_vehicle_ids">
+                            <list create="0" edit="0" delete="0">
+                                <field name="vin_sn"/>
+                                <field name="license_plate"/>
+                                <field name="numero_economico"/>
+                                <field name="estado_factura" widget="badge"
+                                       decoration-success="estado_factura == 'completo'"
+                                       decoration-warning="estado_factura == 'falta_subir'"
+                                       string="Factura de la unidad"/>
+                            </list>
+                        </field>
+                        <separator string="Pólizas de seguro"/>
+                        <field name="fleet_poliza_ids">
+                            <list create="0" edit="0" delete="0">
+                                <field name="tipo_poliza_id"/>
+                                <field name="num_poliza"/>
+                                <field name="vin_sn"/>
+                                <field name="fecha_vencimiento"/>
+                                <field name="estado_vigencia" widget="badge"
+                                       decoration-success="estado_vigencia == 'vigente'"
+                                       decoration-danger="estado_vigencia == 'vencido'"
+                                       decoration-warning="estado_vigencia == 'falta_subir'"/>
+                            </list>
+                        </field>
+                        <separator string="Trámites (tarjeta de circulación, verificación, tenencia, etc.)"/>
+                        <field name="fleet_tramite_ids">
+                            <list create="0" edit="0" delete="0">
+                                <field name="tipo_tramite_id"/>
+                                <field name="folio"/>
+                                <field name="vin_sn"/>
+                                <field name="fecha_vencimiento_renovacion"/>
+                                <field name="estado_vigencia" widget="badge"
+                                       decoration-success="estado_vigencia == 'vigente'"
+                                       decoration-danger="estado_vigencia == 'vencido'"
+                                       decoration-warning="estado_vigencia == 'falta_subir'"/>
+                            </list>
+                        </field>
+                        <separator string="Contratos firmados"/>
+                        <field name="fleet_vehicle_log_contract_ids">
+                            <list create="0" edit="0" delete="0">
+                                <field name="vin_sn"/>
+                                <field name="state"/>
+                                <field name="expiration_date"/>
+                                <field name="estado_vigencia" widget="badge"
+                                       decoration-success="estado_vigencia == 'vigente'"
+                                       decoration-danger="estado_vigencia == 'vencido'"
+                                       decoration-warning="estado_vigencia == 'falta_subir'"/>
+                            </list>
+                        </field>
+                    </page>
                     <page name="insurance_and_claims" string="Insurance and Claims">
                         <group>
                             <group>

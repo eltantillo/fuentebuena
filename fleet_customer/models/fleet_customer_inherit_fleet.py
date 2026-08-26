@@ -239,6 +239,20 @@ class FleetCustomerInheritFleet(models.Model):
         compute='_compute_existe_opcion_compra',
         store=True,
     )
+    estado_factura = fields.Selection(
+        selection=[
+            ('completo', 'Completo'),
+            ('falta_subir', 'Falta subir'),
+        ],
+        string='Estado factura',
+        compute='_compute_estado_factura',
+        store=True,
+    )
+
+    @api.depends('existe_factura')
+    def _compute_estado_factura(self):
+        for record in self:
+            record.estado_factura = 'completo' if record.existe_factura else 'falta_subir'
 
     @api.depends('factura_vehiculo')
     def _compute_existe_factura(self):

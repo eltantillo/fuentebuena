@@ -121,6 +121,27 @@ class FleetPoliza(models.Model):
         compute='_compute_existe_attach_poliza',
         store=True,
     )
+    estado_vigencia = fields.Selection(
+        selection=[
+            ('vigente', 'Vigente'),
+            ('vencido', 'Vencido'),
+            ('falta_subir', 'Falta subir'),
+        ],
+        string='Estado',
+        compute='_compute_estado_vigencia',
+        store=True,
+    )
+
+    @api.depends('existe_attach_poliza', 'fecha_vencimiento')
+    def _compute_estado_vigencia(self):
+        today = fields.Date.today()
+        for record in self:
+            if not record.existe_attach_poliza:
+                record.estado_vigencia = 'falta_subir'
+            elif not record.fecha_vencimiento or record.fecha_vencimiento < today:
+                record.estado_vigencia = 'vencido'
+            else:
+                record.estado_vigencia = 'vigente'
 
     @api.depends('attach_poliza')
     def _compute_existe_attach_poliza(self):
