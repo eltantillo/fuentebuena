@@ -256,7 +256,6 @@ class Expediente extends Component {
         const val = ev.target.value;
         const plazaId = val === "todos" ? null : parseInt(val);
         this.state.selectedPlaza = plazaId;
-
         const domain = plazaId
             ? [['flotilla_id', '=', 1], ['plaza_id', '=', plazaId]]
             : [['flotilla_id', '=', 1]];
@@ -321,15 +320,30 @@ class Expediente extends Component {
         }
         try {
             const vehicleIds = this.state.vehiculos.map(vehiculo => vehiculo.id);
-            const excelDoc = await this.orm.call(
-                'fleet.vehicle', 'get_faltantes_excel',
-                [vehicleIds, this.state.idExpediente, estado || false], {}
-            );
-            if (!excelDoc) {
-                this.notification.add("No hay resultados para exportar.", { type: "warning" });
-                return;
+            console.log(this.state.selectedDocumento);
+            if (this.state.selectedDocumento){
+                const excelDoc = await this.orm.call(
+                    'fleet.vehicle', 'get_faltantes_excel_doc',
+                    [vehicleIds, this.state.idExpediente, estado || false, this.state.selectedDocumento, this.state.selectedPlaza], {}
+                );
+                if (!excelDoc) {
+                    this.notification.add("No hay resultados para exportar.", { type: "warning" });
+                    return;
+                }
+                this._descargarBase64(excelDoc.data, excelDoc.name, excelDoc.mimetype);
             }
-            this._descargarBase64(excelDoc.data, excelDoc.name, excelDoc.mimetype);
+            else {
+                const excelDoc = await this.orm.call(
+                    'fleet.vehicle', 'get_faltantes_excel',
+                    [vehicleIds, this.state.idExpediente, estado || false], {}
+                );
+                if (!excelDoc) {
+                    this.notification.add("No hay resultados para exportar.", { type: "warning" });
+                    return;
+                }
+                this._descargarBase64(excelDoc.data, excelDoc.name, excelDoc.mimetype);
+            }
+
         } catch (error) {
             this.notification.add("No se pudo generar el Excel de faltantes", { type: "danger" });
         }

@@ -16,13 +16,19 @@
                         <span>Total</span>
                         <t t-esc="state.vehiculos.length"/>
                     </button>
-                    <button type="button" class="expediente-stat expediente-stat--incompleto"  t-on-click="() => this.descargarExcelFaltantes('incompleto')">
+                    <button type="button" class="expediente-stat expediente-stat--incompleto">
                         <span>Incompletos</span>
                         <strong t-esc="this.state.expeIncompletosInt"/>
                     </button>
-                    <button type="button" class="expediente-stat expediente-stat--completo" t-on-click="() => this.descargarExcelFaltantes('completo')">
+                    <button type="button" class="expediente-stat expediente-stat--incompleto"  t-on-click="() => this.descargarExcelFaltantes('incompleto')">
+                        <i class="fa fa-download"/>
+                    </button>
+                    <button type="button" class="expediente-stat expediente-stat--completo">
                         <span>Completos</span>
                         <strong t-esc="this.state.expeCompletosInt"/>
+                    </button>
+                    <button type="button" class="expediente-stat expediente-stat--completo" t-on-click="() => this.descargarExcelFaltantes('completo')">
+                        <i class="fa fa-download"/>
                     </button>
                 </div>
             </div>

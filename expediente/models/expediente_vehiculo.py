@@ -391,12 +391,67 @@ class ExpedienteVehiculo(models.Model):
                     nombre = f"{base}_{nombres_usados[nombre]}.{ext or 'pdf'}"
 
                 archivo_zip.writestr(nombre, base64.b64decode(doc['data']))
-
         buffer.seek(0)
         return {
             'name': f"expediente_{vehiculo.vin_sn or 'SIN_VIN'}.zip",
             'data': base64.b64encode(buffer.read()).decode('utf-8'),
             'mimetype': 'application/zip',
+        }
+
+    @api.model
+    def get_faltantes_excel_doc(self, vehiculos, tipo_expe, estado, tipo_doc, plaza):
+        if xlsxwriter is None:
+            raise UserError("El módulo 'xlsxwriter' no está instalado en el servidor.")
+        plaza_rec = self.env["fleet.customer.plaza"].browse(plaza)
+        resultados = self.return_validacion_expe(vehiculos, tipo_expe, context=False)
+        vehiculos_filtrados = []
+        if plaza_rec:
+            resultados = [r for r in resultados if r["plaza"] == plaza_rec.name]
+        if estado:
+            bool_estado = True if estado == "completo" else False
+            resultados = [r for r in resultados if r["expediente"] == bool_estado]
+        for record in resultados:
+            faltantes = record.get("faltantes", [])
+            for faltante in faltantes:
+                val_faltante = faltante.get("faltante") if isinstance(faltante, dict) else faltante
+                motivo =  faltante.get("motivo")
+                if val_faltante == tipo_doc:
+                    vehiculos_filtrados.append({
+                        "vehiculo": record.get("vehiculo"),
+                        "plaza": record.get("plaza"),
+                        "faltante": val_faltante,
+                        "motivo": motivo
+                    })
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {"in_memory": True})
+        worksheet = workbook.add_worksheet("Faltantes")
+        header_format = workbook.add_format({
+            "bold": True,
+            "bg_color": "#D3D3D3",
+            "border": 1,
+            "align": "center"
+        })
+        cell_format = workbook.add_format({"border": 1})
+        headers = ["Vehículo", "Plaza", "Documento Faltante", "Motivo de faltante"]
+        for col_num, header_title in enumerate(headers):
+            worksheet.write(0, col_num, header_title, header_format)
+            worksheet.set_column(col_num, col_num, 25)
+        row_num = 1
+        for item in vehiculos_filtrados:
+            worksheet.write(row_num, 0, item["vehiculo"] or "", cell_format)
+            worksheet.write(row_num, 1, item["plaza"] or "", cell_format)
+            worksheet.write(row_num, 2, item["faltante"] or "", cell_format)
+            worksheet.write(row_num, 3, item["motivo"] or "", cell_format)
+            row_num += 1
+        workbook.close()
+        output.seek(0)
+        file_data = base64.b64encode(output.read()).decode('utf-8')
+        output.close()
+        nombre_tipo = tipo_doc or "general"
+        return {
+            'name': f'faltantes_{nombre_tipo}.xlsx',
+            'data': file_data,
+            'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         }
 
     @api.model
