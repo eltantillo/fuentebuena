@@ -18,3 +18,5 @@ access_fb_agency_payment_bank_account,fb.agency.payment.bank.account,model_fb_ag
 access_fb_signature_acknowledged_dependency,fb.signature.acknowledged.dependency,model_fb_signature_acknowledged_dependency,,1,1,1,1
 access_fb_firms_aprecia_financiera,fb.firms.aprecia.financiera,model_fb_firms_aprecia_financiera,,1,1,1,1
 access_fb_agreement_user_technical_specifications,fb.agreement.user.technical.specifications,model_fb_agreement_user_technical_specifications,,1,1,1,1
+access_fb_instance,fb.instance,model_fb_instance,,1,1,1,1
+access_fb_integration_log,fb.integration.log,model_fb_integration_log,,1,1,1,1

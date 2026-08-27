@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fb_instance_form" model="ir.ui.view">
+        <field name="name">fb.instance.form</field>
+        <field name="model">fb.instance</field>
+        <field name="arch" type="xml">
+            <form string="FB Instance">
+                <header>
+                    <button name="fb_test_connection" type="object" string="Test connection"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                     <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="name"/>
+                        <field name="fb_url"/>
+                        <field name="fb_user"/>
+                        <field name="fb_password" password="True"/>
+                        <field name="fb_api_key" password="True"/>
+                     </group>
+<!--                    <notebook>
+                        <page string="Configuraciones" name="configurations">
+                            <group>
+                                <group string="Sincronizar Ordenes" name="synchronize_orders">
+                                    <field name="consolidate_order_lines"/>
+                                    <field name="concat_product_description_sale"/>
+                                </group>
+                                <group string="Sincronizar Productos" name="synchronize_products">
+                                    <field name="concat_variant_products"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_fb_instance_list" model="ir.ui.view">
+        <field name="name">FB Instances</field>
+        <field name="model">fb.instance</field>
+        <field name="arch" type="xml">
+            <list string="FB Instance">
+                <field name="name"/>
+                <field name="fb_url"/>
+                <field name="fb_user"/>
+                <field name="fb_password" password="True"/>
+            </list>
+        </field>
+    </record>
+
+        <!-- Instance Kanban View -->
+    <record model="ir.ui.view" id="fb_instance_kanban_view">
+        <field name="name">fb.instance.kanban</field>
+        <field name="model">fb.instance</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="row mb4">
+                            <div class="col-8">
+                                <field name="fb_url"/>
+                            </div>
+                        </div>
+                        <div class="row mb4" style="min-height: 60px;">
+                            <em class="col-10">
+                                <field name="name"/>
+                            </em>
+                        </div>
+                        <div class="ribbon ribbon-top-right">
+                            <span class="text-bg-success">Active</span>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_fb_instance" model="ir.actions.act_window">
+        <field name="name">FB Instances</field>
+        <field name="res_model">fb.instance</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="fb_instance_kanban_view"/>
+    </record>
+
+</odoo>

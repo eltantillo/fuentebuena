@@ -401,57 +401,101 @@ class ExpedienteVehiculo(models.Model):
     @api.model
     def get_faltantes_excel_doc(self, vehiculos, tipo_expe, estado, tipo_doc, plaza):
         if xlsxwriter is None:
-            raise UserError("El módulo 'xlsxwriter' no está instalado en el servidor.")
+            raise UserError(
+                "El módulo 'xlsxwriter' no está instalado en el servidor."
+            )
         plaza_rec = self.env["fleet.customer.plaza"].browse(plaza)
-        resultados = self.return_validacion_expe(vehiculos, tipo_expe, context=False)
+        resultados = self.return_validacion_expe( vehiculos, tipo_expe, context=False)
+        if plaza_rec and plaza_rec.exists():
+            nombre_plaza = plaza_rec.name
+            resultados = [r for r in resultados if r.get("plaza") == nombre_plaza]
         vehiculos_filtrados = []
-        if plaza_rec:
-            resultados = [r for r in resultados if r["plaza"] == plaza_rec.name]
-        if estado:
-            bool_estado = True if estado == "completo" else False
-            resultados = [r for r in resultados if r["expediente"] == bool_estado]
-        for record in resultados:
-            faltantes = record.get("faltantes", [])
-            for faltante in faltantes:
-                val_faltante = faltante.get("faltante") if isinstance(faltante, dict) else faltante
-                motivo =  faltante.get("motivo")
-                if val_faltante == tipo_doc:
-                    vehiculos_filtrados.append({
-                        "vehiculo": record.get("vehiculo"),
-                        "plaza": record.get("plaza"),
-                        "faltante": val_faltante,
-                        "motivo": motivo
-                    })
-        output = io.BytesIO()
-        workbook = xlsxwriter.Workbook(output, {"in_memory": True})
-        worksheet = workbook.add_worksheet("Faltantes")
-        header_format = workbook.add_format({
-            "bold": True,
-            "bg_color": "#D3D3D3",
-            "border": 1,
-            "align": "center"
-        })
-        cell_format = workbook.add_format({"border": 1})
-        headers = ["Vehículo", "Plaza", "Documento Faltante", "Motivo de faltante"]
-        for col_num, header_title in enumerate(headers):
-            worksheet.write(0, col_num, header_title, header_format)
-            worksheet.set_column(col_num, col_num, 25)
-        row_num = 1
-        for item in vehiculos_filtrados:
-            worksheet.write(row_num, 0, item["vehiculo"] or "", cell_format)
-            worksheet.write(row_num, 1, item["plaza"] or "", cell_format)
-            worksheet.write(row_num, 2, item["faltante"] or "", cell_format)
-            worksheet.write(row_num, 3, item["motivo"] or "", cell_format)
-            row_num += 1
-        workbook.close()
-        output.seek(0)
-        file_data = base64.b64encode(output.read()).decode('utf-8')
-        output.close()
+        if estado == "incompleto":
+            for record in resultados:
+                for faltante in record.get("faltantes", []):
+                    val = (
+                        faltante.get("faltante")
+                        if isinstance(faltante, dict)
+                        else faltante
+                    )
+                    if val == tipo_doc:
+                        vehiculos_filtrados.append(
+                            (
+                                record.get("vehiculo", ""),
+                                record.get("plaza", ""),
+                                val or "",
+                                (
+                                    faltante.get("motivo")
+                                    if isinstance(faltante, dict)
+                                    else ""
+                                )
+                                or "",
+                            )
+                        )
+        elif estado == "completo":
+            for record in resultados:
+                for completo in record.get("completos", []):
+                    val = (
+                        completo.get("completo")
+                        if isinstance(completo, dict)
+                        else completo
+                    )
+                    if val == tipo_doc:
+                        vehiculos_filtrados.append(
+                            (
+                                record.get("vehiculo", ""),
+                                record.get("plaza", ""),
+                                "Vigente",
+                            )
+                        )
+        with io.BytesIO() as output:
+            workbook = xlsxwriter.Workbook(output, {"in_memory": True})
+            worksheet = workbook.add_worksheet("Faltantes")
+            header_fmt = workbook.add_format(
+                {"bold": True, "bg_color": "#D3D3D3", "border": 1, "align": "center"}
+            )
+            cell_fmt = workbook.add_format({"border": 1})
+            status_fmt = (
+                workbook.add_format(
+                    {
+                        "border": 1,
+                        "bg_color": "#FEE2E2",
+                        "font_color": "#991B1B",
+                        "bold": True,
+                    }
+                )
+                if estado == "incompleto"
+                else workbook.add_format(
+                    {
+                        "border": 1,
+                        "bg_color": "#DCFCE7",
+                        "font_color": "#166534",
+                        "bold": True,
+                    }
+                )
+            )
+            headers = ["Vehículo", "Plaza"]
+            if estado == "incompleto":
+                headers.extend(["Documento Faltante", "Motivo de faltante"])
+            else:
+                headers.append(tipo_doc)
+            for col, header in enumerate(headers):
+                worksheet.write(0, col, header, header_fmt)
+                worksheet.set_column(col, col, 25)
+            for row, record_data in enumerate(vehiculos_filtrados, start=1):
+                worksheet.write(row, 0, record_data[0], cell_fmt)
+                worksheet.write(row, 1, record_data[1], cell_fmt)
+                worksheet.write(row, 2, record_data[2], status_fmt)
+                if estado == "incompleto" and len(record_data) > 3:
+                    worksheet.write(row, 3, record_data[3], cell_fmt)
+            workbook.close()
+            output.seek(0)
+            file_data = base64.b64encode(output.read()).decode("utf-8")
         nombre_tipo = tipo_doc or "general"
         return {
-            'name': f'faltantes_{nombre_tipo}.xlsx',
-            'data': file_data,
-            'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            "name": f"{estado}_{nombre_tipo}.xlsx",
+            "data": file_data,
+            "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         }
 
     @api.model

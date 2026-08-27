@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="seq_fb_integration_log" model="ir.sequence">
+            <field name="name">Seq FB integration log</field>
+            <field name="code">fb.integration.log</field>
+            <field name="prefix">FBC-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -12,6 +12,8 @@ class Expediente extends Component {
         this.mainRef = useRef('mainContainer');
 
         this.state = useState({
+            flotilla_pi: null,
+            state_baja: null,
             currentPage: 1,
             vehiculos: [],
             filtrosActivos: [],
@@ -44,7 +46,7 @@ class Expediente extends Component {
                 this.loadPlazas(),
                 this.loadDocumentos(),
                 this.loadExpedientesTypo(),
-                this.loadVehiculos()
+                this.loadDomain(),
             ]);
             await this.initExpedientePrincipal();
         });
@@ -54,6 +56,22 @@ class Expediente extends Component {
         if (this.mainRef.el) {
             this.mainRef.el.scrollTo({ top: 0, behavior: 'smooth' });
         }
+    }
+
+    async loadDomain(){
+        const flotilla = await this.orm.searchRead(
+            'fleet.customer.flotilla',
+            [['name','=', 'Arrendamiento Pilotea']],
+            ['id','name']
+        );
+        this.state.flotilla_pi = flotilla[0].id
+        const etapa_baja = await this.orm.searchRead(
+            'fleet.vehicle.state',
+            [['es_etapa_baja','=', true]],
+            ['id','name']
+        );
+        this.state.state_baja = etapa_baja[0].id
+        await this.loadVehiculos()
     }
 
     _mapStateToMotivo(estado) {
@@ -194,7 +212,7 @@ class Expediente extends Component {
         this.state.currentPage = 1;
     }
 
-    async loadVehiculos(domain = [['flotilla_id', '=', 1]]) {
+    async loadVehiculos(domain = [['flotilla_id', '=', this.state.flotilla_pi],['state_id','!=', this.state.state_baja]]) {
         try {
             this.state.isLoading = true;
             this.state.vehiculos = await this.orm.searchRead(
@@ -257,8 +275,8 @@ class Expediente extends Component {
         const plazaId = val === "todos" ? null : parseInt(val);
         this.state.selectedPlaza = plazaId;
         const domain = plazaId
-            ? [['flotilla_id', '=', 1], ['plaza_id', '=', plazaId]]
-            : [['flotilla_id', '=', 1]];
+            ? [['flotilla_id', '=', this.state.flotilla_pi], ['plaza_id', '=', plazaId], ['state_id','!=', this.state.state_baja]]
+            : [['flotilla_id', '=', this.state.flotilla_pi], ['state_id','!=', this.state.state_baja]];
 
         await this.loadVehiculos(domain);
         await this.recomputeValidacion();

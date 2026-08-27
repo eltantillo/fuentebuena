@@ -70,6 +70,13 @@
         flex-shrink: 0;
     }
 
+    .hover-pass {
+        &:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.08);
+        }
+    }
+
     .expediente-stat {
         display: flex;
         align-items: center;
@@ -82,11 +89,6 @@
         font-weight: 600;
         cursor: pointer;
         transition: transform 0.15s ease, filter 0.15s ease;
-
-        &:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.08);
-        }
 
         span {
             font-weight: 600;

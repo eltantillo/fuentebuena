@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_fb_integration_log_list">
+        <field name="name">fb.integration.log.list</field>
+        <field name="model">fb.integration.log</field>
+        <field name="arch" type="xml">
+            <list string="FB integracion logs">
+                <field name="name"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_fb_integration_log_form">
+        <field name="name">fb.integration.log.form</field>
+        <field name="model">fb.integration.log</field>
+        <field name="arch" type="xml">
+            <form string="FB integracion logs">
+                <header>
+                    <!--<field name="state" widget="statusbar" statusbar_visible="request_received,processed,response_sent"/>-->
+                </header>
+                <sheet>
+                    <!--<div class="oe_button_box" name="button_box">
+                        <button name="action_view_orders_arkik"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-cubes"> <field name="order_count" widget="statinfo" string="Pedidos"/>
+                        </button>
+                    </div>-->
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="create_date" string="Fecha" readonly="1"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <notebook>
+                        <page string="Datos" name="logs_data">
+                            <field name="data" readonly="1"/>
+                        </page>
+                        <page string="Notas" name="noes">
+                            <field name="notes" string="Notas"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter reload_on_follower="True"/>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_fb_integration_log" model="ir.actions.act_window">
+        <field name="name">FB integracion logs</field>
+        <field name="res_model">fb.integration.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_fb_integration_log_list"/>
+    </record>
+
+</odoo>
