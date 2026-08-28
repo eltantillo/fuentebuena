@@ -111,9 +111,10 @@ class AltaVehiculoInherit(models.TransientModel):
         patrones = [
             r'NO\.\s*SERIE:\s*([A-HJ-NPR-Z0-9]{17})',
             r'N[º°]\s*CHASIS:\s*([A-HJ-NPR-Z0-9]{17})',
+            r'\b([A-HJ-NPR-Z0-9]{17})\b',
         ]
         for patron in patrones:
-            match = re.search(patron, descripcion, re.IGNORECASE)
+            match = re.search(patron, descripcion or '', re.IGNORECASE)
             if match:
                 return match.group(1).strip()
         return False
@@ -130,6 +131,7 @@ class AltaVehiculoInherit(models.TransientModel):
         return False
 
     def extraer_num_puertas(self, descripcion):
+        puertas = 0
         patrones = [
             r'NO.\s+PUERTAS:\s*([0-9]+)',
             r'NUMERO\s+PUERTAS:\s*([0-9]+)',
@@ -137,13 +139,19 @@ class AltaVehiculoInherit(models.TransientModel):
         for patron in patrones:
             match = re.search(patron, descripcion, re.IGNORECASE)
             if match:
-                return  match.group(1).strip()
+                puertas =  match.group(1).strip()
 
     def extraer_num_motor(self, descripcion):
-        patron = r"NO\.?\s*MOTOR:\s*([A-Z0-9]+)"
-        match = re.search(patron, descripcion, re.IGNORECASE)
-        if match:
-            return match.group(1).strip()
+        patrones = [
+            r'(MOTOR\s+HECHO\s+EN\s+[A-Za-zÁÉÍÓÚáéíóú]+)',
+            r'NO\.?\s*MOTOR:\s*([A-Z0-9]+)',
+        ]
+
+        for patron in patrones:
+            match = re.search(patron, descripcion or '', re.IGNORECASE)
+            if match:
+                return match.group(1).strip()
+
         return False
 
     @api.onchange('document_xml')
@@ -208,8 +216,25 @@ class AltaVehiculoInherit(models.TransientModel):
         if num_motor:
             self.num_motor = num_motor
         puertas = self.extraer_num_puertas(descripcion)
-        if puertas:
-            self.num_puertas = int(puertas)
+        puertas = int(puertas) if puertas else 0
+        _logger.info("--------------------Validación de extraccion XML ------------------")
+        _logger.info(puertas)
+        if puertas == 0:
+            _logger.info("-----------------------Entra a not puertas")
+            etapa_rentado = self.env['fleet.vehicle.state'].search([('es_etapa_rentado', '=', True)])
+            _logger.info(f"Etapa rentado: {etapa_rentado}")
+            _logger.info(f"Modelo: {modelo_id}")
+            _logger.info(f"Año: {year_v}")
+            _logger.info(f"Versión: {map_versiones.get(version_encontrada.name)}")
+            vehiculo = self.env['fleet.vehicle'].search(
+                [('state_id', '=', etapa_rentado.id),
+                 ('model_id', '=', modelo_id),
+                 ('model_year','=', year_v),
+                 ('version','=', map_versiones.get(version_encontrada.name))], limit=1
+            )
+            _logger.info(f"Vehiculo: {vehiculo}")
+            puertas = vehiculo.doors
+        self.num_puertas = puertas
         self.factura = f"{data['serie']} {data['folio']}"
         self.fecha = data['fecha']
         self.folio_uuid = data['uuid']

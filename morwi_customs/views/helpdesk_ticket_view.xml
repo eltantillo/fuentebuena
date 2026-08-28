@@ -93,14 +93,14 @@
                     <group string="Claim">
                         <field name="claim_status" invisible="not show_claim_status"/>
                     </group>
-                    <group string="General Follow-up" invisible="tipo_ticket and tipo_ticket != 'seguimiento_general'">
+                    <group string="General Follow-up">
                         <field name="tracking_log" invisible="not show_tracking_log"/>
                         <field name="advisor_id" invisible="not show_advisor_id"/>
                         <field name="info_evidence" invisible="not show_info_evidence"/>
                         <field name="specific_request" invisible="not show_specific_request"/>
                         <field name="capture_evidence" widget="image" invisible="not show_capture_evidence"/>
                     </group>
-                    <group string="Payment" invisible="tipo_ticket and tipo_ticket != 'pago'">
+                    <group string="Payment">
                         <field name="payment_voucher_id" invisible="not show_payment_voucher_id"/>
                         <field name="amount" invisible="not show_amount"/>
                         <field name="date" invisible="not show_date"/>
@@ -108,13 +108,13 @@
                         <field name="reference_cie" invisible="not show_reference_cie"/>
                         <field name="extension_folio" invisible="not show_extension_folio"/>
                     </group>
-                    <group string="Service / Issue" invisible="tipo_ticket and tipo_ticket != 'servicio_falla'">
+                    <group string="Service / Issue">
                         <field name="issue_description" invisible="not show_issue_description"/>
                         <field name="location" invisible="not show_location"/>
                         <field name="customer_availability" invisible="not show_customer_availability"/>
                         <field name="photos_video_evidence" invisible="not show_photos_video_evidence"/>
                     </group>
-                    <group string="Accident" invisible="tipo_ticket and tipo_ticket != 'siniestro'">
+                    <group string="Accident">
                         <field name="event_datetime" invisible="not show_event_datetime"/>
                         <field name="event_narrative" invisible="not show_event_narrative"/>
                         <field name="accident_photos" invisible="not show_accident_photos"/>
@@ -133,14 +133,14 @@
                         <field name="app_trip" invisible="not show_app_trip"/>
                         <field name="debt_claim_extension_validation" invisible="not show_debt_claim_extension_validation"/>
                     </group>
-                    <group string="Fiscal Data" invisible="tipo_ticket and tipo_ticket != 'datos_fiscales'">
+                    <group string="Fiscal Data">
                         <field name="legal_name" invisible="not show_legal_name"/>
                         <field name="fiscal_zip" invisible="not show_fiscal_zip"/>
                         <field name="fiscal_regime" invisible="not show_fiscal_regime"/>
                         <field name="fiscal_usage" invisible="not show_fiscal_usage"/>
                         <field name="fiscal_proof_document" invisible="not show_fiscal_proof_document"/>
                     </group>
-                    <group string="Referral / Promotion" invisible="tipo_ticket and tipo_ticket != 'referido_promocion'">
+                    <group string="Referral / Promotion">
                         <field name="requested_period" invisible="not show_requested_period"/>
                         <field name="referral_code" invisible="not show_referral_code"/>
                         <field name="promotion" invisible="not show_promotion"/>
@@ -152,14 +152,14 @@
                         <field name="balance_amount" invisible="not show_balance_amount"/>
                         <field name="customer_intent" invisible="not show_customer_intent"/>
                     </group>
-                    <group string="Case Closure" invisible="tipo_ticket and tipo_ticket != 'cierre_caso'">
+                    <group string="Case Closure">
                         <field name="fleet_vehicle_id" invisible="not show_fleet_vehicle_id" domain="[('driver_id', '=', partner_id)]"/>
                         <field name="case_status_confirmed" invisible="not show_case_status_confirmed"/>
                         <field name="payment_management_result" invisible="not show_payment_management_result"/>
                         <field name="final_response_sent" invisible="not show_final_response_sent"/>
                         <field name="closed_stage_id" invisible="not show_closed_stage_id"/>
                     </group>
-                    <group string="Billing Correction" invisible="tipo_ticket and tipo_ticket != 'correccion_facturacion'">
+                    <group string="Billing Correction">
                         <field name="invoice_corrected" invisible="not show_invoice_corrected"/>
                         <field name="correction_commitment_date" invisible="not show_correction_commitment_date"/>
                         <field name="closure_evidence" invisible="not show_closure_evidence"/>

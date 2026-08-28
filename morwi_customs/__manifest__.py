@@ -18,6 +18,7 @@
     'data': [
         'security/security_view.xml',
         'security/ir.model.access.csv',
+        'data/helpdesk_ticket_motivo_data.xml',
         'views/res_partner_view.xml',
         'views/helpdesk_team_view.xml',
         'views/helpdesk_ticket_motivo_view.xml',

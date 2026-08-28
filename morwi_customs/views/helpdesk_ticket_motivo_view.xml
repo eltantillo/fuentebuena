@@ -25,6 +25,116 @@
                         <field name="sequence"/>
                         <field name="active"/>
                     </group>
+                    <h2>Additional Ticket Fields</h2>
+                    <p class="text-muted">
+                        Check the fields that should be visible, in the "Additional Info" tab, on tickets with this motivo.
+                    </p>
+                    <group string="GNV">
+                        <field name="show_gnv_next_ruling_date"/>
+                    </group>
+                    <group string="Delivery">
+                        <field name="show_tentative_delivery_date"/>
+                    </group>
+                    <group string="Impound Lot">
+                        <field name="show_pound_exit_date"/>
+                    </group>
+                    <group string="Claim">
+                        <field name="show_claim_status"/>
+                    </group>
+                    <group string="General Follow-up">
+                        <field name="show_tracking_log"/>
+                        <field name="show_advisor_id"/>
+                        <field name="show_info_evidence"/>
+                        <field name="show_specific_request"/>
+                        <field name="show_capture_evidence"/>
+                    </group>
+                    <group string="Payment">
+                        <field name="show_payment_voucher_id"/>
+                        <field name="show_amount"/>
+                        <field name="show_date"/>
+                        <field name="show_bank_id"/>
+                        <field name="show_reference_cie"/>
+                        <field name="show_extension_folio"/>
+                    </group>
+                    <group string="Service / Issue">
+                        <field name="show_issue_description"/>
+                        <field name="show_location"/>
+                        <field name="show_customer_availability"/>
+                        <field name="show_photos_video_evidence"/>
+                    </group>
+                    <group string="Accident">
+                        <field name="show_event_datetime"/>
+                        <field name="show_event_narrative"/>
+                        <field name="show_accident_photos"/>
+                        <field name="show_insurance_authority_report"/>
+                        <field name="show_gps_location"/>
+                    </group>
+                    <group string="Procedure">
+                        <field name="show_procedure_document"/>
+                        <field name="show_fleet_customer_plaza_id"/>
+                        <field name="show_fine_evidence"/>
+                    </group>
+                    <group string="Trip">
+                        <field name="show_origin_destination"/>
+                        <field name="show_reason"/>
+                        <field name="show_trip_duration"/>
+                        <field name="show_app_trip"/>
+                        <field name="show_debt_claim_extension_validation"/>
+                    </group>
+                    <group string="Fiscal Data">
+                        <field name="show_legal_name"/>
+                        <field name="show_fiscal_zip"/>
+                        <field name="show_fiscal_regime"/>
+                        <field name="show_fiscal_usage"/>
+                        <field name="show_fiscal_proof_document"/>
+                    </group>
+                    <group string="Referral / Promotion">
+                        <field name="show_requested_period"/>
+                        <field name="show_referral_code"/>
+                        <field name="show_promotion"/>
+                        <field name="show_delivery_evidence_date"/>
+                    </group>
+                    <group string="Contract">
+                        <field name="show_fleet_customer_producto_id"/>
+                        <field name="show_contract_end_date"/>
+                        <field name="show_balance_amount"/>
+                        <field name="show_customer_intent"/>
+                    </group>
+                    <group string="Case Closure">
+                        <field name="show_fleet_vehicle_id"/>
+                        <field name="show_case_status_confirmed"/>
+                        <field name="show_payment_management_result"/>
+                        <field name="show_final_response_sent"/>
+                        <field name="show_closed_stage_id"/>
+                    </group>
+                    <group string="Billing Correction">
+                        <field name="show_invoice_corrected"/>
+                        <field name="show_correction_commitment_date"/>
+                        <field name="show_closure_evidence"/>
+                        <field name="show_corrected_info_channel"/>
+                        <field name="show_commercial_responsible_notified"/>
+                        <field name="show_procedure_validated"/>
+                        <field name="show_response_instruction_document"/>
+                    </group>
+                    <group string="Benefit">
+                        <field name="show_follow_up_responsible_id"/>
+                        <field name="show_benefit_validated"/>
+                        <field name="show_benefit_request_result"/>
+                        <field name="show_benefit_rejection_reason"/>
+                    </group>
+                    <group string="Termination">
+                        <field name="show_termination_requirements_confirmed"/>
+                        <field name="show_termination_next_step"/>
+                    </group>
+                    <group string="Maintenance">
+                        <field name="show_maintenance_appointment_datetime"/>
+                        <field name="show_diagnosis_confirmed"/>
+                        <field name="show_customer_informed_status"/>
+                    </group>
+                    <group string="Geofence">
+                        <field name="show_geofence_authorization"/>
+                        <field name="show_conditions_communicated"/>
+                    </group>
                 </sheet>
             </form>
         </field>

@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Comercial (COM) -->
+    <record id="motivo_com_001" model="helpdesk.ticket.motivo">
+        <field name="name">Mala Información Por Parte Del Vendedor</field>
+        <field name="tipo_ticket">comercial</field>
+        <field name="sequence">10</field>
+        <field name="show_advisor_id">True</field>
+        <field name="show_info_evidence">True</field>
+        <field name="show_specific_request">True</field>
+        <field name="show_corrected_info_channel">True</field>
+        <field name="show_commercial_responsible_notified">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_com_002" model="helpdesk.ticket.motivo">
+        <field name="name">Datos De Contacto</field>
+        <field name="tipo_ticket">comercial</field>
+        <field name="sequence">20</field>
+        <field name="show_advisor_id">True</field>
+        <field name="show_info_evidence">True</field>
+        <field name="show_specific_request">True</field>
+        <field name="show_corrected_info_channel">True</field>
+        <field name="show_commercial_responsible_notified">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_com_003" model="helpdesk.ticket.motivo">
+        <field name="name">Prospecto</field>
+        <field name="tipo_ticket">comercial</field>
+        <field name="sequence">30</field>
+        <field name="show_advisor_id">True</field>
+        <field name="show_info_evidence">True</field>
+        <field name="show_specific_request">True</field>
+        <field name="show_corrected_info_channel">True</field>
+        <field name="show_commercial_responsible_notified">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_com_004" model="helpdesk.ticket.motivo">
+        <field name="name">Cuenta Bancaria Para Pago Del Cliente</field>
+        <field name="tipo_ticket">comercial</field>
+        <field name="sequence">40</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_com_005" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas Del Vendedor</field>
+        <field name="tipo_ticket">comercial</field>
+        <field name="sequence">50</field>
+        <field name="show_advisor_id">True</field>
+        <field name="show_info_evidence">True</field>
+        <field name="show_specific_request">True</field>
+        <field name="show_corrected_info_channel">True</field>
+        <field name="show_commercial_responsible_notified">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+
+    <!-- Cobranza y prórrogas (COB) -->
+    <record id="motivo_cob_001" model="helpdesk.ticket.motivo">
+        <field name="name">Validación De Pagos Sin Referencia Y/O Realizados Por Spin</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">10</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_002" model="helpdesk.ticket.motivo">
+        <field name="name">Pagos Realizados Por Error A Cuenta Pilotea</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">20</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_003" model="helpdesk.ticket.motivo">
+        <field name="name">Aclaración / Confirmación De Pago</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">30</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_004" model="helpdesk.ticket.motivo">
+        <field name="name">Reembolso De Pagos Realizados Por Error A Cuenta Pilotea</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">40</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_005" model="helpdesk.ticket.motivo">
+        <field name="name">Adeudos Y Detalles Del Mismo</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">50</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_006" model="helpdesk.ticket.motivo">
+        <field name="name">Acuerdos De Pago</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">60</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_007" model="helpdesk.ticket.motivo">
+        <field name="name">Devolución De Unidades / Terminaciones Anticipadas</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">70</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_cob_008" model="helpdesk.ticket.motivo">
+        <field name="name">Respuesta A Solicitud De Prórroga</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">80</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_009" model="helpdesk.ticket.motivo">
+        <field name="name">Cambio De Correo En Portal De Prórrogas</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">90</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_010" model="helpdesk.ticket.motivo">
+        <field name="name">Cliente No Puede Ingresar Al Portal De Prórrogas</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">100</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_011" model="helpdesk.ticket.motivo">
+        <field name="name">Cliente No Recuerda Clave De Acceso A Portal De Prórrogas</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">110</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_012" model="helpdesk.ticket.motivo">
+        <field name="name">Queja Por Bloqueo Con Acuerdo De Pago</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">120</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_013" model="helpdesk.ticket.motivo">
+        <field name="name">Queja Por Bloqueo Y Pago Realizado</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">130</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_014" model="helpdesk.ticket.motivo">
+        <field name="name">Abandono De Unidades Por Inconformidad En Pago</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">140</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_015" model="helpdesk.ticket.motivo">
+        <field name="name">Duda Con Respuesta A Solicitud De Prórroga</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">150</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_cob_016" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas Del Gestor De Cobranza</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">160</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_cob_017" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Cobranza</field>
+        <field name="tipo_ticket">cobranza_prorrogas</field>
+        <field name="sequence">170</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+
+    <!-- Mantenimiento (MNT) -->
+    <record id="motivo_mnt_001" model="helpdesk.ticket.motivo">
+        <field name="name">Cita De Servicio De Equipo De Gnv</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">10</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_002" model="helpdesk.ticket.motivo">
+        <field name="name">Problemas Con La Entrega De La Unidad En Cita De Mantenimiento O Gnv</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">20</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_003" model="helpdesk.ticket.motivo">
+        <field name="name">Problemas Con La Recepción De La Unidad En Cita De Mantenimiento O Gnv</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">30</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_004" model="helpdesk.ticket.motivo">
+        <field name="name">Fallas De Unidades Seminuevas (7 Días)</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">40</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_005" model="helpdesk.ticket.motivo">
+        <field name="name">Fallas De Unidades Nuevas (10,000 Km)</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">50</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_006" model="helpdesk.ticket.motivo">
+        <field name="name">Fallas Del Sistema De Gnv</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">60</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_007" model="helpdesk.ticket.motivo">
+        <field name="name">Falla En El Sistema De Gps</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">70</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_008" model="helpdesk.ticket.motivo">
+        <field name="name">Cliente No Puede Agendar Cita De Mantenimiento</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">80</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_009" model="helpdesk.ticket.motivo">
+        <field name="name">Cliente No Puede Ingresar Al Portal De Mantenimiento</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">90</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_010" model="helpdesk.ticket.motivo">
+        <field name="name">Detalles Con Simplybook</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">100</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_mnt_011" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Proveedores De Gnv O Mantenimiento</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">110</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_mnt_012" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Encargados De Mantenimiento</field>
+        <field name="tipo_ticket">mantenimiento</field>
+        <field name="sequence">120</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+
+    <!-- Robos y siniestros (SIN) -->
+    <record id="motivo_sin_001" model="helpdesk.ticket.motivo">
+        <field name="name">Cotización De Reparaciones</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">10</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_sin_002" model="helpdesk.ticket.motivo">
+        <field name="name">Cita Para Renovación De Dictamen</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">20</field>
+        <field name="show_issue_description">True</field>
+        <field name="show_customer_availability">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_photos_video_evidence">True</field>
+        <field name="show_location">True</field>
+        <field name="show_maintenance_appointment_datetime">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_diagnosis_confirmed">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_sin_003" model="helpdesk.ticket.motivo">
+        <field name="name">Estatus De Reparación De Unidad</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">30</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_sin_004" model="helpdesk.ticket.motivo">
+        <field name="name">Seguimiento A Siniestros</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">40</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_event_datetime">True</field>
+        <field name="show_accident_photos">True</field>
+        <field name="show_event_narrative">True</field>
+        <field name="show_insurance_authority_report">True</field>
+        <field name="show_gps_location">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_sin_005" model="helpdesk.ticket.motivo">
+        <field name="name">Seguimiento A Robo De Unidad</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">50</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_event_datetime">True</field>
+        <field name="show_accident_photos">True</field>
+        <field name="show_event_narrative">True</field>
+        <field name="show_insurance_authority_report">True</field>
+        <field name="show_gps_location">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_sin_006" model="helpdesk.ticket.motivo">
+        <field name="name">Reporte De Robo</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">60</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_event_datetime">True</field>
+        <field name="show_accident_photos">True</field>
+        <field name="show_event_narrative">True</field>
+        <field name="show_insurance_authority_report">True</field>
+        <field name="show_gps_location">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_sin_007" model="helpdesk.ticket.motivo">
+        <field name="name">Reporte De Siniestro</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">70</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_event_datetime">True</field>
+        <field name="show_accident_photos">True</field>
+        <field name="show_event_narrative">True</field>
+        <field name="show_insurance_authority_report">True</field>
+        <field name="show_gps_location">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_sin_008" model="helpdesk.ticket.motivo">
+        <field name="name">Liberación De Unidades</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">80</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_sin_009" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas Del Seguro</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">90</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_sin_010" model="helpdesk.ticket.motivo">
+        <field name="name">Queja De Gestor Vehicular</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">100</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_sin_011" model="helpdesk.ticket.motivo">
+        <field name="name">Queja De Encargado De Siniestro</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">110</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_event_datetime">True</field>
+        <field name="show_accident_photos">True</field>
+        <field name="show_event_narrative">True</field>
+        <field name="show_insurance_authority_report">True</field>
+        <field name="show_gps_location">True</field>
+        <field name="show_customer_informed_status">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+    </record>
+    <record id="motivo_sin_012" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Reparación</field>
+        <field name="tipo_ticket">robos_siniestros</field>
+        <field name="sequence">120</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+
+    <!-- Gestoría vehicular (GES) -->
+    <record id="motivo_ges_001" model="helpdesk.ticket.motivo">
+        <field name="name">Verificación Vehicular</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">10</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_ges_002" model="helpdesk.ticket.motivo">
+        <field name="name">Dudas Con Fotomultas Y/O Multas</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">20</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_ges_003" model="helpdesk.ticket.motivo">
+        <field name="name">Perdida De Placa</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">30</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_ges_004" model="helpdesk.ticket.motivo">
+        <field name="name">Perdida De Tarjeta De Circulación</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">40</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_ges_005" model="helpdesk.ticket.motivo">
+        <field name="name">Error En Póliza De Seguro</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">50</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_ges_006" model="helpdesk.ticket.motivo">
+        <field name="name">Pago De Multas</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">60</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_ges_007" model="helpdesk.ticket.motivo">
+        <field name="name">Endoso De Póliza De Seguro</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">70</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_ges_008" model="helpdesk.ticket.motivo">
+        <field name="name">Renovación De Póliza De Seguro</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">80</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_ges_009" model="helpdesk.ticket.motivo">
+        <field name="name">Liberación De Unidades</field>
+        <field name="tipo_ticket">gestoria_vehicular</field>
+        <field name="sequence">90</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+
+    <!-- Geocerca (GEO) -->
+    <record id="motivo_geo_001" model="helpdesk.ticket.motivo">
+        <field name="name">Apertura De Geocerca (Viaje De Aplicación)</field>
+        <field name="tipo_ticket">geocerca</field>
+        <field name="sequence">10</field>
+        <field name="show_app_trip">True</field>
+        <field name="show_trip_duration">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_reason">True</field>
+        <field name="show_origin_destination">True</field>
+        <field name="show_geofence_authorization">True</field>
+        <field name="show_conditions_communicated">True</field>
+        <field name="show_debt_claim_extension_validation">True</field>
+    </record>
+    <record id="motivo_geo_002" model="helpdesk.ticket.motivo">
+        <field name="name">Apertura De Geocerca (Viaje Fuera De Aplicación)</field>
+        <field name="tipo_ticket">geocerca</field>
+        <field name="sequence">20</field>
+        <field name="show_app_trip">True</field>
+        <field name="show_trip_duration">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_reason">True</field>
+        <field name="show_origin_destination">True</field>
+        <field name="show_geofence_authorization">True</field>
+        <field name="show_conditions_communicated">True</field>
+        <field name="show_debt_claim_extension_validation">True</field>
+    </record>
+    <record id="motivo_geo_003" model="helpdesk.ticket.motivo">
+        <field name="name">Salida De La Geocerca Sin Autorización</field>
+        <field name="tipo_ticket">geocerca</field>
+        <field name="sequence">30</field>
+        <field name="show_app_trip">True</field>
+        <field name="show_trip_duration">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_reason">True</field>
+        <field name="show_origin_destination">True</field>
+        <field name="show_geofence_authorization">True</field>
+        <field name="show_conditions_communicated">True</field>
+        <field name="show_debt_claim_extension_validation">True</field>
+    </record>
+    <record id="motivo_geo_004" model="helpdesk.ticket.motivo">
+        <field name="name">Apertura De Geocerca Antes De Tener Antigüedad Necesaria</field>
+        <field name="tipo_ticket">geocerca</field>
+        <field name="sequence">40</field>
+        <field name="show_app_trip">True</field>
+        <field name="show_trip_duration">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_reason">True</field>
+        <field name="show_origin_destination">True</field>
+        <field name="show_geofence_authorization">True</field>
+        <field name="show_conditions_communicated">True</field>
+        <field name="show_debt_claim_extension_validation">True</field>
+    </record>
+    <record id="motivo_geo_005" model="helpdesk.ticket.motivo">
+        <field name="name">Apertura De Geocerca A Zona No Permitida (Pilotea)</field>
+        <field name="tipo_ticket">geocerca</field>
+        <field name="sequence">50</field>
+        <field name="show_app_trip">True</field>
+        <field name="show_trip_duration">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_reason">True</field>
+        <field name="show_origin_destination">True</field>
+        <field name="show_geofence_authorization">True</field>
+        <field name="show_conditions_communicated">True</field>
+        <field name="show_debt_claim_extension_validation">True</field>
+    </record>
+    <record id="motivo_geo_006" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Geocerca</field>
+        <field name="tipo_ticket">geocerca</field>
+        <field name="sequence">60</field>
+        <field name="show_app_trip">True</field>
+        <field name="show_trip_duration">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_reason">True</field>
+        <field name="show_origin_destination">True</field>
+        <field name="show_geofence_authorization">True</field>
+        <field name="show_conditions_communicated">True</field>
+        <field name="show_debt_claim_extension_validation">True</field>
+    </record>
+
+    <!-- Facturación (FAC) -->
+    <record id="motivo_fac_001" model="helpdesk.ticket.motivo">
+        <field name="name">Error En Datos De Factura</field>
+        <field name="tipo_ticket">facturacion</field>
+        <field name="sequence">10</field>
+        <field name="show_fiscal_zip">True</field>
+        <field name="show_fiscal_proof_document">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_requested_period">True</field>
+        <field name="show_legal_name">True</field>
+        <field name="show_fiscal_regime">True</field>
+        <field name="show_fiscal_usage">True</field>
+        <field name="show_closure_evidence">True</field>
+        <field name="show_invoice_corrected">True</field>
+        <field name="show_correction_commitment_date">True</field>
+    </record>
+    <record id="motivo_fac_002" model="helpdesk.ticket.motivo">
+        <field name="name">Facturas No Generadas</field>
+        <field name="tipo_ticket">facturacion</field>
+        <field name="sequence">20</field>
+        <field name="show_fiscal_zip">True</field>
+        <field name="show_fiscal_proof_document">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_requested_period">True</field>
+        <field name="show_legal_name">True</field>
+        <field name="show_fiscal_regime">True</field>
+        <field name="show_fiscal_usage">True</field>
+        <field name="show_closure_evidence">True</field>
+        <field name="show_invoice_corrected">True</field>
+        <field name="show_correction_commitment_date">True</field>
+    </record>
+    <record id="motivo_fac_003" model="helpdesk.ticket.motivo">
+        <field name="name">Refacturación</field>
+        <field name="tipo_ticket">facturacion</field>
+        <field name="sequence">30</field>
+        <field name="show_fiscal_zip">True</field>
+        <field name="show_fiscal_proof_document">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_requested_period">True</field>
+        <field name="show_legal_name">True</field>
+        <field name="show_fiscal_regime">True</field>
+        <field name="show_fiscal_usage">True</field>
+        <field name="show_closure_evidence">True</field>
+        <field name="show_invoice_corrected">True</field>
+        <field name="show_correction_commitment_date">True</field>
+    </record>
+    <record id="motivo_fac_004" model="helpdesk.ticket.motivo">
+        <field name="name">Complementos De Pago</field>
+        <field name="tipo_ticket">facturacion</field>
+        <field name="sequence">40</field>
+        <field name="show_bank_id">True</field>
+        <field name="show_payment_voucher_id">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_extension_folio">True</field>
+        <field name="show_amount">True</field>
+        <field name="show_reference_cie">True</field>
+        <field name="show_case_status_confirmed">True</field>
+        <field name="show_payment_management_result">True</field>
+    </record>
+    <record id="motivo_fac_005" model="helpdesk.ticket.motivo">
+        <field name="name">Facturas No Cargadas En Portal</field>
+        <field name="tipo_ticket">facturacion</field>
+        <field name="sequence">50</field>
+        <field name="show_fiscal_zip">True</field>
+        <field name="show_fiscal_proof_document">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_requested_period">True</field>
+        <field name="show_legal_name">True</field>
+        <field name="show_fiscal_regime">True</field>
+        <field name="show_fiscal_usage">True</field>
+        <field name="show_closure_evidence">True</field>
+        <field name="show_invoice_corrected">True</field>
+        <field name="show_correction_commitment_date">True</field>
+    </record>
+    <record id="motivo_fac_006" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Facturación</field>
+        <field name="tipo_ticket">facturacion</field>
+        <field name="sequence">60</field>
+        <field name="show_fiscal_zip">True</field>
+        <field name="show_fiscal_proof_document">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_requested_period">True</field>
+        <field name="show_legal_name">True</field>
+        <field name="show_fiscal_regime">True</field>
+        <field name="show_fiscal_usage">True</field>
+        <field name="show_closure_evidence">True</field>
+        <field name="show_invoice_corrected">True</field>
+        <field name="show_correction_commitment_date">True</field>
+    </record>
+
+    <!-- GPS (GPS) -->
+    <record id="motivo_gps_001" model="helpdesk.ticket.motivo">
+        <field name="name">Auto No Reporta Ubicación</field>
+        <field name="tipo_ticket">gps</field>
+        <field name="sequence">10</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_gps_002" model="helpdesk.ticket.motivo">
+        <field name="name">Auto No Desbloquea</field>
+        <field name="tipo_ticket">gps</field>
+        <field name="sequence">20</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_gps_003" model="helpdesk.ticket.motivo">
+        <field name="name">Auto No Se Bloquea</field>
+        <field name="tipo_ticket">gps</field>
+        <field name="sequence">30</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_gps_004" model="helpdesk.ticket.motivo">
+        <field name="name">Queja Por Bloqueo En Movimiento</field>
+        <field name="tipo_ticket">gps</field>
+        <field name="sequence">40</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+
+    <!-- Promociones (PRO) -->
+    <record id="motivo_pro_001" model="helpdesk.ticket.motivo">
+        <field name="name">Entrega De Tarjetas De Referido</field>
+        <field name="tipo_ticket">promociones</field>
+        <field name="sequence">10</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_pro_002" model="helpdesk.ticket.motivo">
+        <field name="name">No Han Depositado Bono De Referido</field>
+        <field name="tipo_ticket">promociones</field>
+        <field name="sequence">20</field>
+        <field name="show_referral_code">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_promotion">True</field>
+        <field name="show_benefit_validated">True</field>
+        <field name="show_delivery_evidence_date">True</field>
+        <field name="show_benefit_rejection_reason">True</field>
+        <field name="show_benefit_request_result">True</field>
+    </record>
+    <record id="motivo_pro_003" model="helpdesk.ticket.motivo">
+        <field name="name">Problemas Con La Tarjeta De Referido</field>
+        <field name="tipo_ticket">promociones</field>
+        <field name="sequence">30</field>
+        <field name="show_procedure_document">True</field>
+        <field name="show_fleet_customer_plaza_id">True</field>
+        <field name="show_fine_evidence">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_date">True</field>
+        <field name="show_response_instruction_document">True</field>
+        <field name="show_follow_up_responsible_id">True</field>
+        <field name="show_procedure_validated">True</field>
+    </record>
+    <record id="motivo_pro_004" model="helpdesk.ticket.motivo">
+        <field name="name">Detalles De Promociones</field>
+        <field name="tipo_ticket">promociones</field>
+        <field name="sequence">40</field>
+        <field name="show_referral_code">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_promotion">True</field>
+        <field name="show_benefit_validated">True</field>
+        <field name="show_delivery_evidence_date">True</field>
+        <field name="show_benefit_rejection_reason">True</field>
+        <field name="show_benefit_request_result">True</field>
+    </record>
+    <record id="motivo_pro_005" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Promociones</field>
+        <field name="tipo_ticket">promociones</field>
+        <field name="sequence">50</field>
+        <field name="show_referral_code">True</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_promotion">True</field>
+        <field name="show_benefit_validated">True</field>
+        <field name="show_delivery_evidence_date">True</field>
+        <field name="show_benefit_rejection_reason">True</field>
+        <field name="show_benefit_request_result">True</field>
+    </record>
+
+    <!-- Terminaciones de contrato (TER) -->
+    <record id="motivo_ter_001" model="helpdesk.ticket.motivo">
+        <field name="name">Terminación Arrendamiento</field>
+        <field name="tipo_ticket">terminaciones_contrato</field>
+        <field name="sequence">10</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_contract_end_date">True</field>
+        <field name="show_customer_intent">True</field>
+        <field name="show_fleet_customer_producto_id">True</field>
+        <field name="show_fleet_vehicle_id">True</field>
+        <field name="show_termination_requirements_confirmed">True</field>
+        <field name="show_balance_amount">True</field>
+        <field name="show_termination_next_step">True</field>
+    </record>
+    <record id="motivo_ter_002" model="helpdesk.ticket.motivo">
+        <field name="name">Terminación Financiamiento</field>
+        <field name="tipo_ticket">terminaciones_contrato</field>
+        <field name="sequence">20</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_contract_end_date">True</field>
+        <field name="show_customer_intent">True</field>
+        <field name="show_fleet_customer_producto_id">True</field>
+        <field name="show_fleet_vehicle_id">True</field>
+        <field name="show_termination_requirements_confirmed">True</field>
+        <field name="show_balance_amount">True</field>
+        <field name="show_termination_next_step">True</field>
+    </record>
+    <record id="motivo_ter_003" model="helpdesk.ticket.motivo">
+        <field name="name">Quejas De Terminaciones</field>
+        <field name="tipo_ticket">terminaciones_contrato</field>
+        <field name="sequence">30</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+
+    <!-- Otros (OTR) -->
+    <record id="motivo_otr_001" model="helpdesk.ticket.motivo">
+        <field name="name">Reporte Anonimo De Abandono De Auto</field>
+        <field name="tipo_ticket">otros</field>
+        <field name="sequence">10</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_otr_002" model="helpdesk.ticket.motivo">
+        <field name="name">Reporte Anonimo De Auto Chocado</field>
+        <field name="tipo_ticket">otros</field>
+        <field name="sequence">20</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+    <record id="motivo_otr_003" model="helpdesk.ticket.motivo">
+        <field name="name">Reporte Anónimo De Auto Con Malas Practicas</field>
+        <field name="tipo_ticket">otros</field>
+        <field name="sequence">30</field>
+        <field name="show_capture_evidence">True</field>
+        <field name="show_final_response_sent">True</field>
+        <field name="show_closed_stage_id">True</field>
+    </record>
+
+</odoo>
