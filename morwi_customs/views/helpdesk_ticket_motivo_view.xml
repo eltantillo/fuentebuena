@@ -4,7 +4,7 @@
         <field name="name">helpdesk.ticket.motivo.list</field>
         <field name="model">helpdesk.ticket.motivo</field>
         <field name="arch" type="xml">
-            <list string="Motivos de ticket" editable="bottom">
+            <list string="Motivos de ticket">
                 <field name="sequence" widget="handle"/>
                 <field name="tipo_ticket"/>
                 <field name="name"/>
