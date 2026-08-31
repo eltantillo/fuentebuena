@@ -19,3 +19,4 @@ from . import fb_firms_aprecia_financiera
 from . import fb_agreement_user_technical_specifications
 from . import fb_instance
 from . import fb_integration_log
+from . import documents_document

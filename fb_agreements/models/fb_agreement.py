@@ -183,7 +183,29 @@ class FbAgreement(models.Model):
         help='¿Se adjuntó documentación en la ficha técnica?')
     observations = fields.Text(string='Observaciones', help='Observaciones y/o Comentarios Generales para la Elaboración del Proyecto')
 
+    documents_count = fields.Integer(string='Cantidad de Documentos', compute='_compute_documents_count')
+    root_folder_id = fields.Many2one('documents.document', string='Carpeta raiz', help='Carpeta raiz')
+
 
     @api.model
     def _read_group_stage_ids(self, stages, domain):
         return self.env['fb.agreement.stage'].search([])
+
+    @api.depends('name', 'fb_date_survey')
+    def _compute_documents_count(self):
+        documents = self.env['documents.document']
+        for record in self:
+            record.documents_count = documents.search_count([('fb_agreement_id', '=', record.id)])
+
+    def action_view_documents(self):
+        self.ensure_one()
+        return {
+            'name': 'Documentos del convenio',
+            'type': 'ir.actions.act_window',
+            'res_model': 'documents.document',
+            'view_mode': 'kanban,list',
+            'domain': [('fb_agreement_id', '=', self.id)],
+            'context':{
+                'default_fb_agreement_id': self.id,
+                'searchpanel_default_folder_id': self.root_folder_id.id,},
+        }

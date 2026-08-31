@@ -11,7 +11,7 @@
         - Pre-Convenio y Configuración del Sistema de Créditos
     """,
     'author': 'Morwi Encoders Consulting',
-    'depends': ['base', 'crm', 'product', 'resource', 'l10n_mx_edi'],
+    'depends': ['base', 'crm', 'product', 'resource', 'l10n_mx_edi', 'documents'],
     'data': [
         'security/ir.model.access.csv',
         'data/ir_cron.xml',
@@ -27,8 +27,14 @@
         'views/crm_lead_views.xml',
         'views/fb_instance_views.xml',
         'views/fb_integration_log_views.xml',
+        'views/documents_document_views.xml',
         'views/fb_menu_views.xml',
     ],
+    'assets': {
+            'web.assets_backend': [
+                'fb_agreements/static/src/components/**/*',
+            ],
+        },
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
