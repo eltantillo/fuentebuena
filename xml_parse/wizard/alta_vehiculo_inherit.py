@@ -99,11 +99,17 @@ class AltaVehiculoInherit(models.TransientModel):
     def buscar_transmision(self, descripcion):
         transmisiones = {
             'AUTOMATICA': 'automatic',
-            'MANUAL': 'manual'
+            'AUTOMATICA': 'automatic',
+            'AUTOMATICA': 'automatic',
+            'CVT': 'automatic',
+            'MANUAL': 'manual',
+            'STD': 'manual',
+            'STANDAR': 'manual',
         }
-        for trans,valor in transmisiones.items():
+        texto = " ".join(descripcion.split())
+        for trans, valor in transmisiones.items():
             patron = rf'\b{trans}\b'
-            if re.search(patron, descripcion, re.IGNORECASE):
+            if re.search(patron, texto, re.IGNORECASE):
                 return valor
         return False
 
@@ -192,10 +198,7 @@ class AltaVehiculoInherit(models.TransientModel):
             modelo_id = modelos_ids.get(modelo_encontrado.name)
             self.model_id = modelo_id
             versiones_filtradas = versiones.filtered( lambda v: v.model_id.id == modelo_id)
-            map_versiones = {
-                v.name: v.id
-                for v in versiones_filtradas
-            }
+            map_versiones = {v.name: v.id  for v in versiones_filtradas}
             versiones_ordenadas = sorted(versiones_filtradas,key=lambda v: len(v.name or ''),reverse=True)
             version_encontrada = self.buscar_entidad(versiones_ordenadas,descripcion)
             if version_encontrada:
@@ -217,23 +220,17 @@ class AltaVehiculoInherit(models.TransientModel):
             self.num_motor = num_motor
         puertas = self.extraer_num_puertas(descripcion)
         puertas = int(puertas) if puertas else 0
-        _logger.info("--------------------Validación de extraccion XML ------------------")
-        _logger.info(puertas)
         if puertas == 0:
-            _logger.info("-----------------------Entra a not puertas")
-            etapa_rentado = self.env['fleet.vehicle.state'].search([('es_etapa_rentado', '=', True)])
-            _logger.info(f"Etapa rentado: {etapa_rentado}")
-            _logger.info(f"Modelo: {modelo_id}")
-            _logger.info(f"Año: {year_v}")
-            _logger.info(f"Versión: {map_versiones.get(version_encontrada.name)}")
-            vehiculo = self.env['fleet.vehicle'].search(
-                [('state_id', '=', etapa_rentado.id),
-                 ('model_id', '=', modelo_id),
-                 ('model_year','=', year_v),
-                 ('version','=', map_versiones.get(version_encontrada.name))], limit=1
-            )
-            _logger.info(f"Vehiculo: {vehiculo}")
-            puertas = vehiculo.doors
+            if version_encontrada:
+                etapa_rentado = self.env['fleet.vehicle.state'].search([('es_etapa_rentado', '=', True)])
+                vehiculo = self.env['fleet.vehicle'].search(
+                    [('state_id', '=', etapa_rentado.id),
+                     ('model_id', '=', modelo_id),
+                     ('model_year','=', year_v),
+                     ('version','=', map_versiones.get(version_encontrada.name))], limit=1
+                )
+                _logger.info(f"Vehiculo: {vehiculo}")
+                puertas = vehiculo.doors
         self.num_puertas = puertas
         self.factura = f"{data['serie']} {data['folio']}"
         self.fecha = data['fecha']

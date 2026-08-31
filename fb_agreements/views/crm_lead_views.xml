@@ -41,10 +41,11 @@
                 <!-- Pestaña Convenios -->
                 <page string="Convenios" name="page_agreements">
                     <field name="fb_agreement_ids">
-                        <list editable="bottom">
+                        <list>
                             <field name="name" string="Descripción"/>
                             <field name="partner_id" string="Contacto"/>
                             <field name="user_id" string="Responsable"/>
+                            <field name="type_agreement"/>
                             <field name="company_id" string="Empresa"/>
                             <field name="fb_contract_start_date" string="Fecha inicio de vigencia"/>
                             <field name="fb_contract_end_date" string="Vigencia del contrato"/>

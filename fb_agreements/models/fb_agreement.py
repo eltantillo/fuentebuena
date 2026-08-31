@@ -83,13 +83,13 @@ class FbAgreement(models.Model):
         ('check', 'Cheque')
     ], string='Forma de Pago')
     fb_expected_result = fields.Text(string='Resultado esperado')
-    responsible_cell_id = fields.Many2one('res.partner', string='Celula responsable', required=True)
+    responsible_cell_id = fields.Many2one('res.partner', string='Celula responsable', required=False)
     fb_product_credit_rate = fields.Float(string='Tasa de credito (Mensual/Anual)', help='Tasa de credito (Mensual/Anual)')
     fb_special_due_date = fields.Date(string='Fecha vencimiento especial', help='Fecha vencimiento especial/general')
 
     #Validacion
     fb_contact_credit_validation_id= fields.Many2one('res.partner', string='Contacto para validar créditos',
-                                                     help='Contacto para validar créditos en trámite.' ,required=True)
+                                                     help='Contacto para validar créditos en trámite.' ,required=False)
     fb_accepted_means_validation_ids = fields.Many2many(
         'fb.accepted.means.validation',
         'fb_agreement_accepted_means_validation_rel',

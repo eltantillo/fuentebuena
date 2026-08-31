@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from datetime import datetime
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
@@ -63,13 +64,13 @@ class CrmLead(models.Model):
                     lead.fb_workers_fees
             )
 
-    @api.depends('fb_agreement_ids', 'fb_agreement_ids.stage_id')
+    @api.depends('fb_agreement_ids', 'fb_agreement_ids.stage_id','fb_agreement_ids.write_date', 'fb_agreement_ids.create_date')
     def _compute_fb_agreement_status(self):
         for lead in self:
             if lead.fb_agreement_ids:
                 # Obtiene el convenio creado o modificado más recientemente
                 latest_agreement = \
-                lead.fb_agreement_ids.sorted(key=lambda r: r.write_date or r.create_date, reverse=True)[0]
+                lead.fb_agreement_ids.sorted(key=lambda r: r.write_date or r.create_date or datetime.min, reverse=True)[0]
                 lead.fb_agreement_status = latest_agreement.stage_id.name if latest_agreement.stage_id else 'Sin Etapa'
             else:
                 lead.fb_agreement_status = 'No Operando'
