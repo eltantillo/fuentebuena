@@ -5,6 +5,19 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id'][@class='field_partner_id']" position="after">
+                <field name="fleet_vehicle_log_contract_id"
+                       domain="partner_id and [('cliente_id', '=', partner_id)] or []"
+                       options="{'no_create': True}"/>
+                <field name="fleet_customer_plaza_id" readonly="1"/>
+                <field name="fleet_vehicle_id" string="Unit" readonly="1"/>
+                <field name="license_plate"/>
+                <field name="vin_sn"/>
+                <field name="fleet_siniestro_id"
+                       domain="fleet_vehicle_id and [('vehiculo_id', '=', fleet_vehicle_id)] or partner_id and [('cliente_id', '=', partner_id)] or []"
+                       options="{'no_create': True}"/>
+            </xpath>
+
             <xpath expr="//sheet/notebook/page[@name='description']" position="after">
                 <page string="Additional Info" name="additional_info">
                     <field name="show_gnv_next_ruling_date" invisible="1"/>

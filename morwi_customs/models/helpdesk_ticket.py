@@ -38,6 +38,11 @@ class HelpdeskTicket(models.Model):
     fleet_customer_producto_id = fields.Many2one(comodel_name='fleet.customer.producto', string='Contract type')
     fleet_vehicle_id = fields.Many2one(string='Vehicle', comodel_name='fleet.vehicle')
     odometer = fields.Float(string='Kilometrage', related='fleet_vehicle_id.odometer')
+    fleet_vehicle_log_contract_id = fields.Many2one(
+        comodel_name='fleet.vehicle.log.contract', string='Contract')
+    license_plate = fields.Char(related='fleet_vehicle_id.license_plate', string='License Plate')
+    vin_sn = fields.Char(related='fleet_vehicle_id.vin_sn', string='VIN')
+    fleet_siniestro_id = fields.Many2one(comodel_name='fleet.siniestro', string='Related Claim')
     #Razón social -> res.partner (estándar Odoo)
     #Régimen fiscal -> res.partner — localización fiscal MX (l10n_mx)
     #Uso CFDI -> account.move / res.partner — localización fiscal MX (l10n_mx)
@@ -216,4 +221,23 @@ class HelpdeskTicket(models.Model):
     def _onchange_fleet_vehicle_id(self):
         if self.fleet_vehicle_id and not self.partner_id and self.fleet_vehicle_id.driver_id:
             self.partner_id = self.fleet_vehicle_id.driver_id
+        if self.fleet_siniestro_id and self.fleet_siniestro_id.vehiculo_id != self.fleet_vehicle_id:
+            self.fleet_siniestro_id = False
+
+    @api.onchange('fleet_vehicle_log_contract_id')
+    def _onchange_fleet_vehicle_log_contract_id(self):
+        contract = self.fleet_vehicle_log_contract_id
+        if not contract:
+            return
+        self.fleet_vehicle_id = contract.vehicle_id
+        self.fleet_customer_plaza_id = contract.plaza_id
+        self.fleet_customer_producto_id = contract.producto_id
+        if not self.partner_id:
+            self.partner_id = contract.cliente_id
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id_contract(self):
+        contract = self.fleet_vehicle_log_contract_id
+        if contract and self.partner_id and contract.cliente_id != self.partner_id:
+            self.fleet_vehicle_log_contract_id = False
 
