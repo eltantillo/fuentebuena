@@ -21,7 +21,7 @@ class ArkikControllers(http.Controller):
             if not data:
                 data = kwargs  # Por si acaso entrara algo por query params
 
-            data_string = json.dumps(data)
+            data_string = json.dumps(data, indent=4, ensure_ascii=False)
 
             record = superuser_env['fb.integration.log'].create({
                 'data': data_string,

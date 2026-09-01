@@ -40,8 +40,8 @@
                         <page string="Datos" name="logs_data">
                             <field name="data" readonly="1"/>
                         </page>
-                        <page string="Notas" name="noes">
-                            <field name="notes" string="Notas"/>
+                        <page string="Notas" name="notes">
+                            <field name="notes" widget="ace" options="{'mode': 'json'}" string="Notas"/>
                         </page>
                     </notebook>
                 </sheet>
