@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_customer_portfolio" model="ir.actions.client">
+        <field name="name">Customer Portfolio</field>
+        <field name="tag">fleet_customer_portfolio</field>
+    </record>
+
+    <record id="action_customer_portfolio_detail" model="ir.actions.client">
+        <field name="name">Client 360</field>
+        <field name="tag">fleet_customer_portfolio_detail</field>
+    </record>
+
+</odoo>

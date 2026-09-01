@@ -173,10 +173,14 @@ class FleetContrato(models.Model):
             'view_id': self.env.ref('fleet_contrato.fleet_contrato_attach_view_form').id
         }
 
-    @api.depends('vehicle_id')
+    @api.depends('vehicle_id.vin_sn',
+                 'vehicle_id.numero_economico',
+                 'vehicle_id.producto_id',
+                 'vehicle_id.plaza_id',
+                 'vehicle_id.driver_id')
     def _compute_datos_vehiculo(self):
         for record in self:
-            vehiculo = self.env['fleet.vehicle'].browse(record.vehicle_id.id)
+            vehiculo = record.vehicle_id
             if vehiculo:
                 record.vin_sn = vehiculo.vin_sn
                 record.numero_economico = vehiculo.numero_economico

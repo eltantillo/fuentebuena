@@ -1,0 +1,1032 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fleet_customer_portfolio
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e-20260824\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-31 20:13+0000\n"
+"PO-Revision-Date: 2026-08-31 20:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_MX\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "#%(ref)s · %(team)s · %(stage)s"
+msgstr "#%(ref)s · %(team)s · %(stage)s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%(due)s due · %(principal)s principal outstanding"
+msgstr "%(due)s exigible · %(principal)s de capital por vencer"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%(folio)s · %(date)s · %(channel)s"
+msgstr "%(folio)s · %(date)s · %(channel)s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%(folio)s · %(date)s · %(plaza)s"
+msgstr "%(folio)s · %(date)s · %(plaza)s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%(paid)s of %(total)s terms paid"
+msgstr "%(paid)s de %(total)s plazos pagados"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%(pending)s of %(total)s without their file"
+msgstr "%(pending)s de %(total)s sin expediente"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%(periods)s installments of %(amount)s"
+msgstr "%(periods)s parcialidades de %(amount)s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%(status)s · from %(start)s to %(end)s"
+msgstr "%(status)s · del %(start)s al %(end)s"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "%s across all contracts"
+msgstr "%s en todos los contratos"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "%s contracts"
+msgstr "%s contratos"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid ""
+"%s contracts on file, current ones first. Pick the one the enquiry is about "
+"— the band above changes with it."
+msgstr ""
+"%s contratos registrados, los vigentes primero. Selecciona el que "
+"corresponda a la consulta — la banda de arriba cambia con él."
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%s d overdue"
+msgstr "Mora %s d"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%s in progress"
+msgstr "%s en proceso"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%s km"
+msgstr "%s km"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "%s on this contract"
+msgstr "%s en este contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "%s open"
+msgstr "%s abiertos"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%s pending"
+msgstr "%s pendientes"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%s terms"
+msgstr "%s plazos"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "%s terms · schedule not loaded"
+msgstr "%s plazos · cronograma no cargado"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "%s · since %s"
+msgstr "%s · desde %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "1 contract"
+msgstr "1 contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "1 in progress"
+msgstr "1 en proceso"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "1 open"
+msgstr "1 abierto"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "1 pending"
+msgstr "1 pendiente"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "360 View"
+msgstr "Vista 360"
+
+#. module: fleet_customer_portfolio
+#: model:ir.module.category,description:fleet_customer_portfolio.module_category_customer_portfolio
+msgid "Access to the customer portfolio board and the 360 client sheet"
+msgstr "Acceso al tablero de cartera de clientes y a la vista 360 del cliente"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Accumulated advance payments"
+msgstr "Pagos anticipados acumulados"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Active"
+msgstr "Vigente"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Active portfolio"
+msgstr "Cartera activa"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "All"
+msgstr "Todos"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "At risk"
+msgstr "En riesgo"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "CIE (payment reference)"
+msgstr "CIE (referencia de pago)"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Charged %s"
+msgstr "Cargo %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Charges billed on this contract"
+msgstr "Conceptos que se cobran en este contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Claim"
+msgstr "Siniestro"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Claims"
+msgstr "Siniestros"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Claims on file"
+msgstr "Siniestros registrados"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Claims on this vehicle"
+msgstr "Siniestros de este vehículo"
+
+#. module: fleet_customer_portfolio
+#: model:ir.actions.client,name:fleet_customer_portfolio.action_customer_portfolio_detail
+msgid "Client 360"
+msgstr "Vista 360 del cliente"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Collection"
+msgstr "Cobranza"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Collection agent"
+msgstr "Gestor de cobranza"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Collection and payment plan"
+msgstr "Cobranza y plan de pago"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Complete"
+msgstr "Completo"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Contract end"
+msgstr "Fin de contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Contract entries"
+msgstr "Movimientos del contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Contract start"
+msgstr "Inicio de contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Contracts"
+msgstr "Contratos"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Counted per customer, not per contract"
+msgstr "Contados por cliente, no por contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Create ticket"
+msgstr "Crear ticket"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+#: model:ir.actions.client,name:fleet_customer_portfolio.action_customer_portfolio
+#: model:ir.model,name:fleet_customer_portfolio.model_fleet_customer_portfolio
+#: model:ir.module.category,name:fleet_customer_portfolio.module_category_customer_portfolio
+#: model:res.groups.privilege,name:fleet_customer_portfolio.res_groups_privilege_customer_portfolio
+msgid "Customer Portfolio"
+msgstr "Cartera de clientes"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+#: model:ir.ui.menu,name:fleet_customer_portfolio.menu_customer_portfolio_root
+msgid "Dashboard Pilotea"
+msgstr "Dashboard Pilotea"
+
+#. module: fleet_customer_portfolio
+#: model:ir.model.fields,field_description:fleet_customer_portfolio.field_fleet_customer_portfolio__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Docs to handle"
+msgstr "Docs por atender"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Due %(date)s · %(pending)s outstanding"
+msgstr "Vence %(date)s · %(pending)s pendiente"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Ends %s"
+msgstr "Termina el %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Estimated delivery %s"
+msgstr "Entrega estimada %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Expired"
+msgstr "Vencida"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Expired policy"
+msgstr "Póliza vencida"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Filed %s"
+msgstr "Trámite del %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "From %(start)s to %(end)s"
+msgstr "Del %(start)s al %(end)s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "From the customer's lease credit"
+msgstr "Del crédito de arrendamiento del cliente"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "From the customer's policies"
+msgstr "De las pólizas del cliente"
+
+#. module: fleet_customer_portfolio
+#: model:ir.model.fields,field_description:fleet_customer_portfolio.field_fleet_customer_portfolio__id
+msgid "ID"
+msgstr "ID"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "In arrears"
+msgstr "Con mora"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Insurance policy"
+msgstr "Póliza de seguro"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid ""
+"Insurer %(insurer)s · deductible %(deductible)s · %(photos)s attachments"
+msgstr ""
+"Aseguradora %(insurer)s · deducible %(deductible)s · %(photos)s adjuntos"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Interaction history"
+msgstr "Historial de interacciones"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Last interaction"
+msgstr "Última interacción"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Leasing"
+msgstr "Arrendamiento"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Leasing contract"
+msgstr "Contrato de arrendamiento"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Leasing contracts"
+msgstr "Contratos de arrendamiento"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Market"
+msgstr "Plaza"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Missing upload"
+msgstr "Falta subir"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "New Ticket"
+msgstr "Nuevo ticket"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Next charge"
+msgstr "Próximo cargo"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Next charge %s"
+msgstr "Próximo cargo %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No SLA"
+msgstr "Sin SLA"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No claims"
+msgstr "Sin siniestros"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No contract on file"
+msgstr "Sin contrato registrado"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "No customers match the search or the filter."
+msgstr "No hay clientes que coincidan con la búsqueda o el filtro."
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No description"
+msgstr "Sin descripción"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No interaction logged for this customer"
+msgstr "Sin interacciones registradas para este cliente"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No lease credit on file"
+msgstr "Sin crédito de arrendamiento"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No open tickets"
+msgstr "Sin tickets abiertos"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No paperwork on file"
+msgstr "Sin trámites registrados"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No payment plan"
+msgstr "Sin plan de pago"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No policy on file"
+msgstr "Sin póliza registrada"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "No source yet: %s"
+msgstr "Sin fuente todavía: %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Odometer"
+msgstr "Odómetro"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "On a payment plan"
+msgstr "Con plan de pago vigente"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "On payment plan"
+msgstr "En plan de pago"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "On time"
+msgstr "En tiempo"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "One contract on file."
+msgstr "Un contrato registrado."
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid ""
+"One row per customer with the same semaphore as the 360 view. Click any row "
+"to open its sheet."
+msgstr ""
+"Una fila por cliente con el mismo semáforo de la Vista 360. Clic en "
+"cualquier fila para abrir su ficha."
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Only the lease credit carries it"
+msgstr "Solo la trae el crédito de arrendamiento"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Open 360 →"
+msgstr "Abrir 360 →"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Open WhatsApp"
+msgstr "Abrir WhatsApp"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Open claims"
+msgstr "Siniestros abiertos"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Open conversation"
+msgstr "Abrir conversación"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Open file →"
+msgstr "Ver expediente →"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Open module →"
+msgstr "Ver módulo →"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "Open ticket"
+msgstr "Con ticket abierto"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Open tickets"
+msgstr "Tickets abiertos"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Operating app"
+msgstr "App de operación"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Operations and sales"
+msgstr "Operación y comercial"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Payment CLABE"
+msgstr "CLABE de pago"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Payment plan"
+msgstr "Plan de pago"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Payment reference of the contract"
+msgstr "Referencia de pago del contrato"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "Pending docs"
+msgstr "Docs pendientes"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Plates"
+msgstr "Placas"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Plates %s · VIN %s"
+msgstr "Placas %s · VIN %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Policy"
+msgstr "Póliza"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Policy and vehicle documents"
+msgstr "Póliza y documentos de la unidad"
+
+#. module: fleet_customer_portfolio
+#: model:res.groups,name:fleet_customer_portfolio.group_customer_portfolio_user
+msgid "Portfolio Reader"
+msgstr "Lector de cartera"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Pure leasing · Contract %s"
+msgstr "Arrendamiento puro · Contrato %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Quick filters:"
+msgstr "Filtros rápidos:"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Registered %s"
+msgstr "Alta del %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Rent"
+msgstr "Renta"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Repair status"
+msgstr "Estatus de reparación"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Ruling"
+msgstr "Dictamen"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "SLA breached"
+msgstr "SLA vencido"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Salesperson"
+msgstr "Vendedor"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Search customer, market, tax id"
+msgstr "Buscar cliente, plaza, RFC"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Security deposit"
+msgstr "Depósito en garantía"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "See amortization table →"
+msgstr "Ver tabla de amortización →"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "See full contract →"
+msgstr "Ver contrato completo →"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "See full history"
+msgstr "Ver historial completo"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Send WhatsApp Message"
+msgstr "Enviar mensaje de WhatsApp"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Sheet"
+msgstr "Ficha"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "Showing %s-%s of %s customers."
+msgstr "Mostrando %s-%s de %s clientes."
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Term %s"
+msgstr "Plazo %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Term progress unknown"
+msgstr "Avance del plazo desconocido"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid ""
+"The detailed sheet — leasing terms, collection, tickets and claim — is not "
+"wired to real data yet. The band above already reads the vehicle's policies "
+"and claims."
+msgstr ""
+"La ficha detallada —condiciones del arrendamiento, cobranza, tickets y "
+"siniestro— todavía no lee datos reales. La banda de arriba ya toma las "
+"pólizas y los siniestros del vehículo."
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "This customer has no contract on file."
+msgstr "Este cliente no tiene contrato registrado."
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Tickets"
+msgstr "Tickets"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "Tickets / SLA"
+msgstr "Tickets / SLA"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Unassigned"
+msgstr "Por asignar"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Up to date"
+msgstr "Al día"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "VIN"
+msgstr "VIN"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Vehicle condition"
+msgstr "Condición del vehículo"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Vehicle paperwork"
+msgstr "Trámites del vehículo"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "Weekly rent"
+msgstr "Renta semanal"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.js:0
+msgid "Weekly rent %s"
+msgstr "Renta semanal %s"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.js:0
+msgid "With a claim"
+msgstr "Con siniestro"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "Worst of the vehicle's policies"
+msgstr "La peor de las pólizas del vehículo"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "collection agent"
+msgstr "el gestor de cobranza"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "customers flagged as such in Clientes Pilotea"
+msgstr "clientes marcados como tal en Clientes Pilotea"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "customers with a claim on file"
+msgstr "clientes con siniestro registrado"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "customers with a lapsed policy"
+msgstr "clientes con póliza vencida"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "customers with a ticket in progress"
+msgstr "clientes con ticket en proceso"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "customers with days overdue"
+msgstr "clientes con días de mora"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/portfolio/portfolio_dashboard.xml:0
+msgid "customers with paperwork missing its file"
+msgstr "clientes con trámites sin expediente"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid ""
+"helpdesk.ticket has no link to a contract, so these are the customer's open "
+"tickets across all of them."
+msgstr ""
+"helpdesk.ticket no tiene enlace a contrato, así que éstos son los tickets "
+"abiertos del cliente en todos sus contratos."
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "operating app"
+msgstr "la app de operación"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "salesperson"
+msgstr "el vendedor"
+
+#. module: fleet_customer_portfolio
+#. odoo-python
+#: code:addons/fleet_customer_portfolio/models/fleet_customer_portfolio.py:0
+msgid "security deposit"
+msgstr "el depósito en garantía"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "← Portfolio"
+msgstr "← Cartera"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "▤ Customer since"
+msgstr "▤ Cliente desde"
+
+#. module: fleet_customer_portfolio
+#. odoo-javascript
+#: code:addons/fleet_customer_portfolio/static/src/client_detail/client_detail.xml:0
+msgid "☺ Account manager:"
+msgstr "☺ Ejecutivo:"

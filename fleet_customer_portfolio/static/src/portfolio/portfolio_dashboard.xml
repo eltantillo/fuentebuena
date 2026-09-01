@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="fleet_customer_portfolio.PortfolioDashboard">
+        <div class="o_fcp">
+            <div class="o_fcp_header">
+                <div class="o_fcp_header_top">
+                    <div>
+                        <div class="o_fcp_eyebrow">Dashboard Pilotea</div>
+                        <h1 class="o_fcp_title">Customer Portfolio</h1>
+                        <p class="o_fcp_subtitle">One row per customer with the same semaphore as the 360 view. Click any row to open its sheet.</p>
+                    </div>
+                    <input type="text"
+                           class="o_fcp_search"
+                           placeholder="Search customer, market, tax id"
+                           t-att-value="state.search"
+                           t-on-input="onSearchInput"/>
+                </div>
+
+                <div class="o_fcp_kpis">
+                    <div class="o_fcp_kpi o_fcp_kpi_blue">
+                        <div class="o_fcp_kpi_label">Active portfolio</div>
+                        <div class="o_fcp_kpi_value" t-esc="state.kpis.active_portfolio"/>
+                        <div class="o_fcp_kpi_hint">customers flagged as such in Clientes Pilotea</div>
+                    </div>
+                    <div class="o_fcp_kpi o_fcp_kpi_red">
+                        <div class="o_fcp_kpi_label">In arrears</div>
+                        <div class="o_fcp_kpi_value" t-esc="state.kpis.in_arrears"/>
+                        <div class="o_fcp_kpi_hint">customers with days overdue</div>
+                    </div>
+                    <div class="o_fcp_kpi o_fcp_kpi_amber">
+                        <div class="o_fcp_kpi_label">Docs to handle</div>
+                        <div class="o_fcp_kpi_value" t-esc="state.kpis.pending_documents"/>
+                        <div class="o_fcp_kpi_hint">customers with paperwork missing its file</div>
+                    </div>
+                    <div class="o_fcp_kpi o_fcp_kpi_red">
+                        <div class="o_fcp_kpi_label">Expired policy</div>
+                        <div class="o_fcp_kpi_value" t-esc="state.kpis.expired_policy"/>
+                        <div class="o_fcp_kpi_hint">customers with a lapsed policy</div>
+                    </div>
+                    <div class="o_fcp_kpi o_fcp_kpi_amber">
+                        <div class="o_fcp_kpi_label">Open tickets</div>
+                        <div class="o_fcp_kpi_value" t-esc="state.kpis.open_tickets"/>
+                        <div class="o_fcp_kpi_hint">customers with a ticket in progress</div>
+                    </div>
+                    <div class="o_fcp_kpi o_fcp_kpi_amber">
+                        <div class="o_fcp_kpi_label">Open claims</div>
+                        <div class="o_fcp_kpi_value" t-esc="state.kpis.open_claims"/>
+                        <div class="o_fcp_kpi_hint">customers with a claim on file</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="o_fcp_body">
+                <div class="o_fcp_filters">
+                    <span class="o_fcp_filters_label">Quick filters:</span>
+                    <t t-foreach="quickFilters" t-as="filter" t-key="filter.key">
+                        <button type="button"
+                                t-att-class="{ o_fcp_pill_active: state.activeFilter === filter.key }"
+                                class="o_fcp_pill"
+                                t-on-click="() => this.setFilter(filter.key)">
+                            <t t-esc="filter.label"/>
+                        </button>
+                    </t>
+                </div>
+
+                <div class="o_fcp_count">
+                    <span t-esc="countLabel"/>
+                    <span class="o_fcp_pager">
+                        <button type="button" class="o_fcp_pager_btn"
+                                t-att-disabled="!hasPrevious" t-on-click="previousPage">←</button>
+                        <button type="button" class="o_fcp_pager_btn"
+                                t-att-disabled="!hasNext" t-on-click="nextPage">→</button>
+                    </span>
+                </div>
+
+                <div class="o_fcp_table_wrap">
+                    <table class="o_fcp_table">
+                        <thead>
+                            <tr>
+                                <th class="o_fcp_th_client">Customer</th>
+                                <th>Market</th>
+                                <th>Contracts</th>
+                                <th>Collection</th>
+                                <th>Documents</th>
+                                <th>Policy</th>
+                                <th>Tickets / SLA</th>
+                                <th>Claims</th>
+                                <th>Sheet</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.clients" t-as="client" t-key="client.id"
+                                class="o_fcp_row" t-on-click="() => this.openClientDetail(client)">
+                                <td class="o_fcp_td_client">
+                                    <span t-attf-class="o_fcp_dot o_fcp_dot_{{client.risk_level}}"/>
+                                    <span t-attf-class="o_fcp_avatar {{avatarClass(client.name)}}" t-esc="initials(client.name)"/>
+                                    <span class="o_fcp_client_info">
+                                        <span class="o_fcp_client_name" t-esc="client.name"/>
+                                        <span class="o_fcp_client_sub" t-esc="clientSubtitle(client)"/>
+                                    </span>
+                                </td>
+                                <td t-esc="client.market"/>
+                                <td t-esc="contractsLabel(client)"/>
+                                <td>
+                                    <span t-attf-class="o_fcp_chip o_fcp_chip_{{client.collection.tone}}" t-esc="client.collection.label"/>
+                                </td>
+                                <td>
+                                    <span t-attf-class="o_fcp_chip o_fcp_chip_{{client.documents.tone}}" t-esc="client.documents.label"/>
+                                </td>
+                                <td>
+                                    <span t-attf-class="o_fcp_chip o_fcp_chip_{{client.policy.tone}}" t-esc="client.policy.label"/>
+                                </td>
+                                <td class="o_fcp_td_sla">
+                                    <span class="o_fcp_tickets" t-esc="client.ticket_count"/>
+                                    <span t-attf-class="o_fcp_sla_text o_fcp_sla_{{client.sla.tone}}" t-esc="client.sla.label"/>
+                                </td>
+                                <td t-esc="claimsLabel(client)"/>
+                                <td class="o_fcp_td_detail">
+                                    <button type="button" class="o_fcp_detail_btn" t-on-click.stop="() => this.openClientDetail(client)">
+                                        Open 360 →
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="o_fcp_empty" t-if="!state.loading and !state.clients.length">
+                        No customers match the search or the filter.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

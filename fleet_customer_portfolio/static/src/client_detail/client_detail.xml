@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="fleet_customer_portfolio.ClientDetail">
+        <div class="o_fcv" t-if="!state.loading">
+            <div class="o_fcv_header">
+                <div class="o_fcv_crumbs">
+                    <button type="button" class="o_fcv_crumb_back" t-on-click="backToPortfolio">← Portfolio</button>
+                    <span class="o_fcv_crumb_sep">Dashboard Pilotea</span>
+                    <span class="o_fcv_crumb_arrow">›</span>
+                    <span class="o_fcv_crumb_link">360 View</span>
+                    <span class="o_fcv_crumb_arrow">›</span>
+                    <span class="o_fcv_crumb_current" t-esc="state.data.client.name.toUpperCase()"/>
+                </div>
+
+                <div class="o_fcv_identity">
+                    <div class="o_fcv_avatar" t-esc="initials(state.data.client.name)"/>
+                    <div class="o_fcv_identity_body">
+                        <h1 class="o_fcv_name" t-esc="state.data.client.name.toUpperCase()"/>
+                        <div class="o_fcv_meta">
+                            <span class="o_fcv_meta_item">◎ <t t-esc="state.data.client.market"/></span>
+                            <span class="o_fcv_meta_item">✆ <t t-esc="state.data.profile.phone"/></span>
+                            <span class="o_fcv_meta_item">✉ <t t-esc="state.data.profile.email"/></span>
+                            <span class="o_fcv_meta_item">⚥ <t t-esc="state.data.profile.gender"/></span>
+                            <span class="o_fcv_meta_item">☺ Account manager: <t t-esc="state.data.profile.account_manager"/></span>
+                            <span class="o_fcv_meta_item">▤ Customer since <t t-esc="state.data.client.signup_label"/></span>
+                        </div>
+                    </div>
+                    <div class="o_fcv_actions">
+                        <button type="button" class="o_fcv_btn_primary"
+                                t-att-disabled="!state.data.whatsapp_ready"
+                                t-on-click="openWhatsapp">Open WhatsApp</button>
+                        <button type="button" class="o_fcv_btn_ghost"
+                                t-on-click="createTicket">Create ticket</button>
+                    </div>
+                </div>
+
+                <div class="o_fcv_indicators">
+                    <div t-foreach="contract.indicators" t-as="indicator" t-key="indicator.key"
+                         t-attf-class="o_fcv_indicator o_fcv_indicator_{{indicator.tone}}">
+                        <div class="o_fcv_indicator_label" t-esc="indicatorLabel(indicator.key).toUpperCase()"/>
+                        <div class="o_fcv_indicator_value" t-esc="indicator.value"/>
+                        <div class="o_fcv_indicator_hint" t-esc="indicator.hint"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="o_fcv_body">
+                <div class="o_fcv_contracts_head">
+                    <div>
+                        <div class="o_fcv_section_label">Leasing contracts</div>
+                        <p class="o_fcv_section_lead" t-esc="contractsLead"/>
+                    </div>
+                </div>
+
+                <div class="o_fcv_contracts">
+                    <div t-foreach="state.data.contracts" t-as="item" t-key="item.id"
+                         t-attf-class="o_fcv_contract {{ item_index === state.contractIndex ? 'o_fcv_contract_active' : '' }}"
+                         t-on-click="() => this.selectContract(item_index)">
+                        <div class="o_fcv_contract_top">
+                            <span class="o_fcv_contract_ref" t-esc="item.reference"/>
+                            <span t-attf-class="o_fcv_chip o_fcv_chip_{{item.status_tone}}" t-esc="item.status"/>
+                        </div>
+                        <div class="o_fcv_contract_kind" t-esc="item.kind"/>
+                        <div class="o_fcv_contract_unit">
+                            <span class="o_fcv_contract_icon">⛴</span>
+                            <span>
+                                <span class="o_fcv_contract_model" t-esc="item.unit"/>
+                                <span class="o_fcv_contract_vin" t-esc="unitPlatesLabel(item)"/>
+                            </span>
+                        </div>
+                        <div class="o_fcv_contract_foot">
+                            <span t-out="weeklyRentLabel(item)"/>
+                            <span t-attf-class="o_fcv_alert o_fcv_alert_{{item.alert_tone}}" t-esc="item.alert"/>
+                        </div>
+                    </div>
+                </div>
+
+                <t t-if="!state.data.has_contracts">
+                    <div class="o_fcv_placeholder" t-esc="pendingSheetNote"/>
+                </t>
+
+                <t t-else="">
+                    <div class="o_fcv_grid">
+                        <div class="o_fcv_col">
+                            <div class="o_fcv_card">
+                                <div class="o_fcv_card_head">
+                                    <div>
+                                        <h2 class="o_fcv_card_title">Leasing</h2>
+                                        <div class="o_fcv_card_sub" t-esc="contractHeading"/>
+                                    </div>
+                                    <button type="button" class="o_fcv_link" t-on-click="openContract">See full contract →</button>
+                                </div>
+
+                                <div class="o_fcv_facts">
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Unit</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.unit"/>
+                                        <div class="o_fcv_fact_hint" t-esc="contract.details.unit_color"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Plates</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.plates"/>
+                                        <div class="o_fcv_fact_hint" t-esc="contract.details.registered"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">VIN</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.vin"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Weekly rent</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.weekly_rent"/>
+                                        <div class="o_fcv_fact_hint" t-esc="contract.details.charge_day"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Next charge</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.details.next_charge"/>
+                                        <div class="o_fcv_fact_hint" t-esc="contract.details.next_charge_hint"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Security deposit</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.details.deposit"/>
+                                        <div class="o_fcv_fact_hint" t-esc="contract.details.deposit_hint"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Contract start</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.details.start_date"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Contract end</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.details.end_date"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">CIE (payment reference)</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.details.cie"/>
+                                        <div class="o_fcv_fact_hint" t-esc="contract.details.cie_hint"/>
+                                    </div>
+                                    <div class="o_fcv_fact">
+                                        <div class="o_fcv_fact_label">Payment CLABE</div>
+                                        <div class="o_fcv_fact_value" t-esc="contract.details.clabe"/>
+                                        <div class="o_fcv_fact_hint" t-esc="contract.details.clabe_hint"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_fcv_progress">
+                                    <div class="o_fcv_progress_head">
+                                        <span t-esc="contract.details.progress_label"/>
+                                        <button type="button" class="o_fcv_link"
+                                                t-att-disabled="!contract.credit_id"
+                                                t-on-click="openAmortization">See amortization table →</button>
+                                    </div>
+                                    <div class="o_fcv_bar">
+                                        <div class="o_fcv_bar_fill" t-attf-style="width: {{contract.details.progress_pct}}%"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_fcv_source" t-if="!!env.debug" t-esc="contract.details.source"/>
+                            </div>
+
+                            <div class="o_fcv_card">
+                                <div class="o_fcv_card_head">
+                                    <h2 class="o_fcv_card_title">Collection and payment plan</h2>
+                                    <span t-attf-class="o_fcv_chip o_fcv_chip_{{contract.collection.tone}}" t-esc="contract.collection.status"/>
+                                </div>
+                                <div class="o_fcv_card_sub" t-esc="contract.collection.summary"/>
+
+                                <div class="o_fcv_callout o_fcv_callout_amber">
+                                    <div class="o_fcv_callout_label" t-esc="contract.collection.plan_label.toUpperCase()"/>
+                                    <div class="o_fcv_callout_title" t-esc="contract.collection.plan_title"/>
+                                    <div class="o_fcv_callout_hint" t-esc="contract.collection.plan_hint"/>
+                                    <div class="o_fcv_agent">
+                                        <span>
+                                            <span class="o_fcv_fact_label" t-esc="contract.collection.agent_label.toUpperCase()"/>
+                                            <span class="o_fcv_agent_name" t-esc="contract.collection.agent"/>
+                                        </span>
+                                        <button type="button" class="o_fcv_btn_dark" t-esc="contract.collection.document"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_fcv_section_label">Charges billed on this contract</div>
+                                <div class="o_fcv_charge_types">
+                                    <div t-foreach="contract.charge_types" t-as="charge" t-key="charge.tag"
+                                         t-attf-class="o_fcv_charge o_fcv_charge_{{charge.tone}}">
+                                        <span t-attf-class="o_fcv_tag o_fcv_tag_{{charge.tone}}" t-esc="charge.tag.toUpperCase()"/>
+                                        <div class="o_fcv_charge_amount" t-esc="charge.amount"/>
+                                        <div class="o_fcv_charge_hint" t-esc="charge.hint"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_fcv_section_label">Contract entries</div>
+                                <div class="o_fcv_entries">
+                                    <div t-foreach="contract.entries" t-as="entry" t-key="entry.id" class="o_fcv_entry">
+                                        <div class="o_fcv_entry_top">
+                                            <span t-attf-class="o_fcv_dot o_fcv_dot_{{entry.risk}}"/>
+                                            <span class="o_fcv_entry_label" t-esc="entry.label"/>
+                                            <span class="o_fcv_entry_amount" t-esc="entry.amount"/>
+                                            <span t-attf-class="o_fcv_entry_status o_fcv_text_{{entry.status_tone}}" t-esc="entry.status"/>
+                                        </div>
+                                        <span t-attf-class="o_fcv_tag o_fcv_tag_{{entry.tag_tone}}" t-esc="entry.tag.toUpperCase()"/>
+                                        <div class="o_fcv_entry_hint" t-esc="entry.hint"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_fcv_links">
+                                    <button t-foreach="contract.collection.links" t-as="link" t-key="link"
+                                            type="button" class="o_fcv_link" t-esc="link"/>
+                                </div>
+                                <div class="o_fcv_source" t-if="!!env.debug" t-esc="contract.collection.source"/>
+                            </div>
+                        </div>
+
+                        <div class="o_fcv_col">
+                            <div class="o_fcv_card">
+                                <div class="o_fcv_card_head">
+                                    <h2 class="o_fcv_card_title">Open tickets</h2>
+                                    <div class="o_fcv_card_head_right">
+                                        <span class="o_fcv_chip o_fcv_chip_red" t-esc="ticketsInContractLabel"/>
+                                        <span class="o_fcv_card_sub" t-esc="ticketsTotalLabel"/>
+                                    </div>
+                                </div>
+
+                                <div t-foreach="contract.tickets.items" t-as="ticket" t-key="ticket.id" class="o_fcv_ticket">
+                                    <div class="o_fcv_ticket_top">
+                                        <span class="o_fcv_ticket_title" t-esc="ticket.title"/>
+                                        <span t-attf-class="o_fcv_chip o_fcv_chip_{{ticket.tone}}" t-esc="ticket.status"/>
+                                    </div>
+                                    <div class="o_fcv_ticket_meta" t-esc="ticket.meta"/>
+                                    <div class="o_fcv_sla">
+                                        <div class="o_fcv_bar">
+                                            <div t-attf-class="o_fcv_bar_fill o_fcv_bar_{{ticket.tone}}"
+                                                 t-attf-style="width: {{ticket.progress}}%"/>
+                                        </div>
+                                        <span t-attf-class="o_fcv_text_{{ticket.tone}}" t-esc="ticket.clock"/>
+                                    </div>
+                                </div>
+
+                                <p class="o_fcv_note" t-esc="contract.tickets.note"/>
+                                <div class="o_fcv_source" t-if="!!env.debug" t-esc="contract.tickets.source"/>
+                            </div>
+
+                            <div class="o_fcv_card">
+                                <div class="o_fcv_card_head">
+                                    <h2 class="o_fcv_card_title">Claims</h2>
+                                    <button type="button" class="o_fcv_link"
+                                            t-att-disabled="contract.claim.empty"
+                                            t-on-click="openClaim">Open module →</button>
+                                </div>
+
+                                <t t-if="!contract.claim.empty">
+                                    <div class="o_fcv_ticket_top">
+                                        <span class="o_fcv_ticket_title" t-esc="contract.claim.title"/>
+                                        <span class="o_fcv_chip o_fcv_chip_amber" t-esc="contract.claim.status"/>
+                                    </div>
+                                    <div class="o_fcv_ticket_meta" t-esc="contract.claim.meta"/>
+                                    <p class="o_fcv_paragraph" t-esc="contract.claim.description"/>
+                                    <div class="o_fcv_ticket_meta" t-esc="contract.claim.insurer_line"/>
+
+                                    <div class="o_fcv_callout o_fcv_callout_amber">
+                                        <div class="o_fcv_callout_label" t-esc="contract.claim.repair_label.toUpperCase()"/>
+                                        <div class="o_fcv_callout_title" t-esc="contract.claim.repair_title"/>
+                                        <div class="o_fcv_callout_hint" t-esc="contract.claim.repair_hint"/>
+                                    </div>
+
+                                    <div class="o_fcv_callout o_fcv_callout_grey">
+                                        <div class="o_fcv_callout_label" t-esc="contract.claim.contact_label.toUpperCase()"/>
+                                        <div class="o_fcv_callout_hint" t-esc="contract.claim.contact_text"/>
+                                    </div>
+                                </t>
+
+                                <div class="o_fcv_source" t-if="!!env.debug" t-esc="contract.claim.source"/>
+                            </div>
+
+                            <div class="o_fcv_card">
+                                <h2 class="o_fcv_card_title">Operations and sales</h2>
+                                <div class="o_fcv_kv">
+                                    <div t-foreach="contract.operations" t-as="row" t-key="row.label" class="o_fcv_kv_row">
+                                        <span class="o_fcv_kv_label" t-esc="row.label"/>
+                                        <span class="o_fcv_kv_value" t-esc="row.value"/>
+                                    </div>
+                                </div>
+                                <div class="o_fcv_source" t-if="!!env.debug" t-esc="contract.operations_source"/>
+                            </div>
+
+                            <div class="o_fcv_card">
+                                <div class="o_fcv_card_head">
+                                    <h2 class="o_fcv_card_title">Last interaction</h2>
+                                    <span class="o_fcv_chip o_fcv_chip_green"
+                                          t-if="state.data.interaction.channel"
+                                          t-esc="state.data.interaction.channel"/>
+                                </div>
+
+                                <div t-foreach="state.data.interaction.items" t-as="item" t-key="item.id" class="o_fcv_interaction">
+                                    <span class="o_fcv_interaction_icon" t-esc="item.icon === 'chat' ? '💬' : (item.icon === 'call' ? '📞' : '⚠')"/>
+                                    <span>
+                                        <span class="o_fcv_interaction_text" t-esc="item.text"/>
+                                        <span class="o_fcv_interaction_meta" t-esc="item.meta"/>
+                                    </span>
+                                </div>
+
+                                <p class="o_fcv_note" t-if="state.data.interaction.empty"
+                                   t-esc="state.data.interaction.empty"/>
+
+                                <div class="o_fcv_interaction_actions">
+                                    <button type="button" class="o_fcv_btn_primary">Open conversation</button>
+                                    <button type="button" class="o_fcv_btn_dark" t-on-click="openInteractions">See full history</button>
+                                </div>
+                            </div>
+
+                            <div class="o_fcv_card">
+                                <div class="o_fcv_card_head">
+                                    <div>
+                                        <h2 class="o_fcv_card_title">Policy and vehicle documents</h2>
+                                        <div class="o_fcv_card_sub" t-esc="contract.documents.summary"/>
+                                    </div>
+                                    <button type="button" class="o_fcv_link"
+                                            t-att-disabled="!contract.documents.vehicle_id"
+                                            t-on-click="openPaperwork">Open file →</button>
+                                </div>
+
+                                <div t-foreach="contract.documents.items" t-as="doc" t-key="doc.id" class="o_fcv_doc">
+                                    <span class="o_fcv_doc_icon">▤</span>
+                                    <span class="o_fcv_doc_body">
+                                        <span class="o_fcv_doc_title" t-esc="doc.title"/>
+                                        <span class="o_fcv_doc_hint" t-esc="doc.hint"/>
+                                    </span>
+                                    <span t-attf-class="o_fcv_chip o_fcv_chip_{{doc.tone}}" t-esc="doc.status"/>
+                                </div>
+
+                                <div class="o_fcv_source" t-if="!!env.debug" t-esc="contract.documents.source"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_customer_portfolio_root"
+              name="Dashboard Pilotea"
+              action="action_customer_portfolio"
+              groups="group_customer_portfolio_user"
+              sequence="50"/>
+
+</odoo>
