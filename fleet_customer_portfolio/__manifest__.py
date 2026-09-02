@@ -33,6 +33,7 @@ block in the sheet names the model it is expected to come from.
         'fleet_poliza',
         'fleet_siniestro',
         'fleet_tramite',
+        'fleet_agenda_entrega',
         'atencion_cliente',
         'credito_arrendamiento',
         'whatsapp',

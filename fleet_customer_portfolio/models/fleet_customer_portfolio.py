@@ -793,15 +793,28 @@ class FleetCustomerPortfolio(models.AbstractModel):
         }
 
     @api.model
+    def _delivery_advisor(self, vehicle):
+        """Advisor who handed the unit over, which is what the business calls
+        the salesperson. `agenda.entrega` has no link to the contract, so the
+        vehicle is the join and the latest delivery wins: a unit that comes back
+        and is leased again is delivered again, and the current lease is the one
+        the sheet is about."""
+        if not vehicle:
+            return None
+        delivery = self.env['agenda.entrega'].search(
+            [('vehiculo_id', '=', vehicle.id), ('asesor_id', '!=', False)],
+            order='id desc', limit=1)
+        return delivery.asesor_id.name or None
+
+    @api.model
     def _operations_rows(self, contract):
         vehicle = contract.vehicle_id
-        seller = self._no_source(_("salesperson"))
         app = self._no_source(_("operating app"))
         return [
             {'label': _("Market"), 'value': contract.plaza_id.name or "—"},
             {'label': _("Product"), 'value': contract.producto_id.name or "—"},
             {'label': _("Vehicle condition"), 'value': contract.condicion_vehiculo_id.name or "—"},
-            {'label': _("Salesperson"), 'value': seller['value']},
+            {'label': _("Salesperson"), 'value': self._delivery_advisor(vehicle) or "—"},
             {'label': _("Operating app"), 'value': app['value']},
             {'label': _("Odometer"), 'value': _("%s km", int(vehicle.odometer)) if vehicle.odometer else "—"},
         ]
@@ -916,7 +929,7 @@ class FleetCustomerPortfolio(models.AbstractModel):
             'tickets': self._tickets_card(contract.cliente_id, partner_facts['count']),
             'claim': self._claim_card(vehicle),
             'operations': self._operations_rows(contract),
-            'operations_source': "fleet.vehicle.log.contract + fleet.vehicle",
+            'operations_source': "fleet.vehicle.log.contract + fleet.vehicle + agenda.entrega",
             'documents': self._documents_card(vehicle, document_fact),
             'indicators': [
                 {'key': 'collection', 'value': collection['label'],

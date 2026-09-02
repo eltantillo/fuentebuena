@@ -175,6 +175,19 @@ class TestFleetCustomerPortfolio(TransactionCase):
         self.assertEqual(card['details']['deposit'], "—")
         self.assertIn("—", [row['value'] for row in card['operations']])
 
+    def test_the_salesperson_is_the_latest_delivery_advisor(self):
+        """agenda.entrega has no link to the contract, so the vehicle is the
+        join and the newest delivery wins: a unit leased again is delivered
+        again, and the sheet is about the current lease."""
+        delivery = self.env["agenda.entrega"].search(
+            [('asesor_id', '!=', False)], order='id desc', limit=1)
+        if not delivery:
+            self.skipTest("no delivery carries an advisor in this database")
+
+        self.assertEqual(self.portfolio._delivery_advisor(delivery.vehiculo_id),
+                         delivery.asesor_id.name)
+        self.assertIsNone(self.portfolio._delivery_advisor(self.env["fleet.vehicle"]))
+
     def test_every_customer_gets_an_interaction_block(self):
         """A None here crashed the whole 360 on any customer with no log."""
         for partner in (self._new_customer(),
