@@ -106,12 +106,14 @@ class FleetTecnoOdometro(models.Model):
             for i in range(0, len(vehiculos), chunk_size):
                 lote = vehiculos[i:i + chunk_size]
                 for vehiculo in lote:
-                    peticion = peticiones_odometro.filtered(lambda x: x.vin == vehiculo.vin_sn)
-                    if peticion:
-                        if float(peticion.odometro) == float(odometros_mod_map.get(vehiculo.vin_sn)):
-                            peticion.write({
-                                'etapa_id': etapa_aplicado.id,
-                            })
+                    peticiones = peticiones_odometro.filtered(lambda x: x.vin == vehiculo.vin_sn)
+                    odometro_aplicado = odometros_mod_map.get(vehiculo.vin_sn)
+                    if peticiones and odometro_aplicado is not None:
+                        for peticion in peticiones:
+                            if float(peticion.odometro) == float(odometro_aplicado):
+                                peticion.write({
+                                    'etapa_id': etapa_aplicado.id,
+                                })
                     odometro = odometros_map.get(vehiculo.vin_sn)
                     odometro_limpio = self.limpiar_valor(odometro)
                     if odometro_limpio:
