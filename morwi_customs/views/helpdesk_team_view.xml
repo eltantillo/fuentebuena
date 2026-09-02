@@ -3,8 +3,10 @@
     <!-- The `show_*` visibility gates were moved from helpdesk.team to
          helpdesk.ticket.motivo. The old view is dropped here so it does not
          break the validation of the helpdesk.team form on upgrade: orphan
-         records are only vacuumed at the end of the module load. -->
-    <delete model="ir.ui.view" id="helpdesk_team_view_form_inherit_custom_fields"/>
+         records are only vacuumed at the end of the module load. Matched by
+         name rather than by XML ID so the load stays silent on databases
+         where the view is already gone. -->
+    <delete model="ir.ui.view" search="[('model', '=', 'helpdesk.team'), ('name', '=', 'helpdesk.team.form.inherit.custom.fields')]"/>
 
     <record id="helpdesk_team_view_form_inherit_team_leader" model="ir.ui.view">
         <field name="name">helpdesk.team.form.inherit.team.leader</field>
