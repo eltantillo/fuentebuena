@@ -13,7 +13,7 @@ class InventarioImpresoraActivo(models.Model):
     )
     fabricante_id = fields.Many2one(
         comodel_name="inventario.fabricante",
-        String="Fabricante",
+        string="Fabricante",
     )
     proveedor_id = fields.Many2one(
         comodel_name="inventario.proveedor.activo",

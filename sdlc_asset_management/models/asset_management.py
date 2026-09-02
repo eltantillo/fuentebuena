@@ -99,14 +99,18 @@ class Asset(models.Model):
                                          compute='_compute_next_maintenance_date', store=True,
                                          help="Estimated next maintenance date based on history")
 
-    _sql_constraints = [
-        ('barcode_unique', 'unique(barcode)',
-         'Barcode must be unique! Another asset already uses this barcode.'),
-        ('serial_number_unique', 'unique(serial_number)',
-         'Serial number must be unique! Another asset already has this serial number.'),
-        ('amount_positive', 'CHECK(amount >= 0)',
-         'Purchase price cannot be negative.'),
-    ]
+    _barcode_unique = models.Constraint(
+        'unique(barcode)',
+        'Barcode must be unique! Another asset already uses this barcode.',
+    )
+    _serial_number_unique = models.Constraint(
+        'unique(serial_number)',
+        'Serial number must be unique! Another asset already has this serial number.',
+    )
+    _amount_positive = models.Constraint(
+        'CHECK(amount >= 0)',
+        'Purchase price cannot be negative.',
+    )
 
     @api.depends('maintenance_ids', 'maintenance_ids.return_date', 'maintenance_ids.maintenance_status')
     def _compute_next_maintenance_date(self):
@@ -344,9 +348,10 @@ class AssetTag(models.Model):
     name = fields.Char(string='Name', required=True)
     color = fields.Integer(string='Color Index')
     
-    _sql_constraints = [
-        ('name_uniq', 'unique (name)', "Tag name already exists!"),
-    ]
+    _name_uniq = models.Constraint(
+        'unique (name)',
+        "Tag name already exists!",
+    )
 
 
 class AssetTransferEntry(models.Model):
@@ -566,10 +571,10 @@ class AssetMaintenanceEntry(models.Model):
     duration_days = fields.Integer(string="Duration (Days)", compute='_compute_duration', store=True,
                                    help="Number of days the maintenance took")
 
-    _sql_constraints = [
-        ('amount_positive', 'CHECK(maintenance_amount >= 0)',
-         'Maintenance amount cannot be negative.'),
-    ]
+    _amount_positive = models.Constraint(
+        'CHECK(maintenance_amount >= 0)',
+        'Maintenance amount cannot be negative.',
+    )
 
     @api.depends('assign_date', 'return_date')
     def _compute_duration(self):
@@ -599,10 +604,10 @@ class AssetDepreciationEntry(models.Model):
     created_by = fields.Many2one('res.users', string="Recorded By", default=lambda self: self.env.user, help="Person who created this depreciation entry")
     asset_type_name = fields.Char(string="Asset Type", related='asset_id.asset_type_id.name', store=True, readonly=True)
 
-    _sql_constraints = [
-        ('amount_positive', 'CHECK(depreciation_amount >= 0)',
-         'Depreciation amount cannot be negative.'),
-    ]
+    _amount_positive = models.Constraint(
+        'CHECK(depreciation_amount >= 0)',
+        'Depreciation amount cannot be negative.',
+    )
 
 class AssetLocation(models.Model):
     _name = 'asset.location'
@@ -617,9 +622,10 @@ class AssetLocation(models.Model):
     active = fields.Boolean(default=True)
     complete_name = fields.Char(string='Full Location', compute='_compute_complete_name', store=True, recursive=True)
 
-    _sql_constraints = [
-        ('name_unique', 'unique(name)', 'Location name must be unique.'),
-    ]
+    _name_unique = models.Constraint(
+        'unique(name)',
+        'Location name must be unique.',
+    )
 
     @api.model_create_multi
     def create(self, vals_list):

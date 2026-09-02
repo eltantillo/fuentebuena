@@ -17,10 +17,10 @@ class HelpdeskTicketMotivo(models.Model):
     sequence = fields.Integer(string='Secuencia', default=10)
     active = fields.Boolean(string='Activo', default=True)
 
-    _sql_constraints = [
-        ('name_tipo_uniq', 'unique(name, tipo_ticket)',
-         'Ya existe un motivo con ese nombre para este tipo de ticket.'),
-    ]
+    _name_tipo_uniq = models.Constraint(
+        'unique(name, tipo_ticket)',
+        'Ya existe un motivo con ese nombre para este tipo de ticket.',
+    )
 
     # Each field below gates the visibility of the matching helpdesk.ticket
     # field in the "Additional Info" tab: unchecked = hidden for this motivo.

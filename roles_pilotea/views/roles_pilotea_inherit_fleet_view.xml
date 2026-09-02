@@ -12,8 +12,7 @@
                             type="object"
                             class="btn-danger text-white"
                             invisible="1"
-                            groups ="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,
-                            roles_pilotea.group_auxiliar_mantenimiento,roles_pilotea.group_coordinador_compra,roles_pilotea.group_auxiliar_analista_compra"
+                            groups="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,roles_pilotea.group_auxiliar_mantenimiento,roles_pilotea.group_coordinador_compra,roles_pilotea.group_auxiliar_analista_compra"
                             force_save="1"/>
                 </xpath>
                 <xpath expr="//form/header/button[@name='dar_baja']" position="before">
@@ -22,8 +21,7 @@
                             type="object"
                             class="btn-info text-white"
                             invisible="id == False"
-                            groups ="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,
-                            roles_pilotea.group_auxiliar_mantenimiento,roles_pilotea.group_coordinador_compra,roles_pilotea.group_auxiliar_analista_compra,base.group_system"
+                            groups="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,roles_pilotea.group_auxiliar_mantenimiento,roles_pilotea.group_coordinador_compra,roles_pilotea.group_auxiliar_analista_compra,base.group_system"
                             force_save="1"/>
                 </xpath>
 
@@ -34,8 +32,7 @@
                             type="object"
                             class="btn-danger text-white"
                             invisible="mostrar_terminar_renta"
-                            groups ="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,
-                            roles_pilotea.group_auxiliar_mantenimiento,base.group_system"
+                            groups="roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion,roles_pilotea.group_gerente_mantenimiento,roles_pilotea.group_auxiliar_mantenimiento,base.group_system"
                             force_save="1"/>
                 </xpath>
                 <xpath expr="//button[@name='return_terminar_renta_auxilio']" position="before">

@@ -111,7 +111,7 @@ class RolesPiloteaInheritAgenda(models.Model):
             if record.etapa_id.id == 4 or record.etapa_id.id == 3:
                 record.edicion_habilitada_operacion = True
             else:
-                if usuario_logueado.has_group('roles_pilotea.group_gerente_operacion') or usuario_logueado.has_group('group_auxiliar_analista_operacion'):
+                if usuario_logueado.has_group('roles_pilotea.group_gerente_operacion') or usuario_logueado.has_group('roles_pilotea.group_auxiliar_analista_operacion'):
                     record.edicion_habilitada_operacion = False
                 else:
                     record.edicion_habilitada_operacion = True

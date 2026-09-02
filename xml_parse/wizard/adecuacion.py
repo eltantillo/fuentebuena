@@ -15,10 +15,10 @@ class Adecuacion(models.TransientModel):
         string='Fecha de Instalacion',
     )
     num_serie = fields.Char(
-        sting="N° de serie"
+        string="N° de serie"
     )
     imei = fields.Char(
-        sting="IMEI"
+        string="IMEI"
     )
     marca = fields.Char(
         string="Marca",

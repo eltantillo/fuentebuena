@@ -107,7 +107,7 @@ class FleetRecepcion(models.Model):
     )
     exterior_frontal_varillaaceite = fields.Selection(
         selection=CALIFICACION1,
-        stirng='Varilla de aceite',
+        string='Varilla de aceite',
         tracking=True
     )
     exterior_frontal_varillaaceite_observacion = fields.Char(
@@ -131,7 +131,7 @@ class FleetRecepcion(models.Model):
     )
     exterior_frontal_liquidofrenos = fields.Selection(
         selection=CALIFICACION2,
-        strign='Líquido de frenos',
+        string='Líquido de frenos',
         tracking=True
     )
     exterior_frontal_liquidofrenos_observacion = fields.Char(

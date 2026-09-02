@@ -12,7 +12,7 @@ class FormularioBroker(models.Model):
         string="Número de teléfono"
     )
     correo = fields.Char(
-        strign= "Correo electrónico",
+        string="Correo electrónico",
     )
     estado_id = fields.Many2one(
         comodel_name='res.country.state',

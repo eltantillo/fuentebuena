@@ -29,7 +29,7 @@ class CreditoArrendamientoLinea(models.Model):
     monto_pagos_aplicados = fields.Monetary(string='Pagos aplicados')
     monto_pendiente = fields.Monetary(string='Monto a pagar')
 
-    _sql_constraints = [
-        ('credito_periodo_uniq', 'unique(credito_id, periodo)',
-         'Ya existe una semanalidad con ese número para este crédito.'),
-    ]
+    _credito_periodo_uniq = models.Constraint(
+        'unique(credito_id, periodo)',
+        'Ya existe una semanalidad con ese número para este crédito.',
+    )

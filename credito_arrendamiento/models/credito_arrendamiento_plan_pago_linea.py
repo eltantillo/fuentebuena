@@ -30,7 +30,7 @@ class CreditoArrendamientoPlanPagoLinea(models.Model):
     monto_pagado_cobranza = fields.Monetary(string='Monto pagado')
     monto_pendiente_cobranza = fields.Monetary(string='Monto pendiente')
 
-    _sql_constraints = [
-        ('plan_periodo_uniq', 'unique(plan_pago_id, periodo)',
-         'Ya existe un periodo con ese número para este plan de pago.'),
-    ]
+    _plan_periodo_uniq = models.Constraint(
+        'unique(plan_pago_id, periodo)',
+        'Ya existe un periodo con ese número para este plan de pago.',
+    )

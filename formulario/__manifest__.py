@@ -2,7 +2,7 @@
     'name': "Formulario",
     'description': "Formularios de aprecia",
     'author': "Jorge Eduardo <jorge.limon@apreciafinanciera.com>",
-    'version': "1.0",
+    'version': "1.0.1",
     'depends': ['base',
                 'web',
                 'website',

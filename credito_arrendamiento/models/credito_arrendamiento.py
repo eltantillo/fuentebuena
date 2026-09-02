@@ -62,9 +62,10 @@ class CreditoArrendamiento(models.Model):
     renta_periodica_label = fields.Char(
         string='Renta (según frecuencia)', compute='_compute_renta_periodica_label')
 
-    _sql_constraints = [
-        ('external_ref_uniq', 'unique(external_ref)', 'Ya existe un crédito con ese ID externo.'),
-    ]
+    _external_ref_uniq = models.Constraint(
+        'unique(external_ref)',
+        'Ya existe un crédito con ese ID externo.',
+    )
 
     @api.depends('plan_pago_ids')
     def _compute_plan_pago_count(self):

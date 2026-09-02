@@ -10,8 +10,7 @@
                     <attribute name="groups">roles_pilotea.group_credito</attribute>
                 </xpath>
                 <xpath expr="//button[@name='evidencia']" position="attributes">
-                    <attribute name="groups">roles_pilotea.group_gerente_comercial,roles_pilotea.group_gerente_operacion,
-                                             roles_pilotea.group_auxiliar_analista_operacion</attribute>
+                    <attribute name="groups">roles_pilotea.group_gerente_comercial,roles_pilotea.group_gerente_operacion,roles_pilotea.group_auxiliar_analista_operacion</attribute>
                 </xpath>
 <!--                <xpath expr="//field[@name='telefono_cliente']" position="after">-->
 <!--                    <field name="empleados_disponibles" readonly="1"  invisible="1"/>-->
