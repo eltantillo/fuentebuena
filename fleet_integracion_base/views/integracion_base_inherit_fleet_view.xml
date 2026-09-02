@@ -31,7 +31,7 @@
                         <div class="d-flex align-items-center">
                             <div class="alert alert-warning w-100 mb-2" role="alert">
                                 <span class="me-2">
-                                    <i class="fa fa-lock text-danger me-1"/>
+                                    <i class="fa fa-lock text-danger me-1" title="Petición de bloqueo en curso"/>
                                     <strong>Actualmente hay una petición de bloqueo en curso</strong>
                                 </span>
                             </div>
@@ -41,7 +41,7 @@
                         <div class="d-flex align-items-center">
                             <div class="alert alert-warning w-100 mb-2" role="alert">
                                 <span class="me-2">
-                                    <i class="fa fa-unlock text-success me-1"/>
+                                    <i class="fa fa-unlock text-success me-1" title="Petición de desbloqueo en curso"/>
                                     <strong>Actualmente hay una petición de desbloqueo en curso</strong>
                                 </span>
                             </div>
