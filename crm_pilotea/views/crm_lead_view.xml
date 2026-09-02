@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="crm_lead_view_form_pilotea" model="ir.ui.view">
+            <field name="name">crm.lead.form.pilotea</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Gobierna la visibilidad de todo el bloque -->
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="show_pilotea_fields" invisible="1"/>
+                </xpath>
+
+                <!-- Datos de originación, junto a los datos del prospecto -->
+                <xpath expr="//group[@name='lead_priority']" position="after">
+                    <group name="pilotea_originacion" string="Originación"
+                           invisible="not show_pilotea_fields">
+                        <field name="referencia_originacion"/>
+                        <field name="curp"/>
+                        <field name="plaza" options="{'no_create': True}"/>
+                        <field name="referido"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="pilotea_originacion" string="Originación Pilotea"
+                          invisible="not show_pilotea_fields">
+                        <group>
+                            <group string="2. Lead asignado">
+                                <field name="hora_asignacion"/>
+                            </group>
+                            <group string="4. Prospecto interesado">
+                                <field name="app"/>
+                                <field name="interes"/>
+                            </group>
+                            <group string="5. Perfil preliminar">
+                                <field name="ingreso_estimado"/>
+                                <field name="capacidad_de_pago"/>
+                                <field name="perfil_conductor"/>
+                            </group>
+                            <group string="6. Documentación iniciada">
+                                <field name="estado_carga"/>
+                                <field name="estatus_documentacion" widget="many2many_tags"
+                                       options="{'color_field': 'color'}"/>
+                                <field name="identificacion_vigente"/>
+                                <field name="licencia"/>
+                                <field name="comprobante_de_domicilio"/>
+                                <field name="comprobantes_de_ingresos"/>
+                                <field name="constancia_fiscal"/>
+                                <field name="escrito_csf"/>
+                                <field name="captura_ap_driver"/>
+                            </group>
+                            <group string="7. Documentación completa">
+                                <field name="documentacion_completa"/>
+                                <field name="validacion_estatus"/>
+                            </group>
+                            <group string="8. Análisis de crédito">
+                                <field name="estatus_analisis"/>
+                                <field name="score"/>
+                                <field name="reporte_buro"/>
+                                <field name="observaciones"/>
+                            </group>
+                            <group string="9. Aprobado crédito">
+                                <field name="producto_sugerido_aprobado"
+                                       options="{'no_create': True}"/>
+                                <field name="pago_semanal"/>
+                                <field name="tabla_de_pagos"/>
+                            </group>
+                            <group string="10. Oferta presentada">
+                                <field name="unidad_sugerida" options="{'no_create': True}"/>
+                                <field name="caracteristicas_de_la_unidad"/>
+                                <field name="oferta_presentada" widget="many2many_tags"
+                                       options="{'color_field': 'color'}"/>
+                            </group>
+                            <group string="11. Pago inicial confirmado">
+                                <field name="pago_inicial"/>
+                                <field name="estatus_pago"/>
+                                <field name="comprobante_pago_anticipado"/>
+                            </group>
+                            <group string="12. Programación de entrega">
+                                <field name="fecha_de_entrega"/>
+                                <field name="fecha_de_entrega_efectiva"/>
+                                <field name="entrega"/>
+                                <field name="entregado"/>
+                                <field name="responsable" options="{'no_create': True}"/>
+                            </group>
+                            <group string="13. Vehículo asignado">
+                                <field name="vehiculo" options="{'no_create': True}"/>
+                                <field name="modelo"/>
+                                <field name="vin"/>
+                                <field name="estatus_de_la_unidad"
+                                       options="{'no_create': True}"/>
+                                <field name="estatus_unidad"/>
+                            </group>
+                            <group string="14. Contrato firmado">
+                                <field name="estado_del_contrato"/>
+                                <field name="fecha_de_la_firma"/>
+                                <field name="contrato_de_arrendamiento"/>
+                                <field name="ratificacion_de_condiciones_contratadas"/>
+                            </group>
+                            <group string="15. Cliente activo">
+                                <field name="fecha_inicio_del_contrato"/>
+                                <field name="producto_contratado_aprobado"
+                                       options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <separator string="Condiciones comerciales"/>
+                        <field name="condiciones_comerciales"
+                               placeholder="Plazo, pago semanal, anticipo..."/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

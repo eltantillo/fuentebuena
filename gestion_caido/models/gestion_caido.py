@@ -99,11 +99,6 @@ class GestionCaido(models.Model):
         compute="_compute_datos_contrato",
         store=True
     )
-    nombre_arrendatario = fields.Char(
-        string='Arrendatario',
-        compute="_compute_datos_contrato",
-        store=True
-    )
     #Datos del cliente
     cliente_id = fields.Many2one(
         comodel_name='res.partner',
@@ -373,13 +368,11 @@ class GestionCaido(models.Model):
                 gestion.num_contrato = gestion.contato_id.ins_ref
                 gestion.arrendatario_id = gestion.contato_id.cliente_id
                 gestion.estado = gestion.contato_id.state
-                gestion.nombre_arrendatario = gestion.contato_id.nombre_cliente
             else:
                 gestion.cie = False
                 gestion.num_contrato = False
                 gestion.arrendatario_id = False
                 gestion.estado = False
-                gestion.nombre_arrendatario = False
 
     @api.depends('cliente_id')
     def _compute_datos_cliente(self):

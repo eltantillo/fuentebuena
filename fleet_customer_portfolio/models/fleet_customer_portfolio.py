@@ -99,23 +99,24 @@ class FleetCustomerPortfolio(models.AbstractModel):
     # -------------------------------------------------------------------------
     @api.model
     def _contract_facts(self, partners):
-        """Contract count and market per customer, via the vehicle's driver.
+        """Contract count and market per customer, via the contract's lessee.
 
-        `fleet.vehicle.log.contract.cliente_id` is a stored compute that only
-        depends on `vehicle_id`, so it stayed empty on every record when the
-        drivers were assigned afterwards. The driver is the same person, so
-        that is what we join on until the field is repaired.
+        `fleet.vehicle.log.contract.cliente_id` is the lessee who signed, which
+        is the relation the customer's contract list hangs off. It used to be a
+        stored compute mirroring the vehicle's driver and stayed empty on every
+        record, so this joined on the driver instead; the field now carries the
+        lessee and is what both the 360 and the contact form count on.
 
         The market comes from the contract too: `res.partner`'s own
         `fleet_customer_plaza_id` is empty for almost every customer, while the
         contract's `plaza_id` is populated.
         """
         contracts = self.env['fleet.vehicle.log.contract'].search([
-            ('vehicle_id.driver_id', 'in', partners.ids),
+            ('cliente_id', 'in', partners.ids),
         ], order='id desc')
         facts = {}
         for contract in contracts:
-            fact = facts.setdefault(contract.vehicle_id.driver_id.id, {'count': 0, 'market': None})
+            fact = facts.setdefault(contract.cliente_id.id, {'count': 0, 'market': None})
             fact['count'] += 1
             if not fact['market']:
                 fact['market'] = contract.plaza_id.name
@@ -126,7 +127,7 @@ class FleetCustomerPortfolio(models.AbstractModel):
         contracts = self.env['fleet.vehicle.log.contract'].search([
             ('plaza_id.name', 'ilike', market),
         ])
-        return set(contracts.mapped('vehicle_id').mapped('driver_id').ids)
+        return set(contracts.mapped('cliente_id').ids)
 
     @api.model
     def _policy_states(self, partners):
@@ -562,6 +563,19 @@ class FleetCustomerPortfolio(models.AbstractModel):
         }
 
     @api.model
+    def _studio_value(self, record, field_name):
+        """Read a Studio field that not every database carries.
+
+        The CIE, the payment CLABE and the collection agent were captured with
+        Studio before the models had them. Those columns exist in production
+        and in no other database, and reading a field a model does not define
+        raises, so every read of one is optional by construction.
+        """
+        if not record or field_name not in record._fields:
+            return None
+        return record[field_name]
+
+    @api.model
     def _leasing_details(self, contract, credit):
         vehicle = contract.vehicle_id
         deposit = self._deposit_display(credit)
@@ -587,10 +601,11 @@ class FleetCustomerPortfolio(models.AbstractModel):
             'deposit_hint': deposit['hint'],
             'start_date': format_date(self.env, contract.start_date) if contract.start_date else "—",
             'end_date': format_date(self.env, contract.expiration_date) if contract.expiration_date else "—",
-            'cie': contract.cie or (credit.x_studio_cie if credit else None) or "—",
+            'cie': contract.cie or self._studio_value(credit, 'x_studio_cie') or "—",
             'cie_hint': _("Payment reference of the contract"),
-            'clabe': (credit.x_studio_clabe_pago if credit else None) or "—",
-            'clabe_hint': _("Only the lease credit carries it"),
+            'clabe': contract.clabe_pago
+                     or self._studio_value(credit, 'x_studio_clabe_pago') or "—",
+            'clabe_hint': _("Payment CLABE of the contract"),
             'progress_label': _("%(paid)s of %(total)s terms paid", paid=paid, total=total)
                               if credit and total else _("%s terms · schedule not loaded", total)
                               if total else _("Term progress unknown"),
@@ -613,7 +628,8 @@ class FleetCustomerPortfolio(models.AbstractModel):
         display = self._collection_display(fact)
         # The agent is named on the payment plan, not on the credit, so a
         # customer without a plan has nobody assigned to show.
-        employee = credit.plan_pago_ids[:1].x_studio_gestor_encargado if credit else None
+        employee = self._studio_value(credit.plan_pago_ids[:1] if credit else None,
+                                      'x_studio_gestor_encargado')
         agent = ({'value': employee.name, 'hint': None} if employee
                  else self._no_source(_("collection agent")))
         if not credit:

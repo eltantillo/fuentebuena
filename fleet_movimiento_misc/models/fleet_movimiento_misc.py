@@ -105,11 +105,9 @@ class FleetMovimientoMisc(models.Model):
     )
     cliente_id = fields.Many2one(
         comodel_name='res.partner',
-        string='Cliente',
-    )
-    arrendatario_name = fields.Char(
         string='Arrendatario',
-        compute='_compute_arrendatario_name'
+        compute='_compute_cliente_id',
+        store=True,
     )
     "Importes"
     importe = fields.Float(
@@ -151,11 +149,6 @@ class FleetMovimientoMisc(models.Model):
         compute='_compute_rec_name',
     )
     active = fields.Boolean('Active', default=True, tracking=True)
-
-    @api.depends('contrato_id')
-    def _compute_arrendatario_name(self):
-        for record in self:
-            record.arrendatario_name = record.contrato_id.nombre_cliente
 
     @api.model
     def create(self, vals):
@@ -211,6 +204,11 @@ class FleetMovimientoMisc(models.Model):
     def _compute_rec_name(self):
         for record in self:
             record.rec_name = f"{record.id}-{record.vin_sn}-{record.tipo_movimiento_id.name}"
+
+    @api.depends('contrato_id')
+    def _compute_cliente_id(self):
+        for record in self:
+            record.cliente_id = record.contrato_id.cliente_id
 
     @api.depends('estado_id')
     def _compute_estado_code(self):

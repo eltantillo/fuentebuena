@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+# Copyright 2026 Morwi Encoders Consulting SA de CV
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
+from . import crm_lead_etiqueta
+from . import res_company
+from . import crm_lead

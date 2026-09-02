@@ -13,8 +13,18 @@ class CreditoArrendamiento(models.Model):
     _rec_name = 'external_ref'
 
     partner_id = fields.Many2one('res.partner', string='Cliente', required=True, tracking=True)
+    contrato_id = fields.Many2one('fleet.vehicle.log.contract', string='Contrato', tracking=True)
     vehiculo_id = fields.Many2one('fleet.vehicle', string='Automóvil', tracking=True)
     external_ref = fields.Char(string='ID del crédito', index=True, tracking=True)
+
+    # Datos que pertenecen al contrato: se leen de ahí para no capturarlos dos
+    # veces ni dejarlos desfasados cuando el contrato cambia.
+    contrato_fecha_inicio = fields.Date(
+        string='Inicio de contrato', related='contrato_id.start_date')
+    contrato_fecha_fin = fields.Date(
+        string='Fin de contrato', related='contrato_id.expiration_date')
+    cie = fields.Char(string='CIE', related='contrato_id.cie')
+    clabe_pago = fields.Char(string='CLABE de pago', related='contrato_id.clabe_pago')
 
     fecha_disposicion = fields.Date(string='Fecha de disposición')
     frecuencia = fields.Selection([

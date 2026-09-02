@@ -62,8 +62,7 @@
                                        decoration-success="estado == 'open'"
                                        decoration-danger="estado in ('expired', 'closed')"/>
                                 <field name="contato_id"/>
-                                <field name="nombre_arrendatario" invisible="arrendatario_id"/>
-                                <field name="arrendatario_id" invisible="nombre_arrendatario"/>
+                                <field name="arrendatario_id"/>
                                 <field name="cie"/>
                                 <field name="num_contrato"/>
                             </group>
@@ -138,8 +137,7 @@
                     <field name="id"/>
                     <field name="vin_sn"/>
                     <field name="plaza_id"/>
-                    <field name="nombre_arrendatario" invisible="arrendatario_id"/>
-                    <field name="arrendatario_id" invisible="nombre_arrendatario"/>
+                    <field name="arrendatario_id"/>
                     <field name="num_contrato"/>
                     <field name="estado_id"/>
                     <field name="gestion_activa"

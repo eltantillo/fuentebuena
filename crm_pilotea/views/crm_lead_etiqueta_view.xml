@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="crm_lead_etiqueta_documentacion_view_list" model="ir.ui.view">
+            <field name="name">crm.lead.etiqueta.documentacion.list</field>
+            <field name="model">crm.lead.etiqueta.documentacion</field>
+            <field name="arch" type="xml">
+                <list string="Etiquetas de documentación" editable="bottom">
+                    <field name="name"/>
+                    <field name="color" widget="color_picker"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="crm_lead_etiqueta_oferta_view_list" model="ir.ui.view">
+            <field name="name">crm.lead.etiqueta.oferta.list</field>
+            <field name="model">crm.lead.etiqueta.oferta</field>
+            <field name="arch" type="xml">
+                <list string="Etiquetas de oferta" editable="bottom">
+                    <field name="name"/>
+                    <field name="color" widget="color_picker"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="crm_lead_etiqueta_documentacion_action" model="ir.actions.act_window">
+            <field name="name">Etiquetas de documentación</field>
+            <field name="res_model">crm.lead.etiqueta.documentacion</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <record id="crm_lead_etiqueta_oferta_action" model="ir.actions.act_window">
+            <field name="name">Etiquetas de oferta</field>
+            <field name="res_model">crm.lead.etiqueta.oferta</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <menuitem id="menu_crm_pilotea"
+                  name="Originación Pilotea"
+                  parent="crm.crm_menu_config"
+                  sequence="90"/>
+
+        <menuitem id="menu_crm_lead_etiqueta_documentacion"
+                  name="Etiquetas de documentación"
+                  parent="menu_crm_pilotea"
+                  sequence="1"
+                  action="crm_lead_etiqueta_documentacion_action"/>
+
+        <menuitem id="menu_crm_lead_etiqueta_oferta"
+                  name="Etiquetas de oferta"
+                  parent="menu_crm_pilotea"
+                  sequence="2"
+                  action="crm_lead_etiqueta_oferta_action"/>
+
+    </data>
+</odoo>

@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -13,15 +14,18 @@ class FleetContrato(models.Model):
         string='CIE',
         tracking=True
     )
-    cliente_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Cliente',
-        compute='_compute_datos_vehiculo',
-        store=True,
+    clabe_pago = fields.Char(
+        string='CLABE de pago',
+        size=18,
         tracking=True
     )
-    nombre_cliente = fields.Char(
-        string='Nombre del cliente',
+    cliente_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='Arrendatario',
+        compute='_compute_cliente_id',
+        store=True,
+        readonly=False,
+        tracking=True
     )
     num_plazos = fields.Integer(
         string='N° de plazos'
@@ -110,6 +114,12 @@ class FleetContrato(models.Model):
         store=True,
     )
 
+    @api.constrains('clabe_pago')
+    def _check_clabe_pago(self):
+        for record in self:
+            if record.clabe_pago and (len(record.clabe_pago) != 18 or not record.clabe_pago.isdigit()):
+                raise ValidationError('La CLABE de pago debe tener exactamente 18 dígitos numéricos.')
+
     @api.depends('existe_attach_contrato', 'state', 'expiration_date')
     def _compute_estado_vigencia(self):
         today = fields.Date.today()
@@ -173,11 +183,22 @@ class FleetContrato(models.Model):
             'view_id': self.env.ref('fleet_contrato.fleet_contrato_attach_view_form').id
         }
 
+    @api.depends('vehicle_id')
+    def _compute_cliente_id(self):
+        """Propose the vehicle's driver, without overwriting a captured lessee.
+
+        The lessee is the person who signed the contract and is not always the
+        person driving, so the field is only filled in while it is empty: what
+        the user captured wins over the vehicle.
+        """
+        for record in self:
+            if not record.cliente_id:
+                record.cliente_id = record.vehicle_id.driver_id
+
     @api.depends('vehicle_id.vin_sn',
                  'vehicle_id.numero_economico',
                  'vehicle_id.producto_id',
-                 'vehicle_id.plaza_id',
-                 'vehicle_id.driver_id')
+                 'vehicle_id.plaza_id')
     def _compute_datos_vehiculo(self):
         for record in self:
             vehiculo = record.vehicle_id
@@ -186,13 +207,11 @@ class FleetContrato(models.Model):
                 record.numero_economico = vehiculo.numero_economico
                 record.producto_id = vehiculo.producto_id.id
                 record.plaza_id = vehiculo.plaza_id.id
-                record.cliente_id = vehiculo.driver_id.id
             else:
                 record.vin_sn = False
                 record.numero_economico = False
                 record.producto_id = False
                 record.plaza_id = False
-                record.cliente_id = False
 
     @api.model
     def write(self, vals):

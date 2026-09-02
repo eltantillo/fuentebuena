@@ -3,10 +3,11 @@
     'summary' : 'Gestión de proceso de caídos',
     'description' : "Módulo de para gestiones",
     'author': "Jorge Eduardo <jorge.limon@fuentebuena.com>",
-    'version': "1.0",
+    'version': "1.0.1",
     'depends': [
         'base',
         'fleet_customer',
+        'fleet_contrato',
         'fleet_tecnocontrol',
         'fleet_mantenimiento',
         'web',

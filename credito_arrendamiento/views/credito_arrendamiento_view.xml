@@ -9,6 +9,11 @@
                 <list string="Créditos de arrendamiento">
                     <field name="external_ref"/>
                     <field name="partner_id"/>
+                    <field name="contrato_id" optional="show"/>
+                    <field name="contrato_fecha_inicio" optional="hide"/>
+                    <field name="contrato_fecha_fin" optional="hide"/>
+                    <field name="cie" optional="hide"/>
+                    <field name="clabe_pago" optional="hide"/>
                     <field name="vehiculo_id"/>
                     <field name="frecuencia"/>
                     <field name="estado"/>
@@ -37,6 +42,11 @@
                         <group>
                             <group string="Cliente">
                                 <field name="partner_id"/>
+                                <field name="contrato_id"/>
+                                <field name="contrato_fecha_inicio"/>
+                                <field name="contrato_fecha_fin"/>
+                                <field name="cie"/>
+                                <field name="clabe_pago"/>
                                 <field name="vehiculo_id"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                                 <field name="currency_id" invisible="1"/>

@@ -47,8 +47,7 @@
                         <group string="Información del vehículo" name="data_vehiculo">
                             <field name="vehiculo_id" required="1"/>
                             <field name="contrato_id" domain="[('vehicle_id', '=', vehiculo_id)]" required="1"/>
-                            <field name="cliente_id" readonly="1" string="Arrendatario" invisible="arrendatario_name != False"/>
-                            <field name="arrendatario_name" readonly="1" invisible="cliente_id != False"/>
+                            <field name="cliente_id" readonly="1" string="Arrendatario"/>
                             <field name="matricula" readonly="1"/>
                             <field name="numero_economico" readonly="1"/>
                             <field name="vin_sn" readonly="1"/>

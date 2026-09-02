@@ -5,7 +5,7 @@
 {
     'name': 'Crédito y Arrendamiento',
     'category': 'Accounting',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'license': 'LGPL-3',
     'author': 'Morwi Encoders Consulting',
     'summary': """
@@ -17,7 +17,7 @@
         Se conecta a res.partner mediante un botón inteligente. Pensado para
         poblarse desde un sistema externo a través de la API estándar de Odoo.
         """,
-    'depends': ['base', 'mail', 'fleet'],
+    'depends': ['base', 'mail', 'fleet', 'fleet_contrato'],
     'data': [
         'security/ir.model.access.csv',
         'views/credito_arrendamiento_view.xml',

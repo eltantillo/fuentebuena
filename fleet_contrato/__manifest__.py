@@ -1,6 +1,6 @@
 {
     'name': 'Fleet Customer - Contratos',
-    'version': '1.0.1',
+    'version': '1.0.2',
     'category': 'Fleet',
     'description': 'Módulo personalizado para registrar los contratos para los vehículos',
     'author': 'Jorge Eduardo Limon Munguia <jorge.limon@fuentebuena.com>',

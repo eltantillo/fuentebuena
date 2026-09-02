@@ -72,7 +72,7 @@ class ResPartner(models.Model):
         return self._action_view_fleet_records('fleet.vehicle', 'driver_id', _('Vehicles'), editable_default=True)
 
     def action_view_fleet_vehicle_log_contracts(self):
-        return self._action_view_fleet_records('fleet.vehicle.log.contract', 'cliente_id', _('Contracts'))
+        return self._action_view_fleet_records('fleet.vehicle.log.contract', 'cliente_id', _('Contracts'), editable_default=True)
 
     def action_view_fleet_siniestros(self):
         return self._action_view_fleet_records('fleet.siniestro', 'cliente_id', _('Claims'))

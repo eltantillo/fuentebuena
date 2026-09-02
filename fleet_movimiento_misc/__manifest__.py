@@ -1,11 +1,12 @@
 {
     'name': 'Fleet Customer - Movimiento Misc',
-    'version': '1.0',
+    'version': '1.0.1',
     'category': 'Fleet',
     'description': 'Módulo personalizado para registrar los movimientos miscelaneos de los vehículos',
     'author': 'Jorge Eduardo Limon Munguia <jorge.limon@fuentebuena.com>',
     'depends': [
         'fleet_customer',
+        'fleet_contrato',
         'municipio_mexico',
         'fleet'
     ],

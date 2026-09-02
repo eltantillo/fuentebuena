@@ -5,7 +5,7 @@
 {
     'name': 'Morwi Customs',
     'category': 'Contacts',
-    'version': '19.0.0.0.0',
+    'version': '19.0.0.1.0',
     'license': 'LGPL-3',
     'author': 'Morwi Encoders Consulting',
     'description': """
@@ -19,6 +19,7 @@
         'security/security_view.xml',
         'security/ir.model.access.csv',
         'data/helpdesk_ticket_motivo_data.xml',
+        'data/helpdesk_ticket_sla_alert_cron.xml',
         'views/res_partner_view.xml',
         'views/helpdesk_team_view.xml',
         'views/helpdesk_ticket_motivo_view.xml',

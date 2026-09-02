@@ -2,7 +2,12 @@
 # Copyright 2026 Morwi Encoders Consulting SA de CV
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models, fields, api
+import logging
+
+from odoo import models, fields, api, _
+from odoo.tools.misc import format_datetime
+
+_logger = logging.getLogger(__name__)
 
 TIPO_TICKET_SELECTION = [
     ('comercial', 'Comercial'),
@@ -24,6 +29,10 @@ class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
     tipo_ticket = fields.Selection(selection=TIPO_TICKET_SELECTION, string='Tipo de ticket')
+    sla_breach_alert_date = fields.Datetime(
+        string='Team leader alerted on', readonly=True, copy=False,
+        help="Moment the team leader was alerted that the response time of this "
+             "ticket was exceeded. It keeps the alert to one per ticket.")
     motivo_id = fields.Many2one(
         comodel_name='helpdesk.ticket.motivo', string='Motivo',
         domain="[('tipo_ticket', '=', tipo_ticket)]")
@@ -211,6 +220,59 @@ class HelpdeskTicket(models.Model):
     show_customer_informed_status = fields.Boolean(related='motivo_id.show_customer_informed_status')
     show_geofence_authorization = fields.Boolean(related='motivo_id.show_geofence_authorization')
     show_conditions_communicated = fields.Boolean(related='motivo_id.show_conditions_communicated')
+
+    @api.model
+    def _cron_alert_sla_breach(self, limit=200):
+        """Alert every team leader about the tickets that ran out of response time.
+
+        A deadline going by is not a write on the ticket, so nothing in the ORM
+        notices it and it has to be polled. `sla_deadline` is the earliest
+        deadline still pending on the ticket, so it lying in the past means the
+        response time was exceeded and nobody reached the target stage yet;
+        closed stages are left out because there is nothing left to answer.
+
+        The alert is a to-do activity on the ticket, which is what puts it in
+        the leader's own activity list, and `sla_breach_alert_date` keeps it to
+        one per ticket: the cron comes back every half hour and a leader does
+        not need the same reminder each time.
+        """
+        overdue = self.search([
+            ('sla_breach_alert_date', '=', False),
+            ('sla_deadline', '!=', False),
+            ('sla_deadline', '<', fields.Datetime.now()),
+            ('stage_id.fold', '=', False),
+        ], limit=limit)
+
+        alerted = self.browse()
+        leaderless = self.browse()
+        for ticket in overdue:
+            leader = ticket.team_id.user_id
+            if not leader:
+                leaderless |= ticket
+                continue
+            ticket.activity_schedule(
+                'mail.mail_activity_data_todo',
+                user_id=leader.id,
+                summary=_("Response time exceeded"),
+                note=_(
+                    "The response time of this ticket ran out on %(deadline)s and it is "
+                    "still in the %(stage)s stage.",
+                    deadline=format_datetime(self.env, ticket.sla_deadline, tz=leader.tz),
+                    stage=ticket.stage_id.name,
+                ),
+            )
+            alerted |= ticket
+
+        if alerted:
+            alerted.write({'sla_breach_alert_date': fields.Datetime.now()})
+        if leaderless:
+            # Left unstamped on purpose: naming a leader on the team is enough
+            # for the next run to alert these.
+            _logger.warning(
+                "morwi_customs: %s tickets exceeded their response time on teams with no "
+                "team leader, nobody was alerted: %s",
+                len(leaderless), ', '.join(leaderless.mapped('display_name')))
+        return len(alerted)
 
     @api.onchange('tipo_ticket')
     def _onchange_tipo_ticket(self):
